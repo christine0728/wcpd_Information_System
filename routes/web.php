@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Route::prefix('team')->group(function(){
@@ -27,5 +27,5 @@ Route::prefix('team')->group(function(){
 });
 
 Route::prefix('superadmin')->group(function(){
-    Route::post('/add_teamaccount', [SuperAdminController::class, 'add'])->name('superadmin.add_teamaccount'); 
+    Route::post('/add_teamaccount', [SuperAdminController::class, 'add'])->name('superadmin.add_teamaccount');
 });
