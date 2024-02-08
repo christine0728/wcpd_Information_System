@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login or Register</title>
+    <title>WCPD Login</title>
     <style>
      *{
          margin:0;
@@ -24,7 +24,7 @@
       	width: 350px;
       	margin: 50px auto;
       	background: #fafafa;
-   
+
      }
 
     .login-form{
@@ -90,9 +90,9 @@
     color: black;
    }
   .flipcard-back{
-    background-color: dodgerblue;				
+    background-color: dodgerblue;
     transform: rotateY(180deg);
-  }		
+  }
   input[type="checkbox"]:checked + .flipcard .flipcard-inner{
     transform: rotateY(180deg);
   }
@@ -111,7 +111,7 @@
     background: linear-gradient(90deg, #000000, #9947B6);
     -webkit-background-clip: text;
     color: transparent; /* Hide the text color */
-  
+
     text-decoration: none; /* Remove underline by default */
     padding: 2px 0; /* Optional: Add padding to separate the text from the background */
 }
@@ -132,14 +132,14 @@
 </style>
 </head>
 <body>
-    
-    <div class="wrap">			
+
+    <div class="wrap">
         <input type="checkbox" id="form_switch" style="display: none;">
 	<div class="flipcard">
 	    <div class="flipcard-inner">
 		<div class="flipcard-front">
 
-            		
+
                 <div class="box">
                 <div class="form-header">
                 	    <h3>Login Form</h3>
@@ -163,11 +163,11 @@
             </div>
 	</div>
 	<div class="flipcard-back">
-          
-	
+
+
 		    <div class="form-group">
             <div class="box">
-                 
+
             	<div class="form-header">
              	    <h3>Team Account</h3>
                     <p>Add team account</p>
@@ -178,8 +178,8 @@
                     <input type="text" class="form-input" name="username"placeholder="Username"  >
                     </div>
                     <div class="form-group">
-                    <input type="password" class="form-input" name="password" placeholder="Password"> 
-                    </div> 
+                    <input type="password" class="form-input" name="password" placeholder="Password">
+                    </div>
                     <div class="form-group">
                     <input type="submit" class="form-button" name="add" value="Add">
                     </div>
@@ -188,7 +188,7 @@
                         Already have an account? <label class="label-highlight" for="form_switch">Login</label>
                     </div>
                 </div>
-                  
+
             </div>
     </div>
 </div>
