@@ -20,6 +20,11 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/team/login', function () {
+    return view('index');
+});
+
+
 Route::prefix('team')->group(function(){
     Route::get('/login', [HomeController::class, 'login_view'])->name('login_form');
     Route::post('/login_account', [HomeController::class, 'login'])->name('logging_in');
