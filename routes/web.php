@@ -23,7 +23,13 @@ Route::get('/', function () {
 Route::prefix('team')->group(function(){
     Route::get('/login', [HomeController::class, 'login_view'])->name('login_form');
     Route::post('/login_account', [HomeController::class, 'login'])->name('logging_in');
+    Route::get('/logout', [HomeController::class, 'logout'])->name('team.logout');
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('team.dashboard');
+    Route::get('/complaintreport', [HomeController::class, 'complaintreport'])->name('team.complaintreport');
+    Route::get('/complaintreport_form', [HomeController::class, 'complaintreport_form'])->name('team.complaintreport_form');
+
+    Route::get('/testing', [HomeController::class, 'testing'])->name('team.testing');
+    Route::post('/store', [HomeController::class, 'store'])->name('team.store');
 });
 
 Route::prefix('superadmin')->group(function(){

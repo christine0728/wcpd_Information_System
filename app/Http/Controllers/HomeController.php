@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
 use App\Models\Team;
 use App\Models\TeamModel;
 use Illuminate\Http\Request;
@@ -37,8 +38,35 @@ class HomeController extends Controller
         } 
     }
 
+    public function logout()
+    {
+        Auth::guard('team')->logout();
+        return redirect()->route('login_form')->with('success', 'Team account logged out successfully');
+    }
+
     public function dashboard()
     {
         return view('team.team_dashboard');
+    }
+
+    public function testing()
+    {
+        return view('team.testing');
+    }
+
+    public function store(Request $request)
+    {
+        Employee::create($request->all());
+        return back();
+    }
+
+    public function complaintreport()
+    {
+        return view('team.team_complaintreportmngt');
+    }
+
+    public function complaintreport_form()
+    {
+        return view('team.team_complaintreportform');
     }
 }
