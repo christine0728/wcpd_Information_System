@@ -86,3 +86,8 @@
     border-color: #9947B6 !important;
     color: white !important;
   }
+
+  i {
+    color: white !important; 
+    font-size: 1rem !important;
+  }
