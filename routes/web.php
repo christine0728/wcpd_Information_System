@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ComplaintReportController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,7 @@ Route::prefix('team')->group(function(){
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('team.dashboard');
     Route::get('/complaintreport', [HomeController::class, 'complaintreport'])->name('team.complaintreport');
     Route::get('/complaintreport_form', [HomeController::class, 'complaintreport_form'])->name('team.complaintreport_form');
+    Route::post('/add_complaint', [ComplaintReportController::class, 'add_complaint'])->name('team.add_complaint');
 
     Route::get('/testing', [HomeController::class, 'testing'])->name('team.testing');
     Route::post('/store', [HomeController::class, 'store'])->name('team.store');
