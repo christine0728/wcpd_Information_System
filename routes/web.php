@@ -37,6 +37,8 @@ Route::prefix('team')->group(function(){
 
     Route::get('/testing', [HomeController::class, 'testing'])->name('team.testing');
     Route::post('/store', [HomeController::class, 'store'])->name('team.store');
+    Route::get('/testing1', [HomeController::class, 'index']);
+Route::post('/submit', [HomeController::class, 'submit'])->name('submit');
 });
 
 Route::prefix('superadmin')->group(function(){

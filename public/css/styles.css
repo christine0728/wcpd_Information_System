@@ -58,14 +58,13 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    cursor: pointer;
-    border-color: #48145B !important;
+    cursor: pointer;   
     border-radius: 0.5rem;
   }
 
   .form-buttons:hover{
-    background-color: #9947B6 !important;
-    border-color: #9947B6 !important;
+    background-color: #9947B6 !important; 
+    border: none !important;
     color: white !important;
   }
 
@@ -76,18 +75,53 @@
     text-decoration: none;
     display: inline-block;
     border-radius: 0.5rem !important;
-    padding: 0.5rem 1rem 0.5rem 1rem !important;
-    border-color: #48145B !important;
+    padding: 0.5rem 1rem 0.5rem 1rem !important; 
     width: auto;
+    border: none !important;
   }
 
   .link-buttons:hover{
-    background-color: #9947B6 !important;
-    border-color: #9947B6 !important;
+    background-color: #9947B6 !important; 
+    border: none !important;
     color: white !important;
   }
 
-  i {
+  i {  
+    font-size: 1rem !important;
+  }
+
+  i .icons {
     color: white !important; 
     font-size: 1rem !important;
+  }
+
+
+  .edit-btn {
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 0.5rem !important;
+    width: auto;
+    background-color: darkgreen !important;
+    color: white !important;
+  }
+
+  .delete-btn {
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 0.5rem !important;
+    width: auto;
+    background-color: darkred !important;
+    color: white !important;
+  }
+
+  .edit-btn:hover{
+    background-color: darkgreen !important;
+    color: white !important;
+  }
+
+  .delete-btn:hover{
+    background-color: darkred !important;
+    color: white !important;
   }
