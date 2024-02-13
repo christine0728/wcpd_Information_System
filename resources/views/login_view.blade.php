@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,54 +7,118 @@
   <link rel="icon" href="{{ url('asset/favicon.ico') }}">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      display: flex;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .login-left {
+      flex: 1;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px 0 0 8px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center; /* Center-align text */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; /* Space between paragraphs */
+      height: 510px; /* Adjust height of the left container */
+    }
+
+    .login-left img {
+      display: block;
+      margin: 0 auto;
+      max-height: 100px;
+    }
+
+    .login-left p {
+      margin-bottom: 10px; /* Add some spacing between paragraphs */
+    }
+
+    .login-form {
+      flex: 1;
+      padding: 40px;
+      background-color: white;
+      border-radius: 0 8px 8px 0;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-form h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .login-form .form-label {
+      display: flex;
+      align-items: center;
+    }
+
+    .login-form .form-label i {
+      margin-right: 10px;
+    }
+
+    .btn-primary:hover {
+      background-color: #C89AF7 !important;
+      color:black;
+    }
+
+    img{
+      border-radius: 50px;
+    }
+    p{
+      color:white;
+    }
+  </style>
 </head>
-
-<body class=" d-flex align-items-center justify-content-center" style="height: 100vh; background-color: #9947B6; font-family: arial">
-
+<body>
   <div class="container">
-    <!-- <div class="row" > -->
-<center>
-      <!-- Login Container with Image and Label -->
-      <div class="col-md-6">
-        <div class="card border-0 shadow" style="width: 400px; height: 500px;"> <!-- Set your preferred width and height -->
-          <div class="card-body p-4">
-            <div class="text-center mb-4">
-              <img src="{{ asset('images/wcpc_logo.jpg') }}" alt="Login Image" class="img-fluid mb-2" style="max-height: 80px;">
-              <p>Woman And Child Protection Center</p></p>
-            </div>
-            <h2 class="text-center mb-4">Sign In</h2>
-            <form action="{{ route('logging_in') }}" method="post">
-              @csrf
-              <div class="mb-3"  style="text-align:left">
-                <label for="email" class="form-label" ><i class="fa fa-envelope"></i> Email</label>
-                <input type="text" class="form-control" class="form-input" name="username"placeholder="Username" required>
-                <div class="error-message">
-                  @error('email')
-                    {{ $message }}
-                  @enderror
-                </div>
-              </div><br>
-              <div class="mb-3"  style="text-align:left">
-                <label for="password" class="form-label"><i class="fa fa-lock"></i> Password</label>
-                <input type="password" class="form-control"  name="password" placeholder="Password" required>
-                <div class="error-message">
-                  @error('password')
-                    {{ $message }}
-                  @enderror
-                </div>
-              </div>
-              <button type="submit" class="btn btn-primary w-100" style="background-color:#9947B6"><i class="fa fa-arrow-right"></i> Login</button>
-            </form>
-          </div>
-        </div>
+    <div class="login-container">
+      <div class="login-left" style="background-color:#9947B6">
+      <b> <p style="font-size: 20px">Woman And Children Protection Center</p></b>
+      <b> <p style="font-size: 30px">WCPC Information Management System</p></b>
+      <b><p style="margin-bottom: 0;font-size: 20px">Philippine National Police<br><b style="font-size:12px">Urdaneta City Police Station</b></p></b>
+
       </div>
-
+      <div class="login-form" style="background-color:#E7D9F7">
+        <center><img src="{{ asset('images/wcpc_logo.jpg') }}" alt="Login Image" height="100px" width="100px"></center><br>
+        <form action="{{ route('logging_in') }}" method="post">
+          @csrf
+          <div class="mb-3">
+            <label for="email" class="form-label"><i class="fa fa-envelope"></i> Username</label>
+            <input type="text" class="form-control" name="username" placeholder="Enter your username" required>
+            <div class="error-message">
+              @error('email')
+                {{ $message }}
+              @enderror
+            </div>
+          </div><br>
+          <div class="mb-3">
+            <label for="password" class="form-label"><i class="fa fa-lock"></i> Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Enter your password" required>
+            <div class="error-message">
+              @error('password')
+                {{ $message }}
+              @enderror
+            </div>
+          </div><br>
+          <button type="submit" class="btn btn-primary w-100" style="background-color:#9947B6"><i class="fa fa-arrow-right"></i> Login</button>
+        </form>
+      </div>
     </div>
-  <!-- </div> -->
-  </center>
-
-  <!-- Bootstrap JS and Popper.js (for Bootstrap modal, dropdown, etc.) -->
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
