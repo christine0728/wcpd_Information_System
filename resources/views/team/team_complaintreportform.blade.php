@@ -14,6 +14,9 @@
   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js" integrity="sha512-eyHL1atYNycXNXZMDndxrDhNAegH2BDWt1TmkXJPoGf1WLlNYt08CSjkqF5lnCRmdm3IrkHid8s2jOUY4NIZVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    
+    <link rel="stylesheet" href="https://cdn.mobiscroll.com/4.9.0/css/mobiscroll.jquery.min.css">
+
     <title>Team | Complaint Report Form</title>
     <style>
         body {
@@ -157,7 +160,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">8. Offenses Committed: </label>
-                                        <select class="form-control" name="offenses">
+                                        <select class="form-control" name="offenses" multiple>
                                             <option>Select offense</option>
                                             <option>Offense 1</option>
                                             <option>Offense 2</option>
@@ -545,12 +548,12 @@
 
 
                         <div class="col-12 form-navigation">
-                            <a class="link-buttons" href=" " style="float: left;">Cancel <i class="fa-solid fa-xmark"></i> </a> 
+                            <a class="link-buttons" href=" " style="float: left;">Cancel <i class="fa-solid fa-xmark icons"></i> </a> 
                             {{-- <a class="link-buttons" href=" " style="float: right;">Next</a>  --}}
 
-                           <button type="button" class="next form-buttons" style="float: right; width: 5rem">Next <i class="fa-solid fa-arrow-right"></i></button> 
-                           <button type="submit" class="form-buttons" style="float: right;">Submit <i class="fa-solid fa-check"></i></button>
-                           <button type="button" class="previous form-buttons" style="float: right; margin-right: 0.5rem; width: 5rem"><i class="fa-solid fa-arrow-left"></i> Back</button> 
+                           <button type="button" class="next form-buttons" style="float: right; width: 5rem">Next <i class="fa-solid fa-arrow-right icons"></i></button> 
+                           <button type="submit" class="form-buttons" style="float: right;">Submit <i class="fa-solid fa-check icons"></i></button>
+                           <button type="button" class="previous form-buttons" style="float: right; margin-right: 0.5rem; width: 5rem"><i class="fa-solid fa-arrow-left icons"></i> Back</button> 
                         </div>
                     </div>
                 </form>
@@ -624,7 +627,12 @@
 
             if(name=='Others5')document.getElementById('div5').innerHTML='Pls. specify: <input type="text" name="others5" class="form-control" />';
             else document.getElementById('div5').innerHTML='';
-        }
+        } 
+
+        mobiscroll.select('#multiple-select', {
+        inputElement: document.getElementById('my-input'),
+        touchUi: false
+    });
     </script>
     
     

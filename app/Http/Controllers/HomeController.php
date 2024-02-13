@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\ComplaintReport;
 use App\Models\Employee;
 use App\Models\Team;
 use App\Models\TeamModel;
@@ -62,11 +63,31 @@ class HomeController extends Controller
 
     public function complaintreport()
     {
-        return view('team.team_complaintreportmngt');
+        $author_id = Auth::guard('team')->user()->id;
+        $comps = ComplaintReport::select('*')->where('complaint_report_author', $author_id)
+                ->get();
+        return view('team.team_complaintreportmngt', ['comps'=>$comps]);
     }
 
     public function complaintreport_form()
     {
         return view('team.team_complaintreportform');
+    }
+
+    public function index()
+    {
+        // Define options
+        $options = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5'];
+
+        return view('team.testing', compact('options'));
+    }
+
+    public function submit(Request $request)
+    {
+        // Handle form submission
+        $selectedOptions = $request->input('options');
+        // Do something with selected options
+        
+        return redirect()->back()->with('success', 'Form submitted successfully.');
     }
 }

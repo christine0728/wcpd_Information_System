@@ -1,13 +1,13 @@
 <!-- Sidebar -->
+<style> 
+</style>
 <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex ">
         <div class="info">
             <a class="d-block">
-              
-              
-                    <img src="{{ asset('images/default.png') }}" alt="Default Image" class="img-thumbnail" style="max-width: 50px; max-height: 50px;">
-         TEAM A
+                <img src="{{ asset('images/default.png') }}" alt="Default Image" class="img-thumbnail" style="max-width: 50px; max-height: 50px;">
+                {{ Auth::guard('team')->user()->username }}
             </a>
         </div>
     </div>
@@ -63,6 +63,14 @@
                 </ul>
             </li>
          
+            <li class="nav-item">
+                <a href="{{ route('team.complaintreport')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>
+                        {{ __('Complaint Report Management') }}
+                    </p>
+                </a>
+            </li>
  
             <li class="nav-item">
                 <a href=""  class="nav-link {{ request()->is('librarymanpower') ? 'text-primary' : 'text-dark' }}">
