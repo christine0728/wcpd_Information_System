@@ -129,7 +129,8 @@
     <div class="container row" style="margin-top: -1rem">
         <div class="header" style="background-color: white;">  
             <div class="col-12">
-                <form class="employee-form">
+                <form action="{{ route('team.add_complaint') }}" class="employee-form" method="post">
+                    @csrf
                     <div class="row">
                         <div class="form-section">  
                             <div class="header" >  
@@ -141,13 +142,13 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">6. Time/Day/Month/Year of Commission:</label>
-                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="datetime_commission">
                                     </div> 
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">7. Place of Commission: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission">
                                     </div> 
                                 </div> 
                             </div>
@@ -175,25 +176,25 @@
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">9. Family name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_familyname">
                                     </div> 
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">First name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_firstname">
                                     </div> 
                                 </div> 
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Middle name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_middlename">
                                     </div> 
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Aliases: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_aliases">
                                     </div> 
                                 </div> 
                             </div>
@@ -202,7 +203,7 @@
                                 <div class="col-2" >
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">10. Sex: </label>
-                                        <select class="form-control" name="offenses">
+                                        <select class="form-control" name="vic_gender">
                                             <option>Select sex</option>
                                             <option>Female</option>
                                             <option>Male</option>
@@ -212,13 +213,13 @@
                                 <div class="col-2" >
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">11. Date of birth: </label>
-                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth">
                                     </div> 
                                 </div> 
                                 <div class="col-8" >
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">12. Place of birth: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_place_birth">
                                     </div> 
                                 </div> 
                             </div>
@@ -227,7 +228,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">13. Highest Educational Attainment: </label>
-                                        <select class="form-control" name="offenses" onchange="showfield(this.options[this.selectedIndex].value)">
+                                        <select class="form-control" name="vic_educ_attainment" onchange="showfield(this.options[this.selectedIndex].value)">
                                             <option>Select highest educational attainment</option>
                                             <option value="elementary">Elementary</option>
                                             <option value="hsgrad">HS Graduate</option>
@@ -241,7 +242,7 @@
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">14. Civil Status: </label>
-                                        <select class="form-control" name="offenses">
+                                        <select class="form-control" name="vic_civil_stat">
                                             <option>Select civil status</option>
                                             <option value="single">Single</option>
                                             <option value="live-in">Live-in</option>
@@ -254,7 +255,7 @@
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">15. Citizenship: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_citizenship">
                                     </div> 
                                 </div> 
                             </div>
@@ -263,7 +264,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">16. Present Address: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_present_addr">
                                     </div> 
                                 </div>
                             </div>
@@ -272,7 +273,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">17. Provincial Address: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_prov_addr">
                                     </div> 
                                 </div>
                             </div>
@@ -281,7 +282,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">18. Parents/Guardian Name: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_parentsname">
                                     </div> 
                                 </div>
                             </div>
@@ -290,13 +291,13 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">19. Employment Information - Occupation: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_occupation">
                                     </div> 
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">20. Identifying Documents Presented: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="docs_presented">
                                     </div> 
                                 </div>
                             </div>
@@ -305,7 +306,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">21.Contact Person, Address, and Contact Number:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_contactperson">
                                     </div> 
                                 </div>
                             </div>
@@ -320,25 +321,25 @@
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">22. Family name:</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_familyname">
                                     </div> 
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">First name:</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_firstname">
                                     </div> 
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Middle name:</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_middlename">
                                     </div> 
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Aliases:</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_aliases">
                                     </div> 
                                 </div>
                             </div>
@@ -347,7 +348,7 @@
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">23. Sex: </label>
-                                        <select class="form-control" name="offenses">
+                                        <select class="form-control" name="off_gender">
                                             <option>Select sex</option>
                                             <option>Female</option>
                                             <option>Male</option>
@@ -357,13 +358,13 @@
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">24. Date of birth:</label>
-                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_date_birth">
                                     </div> 
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">25. Civil Status: </label>
-                                        <select class="form-control" name="offenses">
+                                        <select class="form-control" name="off_civil_stat">
                                             <option>Select civil status</option>
                                             <option value="single">Single</option>
                                             <option value="live-in">Live-in</option>
@@ -379,7 +380,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">26. Highest Educational Attainment: </label>
-                                        <select class="form-control" name="offenses" onchange="showfield(this.options[this.selectedIndex].value)">
+                                        <select class="form-control" name="off_educ_attainment" onchange="showfield(this.options[this.selectedIndex].value)">
                                             <option>Select highest educational attainment</option>
                                             <option value="elementary">Elementary</option>
                                             <option value="hsgrad">HS Graduate</option>
@@ -393,7 +394,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">27. Nationality: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_nationality">
                                     </div> 
                                 </div>
                             </div>
@@ -422,7 +423,7 @@
                                 <div class="col-7">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Pls. specify:</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="crim_rec_specify">
                                     </div>
                                 </div>
                             </div>
@@ -431,14 +432,14 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">29. Employment Information - Occupation:</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_occupation">
                                     </div>
                                 </div>
 
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">30. Last Known Address:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_last_addr">
                                     </div>
                                 </div>
                             </div>
@@ -447,7 +448,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">31. Relationship to Victim:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim">
                                     </div>
                                 </div> 
                             </div>
@@ -463,7 +464,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">34. Motive/Cause: </label>
-                                        <select class="form-control" name="offenses">
+                                        <select class="form-control" name="evi_motive">
                                             <option>Select motive/cause</option>
                                             <option value="sex_lust">Sex/Lust</option>
                                             <option value="passion_jealousy">Passion/Jealousy</option>
@@ -478,7 +479,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">35. Suspect under the influence of: </label>
-                                        <select class="form-control" name="offenses" onchange="showfield(this.options[this.selectedIndex].value)">
+                                        <select class="form-control" name="influences" onchange="showfield(this.options[this.selectedIndex].value)">
                                             <option>Select influence</option>
                                             <option value="drugs">Drugs</option>
                                             <option value="alcohol">Alcohol</option>
@@ -502,7 +503,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">47. Disposition: </label>
-                                        <select class="form-control" name="offenses" onchange="showfield(this.options[this.selectedIndex].value)">
+                                        <select class="form-control" name="disposition" onchange="showfield(this.options[this.selectedIndex].value)">
                                             <option>Select disposition of case</option>
                                             <option value="settled_at_barangay">Settled at barangay</option>
                                             <option value="settled_by_parties">Settled by parties</option>
@@ -519,8 +520,8 @@
 
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">47. Disposition: </label>
-                                        <select class="form-control" name="offenses" onchange="showfield2(this.options[this.selectedIndex].value)">
+                                        <label for="exampleInputEmail1">48. Suspect disposition: </label>
+                                        <select class="form-control" name="sus_disposition" onchange="showfield2(this.options[this.selectedIndex].value)">
                                             <option>Select disposition of case</option>
                                             <option value="arrested">Arrested</option>
                                             <option value="at_large">At large</option>
@@ -536,7 +537,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Investigator on case:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="investigator">
                                     </div>
                                 </div> 
                             </div>
