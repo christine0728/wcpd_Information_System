@@ -8,6 +8,11 @@
         <link rel="icon" href="{{ url('asset/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
         <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+
+
             .filter {
                 display: flex;
                 align-items: center;
@@ -31,10 +36,10 @@
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
-                    <div class="row mb-2"> 
+                    <div class="row mb-2">
                          <div class="col-sm-6">
                             <h1 class="m-0">{{ __('Dashboard') }}</h1>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -43,7 +48,7 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-12">  
+                        <div class="col-lg-12">
                             <div class="content">
                                 <div class="container-fluid">
                                     {{-- <div class="row">
@@ -67,7 +72,7 @@
                                         </div>
                                         <div class="modal-body">
                                             <form method="post" action="{{ route('add_activity') }}">
-                                                @csrf 
+                                                @csrf
                                                 <div class="form-group">
                                                     <label for="barcode">Activity title:</label>
                                                     <input type="text" class="form-control" id="activity_title" name="activity_title" required placeholder="Enter the activity title">
@@ -75,7 +80,7 @@
                                                 <div class="form-group">
                                                     <label for="barcode">Status:</label>
                                                     <input type="text" class="form-control" id="status" name="status" required placeholder="Enter the accession">
-                                                </div> 
+                                                </div>
                                         </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -92,7 +97,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Activity title</th>
-                                                <th>Status</th> 
+                                                <th>Status</th>
                                                 <th>Created By</th>
                                                 <th>Created Date</th>
                                                 <th>Modified By</th>
@@ -104,11 +109,11 @@
                                             @foreach($activities as $activity)
                                                 <tr>
                                                     <td>{{ $activity->activity_title }}</td>
-                                                    <td>{{ $activity->status}}</td> 
+                                                    <td>{{ $activity->status}}</td>
                                                     <td>{{ $activity->created_by_name }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($activity->created_at)->format('F j, Y \a\t g:i a') }}</td> 
+                                                    <td>{{ \Carbon\Carbon::parse($activity->created_at)->format('F j, Y \a\t g:i a') }}</td>
                                                     <td>{{ $activity->modified_by_name }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($activity->updated_at)->format('F j, Y \a\t g:i a') }}</td> 
+                                                    <td>{{ \Carbon\Carbon::parse($activity->updated_at)->format('F j, Y \a\t g:i a') }}</td>
                                                     <td>
                                                     <button type="button" class="btn btn-danger btn-xs" onclick="confirmDelete('{{ $activity->id }}')">
                                                     <i style="color: white; font-size: 12px;" class="fas fa-trash-alt"></i>
@@ -117,9 +122,9 @@
                                                         <button type="button" class="btn btn-success btn-xs">
                                                             <i style="color: white; font-size: 12px;" class="fa fa-edit"></i>
                                                         </button>
-                                                    </a> 
+                                                    </a>
                                                     </td>
-                                                </tr> 
+                                                </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -127,7 +132,7 @@
                                 <!-- /.card-body -->
 
                                 <div class="card-footer clearfix">
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -162,7 +167,7 @@
             if (result.isConfirmed) {
             $.ajax({
                 type: 'POST',
-                url: '/admin/activity_destroy/' + id, 
+                url: '/admin/activity_destroy/' + id,
                 data: {
                 _token: '{{ csrf_token() }}',
                 _method: 'DELETE'
@@ -197,11 +202,11 @@
                 const modal = document.getElementById('modalEdit');
                 const editId = this.getAttribute('data-id');
                 const editactivity_title = this.getAttribute('data-activity_title');
-                const editstatus = this.getAttribute('data-status'); 
+                const editstatus = this.getAttribute('data-status');
 
                 document.getElementById('edit_id').value = editId;
                 document.getElementById('edit_activity_title').value = editactivity_title;
-                document.getElementById('edit_status').value = editstatus; 
+                document.getElementById('edit_status').value = editstatus;
 
                 document.getElementById('edit_id').value = editId;
 
@@ -226,7 +231,7 @@
                 <form method="post" action="{{ route('update_activity') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <input type="hidden" id="edit_id" name="edit_id"> 
+                        <input type="hidden" id="edit_id" name="edit_id">
                     </div>
                     <div class="form-group">
                         <label for="barcode">Activity title:</label>
@@ -235,7 +240,7 @@
                     <div class="form-group">
                         <label for="barcode">Status:</label>
                         <input type="text" class="form-control" id="edit_status" name="edit_status" required placeholder="Enter the status">
-                    </div> 
+                    </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -105,6 +105,7 @@
       </div>
       <div class="login-form" style="background-color:#E7D9F7">
         <center><img src="{{ asset('images/wcpc_logo.jpg') }}" alt="Login Image" height="100px" width="100px"></center><br>
+<<<<<<< Updated upstream
         @if(session('error'))
               <div class="alert alert-warning">
               {{ session('error') }}
@@ -112,6 +113,9 @@
         @endif
 
         <form action="{{ route('logging_in') }}" method="post">
+=======
+        <form id="loginForm" action="{{ route('logging_in') }}" method="post">
+>>>>>>> Stashed changes
           @csrf
           <div class="mb-3">
             <label for="email" class="form-label"><i class="fa fa-envelope"></i> Username</label>
@@ -133,9 +137,32 @@
           </div><br>
           <button type="submit" class="btn btn-primary w-100" style="background-color:#9947B6"><i class="fa fa-arrow-right"></i> Login</button>
         </form>
+        <div id="flash-message" class="mt-3" style="display: none;"></div>
       </div>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      var formData = new FormData(this);
+      fetch(this.action, {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          window.location.href = data.redirect;
+        } else {
+          document.getElementById('flash-message').innerHTML = '<div class="alert alert-danger" role="alert">Incorrect username or password.</div>';
+          document.getElementById('flash-message').style.display = 'block';
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    });
+  </script>
 </body>
 </html>
