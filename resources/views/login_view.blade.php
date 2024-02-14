@@ -31,11 +31,11 @@
       background-color: white;
       border-radius: 8px 0 0 8px;
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      text-align: center; /* Center-align text */
+      text-align: center;
       display: flex;
       flex-direction: column;
-      justify-content: space-between; /* Space between paragraphs */
-      height: 510px; /* Adjust height of the left container */
+      justify-content: space-between;
+      height: 510px;
     }
 
     .login-left img {
@@ -45,7 +45,7 @@
     }
 
     .login-left p {
-      margin-bottom: 10px; /* Add some spacing between paragraphs */
+      margin-bottom: 10px;
     }
 
     .login-form {
