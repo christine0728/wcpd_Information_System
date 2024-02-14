@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\Hash;
 class SuperAdminController extends Controller
 {
     public function add(Request $request){ 
-        $team = new Team();
-        $team->id = (string) \Illuminate\Support\Str::uuid();
+        $team = new Team(); 
         $team->username = $request->input('username');
         $team->password = Hash::make($request->password);
         $team->save();

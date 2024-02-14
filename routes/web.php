@@ -34,6 +34,7 @@ Route::prefix('team')->group(function(){
     Route::get('/complaintreport', [HomeController::class, 'complaintreport'])->name('team.complaintreport');
     Route::get('/complaintreport_form', [HomeController::class, 'complaintreport_form'])->name('team.complaintreport_form');
     Route::post('/add_complaint', [ComplaintReportController::class, 'add_complaint'])->name('team.add_complaint');
+    Route::get('/view_complaintreport/{comp_id}', [ComplaintReportController::class, 'view_complaintreport'])->name('team.view_complaintreport');
 
     Route::get('/testing', [HomeController::class, 'testing'])->name('team.testing');
     Route::post('/store', [HomeController::class, 'store'])->name('team.store');

@@ -67,4 +67,12 @@ class ComplaintReportController extends Controller
         $comp_report->save();
         return redirect()->back()->with('message', 'The record has been added successfully!');
     }
+
+    public function view_complaintreport($comp_id){
+        $comps = ComplaintReport::select('*')
+            ->where('id', $comp_id)
+            ->get(); 
+        
+        return view('team.team_viewcomplaintreport1', ['comps' => $comps]); 
+    }
 }
