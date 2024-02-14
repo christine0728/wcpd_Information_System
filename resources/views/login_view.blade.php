@@ -24,7 +24,18 @@
       max-width: 800px;
       width: 100%;
     }
+    .alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
 
+.alert-warning {
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+    color: #8a6d3b;
+}
     .login-left {
       flex: 1;
       padding: 20px;
@@ -94,6 +105,12 @@
       </div>
       <div class="login-form" style="background-color:#E7D9F7">
         <center><img src="{{ asset('images/wcpc_logo.jpg') }}" alt="Login Image" height="100px" width="100px"></center><br>
+        @if(session('error'))
+              <div class="alert alert-warning">
+              {{ session('error') }}
+              </div>
+        @endif
+
         <form action="{{ route('logging_in') }}" method="post">
           @csrf
           <div class="mb-3">
