@@ -22,7 +22,7 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <link rel="icon" href="{{ url('images/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=22">
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=24">
 
         <script src="https://kit.fontawesome.com/7528702e77.js" crossorigin="anonymous"></script>
         <style>
@@ -83,6 +83,7 @@
                             <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                                 <thead>
                                     <tr> 
+                                        <th>View</th>
                                         <th>Complaint Report Author</th>
                                         <th>Date Reported</th>
                                         <th>Place of Commission</th>
@@ -105,7 +106,12 @@
                                 <tbody> 
                                     @foreach ($comps as $comp)  
                                     <tr>  
-                                        <td>{{ $comp->complaint_report_author }}</td>
+                                        <td>
+                                            <center>
+                                                <a class="view-btn" href="{{ route('team.view_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
+                                            </center>
+                                        </td>
+                                        <td>{{ $comp->username }}</td>
                                         <td>{{ $comp->date_reported }}</td>
                                         <td>{{ $comp->place_of_commission }}</td>
                                         <td>{{ $comp->offenses }}</td> 
@@ -134,7 +140,10 @@
                                             @endif
                                         </td>
                                         <td>
-                                        <center><a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href=" "><i class="fa fa-edit" style="font-size: large; padding: 0.6rem"></i></a> <a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href=" "><i class="fa fa-trash" style="font-size: large; padding: 0.6rem"></i></a></center>
+                                        <center>  
+                                            <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href=" ">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
+                                            <a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href=" ">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a>
+                                        </center>
                                         </td>
                                     </tr> 
                                     @endforeach 
