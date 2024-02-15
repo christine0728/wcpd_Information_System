@@ -125,7 +125,17 @@
     color: white !important;
   }
 
-  .edit-btn:hover, .delete-btn:hover, .view-btn:hover{
+  .case-btn {
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 0.5rem !important;
+    width: auto;
+    background-color: darkblue !important;
+    color: white !important;
+  }
+
+  .edit-btn:hover, .delete-btn:hover, .view-btn:hover, .case-btn:hover{
     background-color: #9947B6 !important;
     color: white !important;
   }

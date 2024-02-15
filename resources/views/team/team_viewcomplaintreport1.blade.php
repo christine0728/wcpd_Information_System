@@ -92,8 +92,15 @@
     </div> 
 
     <div class="container" style="margin-top: -2rem">
-        <div class="header" style="background-color: white;">  
-            <b style="font-size: x-large; padding: 0.5rem">Complaint Standard Report Form</b>
+        <div class="header" style="background-color: white;"> 
+            <div class="col-6">
+                <b style="font-size: x-large; ">Complaint Standard Report Form</b>
+            </div> 
+            
+            <div class="col-6" > 
+                <a class="link-buttons" href="{{ route('team.complaint_pdf', [$comp_id]) }}" style="float: right; " target="_blank">Download as PDF&nbsp;&nbsp;<i class="fa-regular fa-circle-down icons"></i> </a> 
+            </div>
+
         </div> 
     </div> 
 
