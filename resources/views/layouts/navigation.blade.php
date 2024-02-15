@@ -1,8 +1,12 @@
 <!-- Sidebar -->
+<<<<<<< Updated upstream
 <style> 
 .sideber{
     position: fixed;
 }
+=======
+<style>
+>>>>>>> Stashed changes
 </style>
 <div class="sidebar" style="position:fixed">
     <!-- Sidebar user panel (optional) -->
@@ -14,7 +18,7 @@
             </a>
         </div>
     </div>
- 
+
     <!-- Sidebar Menu -->
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
@@ -27,7 +31,7 @@
                     </p>
                 </a>
             </li>
-        
+
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-cogs"></i> <!-- Updated icon for Administration -->
@@ -65,7 +69,7 @@
                     </li>
                 </ul>
             </li>
-         
+
             <li class="nav-item">
                 <a href="{{ route('team.complaintreport')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                     <i class="nav-icon fas fa-th"></i>
@@ -74,7 +78,7 @@
                     </p>
                 </a>
             </li>
- 
+
             <li class="nav-item">
                 <a href=""  class="nav-link {{ request()->is('librarymanpower') ? 'text-primary' : 'text-dark' }}">
                     <i class="nav-icon far fa-address-card"></i>
@@ -116,21 +120,21 @@
                         <i class="fas fa-angle-left right"></i>
                     </p>
                 </a>
- 
+
                 <ul class="nav nav-treeview" style="display: none;">
- 
+
                     <li class="nav-item">
                         <a href=""  class="nav-link {{ request()->is('filipiniana') ? 'text-primary' : 'text-dark' }}">
                             <p>Books</p>
                         </a>
                     </li>
- 
+
                     <li class="nav-item">
                         <a href="#"  class="nav-link {{ request()->is('filipiniana') ? 'text-primary' : 'text-dark' }}">
                             <p>Thesis and Dissertion</p>
                         </a>
                     </li>
-           
+
                     <li class="nav-item">
                         <a href=""  class="nav-link {{ request()->is('subscribed_educ_dbase') ? 'text-primary' : 'text-dark' }}">
                             <p>Subscribed Educational Databases</p>
@@ -143,10 +147,10 @@
                     </li>
                 </ul>
             </li>
- 
-         
+
+
         </ul>
-       
+
        <br>
        <br>
        <br><br>

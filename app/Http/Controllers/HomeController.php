@@ -19,24 +19,24 @@ class HomeController extends Controller
 
     public function login(Request $request){
 
-        $username = $request->input('username');  
+        $username = $request->input('username');
         $check = $request->all();
 
-        if(Auth::guard('team')->attempt(['username' => $check['username'], 'password' => $check['password']])){ 
-            if (Auth::guard('team')->check()) {  
+        if(Auth::guard('team')->attempt(['username' => $check['username'], 'password' => $check['password']])){
+            if (Auth::guard('team')->check()) {
                 $pw = $check['password'];
 
-                $accepted = Team::select('*')->where('username', $username) 
+                $accepted = Team::select('*')->where('username', $username)
                     ->first();
-                // dd('dito dashboard'); 
+                // dd('dito dashboard');
                 return redirect()->route('team.dashboard');
-            } else { 
+            } else {
                 dd('User not authenticated');
-            } 
+            }
         }
         else{
-            return back()->with('error', 'Invalid credentials'); 
-        } 
+            return back()->with('error', 'The username or password you entered is incorrect.');
+        }
     }
 
     public function logout()
@@ -89,7 +89,7 @@ class HomeController extends Controller
         // Handle form submission
         $selectedOptions = $request->input('options');
         // Do something with selected options
-        
+
         return redirect()->back()->with('success', 'Form submitted successfully.');
     }
 }
