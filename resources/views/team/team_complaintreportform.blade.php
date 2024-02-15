@@ -151,7 +151,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">7. Place of Commission: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" oninput="toUpper(this)">
                                     </div> 
                                 </div> 
                             </div>
@@ -161,9 +161,10 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">8. Offenses Committed: </label>
                                         <select class="form-control" name="offenses" multiple>
+                                            @foreach ($offenses as $offense)
                                             <option>Select offense</option>
-                                            <option>Offense 1</option>
-                                            <option>Offense 2</option>
+                                            <option value="{{ $offense->offense_name }}">{{ $offense->offense_name }}</option>
+                                            @endforeach 
                                         </select>
                                     </div> 
                                 </div>
@@ -179,25 +180,25 @@
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">9. Family name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_familyname">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_familyname" oninput="toUpper(this)">
                                     </div> 
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">First name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_firstname">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_firstname" oninput="toUpper(this)">
                                     </div> 
                                 </div> 
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Middle name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_middlename">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_middlename" oninput="toUpper(this)">
                                     </div> 
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Aliases: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_aliases">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_aliases" oninput="toUpper(this)">
                                     </div> 
                                 </div> 
                             </div>
@@ -216,13 +217,13 @@
                                 <div class="col-2" >
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">11. Date of birth: </label>
-                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth">
+                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth" oninput="toUpper(this)">
                                     </div> 
                                 </div> 
                                 <div class="col-8" >
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">12. Place of birth: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_place_birth">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_place_birth" oninput="toUpper(this)">
                                     </div> 
                                 </div> 
                             </div>
@@ -258,7 +259,7 @@
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">15. Citizenship: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_citizenship">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_citizenship" oninput="toUpper(this)">
                                     </div> 
                                 </div> 
                             </div>
@@ -267,7 +268,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">16. Present Address: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_present_addr">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_present_addr" oninput="toUpper(this)">
                                     </div> 
                                 </div>
                             </div>
@@ -276,7 +277,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">17. Provincial Address: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_prov_addr">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_prov_addr" oninput="toUpper(this)">
                                     </div> 
                                 </div>
                             </div>
@@ -285,7 +286,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">18. Parents/Guardian Name: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_parentsname">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_parentsname" oninput="toUpper(this)">
                                     </div> 
                                 </div>
                             </div>
@@ -294,13 +295,13 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">19. Employment Information - Occupation: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_occupation">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_occupation" oninput="toUpper(this)">
                                     </div> 
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">20. Identifying Documents Presented: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="docs_presented">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="docs_presented" oninput="toUpper(this)">
                                     </div> 
                                 </div>
                             </div>
@@ -309,7 +310,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">21.Contact Person, Address, and Contact Number:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_contactperson">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_contactperson" oninput="toUpper(this)">
                                     </div> 
                                 </div>
                             </div>
@@ -324,25 +325,25 @@
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">22. Family name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_familyname">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_familyname" oninput="toUpper(this)">
                                     </div> 
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">First name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_firstname">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_firstname" oninput="toUpper(this)">
                                     </div> 
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Middle name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_middlename">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_middlename" oninput="toUpper(this)">
                                     </div> 
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Aliases:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_aliases">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_aliases" oninput="toUpper(this)">
                                     </div> 
                                 </div>
                             </div>
@@ -397,7 +398,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">27. Nationality: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_nationality">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_nationality" oninput="toUpper(this)">
                                     </div> 
                                 </div>
                             </div>
@@ -426,7 +427,7 @@
                                 <div class="col-7">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Pls. specify:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="crim_rec_specify">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="crim_rec_specify" oninput="toUpper(this)">
                                     </div>
                                 </div>
                             </div>
@@ -435,14 +436,14 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">29. Employment Information - Occupation:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_occupation">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_occupation" oninput="toUpper(this)">
                                     </div>
                                 </div>
 
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">30. Last Known Address:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_last_addr">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_last_addr" oninput="toUpper(this)">
                                     </div>
                                 </div>
                             </div>
@@ -451,7 +452,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">31. Relationship to Victim:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim" oninput="toUpper(this)">
                                     </div>
                                 </div> 
                             </div>
@@ -540,7 +541,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Investigator on case:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="investigator">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="investigator" oninput="toUpper(this)">
                                     </div>
                                 </div> 
                             </div>
@@ -618,13 +619,10 @@
             else document.getElementById('div3').innerHTML='';
 
             if(name=='Others4')document.getElementById('div4').innerHTML='Pls. specify: <input type="text" name="others4" class="form-control" />';
-            else document.getElementById('div4').innerHTML=''; 
-
-
+            else document.getElementById('div4').innerHTML='';  
         }
 
-        function showfield2(name){  
-
+        function showfield2(name){   
             if(name=='Others5')document.getElementById('div5').innerHTML='Pls. specify: <input type="text" name="others5" class="form-control" />';
             else document.getElementById('div5').innerHTML='';
         } 
@@ -634,7 +632,13 @@
         touchUi: false
     });
     </script>
-    
+    <script>
+        function toUpper(input) { 
+            let value = input.value; 
+            value = value.toUpperCase(); 
+            input.value = value;
+        }
+    </script>
     
 </body>
 </html>
