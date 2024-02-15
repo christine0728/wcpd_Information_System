@@ -2,12 +2,9 @@
   <head>
     <meta charset="UTF-8">
     <title>Multi-step Form in Laravel 9</title>
-        
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js" integrity="sha512-eyHL1atYNycXNXZMDndxrDhNAegH2BDWt1TmkXJPoGf1WLlNYt08CSjkqF5lnCRmdm3IrkHid8s2jOUY4NIZVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 
 <style>
 .form-section{
@@ -38,7 +35,7 @@
                         <label class="nav-link shadow-sm step1   border ml-2 " >Step Two</label>
                         <label class="nav-link shadow-sm step2   border ml-2 " >Step Three</label>
                     </div>
-          
+
                 <form action="/team/store" method="post" class="employee-form">
                  @csrf
                 <div class="form-section">
@@ -62,40 +59,24 @@
                  <button type="button" class="next btn btn-primary float-right">Next &gt;</button>
                  <button type="submit" class="btn btn-success float-right">Submit</button>
               </div>
-
             </form>
         </div>
-            
         </div>
       </div>
     </div>
-
-
-
-
 <script>
-
     $(function(){
         var $sections=$('.form-section');
-
         function navigateTo(index){
-
             $sections.removeClass('current').eq(index).addClass('current');
-
             $('.form-navigation .previous').toggle(index>0);
             var atTheEnd = index >= $sections.length - 1;
             $('.form-navigation .next').toggle(!atTheEnd);
             $('.form-navigation [Type=submit]').toggle(atTheEnd);
-
-     
             const step= document.querySelector('.step'+index);
             step.style.backgroundColor="#17a2b8";
             step.style.color="white";
-
-
-
         }
-
         function curIndex(){
 
             return $sections.index($sections.filter('.current'));
@@ -162,7 +143,7 @@
                             <div class="form-group">
                                 <label>Name</label>
                                 <input type="text" name="name" class="form-control"/>
-                            </div>  
+                            </div>
                             <div class="form-group">
                                 <label><strong>Description :</strong></label>
                                 <textarea class="ckeditor form-control" name="description"></textarea>
@@ -178,7 +159,7 @@
                                   <option value="vue">Vue</option>
                                 </select>
                             </div>
-                            
+
                             <div class="text-center" style="margin-top: 10px;">
                                 <button type="submit" class="btn btn-success">Save</button>
                             </div>
@@ -187,16 +168,13 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 </body>
-  
-<!-- Initialize the plugin: -->
 <script type="text/javascript">
     $(document).ready(function() {
         $('select').selectpicker();
     });
 </script>
-  
 </html>
 
 
