@@ -65,7 +65,14 @@ class ComplaintReportController extends Controller
         $comp_report->investigator_on_case = $request->input('investigator');
         $comp_report->created_at = Carbon::now();
         $comp_report->save();
-        return redirect()->back()->with('message', 'The record has been added successfully!');
+        // return redirect()->back()->with('message', 'The record has been added successfully!');
+
+        $author_id = Auth::guard('team')->user()->id;
+        $comps = ComplaintReport::join('teams', 'teams.id', '=', 'complaint_reports.complaint_report_author')
+        ->select('teams.id as teamid', 'teams.username', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'complaint_reports.victim_family_name', 'complaint_reports.victim_firstname', 'complaint_reports.victim_middlename', 'complaint_reports.victim_sex', 'complaint_reports.victim_age', 'complaint_reports.victim_docs_presented', 'complaint_reports.offender_firstname', 'complaint_reports.offender_family_name', 'complaint_reports.offender_middlename', 'complaint_reports.offender_sex', 'complaint_reports.offender_age', 'complaint_reports.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')->where('complaint_report_author', $author_id)
+        ->get();
+        // return view('team.team_complaintreportmngt', ['comps'=>$comps]);
+        return redirect()->route('team.complaintreport')->with('message', 'record updated successfully');
     }
 
     public function view_complaintreport($comp_id){
@@ -73,6 +80,6 @@ class ComplaintReportController extends Controller
             ->where('id', $comp_id)
             ->get(); 
         
-        return view('team.team_viewcomplaintreport1', ['comps' => $comps]); 
+        return view('team.team_viewcomplaintreport1', ['comps' => $comps, 'comp_id'=>$comp_id]); 
     }
 }

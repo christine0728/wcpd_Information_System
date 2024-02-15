@@ -140,7 +140,8 @@
                                             @endif
                                         </td>
                                         <td>
-                                        <center>  
+                                        <center> 
+                                            <a class="case-btn" href=" ">&nbsp;&nbsp;&nbsp;Update Case <i class="fa-regular fa-file" style="font-size: large; padding: 0.5rem"></i></a>  
                                             <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href=" ">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
                                             <a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href=" ">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a>
                                         </center>
