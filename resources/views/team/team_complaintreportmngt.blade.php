@@ -40,6 +40,17 @@
             .date-filter label {
                 margin-right: 5px;
             }
+
+            @media only screen and (max-width: 768px) {
+                /* For mobile phones: */
+                [class*="col-"] {
+                width: 100%;
+                }
+                
+                div{
+                    display: none !important;
+                }
+            }
         </style>
     </head>
     <body>
@@ -142,8 +153,8 @@
                                         <td>
                                         <center> 
                                             <a class="case-btn" href=" ">&nbsp;&nbsp;&nbsp;Update Case <i class="fa-regular fa-file" style="font-size: large; padding: 0.5rem"></i></a>  
-                                            <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href=" ">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
-                                            <a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href=" ">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a>
+                                            <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('team.edit_complaintreport', $comp->id) }}">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
+                                            <a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href="{{ route('team.delete_form', $comp->id) }}">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a>
                                         </center>
                                         </td>
                                     </tr> 

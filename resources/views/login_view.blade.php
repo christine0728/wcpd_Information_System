@@ -110,7 +110,7 @@
         <center><img src="{{ asset('images/wcpc_logo.jpg') }}" alt="Login Image" height="100px" width="100px"></center><br>
 
         <form action="{{ route('logging_in') }}" method="post">
-        @if(session('error'))
+            @if(session('error'))
               <div class="alert alert-warning">
               {{ session('error') }}
               </div>

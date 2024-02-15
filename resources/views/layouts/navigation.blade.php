@@ -1,12 +1,8 @@
 <!-- Sidebar -->
-<<<<<<< Updated upstream
 <style> 
 .sideber{
     position: fixed;
 }
-=======
-<style>
->>>>>>> Stashed changes
 </style>
 <div class="sidebar" style="position:fixed">
     <!-- Sidebar user panel (optional) -->
@@ -80,7 +76,7 @@
             </li>
 
             <li class="nav-item">
-                <a href=""  class="nav-link {{ request()->is('librarymanpower') ? 'text-primary' : 'text-dark' }}">
+                <a href="{{ route('team.offensesmanagement')}}"  class="nav-link {{ request()->is('librarymanpower') ? 'text-primary' : 'text-dark' }}">
                     <i class="nav-icon far fa-address-card"></i>
                     <p>
                         {{ __('Update Types of Offenses') }}
@@ -149,13 +145,7 @@
             </li>
 
 
-        </ul>
-
-       <br>
-       <br>
-       <br><br>
-       <br>
-       <br>
+        </ul> 
     </nav>
     <!-- /.sidebar-menu -->
 </div>

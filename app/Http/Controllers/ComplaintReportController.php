@@ -82,4 +82,66 @@ class ComplaintReportController extends Controller
         
         return view('team.team_viewcomplaintreport1', ['comps' => $comps, 'comp_id'=>$comp_id]); 
     }
+
+    public function edit_complaintreport($comp_id){
+        $comps = ComplaintReport::select('*')
+            ->where('id', $comp_id)
+            ->get(); 
+        
+        return view('team.team_editcomplaintreport', ['comps' => $comps, 'comp_id'=>$comp_id]); 
+    }
+
+    public function update_form(Request $request, $compid) {  
+        ComplaintReport::where('id', $compid)
+            ->update([
+                'offenses' => $request->input('offenses'),
+                'victim_family_name' => $request->input('vic_familyname'),
+                'victim_firstname' => $request->input('vic_firstname'),
+                'victim_middlename' => $request->input('vic_middlename'),
+                'victim_aliases' => $request->input('vic_aliases'),
+                'victim_sex' => $request->input('vic_gender'),
+                'victim_date_of_birth' => $request->input('vic_date_birth'),
+                'victim_place_of_birth' => $request->input('vic_place_birth'), 
+                'victim_highest_educ_attainment' => $request->input('vic_educ_attainment'),
+                'victim_civil_status' => $request->input('vic_civil_stat'),
+                'victim_nationality' => $request->input('vic_citizenship'),
+                'victim_present_address' => $request->input('vic_present_addr'),
+                'victim_provincial_address' => $request->input('vic_prov_addr'),
+                'victim_parents_guardian_name' => $request->input('vic_parentsname'),
+                'victim_place_of_birth' => $request->input('vic_place_birth'),
+                'victim_place_of_birth' => $request->input('vic_place_birth'),
+                'victim_employment_info_occupation' => $request->input('vic_occupation'),
+                'victim_docs_presented' => $request->input('docs_presented'),
+                'victim_contactperson_addr_con_num' => $request->input('vic_contactperson'),
+                'offender_family_name' => $request->input('off_familyname'),
+                'offender_firstname' => $request->input('off_firstname'),
+                'offender_middlename' => $request->input('off_middlename'),
+                'offender_aliases' => $request->input('off_aliases'),
+                'victim_docs_presented' => $request->input('docs_presented'),
+                'offender_sex' => $request->input('off_gender'),
+                'offender_date_of_birth' => $request->input('off_date_birth'),
+                'offender_civil_status' => $request->input('off_civil_stat'),
+                'offender_highest_educ_attainment' => $request->input('off_educ_attainment'),
+                'offender_nationality' => $request->input('off_nationality'), 
+                'offender_prev_criminal_rec' => $request->input('crim_rec_specify'),
+                'offender_employment_info_occupation' => $request->input('off_occupation'),
+                'offender_relationship_victim' => $request->input('rel_to_victim'),
+                'evidence_motive_cause' => $request->input('evi_motive'),
+                'evidence_influence_of' => $request->input('influences'),
+                'offender_nationality' => $request->input('off_nationality'),
+                'offender_nationality' => $request->input('off_nationality'),
+                'offender_nationality' => $request->input('off_nationality'),
+            ]);
+
+        return redirect()->route('team.complaintreport')->with('message', 'record updated successfully'); 
+    }
+
+    public function delete_form(Request $request, $compid) {  
+        ComplaintReport::where('id', $compid)
+            ->update([
+                'status' => 'deleted', 
+            ]);
+
+        return redirect()->route('team.complaintreport')->with('message', 'record updated successfully'); 
+    }
 }
