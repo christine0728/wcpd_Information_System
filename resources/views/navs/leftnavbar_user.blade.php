@@ -15,7 +15,7 @@
         </ul>
       </li> 
       <li>
-        <a href="{{ route('team.dashboard') }}">
+        <a href="{{ route('investigator.dashboard') }}">
           <i class='bx bx-data'></i> 
           <span class="link_name">All records</span>
         </a>
@@ -25,12 +25,12 @@
       </li>
 
       <li>
-        <a href="{{ route('team.complaintreport') }}">
+        <a href="{{ route('investigator.complaintreport') }}">
           <i class='bx bx-file'></i> 
           <span class="link_name">Complaint Report Management</span>
         </a>
         {{-- <ul class="sub-menu blank">
-          <li><a class="link_name" href="{{ route('team.complaintreport') }}">Complaint Report Management</a></li>
+          <li><a class="link_name" href="{{ route('investigator.complaintreport') }}">Complaint Report Management</a></li>
         </ul> --}}
       </li>
       <li>

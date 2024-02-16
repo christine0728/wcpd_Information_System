@@ -10,7 +10,7 @@
         <div class="info">
             <a class="d-block">
                 <img src="{{ asset('images/default.png') }}" alt="Default Image" class="img-thumbnail" style="max-width: 50px; max-height: 50px;">
-                {{ Auth::guard('team')->user()->username }}
+                {{ Auth::guard('account')->user()->firstname }} {{ Auth::guard('account')->user()->lastname }}
             </a>
         </div>
     </div>
@@ -67,7 +67,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="{{ route('team.complaintreport')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                <a href="{{ route('investigator.complaintreport')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                     <i class="nav-icon fas fa-th"></i>
                     <p>
                         {{ __('Complaint Report Management') }}
@@ -76,7 +76,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="{{ route('team.offensesmanagement')}}"  class="nav-link {{ request()->is('librarymanpower') ? 'text-primary' : 'text-dark' }}">
+                <a href="{{ route('investigator.offensesmanagement')}}"  class="nav-link {{ request()->is('librarymanpower') ? 'text-primary' : 'text-dark' }}">
                     <i class="nav-icon far fa-address-card"></i>
                     <p>
                         {{ __('Update Types of Offenses') }}

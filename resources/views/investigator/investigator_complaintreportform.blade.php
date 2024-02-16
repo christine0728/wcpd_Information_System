@@ -132,7 +132,7 @@
     <div class="container row" style="margin-top: -1rem">
         <div class="header" style="background-color: white;">  
             <div class="col-12">
-                <form action="{{ route('team.add_complaint') }}" class="employee-form" method="post">
+                <form action="{{ route('investigator.add_complaint') }}" class="employee-form" method="post">
                     @csrf
                     <div class="row">
                         <div class="form-section">  
@@ -160,11 +160,17 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">8. Offenses Committed: </label>
-                                        <select class="form-control" name="offenses" multiple>
-                                            @foreach ($offenses as $offense)
+                                        <select class="form-control" name="offenses[]" multiple> 
+                                            <option value="Offense 1">Offense 1</option>
+                                            <option value="Offense 2">Offense 2</option>
+                                            <option value="Offense 3">Offense 3</option>
+                                            <option value="Offense 4">Offense 4</option>
+                                            <option value="Offense 5">Offense 5</option>
+                                            <option value="Offense 6">Offense 6</option>
+                                            {{-- @foreach ($offenses as $offense)
                                             <option>Select offense</option>
                                             <option value="{{ $offense->offense_name }}">{{ $offense->offense_name }}</option>
-                                            @endforeach 
+                                            @endforeach  --}}
                                         </select>
                                     </div> 
                                 </div>
@@ -268,7 +274,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">16. Present Address: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_present_addr" oninput="toUpper(this)">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_present_addr" oninput="toUpper(this)" pattern="[a-zA-Z0-9]+">
                                     </div> 
                                 </div>
                             </div>
@@ -390,7 +396,7 @@
                                             <option value="hsgrad">HS Graduate</option>
                                             <option value="collegegrad">College Graduate</option>
                                             <option value="postgrad">Post Graduate</option>
-                                            <option value="Others2">Others  </option> 
+                                            <option value="Others2">Others</option> 
                                         </select>
                                         <div id="div2" style="margin-top: 1rem"></div>
                                     </div> 
@@ -564,49 +570,56 @@
 
     <script> 
         $(function(){
-            var $sections = $('.form-section'); 
-            var $navLinks = $('.nav-link');
-            
-            function navigateTo(index){ 
-                $sections.removeClass('current').eq(index).addClass('current'); 
-                 
-                $navLinks.removeClass('active');
-                $navLinks.eq(index).addClass('active');
-                
-                $('.form-navigation .previous').toggle(index > 0);
-                var atTheEnd = index >= $sections.length - 1;
-                $('.form-navigation .next').toggle(!atTheEnd);
-                $('.form-navigation [type=submit]').toggle(atTheEnd); 
+    var $sections = $('.form-section'); 
+    var $navLinks = $('.nav-link');
+    
+    function navigateTo(index){ 
+        $sections.removeClass('current').eq(index).addClass('current'); 
+        
+        $navLinks.removeClass('active');
+        $navLinks.eq(index).addClass('active');
+        
+        $('.form-navigation .previous').toggle(index > 0);
+        var atTheEnd = index >= $sections.length - 1;
+        $('.form-navigation .next').toggle(!atTheEnd);
+        $('.form-navigation [type=submit]').toggle(atTheEnd); 
 
-                $('html, body').scrollTop(0);
-            }
-    
-            function curIndex(){ 
-                return $sections.index($sections.filter('.current'));
-            }
-    
-            $('.form-navigation .previous').click(function(){
-                var currentIndex = curIndex();
-                if (currentIndex > 0) {
-                    navigateTo(currentIndex - 1);
-                }
-            });
-    
-            $('.form-navigation .next').click(function(){
-                var currentIndex = curIndex();
-                $('.employee-form').parsley().whenValidate({
-                    group:'block-'+currentIndex
-                }).done(function(){
-                    navigateTo(currentIndex + 1);
-                });
-            });
-    
-            $sections.each(function(index, section){
-                $(section).find(':input').attr('data-parsley-group', 'block-'+index);
-            });
-    
-            navigateTo(0); 
-        }); 
+        $('html, body').scrollTop(0);
+    }
+
+    function curIndex(){ 
+        return $sections.index($sections.filter('.current'));
+    }
+
+    // Function to handle navigation when nav-link is clicked
+    $navLinks.click(function() {
+        var index = $(this).index(); // Get the index of the clicked nav-link
+        navigateTo(index);
+    });
+
+    $('.form-navigation .previous').click(function(){
+        var currentIndex = curIndex();
+        if (currentIndex > 0) {
+            navigateTo(currentIndex - 1);
+        }
+    });
+
+    $('.form-navigation .next').click(function(){
+        var currentIndex = curIndex();
+        $('.employee-form').parsley().whenValidate({
+            group:'block-'+currentIndex
+        }).done(function(){
+            navigateTo(currentIndex + 1);
+        });
+    });
+
+    $sections.each(function(index, section){
+        $(section).find(':input').attr('data-parsley-group', 'block-'+index);
+    });
+
+    navigateTo(0); 
+});
+
         
         function showfield(name){
             if(name=='Others')document.getElementById('div1').innerHTML='Pls. specify: <input type="text" name="others" class="form-control" />';

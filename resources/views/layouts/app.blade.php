@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
     <link rel="icon" href="{{ url('asset/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=10">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -32,10 +33,8 @@
          <!-- Right navbar links -->
          <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
-                 USERNAME
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" style="left: inherit; right: 0px;">
+                <a class="link-buttons" href="{{ route('logging_in') }}" style="float: left;">Logout&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right-from-bracket"></i> </a> 
+                {{-- <div class="dropdown-menu dropdown-menu-right" style="left: inherit; right: 0px;">
                     <a href="" class="dropdown-item">
                         <i class="mr-2 fas fa-file"></i>
                         {{ __('My profile') }}
@@ -49,7 +48,7 @@
                             {{ __('Logout') }}
                         </a>
                     </form>
-                </div>
+                </div> --}}
             </li>
         </ul>
     </nav>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Account;
 use App\Models\ComplaintReport;
 use App\Models\Employee;
 use App\Models\Offense;
@@ -18,19 +19,26 @@ class HomeController extends Controller
         return view('login_view');
     }
 
-    public function login(Request $request){
-
+    public function login(Request $request){ 
         $username = $request->input('username');
         $check = $request->all();
 
-        if(Auth::guard('team')->attempt(['username' => $check['username'], 'password' => $check['password']])){
-            if (Auth::guard('team')->check()) {
+        if(Auth::guard('account')->attempt(['username' => $check['username'], 'password' => $check['password']])){
+            if (Auth::guard('account')->check()) {
                 $pw = $check['password'];
 
-                $accepted = Team::select('*')->where('username', $username)
+                $accepted = Account::select('*')->where('username', $username) 
                     ->first();
-                // dd('dito dashboard');
-                return redirect()->route('team.dashboard');
+
+                $stat = $accepted->acc_status;
+
+                if ($stat == 'superadmin'){
+                    dd('dito superadmin');
+                }
+                if ($stat == 'investigator'){
+                    // dd('dito investigator');
+                    return redirect()->route('investigator.dashboard')->with('error', 'investigator account logged in successfully');
+                } 
             } else {
                 dd('User not authenticated');
             }
@@ -42,18 +50,18 @@ class HomeController extends Controller
 
     public function logout()
     {
-        Auth::guard('team')->logout();
-        return redirect()->route('login_form')->with('success', 'Team account logged out successfully');
+        Auth::guard('account')->logout();
+        return redirect()->route('login_form')->with('success', 'Account logged out successfully');
     }
 
     public function dashboard()
     {
-        return view('team.team_dashboard');
+        return view('investigator.investigator_dashboard');
     }
 
     public function testing()
     {
-        return view('team.testing');
+        return view('investigator.testing');
     }
 
     public function store(Request $request)
@@ -64,19 +72,19 @@ class HomeController extends Controller
 
     public function complaintreportmngt()
     {
-        $author_id = Auth::guard('team')->user()->id;
-        $comps = ComplaintReport::join('teams', 'teams.id', '=', 'complaint_reports.complaint_report_author')
-        ->select('teams.id as teamid', 'teams.username', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'complaint_reports.victim_family_name', 'complaint_reports.victim_firstname', 'complaint_reports.victim_middlename', 'complaint_reports.victim_sex', 'complaint_reports.victim_age', 'complaint_reports.victim_docs_presented', 'complaint_reports.offender_firstname', 'complaint_reports.offender_family_name', 'complaint_reports.offender_middlename', 'complaint_reports.offender_sex', 'complaint_reports.offender_age', 'complaint_reports.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')->where('complaint_report_author', $author_id)
+        $author_id = Auth::guard('account')->user()->id;
+        $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
+        ->select('accounts.id as accountid', 'accounts.username', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'complaint_reports.victim_family_name', 'complaint_reports.victim_firstname', 'complaint_reports.victim_middlename', 'complaint_reports.victim_sex', 'complaint_reports.victim_age', 'complaint_reports.victim_docs_presented', 'complaint_reports.offender_firstname', 'complaint_reports.offender_family_name', 'complaint_reports.offender_middlename', 'complaint_reports.offender_sex', 'complaint_reports.offender_age', 'complaint_reports.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')->where('complaint_report_author', $author_id)
         ->where('status', 'notdeleted')
         ->orderBy('complaint_reports.id', 'DESC') 
         ->get();
-        return view('team.team_complaintreportmngt', ['comps'=>$comps]);
+        return view('investigator.investigator_complaintreportmngt', ['comps'=>$comps]);
     }
 
     public function complaintreport_form()
     {
         $offenses = Offense::get();
-        return view('team.team_complaintreportform', ['offenses'=>$offenses]);
+        return view('investigator.investigator_complaintreportform', ['offenses'=>$offenses]);
     }
 
     public function index()
@@ -84,7 +92,7 @@ class HomeController extends Controller
         // Define options
         $options = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5'];
 
-        return view('team.testing', compact('options'));
+        return view('investigator.testing', compact('options'));
     }
 
     public function submit(Request $request)
@@ -98,9 +106,9 @@ class HomeController extends Controller
 
     public function offensesmngt()
     {
-        $author_id = Auth::guard('team')->user()->id;
+        $author_id = Auth::guard('investigator')->user()->id;
         $offenses = Offense::select('*') 
         ->get();
-        return view('team.team_offensesmngt', ['offenses'=>$offenses]);
+        return view('investigator.investigator_offensesmngt', ['offenses'=>$offenses]);
     }
 }
