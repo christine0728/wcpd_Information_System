@@ -34,7 +34,7 @@ class PDFController extends Controller
         $name = Auth::guard('team')->user()->name;
         $rundate = Carbon::now();
  
-        $pdf->loadView('team.team_complaintreportpdf', ['rundate'=>$rundate, 'comps'=>$comps]);
+        $pdf->loadView('investigator.team_complaintreportpdf', ['rundate'=>$rundate, 'comps'=>$comps]);
  
         return $pdf->stream('complaint_report.pdf'); 
     }

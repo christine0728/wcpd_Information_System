@@ -42,7 +42,15 @@ return [
         ],
         'team' => [
             'driver' => 'session',
-            'provider' => 'teams', //admins is the table name sa dbase
+            'provider' => 'teams',
+        ],
+        'superadmin' => [
+            'driver' => 'session',
+            'provider' => 'super_admins', 
+        ],
+        'account' => [
+            'driver' => 'session',
+            'provider' => 'accounts', 
         ],
     ],
 
@@ -72,7 +80,14 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Team::class,
         ],
-
+        'super_admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\SuperAdmin::class,
+        ],
+        'accounts' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Account::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
