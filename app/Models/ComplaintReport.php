@@ -32,6 +32,7 @@ class ComplaintReport extends Model
         'victim_employment_info_occupation',
         'victim_docs_presented',
         'victim_contactperson_addr_con_num',
+        'victim_image',
         'offender_firstname',
         'offender_family_name',
         'offender_middlename',

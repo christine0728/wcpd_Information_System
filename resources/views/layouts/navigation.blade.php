@@ -19,14 +19,26 @@
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
             data-accordion="false">
-            <li class="nav-item">
+            @if (Auth::guard('account')->user()->acc_type == 'superadmin')
+                <li class="nav-item"> 
+                    <a href="{{ route('superadmin.dashboard') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            {{ __('Dashboard') }}
+                        </p>
+                    </a>
+                </li>
+
+            @elseif (Auth::guard('account')->user()->acc_type == 'investigator' )<li class="nav-item">
                 <a href="" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                     <i class="nav-icon fas fa-th"></i>
                     <p>
-                        {{ __('Dashboard') }}
+                        {{ __('Dashboarddd') }}
                     </p>
                 </a>
             </li>
+
+            @endif
 
             <li class="nav-item">
                 <a href="#" class="nav-link">
@@ -100,14 +112,41 @@
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a href="" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                    <i class="nav-icon fas fa-th"></i>
-                    <p>
-                        {{ __('Team Account Management') }}
-                    </p>
-                </a>
-            </li>
+            @if (Auth::guard('account')->user()->acc_type == 'superadmin')
+                <li class="nav-item">
+                    <a href="" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            {{ __('Account Management') }}
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+
+                    <ul class="nav nav-treeview" style="display: none;">
+
+                        <li class="nav-item">
+                            <a href="{{ route('superadmin.inv_account_mngt') }}"  class="nav-link {{ request()->is('filipiniana') ? 'text-primary' : 'text-dark' }}">
+                                <p>Investigator Account Mngt.</p>
+                            </a>
+                        </li>
+    
+                        <li class="nav-item">
+                            <a href="{{ route('superadmin.superadmin_account_mngt', Auth::guard('account')->user()->id) }}"  class="nav-link {{ request()->is('filipiniana') ? 'text-primary' : 'text-dark' }}">
+                                <p>Super Admin Account Mngt.</p>
+                            </a>
+                        </li> 
+                    </ul>
+                </li>
+            @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
+                <li class="nav-item">
+                    <a href="" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            {{ __('Team Account Management') }}
+                        </p>
+                    </a>
+                </li>
+            @endif
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-cogs"></i> <!-- Updated icon for Administration -->

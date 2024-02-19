@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('username')->unique();
             $table->string('password');
-            $table->string('acc_status');
+            $table->string('acc_type');
             $table->string('team');
             $table->timestamps();
         });

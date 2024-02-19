@@ -132,7 +132,7 @@
     <div class="container row" style="margin-top: -1rem">
         <div class="header" style="background-color: white;">  
             <div class="col-12">
-                <form action="{{ route('investigator.add_complaint') }}" class="employee-form" method="post">
+                <form action="{{ route('investigator.add_complaint') }}" class="employee-form" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="form-section">  
@@ -319,6 +319,14 @@
                                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_contactperson" oninput="toUpper(this)">
                                     </div> 
                                 </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="image">Upload Image:</label>
+                                        <input type="file" class="form-control-file" id="file" name="vic_image" accept="image/*" onchange="previewImage(this)">
+                                    </div>
+
+                                    <div id="imagePreview"></div>
+                                </div>
                             </div>
                         </div>
 
@@ -461,6 +469,14 @@
                                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim" oninput="toUpper(this)">
                                     </div>
                                 </div> 
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="image">Upload Offender's Image:</label>
+                                        <input type="file" class="form-control-file" id="file" name="off_image" accept="image/*" onchange="previewImage(this)">
+                                    </div>
+
+                                    <div id="imagePreview"></div>
+                                </div>
                             </div>
                         </div>
 
@@ -650,6 +666,23 @@
             let value = input.value; 
             value = value.toUpperCase(); 
             input.value = value;
+        }
+
+        function previewImage(input) {
+            var previewContainer = document.getElementById('imagePreview');
+            var file = input.files[0];
+
+            if (file) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    previewContainer.innerHTML = '<img src="' + e.target.result + '" class="img-thumbnail" style="max-width:25%; max-height:25%;">';
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                previewContainer.innerHTML = '';
+            }
         }
     </script>
     

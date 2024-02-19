@@ -30,10 +30,11 @@ class HomeController extends Controller
                 $accepted = Account::select('*')->where('username', $username) 
                     ->first();
 
-                $stat = $accepted->acc_status;
+                $stat = $accepted->acc_type;
 
                 if ($stat == 'superadmin'){
-                    dd('dito superadmin');
+                    // dd('dito superadmin');
+                    return redirect()->route('superadmin.dashboard')->with('error', 'investigator account logged in successfully');
                 }
                 if ($stat == 'investigator'){
                     // dd('dito investigator');
@@ -75,7 +76,7 @@ class HomeController extends Controller
         $author_id = Auth::guard('account')->user()->id;
         $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
         ->select('accounts.id as accountid', 'accounts.username', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'complaint_reports.victim_family_name', 'complaint_reports.victim_firstname', 'complaint_reports.victim_middlename', 'complaint_reports.victim_sex', 'complaint_reports.victim_age', 'complaint_reports.victim_docs_presented', 'complaint_reports.offender_firstname', 'complaint_reports.offender_family_name', 'complaint_reports.offender_middlename', 'complaint_reports.offender_sex', 'complaint_reports.offender_age', 'complaint_reports.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')->where('complaint_report_author', $author_id)
-        ->where('status', 'notdeleted')
+        ->where('complaint_reports.status', 'notdeleted')
         ->orderBy('complaint_reports.id', 'DESC') 
         ->get();
         return view('investigator.investigator_complaintreportmngt', ['comps'=>$comps]);

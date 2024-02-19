@@ -25,9 +25,9 @@ Route::get('/', function () {
 
 Route::get('/login', [HomeController::class, 'login_view'])->name('login_form');
 Route::post('/login_account', [HomeController::class, 'login'])->name('logging_in');
+Route::get('/logout', [HomeController::class, 'logout'])->name('logout');
 
 Route::prefix('investigator')->group(function(){
-    Route::get('/logout', [HomeController::class, 'logout'])->name('investigator.logout');
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('investigator.dashboard');
     Route::get('/complaintreportmanagement', [HomeController::class, 'complaintreportmngt'])->name('investigator.complaintreport');
     Route::get('/complaintreport_form', [HomeController::class, 'complaintreport_form'])->name('investigator.complaintreport_form');
@@ -50,5 +50,14 @@ Route::post('/submit', [HomeController::class, 'submit'])->name('submit');
 
 Route::prefix('superadmin')->group(function(){
     Route::post('/add_teamaccount', [SuperAdminController::class, 'add_superadmin'])->name('superadmin.add_teamaccount');
-    Route::post('/add_investigatort', [SuperAdminController::class, 'add_investigator'])->name('superadmin.add_investigator'); 
+    Route::post('/add_investigator', [SuperAdminController::class, 'add_investigator'])->name('superadmin.add_investigator'); 
+
+    Route::get('/dashboard', [SuperAdminController::class, 'dashboard'])->name('superadmin.dashboard');
+    Route::get('/inv_accountmngt', [SuperAdminController::class, 'inv_account_management'])->name('superadmin.inv_account_mngt');
+    Route::get('/superadmin_accountmngt/{id}', [SuperAdminController::class, 'superadmin_account_management'])->name('superadmin.superadmin_account_mngt');
+    Route::post('/change_team/{accid}', [SuperAdminController::class, 'change_team'])->name('superadmin.change_team');
+    Route::post('/change_status/{accid}', [SuperAdminController::class, 'change_status'])->name('superadmin.change_status');
+
+    Route::get('/change_password', [SuperAdminController::class, 'change_password'])->name('superadmin.change_password');
+    Route::post('/changing_password', [SuperAdminController::class, 'changing_password'])->name('superadmin.changing_password');
 });
