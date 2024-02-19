@@ -33,7 +33,7 @@
          <!-- Right navbar links -->
          <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
-                <a class="link-buttons" href="{{ route('logging_in') }}" style="float: left;">Logout&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right-from-bracket"></i> </a> 
+                <a class="link-buttons" href="{{ route('logout') }}" style="float: left;">Logout&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right-from-bracket"></i> </a> 
                 {{-- <div class="dropdown-menu dropdown-menu-right" style="left: inherit; right: 0px;">
                     <a href="" class="dropdown-item">
                         <i class="mr-2 fas fa-file"></i>

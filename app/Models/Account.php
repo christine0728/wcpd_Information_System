@@ -19,7 +19,8 @@ class Account extends Authenticatable
         'lastname',
         'username',
         'password', 
-        'acc_status',
+        'acc_type',
         'team',
+        'status',
     ];
 }

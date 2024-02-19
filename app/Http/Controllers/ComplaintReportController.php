@@ -71,6 +71,16 @@ class ComplaintReportController extends Controller
             $sus_dispo = $request->input('sus_disposition');
         }
 
+        if ($request->hasFile('vic_image')) {
+            $file = $request->file('vic_image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('images/victims/', $filename);
+        } else {
+            return redirect()->back();
+        }
+        // $book->image = $filename;
+
         $user = ComplaintReport::create([
             'complaint_report_author' => $currentUserId,
             'date_reported' => $request->input('datetime_commission'),
@@ -92,6 +102,7 @@ class ComplaintReportController extends Controller
             'victim_employment_info_occupation' => $request->input('vic_occupation'),
             'victim_docs_presented' => $request->input('docs_presented'),
             'victim_contactperson_addr_con_num' => $request->input('vic_contactperson'),
+            'victim_image' => $filename,
             'offender_firstname' => $request->input('off_firstname'),
             'offender_family_name' => $request->input('off_familyname'),
             'offender_middlename' => $request->input('off_middlename'),

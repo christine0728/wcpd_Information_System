@@ -31,10 +31,10 @@ class PDFController extends Controller
         // Create the DOMPDF instance with the custom options
         $pdf = app('dompdf.wrapper', ['options' => $options]);
 
-        $name = Auth::guard('team')->user()->name;
+        $name = Auth::guard('account')->user()->firstname;
         $rundate = Carbon::now();
  
-        $pdf->loadView('investigator.team_complaintreportpdf', ['rundate'=>$rundate, 'comps'=>$comps]);
+        $pdf->loadView('investigator.investigator_complaintreportpdf', ['rundate'=>$rundate, 'comps'=>$comps]);
  
         return $pdf->stream('complaint_report.pdf'); 
     }

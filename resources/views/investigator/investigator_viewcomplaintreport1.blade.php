@@ -269,6 +269,11 @@
                                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_contactperson" value="{{ $comp->victim_contactperson_addr_con_num }}" readonly>
                                 </div> 
                             </div>
+                            @if($comp->victim_image)
+                                <img src="{{ asset('images/victims/' . $comp->victim_image) }}" alt="{{ $comp->vic_firstname }}" class="img-thumbnail" style="max-width: 25%; max-height: 25%;">
+                            @else
+                                No Image
+                            @endif
                         </div>
                     </div>
 
