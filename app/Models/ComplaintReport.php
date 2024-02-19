@@ -46,6 +46,7 @@ class ComplaintReport extends Model
         'offender_employment_info_occupation',
         'offender_last_known_addr',
         'offender_relationship_victim',
+        'offender_image',
         'evidence_motive_cause',
         'evidence_influence_of',
         'case_disposition',
