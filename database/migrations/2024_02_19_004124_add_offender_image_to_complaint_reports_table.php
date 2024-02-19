@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('complaint_reports', function (Blueprint $table) {
-            //
+            $table->string('offender_image')->default('no image')->after('offender_relationship_victim');
         });
     }
 

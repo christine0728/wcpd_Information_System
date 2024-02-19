@@ -33,7 +33,7 @@
                 <a href="" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                     <i class="nav-icon fas fa-th"></i>
                     <p>
-                        {{ __('Dashboarddd') }}
+                        {{ __('Dashboard') }}
                     </p>
                 </a>
             </li>
@@ -95,14 +95,26 @@
                     </p>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+            @if (Auth::guard('account')->user()->acc_type == 'superadmin')
+                <li class="nav-item"> 
+                    <a href="{{ route('superadmin.dashboard') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            {{ __('Victims Management') }}
+                        </p>
+                    </a>
+                </li>
+
+            @elseif (Auth::guard('account')->user()->acc_type == 'investigator' )<li class="nav-item">
+                <a href="{{ route('investigator.victims_mngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                     <i class="nav-icon fas fa-th"></i>
                     <p>
                         {{ __('Victims Management') }}
                     </p>
                 </a>
             </li>
+
+            @endif
             <li class="nav-item">
                 <a href="" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                     <i class="nav-icon fas fa-th"></i>

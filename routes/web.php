@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ComplaintReportController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InvestigatorController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\SuperAdminController;
 use App\Models\SuperAdmin;
@@ -23,14 +23,14 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/login', [HomeController::class, 'login_view'])->name('login_form');
-Route::post('/login_account', [HomeController::class, 'login'])->name('logging_in');
-Route::get('/logout', [HomeController::class, 'logout'])->name('logout');
+Route::get('/login', [InvestigatorController::class, 'login_view'])->name('login_form');
+Route::post('/login_account', [InvestigatorController::class, 'login'])->name('logging_in');
+Route::get('/logout', [InvestigatorController::class, 'logout'])->name('logout');
 
 Route::prefix('investigator')->group(function(){
-    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('investigator.dashboard');
-    Route::get('/complaintreportmanagement', [HomeController::class, 'complaintreportmngt'])->name('investigator.complaintreport');
-    Route::get('/complaintreport_form', [HomeController::class, 'complaintreport_form'])->name('investigator.complaintreport_form');
+    Route::get('/dashboard', [InvestigatorController::class, 'dashboard'])->name('investigator.dashboard');
+    Route::get('/complaintreportmanagement', [InvestigatorController::class, 'complaintreportmngt'])->name('investigator.complaintreport');
+    Route::get('/complaintreport_form', [InvestigatorController::class, 'complaintreport_form'])->name('investigator.complaintreport_form');
 
     Route::post('/add_complaint', [ComplaintReportController::class, 'add_complaint'])->name('investigator.add_complaint');
     Route::get('/view_complaintreport/{comp_id}', [ComplaintReportController::class, 'view_complaintreport'])->name('investigator.view_complaintreport');
@@ -40,12 +40,13 @@ Route::prefix('investigator')->group(function(){
 
     Route::get('/complaintreport_pdf/{comp_id}', [PDFController::class, 'complaint_pdf'])->name('investigator.complaint_pdf');
 
-    Route::get('/offensesmanagement', [HomeController::class, 'offensesmngt'])->name('investigator.offensesmanagement');
+    Route::get('/offensesmanagement', [InvestigatorController::class, 'offensesmngt'])->name('investigator.offensesmanagement');
+    Route::get('/victims_management', [InvestigatorController::class, 'victimsmngt'])->name('investigator.victims_mngt');
 
-    Route::get('/testing', [HomeController::class, 'testing'])->name('investigator.testing');
-    Route::post('/store', [HomeController::class, 'store'])->name('investigator.store');
-    Route::get('/testing1', [HomeController::class, 'index']);
-Route::post('/submit', [HomeController::class, 'submit'])->name('submit');
+    Route::get('/testing', [InvestigatorController::class, 'testing'])->name('investigator.testing');
+    Route::post('/store', [InvestigatorController::class, 'store'])->name('investigator.store');
+    Route::get('/testing1', [InvestigatorController::class, 'index']);
+Route::post('/submit', [InvestigatorController::class, 'submit'])->name('submit');
 });
 
 Route::prefix('superadmin')->group(function(){

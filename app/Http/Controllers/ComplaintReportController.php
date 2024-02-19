@@ -72,14 +72,22 @@ class ComplaintReportController extends Controller
         }
 
         if ($request->hasFile('vic_image')) {
-            $file = $request->file('vic_image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $file->move('images/victims/', $filename);
+            $vic_file = $request->file('vic_image');
+            $vic_extension = $vic_file->getClientOriginalExtension();
+            $vic_filename = time() . '.' . $vic_extension;
+            $vic_file->move('images/victims/', $vic_filename);
         } else {
-            return redirect()->back();
+            $vic_filename = 'no image';
         }
-        // $book->image = $filename;
+        
+        if ($request->hasFile('off_image')) {
+            $off_file = $request->file('off_image');
+            $off_extension = $off_file->getClientOriginalExtension();
+            $off_filename = time() . '.' . $off_extension;
+            $off_file->move('images/offenders/', $off_filename);
+        } else {
+            $off_filename = 'no image';
+        }
 
         $user = ComplaintReport::create([
             'complaint_report_author' => $currentUserId,
@@ -102,7 +110,7 @@ class ComplaintReportController extends Controller
             'victim_employment_info_occupation' => $request->input('vic_occupation'),
             'victim_docs_presented' => $request->input('docs_presented'),
             'victim_contactperson_addr_con_num' => $request->input('vic_contactperson'),
-            'victim_image' => $filename,
+            'victim_image' => $vic_filename,
             'offender_firstname' => $request->input('off_firstname'),
             'offender_family_name' => $request->input('off_familyname'),
             'offender_middlename' => $request->input('off_middlename'),
@@ -117,6 +125,7 @@ class ComplaintReportController extends Controller
             'offender_employment_info_occupation' => $request->input('off_occupation'),
             'offender_last_known_addr' => $request->input('off_last_addr'),
             'offender_relationship_victim' => $request->input('rel_to_victim'),
+            'offender_image' => $off_filename,
             'evidence_motive_cause' => $request->input('evi_motive'),
             'evidence_influence_of' => $influence,
             'case_disposition' => $dispo,
