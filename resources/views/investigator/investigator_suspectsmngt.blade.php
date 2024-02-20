@@ -18,7 +18,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Victims Management</title>
+        <title>Suspects Management</title>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <link rel="icon" href="{{ url('images/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
@@ -62,7 +62,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2"> 
                          <div class="col-6">
-                            <h1 class="m-0" style="font-weight: bold">{{ __('Victims Management') }}</h1>
+                            <h1 class="m-0" style="font-weight: bold">{{ __('Suspects Management') }}</h1>
                         </div> 
                     </div>
                 </div>
@@ -96,55 +96,38 @@
                                     <tr> 
                                         {{-- <th>View</th> --}}
                                         <th>Image</th>
-                                        <th>Fullname</th>
-                                        <th>Sex</th>
+                                        <th>Fullname</th> 
                                         <th>Age</th>
-                                        <th>Civil Status</th>
-                                        <th>Present Address</th>
-                                        <th>Guardian Name</th>
-                                        <th>Contact Person</th> 
+                                        <th>Previous Criminal Record/s</th>
+                                        <th>Last Known Address</th>
+                                        <th>Relationship to Victim</th>
                                         <th>Date Reported</th>
-                                        <th>Offenses</th> 
-                                        <th>Case Updated</th>
+                                        <th>Offenses</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody> 
                                     @foreach ($comps as $comp)  
-                                    <tr>  
-                                        {{-- <td>
-                                            <center>
-                                                <a class="view-btn" href="{{ route('investigator.view_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
-                                            </center>
-                                        </td> --}}  
+                                    <tr>   
                                         <td> 
-                                            @if($comp->victim_image)
-                                            <img src="{{ asset('images/victims/' . $comp->victim_image) }}" alt="{{ $comp->victim_firstname }}" class="img-thumbnail" style="max-width: 110px; max-height: 110px;">
+                                            @if($comp->offender_image)
+                                            <img src="{{ asset('images/offenders/' . $comp->offender_image) }}" alt="{{ $comp->offender_firstname }}" class="img-thumbnail" style="max-width: 110px; max-height: 110px;">
                                             @else
                                                 No Image
                                             @endif
                                         </td>
-                                        <td>{{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}</td>
-                                        <td>{{ $comp->victim_sex }}</td> 
-                                        <td>{{ $comp->victim_age }}</td>
-                                        <td>{{ $comp->victim_civil_status }}</td>
-                                        <td>{{ $comp->victim_present_address }}</td>
-                                        <td>{{ $comp->victim_parents_guardian_name }}</td>
-                                        <td>{{ $comp->victim_contactperson_addr_con_num }}</td>
+                                        <td>{{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}</td>
+                                        <td>{{ $comp->offender_age }}</td>
+                                        <td>{{ $comp->offender_prev_criminal_rec }}</td>
+                                        <td>{{ $comp->offender_last_known_addr }}</td>
+                                        <td>{{ $comp->offender_relationship_victim }}</td> 
                                         <td>{{ $comp->date_reported }}</td>
-                                        <td>{{ $comp->offenses }}</td> 
-                                        <td> 
-                                            @if ($comp->case_update == null) 
-                                                Case not updated yet.
-                                            @else
-                                                {{ $comp->case_update }}
-                                            @endif
-                                        </td> 
+                                        <td>{{ $comp->offenses }}</td>  
                                         <td>
                                         <center> 
                                             <a class="view-btn" href="{{ route('investigator.view_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View Case<i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
                                                 
-                                            <a class="view-btn" href="{{ route('investigator.victim_profile', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View Profile<i class="fa-regular fa-user" style="font-size: large; padding: 0.5rem"></i></a> 
+                                            <a class="view-btn" href="{{ route('investigator.offender_profile', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View Profile<i class="fa-regular fa-user" style="font-size: large; padding: 0.5rem"></i></a> 
 
                                             <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', $comp->id) }}">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a>  
                                         </center>

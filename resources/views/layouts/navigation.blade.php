@@ -17,8 +17,7 @@
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-            data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             @if (Auth::guard('account')->user()->acc_type == 'superadmin')
                 <li class="nav-item"> 
                     <a href="{{ route('superadmin.dashboard') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
@@ -30,17 +29,35 @@
                 </li>
 
             @elseif (Auth::guard('account')->user()->acc_type == 'investigator' )<li class="nav-item">
-                <a href="" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                <a href="{{ route('investigator.dashboard') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                     <i class="nav-icon fas fa-th"></i>
                     <p>
                         {{ __('Dashboard') }}
                     </p>
                 </a>
-            </li>
-
+            </li> 
             @endif
 
-            <li class="nav-item">
+            @if (Auth::guard('account')->user()->acc_type == 'superadmin')
+                <li class="nav-item"> 
+                    <a href="{{ route('superadmin.dashboard') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            {{ __('All Records') }}
+                        </p>
+                    </a>
+                </li>
+
+            @elseif (Auth::guard('account')->user()->acc_type == 'investigator' )<li class="nav-item">
+                <a href="{{ route('investigator.allrecords') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>
+                        {{ __('All Records') }}
+                    </p>
+                </a>
+            </li> 
+            @endif
+            {{-- <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-cogs"></i> <!-- Updated icon for Administration -->
                     <p>
@@ -76,7 +93,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
 
             <li class="nav-item">
                 <a href="{{ route('investigator.complaintreport')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
@@ -116,7 +133,7 @@
 
             @endif
             <li class="nav-item">
-                <a href="" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                <a href="{{ route('investigator.suspects_mngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                     <i class="nav-icon fas fa-th"></i>
                     <p>
                         {{ __('Suspects Management') }}
@@ -151,51 +168,14 @@
                 </li>
             @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
                 <li class="nav-item">
-                    <a href="" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                    <a href="{{ route('investigator.teamaccountmngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             {{ __('Team Account Management') }}
                         </p>
                     </a>
                 </li>
-            @endif
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-cogs"></i> <!-- Updated icon for Administration -->
-                    <p>
-                        {{ __('Collection Development') }}
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-
-                <ul class="nav nav-treeview" style="display: none;">
-
-                    <li class="nav-item">
-                        <a href=""  class="nav-link {{ request()->is('filipiniana') ? 'text-primary' : 'text-dark' }}">
-                            <p>Books</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#"  class="nav-link {{ request()->is('filipiniana') ? 'text-primary' : 'text-dark' }}">
-                            <p>Thesis and Dissertion</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href=""  class="nav-link {{ request()->is('subscribed_educ_dbase') ? 'text-primary' : 'text-dark' }}">
-                            <p>Subscribed Educational Databases</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href=""  class="nav-link {{ request()->is('open_educ_resources') ? 'text-primary' : 'text-dark' }}">
-                            <p>Open Educational Resources</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-
+            @endif 
         </ul> 
     </nav>
     <!-- /.sidebar-menu -->
