@@ -107,7 +107,7 @@ class InvestigatorController extends Controller
 
     public function offensesmngt()
     {
-        $author_id = Auth::guard('investigator')->user()->id;
+        $author_id = Auth::guard('account')->user()->id;
         $offenses = Offense::select('*') 
         ->get();
         return view('investigator.investigator_offensesmngt', ['offenses'=>$offenses]);
@@ -122,5 +122,42 @@ class InvestigatorController extends Controller
             ->orderBy('id', 'DESC') 
             ->get();
         return view('investigator.investigator_victimsmngt', ['comps'=>$comps]);
+    }
+
+    public function victim_profile($id)
+    { 
+        $comps = ComplaintReport::  
+            where('id', '=', $id)
+            ->get();
+        return view('investigator.investigator_viewvictimprofile', ['comps'=>$comps]);
+    }
+
+    public function suspectsmngt()
+    {
+        $author_id = Auth::guard('account')->user()->id;
+        $comps = ComplaintReport::
+            where('complaint_report_author', $author_id)
+            ->where('complaint_reports.status', 'notdeleted')
+            ->orderBy('id', 'DESC') 
+            ->get();
+        return view('investigator.investigator_suspectsmngt', ['comps'=>$comps]);
+    }
+
+    public function offender_profile($id)
+    { 
+        $comps = ComplaintReport::  
+            where('id', '=', $id)
+            ->get();
+        return view('investigator.investigator_viewoffenderprofile', ['comps'=>$comps]);
+    }
+
+    public function allrecords()
+    {
+        return view('investigator.investigator_allrecords');
+    }
+
+    public function teamaccountmngt()
+    {
+        return view('investigator.investigator_teamaccountmngt');
     }
 }

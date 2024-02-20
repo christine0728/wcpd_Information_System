@@ -42,6 +42,14 @@ Route::prefix('investigator')->group(function(){
 
     Route::get('/offensesmanagement', [InvestigatorController::class, 'offensesmngt'])->name('investigator.offensesmanagement');
     Route::get('/victims_management', [InvestigatorController::class, 'victimsmngt'])->name('investigator.victims_mngt');
+    Route::get('/suspects_management', [InvestigatorController::class, 'suspectsmngt'])->name('investigator.suspects_mngt');
+
+    Route::get('/victim_profile/{id}', [InvestigatorController::class, 'victim_profile'])->name('investigator.victim_profile');
+    Route::get('/offender_profile/{id}', [InvestigatorController::class, 'offender_profile'])->name('investigator.offender_profile');
+
+    Route::get('/allrecords', [InvestigatorController::class, 'allrecords'])->name('investigator.allrecords');
+
+    Route::get('/teamaccountmngt', [InvestigatorController::class, 'teamaccountmngt'])->name('investigator.teamaccountmngt');
 
     Route::get('/testing', [InvestigatorController::class, 'testing'])->name('investigator.testing');
     Route::post('/store', [InvestigatorController::class, 'store'])->name('investigator.store');
