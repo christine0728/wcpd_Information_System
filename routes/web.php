@@ -29,9 +29,9 @@ Route::get('/logout', [InvestigatorController::class, 'logout'])->name('logout')
 
 Route::prefix('investigator')->group(function(){
     Route::get('/dashboard', [InvestigatorController::class, 'dashboard'])->name('investigator.dashboard');
-    Route::get('/complaintreportmanagement', [InvestigatorController::class, 'complaintreportmngt'])->name('investigator.complaintreport');
-    Route::get('/complaintreport_form', [InvestigatorController::class, 'complaintreport_form'])->name('investigator.complaintreport_form');
 
+    Route::get('/complaintreportmanagement', [InvestigatorController::class, 'complaintreportmngt'])->name('investigator.complaintreport');
+    Route::get('/complaintreport_form', [InvestigatorController::class, 'complaintreport_form'])->name('investigator.complaintreport_form'); 
     Route::post('/add_complaint', [ComplaintReportController::class, 'add_complaint'])->name('investigator.add_complaint');
     Route::get('/view_complaintreport/{comp_id}', [ComplaintReportController::class, 'view_complaintreport'])->name('investigator.view_complaintreport');
     Route::get('/edit_complaintreport/{comp_id}', [ComplaintReportController::class, 'edit_complaintreport'])->name('investigator.edit_complaintreport');
@@ -69,4 +69,22 @@ Route::prefix('superadmin')->group(function(){
 
     Route::get('/change_password', [SuperAdminController::class, 'change_password'])->name('superadmin.change_password');
     Route::post('/changing_password', [SuperAdminController::class, 'changing_password'])->name('superadmin.changing_password');
+
+    Route::get('/victims_management', [SuperAdminController::class, 'victimsmngt'])->name('superadmin.victims_mngt');
+    Route::get('/suspects_management', [SuperAdminController::class, 'suspectsmngt'])->name('superadmin.suspects_mngt');
+
+    Route::get('/victim_profile/{id}', [SuperAdminController::class, 'victim_profile'])->name('superadmin.victim_profile');
+    Route::get('/offender_profile/{id}', [SuperAdminController::class, 'offender_profile'])->name('superadmin.offender_profile');
+
+    Route::get('/complaintreportmanagement', [SuperAdminController::class, 'complaintreportmngt'])->name('investigator.complaintreport');
+    Route::get('/complaintreport_form', [InvestigatorController::class, 'complaintreport_form'])->name('investigator.complaintreport_form'); 
+    Route::post('/add_complaint', [ComplaintReportController::class, 'add_complaint'])->name('investigator.add_complaint');
+    Route::get('/view_complaintreport/{comp_id}', [ComplaintReportController::class, 'view_complaintreport'])->name('investigator.view_complaintreport');
+    Route::get('/edit_complaintreport/{comp_id}', [ComplaintReportController::class, 'edit_complaintreport'])->name('investigator.edit_complaintreport');
+    Route::post('/update_form/{comp_id}', [ComplaintReportController::class, 'update_form'])->name('investigator.update_form');
+    Route::get('/delete_form/{comp_id}', [ComplaintReportController::class, 'delete_form'])->name('investigator.delete_form');
+
+    Route::get('/allrecords', [SuperAdminController::class, 'allrecords'])->name('superadmin.allrecords');
+
+    Route::get('/offensesmanagement', [SuperAdminController::class, 'offensesmngt'])->name('superadmin.offensesmanagement');
 });

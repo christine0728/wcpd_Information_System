@@ -3,9 +3,9 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>DASHBOARD</title>
+        <title>All Records</title>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-        <link rel="icon" href="{{ url('asset/favicon.ico') }}">
+        <link rel="icon" href="{{ url('images/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
         <style>
             body {
@@ -38,7 +38,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                          <div class="col-sm-6">
-                            <h1 class="m-0">{{ __('Dashboard') }}</h1>
+                            <h1 class="m-0">{{ __('All Records') }}</h1>
                         </div>
                     </div>
                 </div>
@@ -136,8 +136,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+            </div> 
             <!-- /.content -->
         @endsection
     </body>
