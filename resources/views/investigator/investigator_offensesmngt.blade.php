@@ -30,9 +30,9 @@
         <script src="https://kit.fontawesome.com/7528702e77.js" crossorigin="anonymous"></script>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.min.js"></script>
 
         <style> 
 
@@ -100,10 +100,9 @@
                                         <td>{{ $offense->description }}</td> 
                                         <td>{{ $offense->created_at }}</td>
                                         <td>
-                                        <center> 
-                                            <a class="case-btn" href=" ">&nbsp;&nbsp;&nbsp;Update Case <i class="fa-regular fa-file" style="font-size: large; padding: 0.5rem"></i></a>  
+                                        <center>  
                                             <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', $offense->id) }}">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
-                                            <a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href="{{ route('investigator.delete_form', $offense->id) }}">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a>
+                                            <a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href="{{ route('investigator.delete_offense', $offense->id) }}">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a>
                                         </center>
                                         </td>
                                     </tr> 
@@ -124,29 +123,31 @@
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add Offense</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Offense Name: </label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="offense_name" oninput="toUpper(this)">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add Offense</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Description: </label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="description" oninput="toUpper(this)">
-                        </div>
+                        <form action="{{ route('investigator.add_offense') }}" method="post">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Offense Name: </label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="offense_name" oninput="toUpper(this)">
+                                </div> 
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Description: </label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="description" oninput="toUpper(this)">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="form-buttons" data-dismiss="modal" style="background-color: red">Close&nbsp;&nbsp;<i class="fa-solid fa-xmark"></i></button>
+                                <button type="submit" class="form-buttons">Save Changes&nbsp;&nbsp;<i class="fa-solid fa-check"></i></button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="form-buttons" data-dismiss="modal" style="background-color: red">Close&nbsp;&nbsp;<i class="fa-solid fa-xmark"></i></button>
-                        <button type="button" class="form-buttons">Save Changes&nbsp;&nbsp;<i class="fa-solid fa-check"></i></button>
-                    </div>
-                </div>
                 </div>
             </div>
         @endsection

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Team Account Management</title>
+        <title>Account Management</title>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <link rel="icon" href="{{ url('images/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
@@ -39,7 +39,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                          <div class="col-sm-6">
-                            <h1 class="m-0">{{ __('Team Account Management') }}</h1>
+                            <h1 class="m-0">&nbsp;<b>{{ __('Account Management') }}</b></h1>
                         </div>
                     </div>
                 </div>

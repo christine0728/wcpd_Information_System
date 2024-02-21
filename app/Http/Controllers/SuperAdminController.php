@@ -178,6 +178,7 @@ class SuperAdminController extends Controller
     {
         $author_id = Auth::guard('account')->user()->id;
         $offenses = Offense::select('*') 
+        ->where('not_delete', '=', false)
         ->get();
         return view('investigator.investigator_offensesmngt', ['offenses'=>$offenses]);
     }

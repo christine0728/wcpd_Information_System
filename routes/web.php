@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\ComplaintReportController;
 use App\Http\Controllers\InvestigatorController;
+use App\Http\Controllers\OffensesController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\SuperAdminController;
+use App\Models\Offense;
 use App\Models\SuperAdmin;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +43,10 @@ Route::prefix('investigator')->group(function(){
     Route::get('/complaintreport_pdf/{comp_id}', [PDFController::class, 'complaint_pdf'])->name('investigator.complaint_pdf');
 
     Route::get('/offensesmanagement', [InvestigatorController::class, 'offensesmngt'])->name('investigator.offensesmanagement');
+    Route::get('/delete_offense/{id}', [OffensesController::class, 'delete'])->name('investigator.delete_offense');
+
+    Route::post('/add_offense', [OffensesController::class, 'add'])->name('investigator.add_offense');
+
     Route::get('/victims_management', [InvestigatorController::class, 'victimsmngt'])->name('investigator.victims_mngt');
     Route::get('/suspects_management', [InvestigatorController::class, 'suspectsmngt'])->name('investigator.suspects_mngt');
 
@@ -49,7 +55,7 @@ Route::prefix('investigator')->group(function(){
 
     Route::get('/allrecords', [InvestigatorController::class, 'allrecords'])->name('investigator.allrecords');
 
-    Route::get('/teamaccountmngt', [InvestigatorController::class, 'teamaccountmngt'])->name('investigator.teamaccountmngt');
+    Route::get('/accountmngt', [InvestigatorController::class, 'accountmngt'])->name('investigator.accountmngt');
 
     Route::get('/testing', [InvestigatorController::class, 'testing'])->name('investigator.testing');
     Route::post('/store', [InvestigatorController::class, 'store'])->name('investigator.store');
@@ -87,4 +93,6 @@ Route::prefix('superadmin')->group(function(){
     Route::get('/allrecords', [SuperAdminController::class, 'allrecords'])->name('superadmin.allrecords');
 
     Route::get('/offensesmanagement', [SuperAdminController::class, 'offensesmngt'])->name('superadmin.offensesmanagement');
+    Route::post('/add_offense', [OffensesController::class, 'add'])->name('superadmin.add_offense');
+    Route::get('/delete_offense/{id}', [OffensesController::class, 'delete'])->name('superadmin.delete_offense');
 });
