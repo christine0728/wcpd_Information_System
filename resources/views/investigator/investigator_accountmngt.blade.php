@@ -12,8 +12,7 @@
             body {
                 font-family: Arial, sans-serif;
             }
-
-
+ 
             .filter {
                 display: flex;
                 align-items: center;
@@ -46,94 +45,79 @@
             </div>
 
             <div class="content">
-                <div class="container-fluid">
+                <div class="container-fluid" >
                     <div class="row">
-                        <div class="col-lg-12">
-                            <div class="content">
-                                <div class="container-fluid">
-                                    {{-- <div class="row">
-                                        <div class="col-lg-12">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAdd">
-                                                <i class="fas fa-plus"></i> Add Activity
-                                            </button><br><br>
+                        <div class="col-lg-12">  
+                            <div class="card" style="overflow-x: auto; padding: 1rem">
+                                <div class="card-body p-1"> 
+                                    @foreach ($accs as $acc) 
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Firstname:</label>
+                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" value="{{ strtoupper($acc->firstname) }}" readonly style="font-weight: bold;">
+                                            </div> 
+                                        </div> 
+    
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Lastname:</label>
+                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" value="{{ strtoupper($acc->lastname) }}" readonly style="font-weight: bold;">
+                                            </div> 
+                                        </div> 
+    
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Username:</label>
+                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" value="{{ $acc->username }}" readonly style="font-weight: bold;">
+                                            </div> 
                                         </div>
-                                    </div> --}}
-                                    <!-- /.row -->
-                                </div><!-- /.container-fluid -->
-                            </div>
-                            {{-- <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg modal-dialog-scrollable">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="modalAddLabel">Add Announcement</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form method="post" action="{{ route('add_activity') }}">
-                                                @csrf
-                                                <div class="form-group">
-                                                    <label for="barcode">Activity title:</label>
-                                                    <input type="text" class="form-control" id="activity_title" name="activity_title" required placeholder="Enter the activity title">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="barcode">Status:</label>
-                                                    <input type="text" class="form-control" id="status" name="status" required placeholder="Enter the accession">
-                                                </div>
-                                        </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Add</button>
-                                            </div>
-                                        </form>
                                     </div>
-                                </div>
-                            </div>  --}}
+                                     
+                                    <div class="row" style="margin-top: -1rem">
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Account type:</label>
+                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" value="{{ strtoupper($acc->acc_type) }}" readonly style="font-weight: bold;">
+                                            </div> 
+                                        </div> 
+    
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Team:</label>
+                                                @if ($acc->team == 'team_a')
+                                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" value="TEAM A" readonly style="font-weight: bold;">
+                                                @elseif ($acc->team == 'team_b')
+                                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" value="TEAM B" readonly style="font-weight: bold;">
+                                                @endif
+                                            </div> 
+                                        </div> 
+    
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Status:</label>
+                                                @if ($acc->status == 'active')
+                                                <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="ACTIVE" style="background-color: palegreen; font-weight: bold; color: darkgreen; width: 5rem; border: none; font-size: medium" readonly>
 
-                            {{-- <div class="card" style="overflow-x: auto;">
-                                <div class="card-body p-1">
-                                    <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
-                                        <thead>
-                                            <tr>
-                                                <th>Activity title</th>
-                                                <th>Status</th>
-                                                <th>Created By</th>
-                                                <th>Created Date</th>
-                                                <th>Modified By</th>
-                                                <th>Modified Date</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody style="font-size: 13px">
-                                            @foreach($activities as $activity)
-                                                <tr>
-                                                    <td>{{ $activity->activity_title }}</td>
-                                                    <td>{{ $activity->status}}</td>
-                                                    <td>{{ $activity->created_by_name }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($activity->created_at)->format('F j, Y \a\t g:i a') }}</td>
-                                                    <td>{{ $activity->modified_by_name }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($activity->updated_at)->format('F j, Y \a\t g:i a') }}</td>
-                                                    <td>
-                                                    <button type="button" class="btn btn-danger btn-xs" onclick="confirmDelete('{{ $activity->id }}')">
-                                                    <i style="color: white; font-size: 12px;" class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                    <a href="#" class="btn-edit" data-toggle="modal" data-id="{{ $activity->id }}" data-activity_title="{{ $activity->activity_title }}" data-status="{{ $activity->status }}" data-image="" data-target="#modalEdit">
-                                                        <button type="button" class="btn btn-success btn-xs">
-                                                            <i style="color: white; font-size: 12px;" class="fa fa-edit"></i>
-                                                        </button>
-                                                    </a>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div> --}}
-                                <!-- /.card-body -->
+                                                @elseif ($acc->status == 'inactive')
+                                                <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="INACTIVE" style="background-color: pink; font-weight: bold; color: darkred; width: 5.5rem; border: none; font-size: medium" readonly>
 
-                                <div class="card-footer clearfix">
+                                                @endif
+                                            </div> 
+                                        </div>
+                                    </div> 
 
-                                </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            @if ($acc->change_password_req == 'none' || $acc->change_password_req == 'successful')
+                                                <a class="link-buttons" href="{{ route('investigator.change_password_request') }}" style="float: left;">Request for Change Password&nbsp;&nbsp;<i class="fa-solid fa-key icons"></i> </a>
+                                            @elseif ($acc->change_password_req == 'pending')
+                                                <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="REQUEST FOR CHANGE OF PASSWORD ALREADY SENT TO SUPERADMIN" style="background-color: yellow; font-weight: bold; color: black; width: 25rem; border: none; font-size: medium" readonly>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>  
                             </div>
                         </div>
                     </div>
