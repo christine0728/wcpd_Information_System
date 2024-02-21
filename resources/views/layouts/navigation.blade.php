@@ -220,10 +220,10 @@
                 </li>
             @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
                 <li class="nav-item">
-                    <a href="{{ route('investigator.teamaccountmngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                    <a href="{{ route('investigator.accountmngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
-                            {{ __('Team Account Management') }}
+                            {{ __('Account Management') }}
                         </p>
                     </a>
                 </li>

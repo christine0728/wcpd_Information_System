@@ -109,6 +109,7 @@ class InvestigatorController extends Controller
     {
         $author_id = Auth::guard('account')->user()->id;
         $offenses = Offense::select('*') 
+        ->where('not_delete', '=', false)
         ->get();
         return view('investigator.investigator_offensesmngt', ['offenses'=>$offenses]);
     }
@@ -156,8 +157,8 @@ class InvestigatorController extends Controller
         return view('investigator.investigator_allrecords');
     }
 
-    public function teamaccountmngt()
+    public function accountmngt()
     {
-        return view('investigator.investigator_teamaccountmngt');
+        return view('investigator.investigator_accountmngt');
     }
 }
