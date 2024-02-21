@@ -62,28 +62,47 @@
                     </div>
                 </div>
             </div>
- 
             <div class="content" style="margin-top: -2rem">
                 <div class="container-fluid">
                     <div class="content">
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAdd">
-                                        <i class="fas fa-plus"></i> Add Activity
-                                    </button><br><br> --}}
-
+                             
                                     <button type="button" class="form-buttons" data-toggle="modal" data-target="#exampleModal" style="width: 8rem">
                                         Add Offense&nbsp;&nbsp;<i class="fa-solid fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
-                            <!-- /.row -->
-                        </div><!-- /.container-fluid -->
+                        </div>
                     </div> 
                     
                     <div class="card col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: 1rem; margin-bottom: 5rem">
                         <div class="card-body p-1">
+                        @if(session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ session('success') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
+                        @if(session('delete'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ session('delete') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
+                        @if(session('update'))
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                {{ session('update') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
                             <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                                 <thead>
                                     <tr>  
@@ -101,7 +120,7 @@
                                         <td>{{ $offense->created_at }}</td>
                                         <td>
                                         <center>  
-                                            <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', $offense->id) }}">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
+                                            <a  class="edit-btn" data-toggle="modal" data-id="{{ $offense->id }}" data-offense="{{ $offense->offense_name }}" data-desc="{{ $offense->description }}" data-target="#modalEdit">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
                                             <a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href="{{ route('investigator.delete_offense', $offense->id) }}">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a>
                                         </center>
                                         </td>
@@ -116,11 +135,46 @@
                     </div>
                 </div>
             </div> 
-            <!-- Button trigger modal -->
-        {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                Launch demo modal
-            </button> --}} 
-            <!-- Modal -->
+            
+
+<!-- modaledit -->
+  <div class="modal fade right" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      aria-hidden="true" data-backdrop="true">
+    <div class="modal-dialog modal-side modal-bottom-right modal-notify modal-danger" role="document">
+        <!--Content-->
+      <div class="modal-content">
+          <!--Header-->
+          <div class="modal-header">
+            <h4 style="color:white" class="heading"> Update</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" class="white-text">&times;</span>
+            </button>
+          </div>
+          <!--Body-->
+              <div class="modal-body">
+              <form action="{{ route('investigator.edit_offense') }}" method="post">
+              @csrf
+              <input type="hidden" name="edit_id" id="edit_id">
+                  <div class="form-group">
+                      <label class="req-label">Offenses:</label>
+                      <input type="text" class="form-control" name="edit_offense" id="edit_offense">
+                      <h5 id="subjects"></h5>
+                  </div>
+                  <div class="form-group">
+                      <label class="req-label">Description</label>
+                      <input type="text" class="form-control" name="edit_desc" id="edit_desc">
+                  </div>       
+              </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="form-buttons">Save Changes&nbsp;&nbsp;<i class="fa-solid fa-check"></i></button>
+                    
+            </div>
+            </form>
+      </div>
+    </div>
+  </div>
+
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -153,16 +207,28 @@
         @endsection
     </body>
 </html>
+<script>    document.addEventListener("DOMContentLoaded", function () {
+        const editButtons = document.querySelectorAll('.edit-btn');
 
-@if(session('updatemessage'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'Successfuly updated!',
-        text: '{{ session('success') }}'
+        editButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                const modal = document.getElementById('modalEdit');
+                const editId = this.getAttribute('data-id');
+                const editoffense = this.getAttribute('data-offense');
+                const editdesc = this.getAttribute('data-desc');
+                console.log(editdesc);
+                document.getElementById('edit_id').value = editId;
+                document.getElementById('edit_offense').value = editoffense;
+                document.getElementById('edit_desc').value = editdesc; 
+                $(modal).modal('show');
+            });
+        });
     });
+
 </script>
-@endif
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
@@ -214,25 +280,5 @@
         });
     }
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const editButtons = document.querySelectorAll('.btn-edit');
-
-        editButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                const modal = document.getElementById('modalEdit');
-                const editId = this.getAttribute('data-id');
-                const editactivity_title = this.getAttribute('data-activity_title');
-                const editstatus = this.getAttribute('data-status'); 
-
-                document.getElementById('edit_id').value = editId;
-                document.getElementById('edit_activity_title').value = editactivity_title;
-                document.getElementById('edit_status').value = editstatus; 
-
-                document.getElementById('edit_id').value = editId;
-
-                $(modal).modal('show');
-            });
-        });
-    });
 
 </script>
