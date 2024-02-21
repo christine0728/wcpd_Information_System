@@ -46,6 +46,7 @@ Route::prefix('investigator')->group(function(){
     Route::get('/delete_offense/{id}', [OffensesController::class, 'delete'])->name('investigator.delete_offense');
 
     Route::post('/add_offense', [OffensesController::class, 'add'])->name('investigator.add_offense');
+    Route::post('/edit_offense', [OffensesController::class, 'update'])->name('investigator.edit_offense');
 
     Route::get('/victims_management', [InvestigatorController::class, 'victimsmngt'])->name('investigator.victims_mngt');
     Route::get('/suspects_management', [InvestigatorController::class, 'suspectsmngt'])->name('investigator.suspects_mngt');

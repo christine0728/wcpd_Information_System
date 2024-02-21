@@ -12,6 +12,7 @@ class Offense extends Model
     protected $fillable = [
         'offense_name',
         'description',  
-        'not_delete'
+        'not_delete',
+        'updated_at'
     ];
 }
