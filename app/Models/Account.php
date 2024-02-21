@@ -22,5 +22,6 @@ class Account extends Authenticatable
         'acc_type',
         'team',
         'status',
+        'change_password_req'
     ];
 }

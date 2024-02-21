@@ -57,6 +57,9 @@ Route::prefix('investigator')->group(function(){
 
     Route::get('/accountmngt', [InvestigatorController::class, 'accountmngt'])->name('investigator.accountmngt');
 
+    Route::get('/change_password_request', [InvestigatorController::class, 'change_passw_request'])->name('investigator.change_password_request');
+
+
     Route::get('/testing', [InvestigatorController::class, 'testing'])->name('investigator.testing');
     Route::post('/store', [InvestigatorController::class, 'store'])->name('investigator.store');
     Route::get('/testing1', [InvestigatorController::class, 'index']);

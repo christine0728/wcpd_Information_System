@@ -154,11 +154,32 @@ class InvestigatorController extends Controller
 
     public function allrecords()
     {
-        return view('investigator.investigator_allrecords');
+        $team = Auth::guard('account')->user()->team;
+        $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
+        ->select('accounts.id as accountid', 'accounts.username', 'accounts.team', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'complaint_reports.victim_family_name', 'complaint_reports.victim_firstname', 'complaint_reports.victim_middlename', 'complaint_reports.victim_sex', 'complaint_reports.victim_age', 'complaint_reports.victim_docs_presented', 'complaint_reports.offender_firstname', 'complaint_reports.offender_family_name', 'complaint_reports.offender_middlename', 'complaint_reports.offender_sex', 'complaint_reports.offender_age', 'complaint_reports.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')
+        ->where('complaint_reports.status', 'notdeleted')
+        ->where('accounts.team', $team)
+        ->orderBy('complaint_reports.id', 'DESC') 
+        ->get();
+        return view('investigator.investigator_allrecords', ['comps' => $comps]);
     }
 
     public function accountmngt()
     {
-        return view('investigator.investigator_accountmngt');
+        $id = Auth::guard('account')->user()->id;
+        $accs = Account::where('id', '=', $id)->get();
+        // dd($id);
+        return view('investigator.investigator_accountmngt', ['accs' => $accs]);
+    }
+
+    public function change_passw_request()
+    {
+        $id = Auth::guard('account')->user()->id;
+        Account::where('id', '=', $id)
+            ->update([
+                'change_password_req' => 'pending', 
+            ]);
+
+        return redirect()->route('investigator.accountmngt')->with('message', 'Record deleted successfully'); 
     }
 }

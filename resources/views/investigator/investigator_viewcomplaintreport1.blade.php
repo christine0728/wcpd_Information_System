@@ -98,7 +98,9 @@
             </div> 
             
             <div class="col-6" > 
-                <a class="link-buttons" href="{{ route('investigator.complaint_pdf', [$comp_id]) }}" style="float: right; " target="_blank">Download as PDF&nbsp;&nbsp;<i class="fa-regular fa-circle-down icons"></i> </a> 
+                <a class="link-buttons" href="{{ route('investigator.complaint_pdf', [$comp_id]) }}" style="float: right; " target="_blank">Download as PDF&nbsp;&nbsp;<i class="fa-regular fa-circle-down icons"></i> </a>  
+
+                <a class="link-buttons" href="{{ route('investigator.edit_complaintreport', [$comp_id]) }}" style="float: right; background-color: green; margin-right" target="_blank">Edit&nbsp;&nbsp;<i class="fa-solid fa-pen-to-square icons"></i> </a>
             </div>
 
         </div> 
