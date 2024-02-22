@@ -135,45 +135,39 @@
                     </div>
                 </div>
             </div> 
-            
+        
 
-<!-- modaledit -->
-  <div class="modal fade right" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-      aria-hidden="true" data-backdrop="true">
-    <div class="modal-dialog modal-side modal-bottom-right modal-notify modal-danger" role="document">
-        <!--Content-->
-      <div class="modal-content">
-          <!--Header-->
-          <div class="modal-header">
-            <h4 style="color:white" class="heading"> Update</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true" class="white-text">&times;</span>
-            </button>
-          </div>
-          <!--Body-->
-              <div class="modal-body">
-              <form action="{{ route('investigator.edit_offense') }}" method="post">
-              @csrf
-              <input type="hidden" name="edit_id" id="edit_id">
-                  <div class="form-group">
-                      <label class="req-label">Offenses:</label>
-                      <input type="text" class="form-control" name="edit_offense" id="edit_offense">
-                      <h5 id="subjects"></h5>
-                  </div>
-                  <div class="form-group">
-                      <label class="req-label">Description</label>
-                      <input type="text" class="form-control" name="edit_desc" id="edit_desc">
-                  </div>       
-              </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="form-buttons">Save Changes&nbsp;&nbsp;<i class="fa-solid fa-check"></i></button>
-                    
+            <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add Offense</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="{{ route('investigator.edit_offense') }}" method="post">
+                            <div class="modal-body">
+                             @csrf
+                              <input type="hidden" name="edit_id" id="edit_id">
+                              <div class="form-group">
+                                    <label class="req-label">Offenses:</label>
+                                    <input type="text" class="form-control" name="edit_offense" id="edit_offense">
+                              </div>
+                              <div class="form-group">
+                                    <label class="req-label">Description</label>
+                                    <input type="text" class="form-control" name="edit_desc" id="edit_idesc">
+                              </div>       
+                            <div class="modal-footer">
+                                <button type="button" class="form-buttons" data-dismiss="modal" style="background-color: red">Close&nbsp;&nbsp;<i class="fa-solid fa-xmark"></i></button>
+                                <button type="submit" class="form-buttons">Save Changes&nbsp;&nbsp;<i class="fa-solid fa-check"></i></button>  
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            </form>
-      </div>
-    </div>
-  </div>
+          </div>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -227,13 +221,12 @@
 
 </script>
 
-
-
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+
 <script>
     $(document).ready(function() {
           $('#compsTbl').DataTable({
