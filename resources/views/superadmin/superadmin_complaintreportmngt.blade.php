@@ -62,13 +62,13 @@
                 <div class="container-fluid">
                     <div class="row mb-2"> 
                          <div class="col-6">
-                            <h1 class="m-0" style="font-weight: bold">{{ __('Complaint Report Management') }}</h1>
+                            <h1 class="m-0" style="font-weight: bold">&nbsp;{{ __('Complaint Report Management') }}</h1>
                         </div> 
                     </div>
                 </div>
             </div>
  
-            <div class="content" style="margin-top: -2rem">
+            <div class="content" style="margin-top: -3rem">
                 <div class="container-fluid">
                     <div class="col-12">
                         <a class="link-buttons" href="{{ route('investigator.complaintreport_form') }}" style="float: left;" target="_blank">Add a Complaint Report&nbsp;&nbsp;<i class="fa-solid fa-plus"></i> </a> 

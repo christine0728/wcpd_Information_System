@@ -11,8 +11,7 @@
             body {
                 font-family: Arial, sans-serif;
             }
-
-
+ 
             .filter {
                 display: flex;
                 align-items: center;
@@ -38,105 +37,108 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                          <div class="col-sm-6">
-                            <h1 class="m-0">{{ __('All Records') }}</h1>
+                            <h1 class="m-0">&nbsp;<b>{{ __('All Records') }}</b></h1>
                         </div>
                     </div>
                 </div>
             </div>
+            
             <div class="content">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="content">
-                                <div class="container-fluid">
-                                    {{-- <div class="row">
-                                        <div class="col-lg-12">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAdd">
-                                                <i class="fas fa-plus"></i> Add Activity
-                                            </button><br><br>
-                                        </div>
-                                    </div> --}}
-                                    <!-- /.row -->
-                                </div><!-- /.container-fluid -->
+                    <div class="col-12">
+                        <div class="filter">
+                            <form action="filter-financialsupport" method="GET">
+                            <div class="date-filter">
+                                <label for="start_date">From:</label>&nbsp;&nbsp;
+                                <input type="date" name="start_date" class="form-control" id="start_date" value=" ">&nbsp;&nbsp;
+                                <label for="end_date">To:</label>&nbsp;&nbsp;
+                                <input type="date" class="form-control" name="end_date" id="end_date" value=" ">&nbsp;&nbsp;
+                                <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
+                                <a href=" "><button type="button" class="link-buttons">All</button></a>
                             </div>
-                            {{-- <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg modal-dialog-scrollable">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="modalAddLabel">Add Announcement</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form method="post" action="{{ route('add_activity') }}">
-                                                @csrf
-                                                <div class="form-group">
-                                                    <label for="barcode">Activity title:</label>
-                                                    <input type="text" class="form-control" id="activity_title" name="activity_title" required placeholder="Enter the activity title">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="barcode">Status:</label>
-                                                    <input type="text" class="form-control" id="status" name="status" required placeholder="Enter the accession">
-                                                </div>
-                                        </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Add</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>  --}}
-
-                            {{-- <div class="card" style="overflow-x: auto;">
-                                <div class="card-body p-1">
-                                    <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
-                                        <thead>
-                                            <tr>
-                                                <th>Activity title</th>
-                                                <th>Status</th>
-                                                <th>Created By</th>
-                                                <th>Created Date</th>
-                                                <th>Modified By</th>
-                                                <th>Modified Date</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody style="font-size: 13px">
-                                            @foreach($activities as $activity)
-                                                <tr>
-                                                    <td>{{ $activity->activity_title }}</td>
-                                                    <td>{{ $activity->status}}</td>
-                                                    <td>{{ $activity->created_by_name }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($activity->created_at)->format('F j, Y \a\t g:i a') }}</td>
-                                                    <td>{{ $activity->modified_by_name }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($activity->updated_at)->format('F j, Y \a\t g:i a') }}</td>
-                                                    <td>
-                                                    <button type="button" class="btn btn-danger btn-xs" onclick="confirmDelete('{{ $activity->id }}')">
-                                                    <i style="color: white; font-size: 12px;" class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                    <a href="#" class="btn-edit" data-toggle="modal" data-id="{{ $activity->id }}" data-activity_title="{{ $activity->activity_title }}" data-status="{{ $activity->status }}" data-image="" data-target="#modalEdit">
-                                                        <button type="button" class="btn btn-success btn-xs">
-                                                            <i style="color: white; font-size: 12px;" class="fa fa-edit"></i>
-                                                        </button>
-                                                    </a>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div> --}}
-                                <!-- /.card-body -->
-
-                                <div class="card-footer clearfix">
-
-                                </div>
-                            </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: 1rem; margin-bottom: 5rem">
+                        <div class="card-body p-1">
+                            <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
+                                <thead>
+                                    <tr> 
+                                        <th>View</th>
+                                        <th>Complaint Report Author</th>
+                                        <th>Date Reported</th>
+                                        <th>Place of Commission</th>
+                                        <th>Offenses Committed</th>
+                                        <th>Victim's Fullname</th>
+                                        <th>Victim's Sex</th>
+                                        <th>Victim's Age</th> 
+                                        <th>Offender's Fullname</th>
+                                        <th>Offender's Sex</th>
+                                        <th>Offender's Age</th>
+                                        <th>Relationship to Victim</th>
+                                        <th>Motive/Cause</th>
+                                        <th>Case Disposition</th>
+                                        <th>Suspect Disposition</th>
+                                        <th>Case Update</th>
+                                        <th>Date of Case Updated</th>
+                                        {{-- <th>Action</th> --}}
+                                    </tr>
+                                </thead>
+                                <tbody> 
+                                    @foreach ($comps as $comp)  
+                                    <tr>  
+                                        <td>
+                                            <center>
+                                                <a class="view-btn" href="{{ route('superadmin.view_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
+                                            </center>
+                                        </td>
+                                        <td>{{ $comp->username }} ({{ $comp->team }})</td>
+                                        <td>{{ $comp->date_reported }}</td>
+                                        <td>{{ $comp->place_of_commission }}</td>
+                                        <td>{{ $comp->offenses }}</td> 
+                                        <td>{{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}</td>
+                                        <td>{{ $comp->victim_sex }}</td>
+                                        <td>{{ $comp->victim_age }}</td>
+                                        <td>{{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}</td>
+                                        <td>{{ $comp->offender_age }}</td>
+                                        <td>{{ $comp->offender_sex }}</td>
+                                        <td>{{ $comp->offender_relationship_victim }}</td>
+                                        <td>{{ $comp->evidence_motive_cause }}</td>
+                                        <td>{{ $comp->case_disposition }}</td>
+                                        <td>{{ $comp->suspect_disposition }}</td>
+                                        <td> 
+                                            @if ($comp->case_update == null) 
+                                                Case not updated yet.
+                                            @else
+                                                {{ $comp->case_update }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($comp->case_update == null) 
+                                                Case not updated yet.
+                                            @else
+                                                {{ $comp->date_case_updated }}
+                                            @endif
+                                        </td>
+                                        {{-- <td>
+                                        <center> 
+                                            <a class="case-btn" href=" ">&nbsp;&nbsp;&nbsp;Update Case <i class="fa-regular fa-file" style="font-size: large; padding: 0.5rem"></i></a>  
+                                            <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', $comp->id) }}">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
+                                            <a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href="{{ route('investigator.delete_form', $comp->id) }}">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a>
+                                        </center>
+                                        </td> --}}
+                                    </tr> 
+                                    @endforeach 
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer clearfix">
+                             
                         </div>
                     </div>
                 </div>
-            </div> 
+                
+            </div>
             <!-- /.content -->
         @endsection
     </body>

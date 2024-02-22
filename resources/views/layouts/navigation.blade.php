@@ -106,7 +106,7 @@
 
             @if (Auth::guard('account')->user()->acc_type == 'superadmin')
                 <li class="nav-item"> 
-                    <a href="{{ route('investigator.complaintreport')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                    <a href="{{ route('superadmin.complaintreport')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             {{ __('Complaint Report Management') }}

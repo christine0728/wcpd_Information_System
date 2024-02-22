@@ -148,19 +148,33 @@ class ComplaintReportController extends Controller
     }
 
     public function view_complaintreport($comp_id){
+        $acc_type = Auth::guard('account')->user()->acc_type;
         $comps = ComplaintReport::select('*')
-            ->where('id', $comp_id)
-            ->get(); 
-        
-        return view('investigator.investigator_viewcomplaintreport1', ['comps' => $comps, 'comp_id'=>$comp_id]); 
+        ->where('id', $comp_id)
+        ->get(); 
+
+        if ($acc_type == 'investigator'){
+            return view('investigator.investigator_viewcomplaintreport1', ['comps' => $comps, 'comp_id'=>$comp_id]); 
+        }
+        elseif ($acc_type == 'superadmin'){ 
+            return view('superadmin.superadmin_viewcomplaintreport', ['comps' => $comps, 'comp_id'=>$comp_id]); 
+        }
+         
     }
 
     public function edit_complaintreport($comp_id){
+        $acc_type = Auth::guard('account')->user()->acc_type;
+
         $comps = ComplaintReport::select('*')
             ->where('id', $comp_id)
             ->get(); 
         
-        return view('investigator.investigator_editcomplaintreport', ['comps' => $comps, 'comp_id'=>$comp_id]); 
+        if ($acc_type == 'investigator'){
+            return view('investigator.investigator_editcomplaintreport', ['comps' => $comps, 'comp_id'=>$comp_id]); 
+        }
+        elseif ($acc_type == 'superadmin'){ 
+            return view('superadmin.superadmin_editcomplaintreport', ['comps' => $comps, 'comp_id'=>$comp_id]); 
+        } 
     }
 
     public function update_form(Request $request, $compid) {  
@@ -205,7 +219,13 @@ class ComplaintReportController extends Controller
                 'offender_nationality' => $request->input('off_nationality'),
             ]);
 
-        return redirect()->route('investigator.complaintreport')->with('message', 'record updated successfully'); 
+        $acc_type = Auth::guard('account')->user()->acc_type;
+        if ($acc_type == 'investigator'){
+            return redirect()->route('investigator.complaintreport')->with('message', 'record updated successfully'); 
+        }
+        elseif ($acc_type == 'superadmin'){
+            return redirect()->route('superadmin.complaintreport')->with('message', 'record updated successfully');
+        }
     }
 
     public function delete_form(Request $request, $compid) {  
@@ -213,7 +233,16 @@ class ComplaintReportController extends Controller
             ->update([
                 'status' => 'deleted', 
             ]);
+            
+        $acc_type = Auth::guard('account')->user()->acc_type;
+        
+        if ($acc_type == 'investigator'){
+            return redirect()->route('investigator.complaintreport')->with('message', 'record updated successfully'); 
+        }
+        elseif ($acc_type == 'superadmin'){
+            return redirect()->route('superadmin.complaintreport')->with('message', 'record updated successfully');
+        }
 
-        return redirect()->route('investigator.complaintreport')->with('message', 'record updated successfully'); 
+        
     }
 }
