@@ -86,13 +86,13 @@ Route::prefix('superadmin')->group(function(){
     Route::get('/victim_profile/{id}', [SuperAdminController::class, 'victim_profile'])->name('superadmin.victim_profile');
     Route::get('/offender_profile/{id}', [SuperAdminController::class, 'offender_profile'])->name('superadmin.offender_profile');
 
-    Route::get('/complaintreportmanagement', [SuperAdminController::class, 'complaintreportmngt'])->name('investigator.complaintreport');
-    Route::get('/complaintreport_form', [InvestigatorController::class, 'complaintreport_form'])->name('investigator.complaintreport_form'); 
+    Route::get('/complaintreportmanagement', [SuperAdminController::class, 'complaintreportmngt'])->name('superadmin.complaintreport');
+    Route::get('/complaintreport_form', [SuperAdminController::class, 'complaintreport_form'])->name('superadmin.complaintreport_form'); 
     Route::post('/add_complaint', [ComplaintReportController::class, 'add_complaint'])->name('investigator.add_complaint');
-    Route::get('/view_complaintreport/{comp_id}', [ComplaintReportController::class, 'view_complaintreport'])->name('investigator.view_complaintreport');
-    Route::get('/edit_complaintreport/{comp_id}', [ComplaintReportController::class, 'edit_complaintreport'])->name('investigator.edit_complaintreport');
-    Route::post('/update_form/{comp_id}', [ComplaintReportController::class, 'update_form'])->name('investigator.update_form');
-    Route::get('/delete_form/{comp_id}', [ComplaintReportController::class, 'delete_form'])->name('investigator.delete_form');
+    Route::get('/view_complaintreport/{comp_id}', [ComplaintReportController::class, 'view_complaintreport'])->name('superadmin.view_complaintreport');
+    Route::get('/edit_complaintreport/{comp_id}', [ComplaintReportController::class, 'edit_complaintreport'])->name('superadmin.edit_complaintreport');
+    Route::post('/update_form/{comp_id}', [ComplaintReportController::class, 'update_form'])->name('superadmin.update_form');
+    Route::get('/delete_form/{comp_id}', [ComplaintReportController::class, 'delete_form'])->name('superadmin.delete_form');
 
     Route::get('/allrecords', [SuperAdminController::class, 'allrecords'])->name('superadmin.allrecords');
 

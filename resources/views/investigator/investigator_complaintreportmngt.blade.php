@@ -62,7 +62,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2"> 
                          <div class="col-6">
-                            <h1 class="m-0" style="font-weight: bold">{{ __('Complaint Report Management') }}</h1>
+                            <h1 class="m-0" style="font-weight: bold">&nbsp;{{ __('Complaint Report Management') }}</h1>
                         </div> 
                     </div>
                 </div>
