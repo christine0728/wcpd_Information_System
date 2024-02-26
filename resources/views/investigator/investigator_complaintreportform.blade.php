@@ -121,11 +121,11 @@
 
     <div class="container" style="margin-top: -2rem;">
         <div class="nav nav-fill" style="background-color: white;">
-            <label class="nav-link shadow-sm step0 border ml-2 active">Section A</label>
-            <label class="nav-link shadow-sm step1 border ml-2 ">Section B</label>
-            <label class="nav-link shadow-sm step2 border ml-2 ">Section C</label>
-            <label class="nav-link shadow-sm step3 border ml-2 ">Section D</label>
-            <label class="nav-link shadow-sm step4 border ml-2 ">Section F</label>
+            <label class="nav-link shadow-sm step0 border ml-2 active">Section A<br>Offense Data</label>
+            <label class="nav-link shadow-sm step1 border ml-2 ">Section B<br>Victim's Data</label>
+            <label class="nav-link shadow-sm step2 border ml-2 ">Section C<br>Offender's Data</label>
+            <label class="nav-link shadow-sm step3 border ml-2 ">Section D<br>Evidence Data</label>
+            <label class="nav-link shadow-sm step4 border ml-2 ">Section F<br>Case Disposition</label>
         </div>
     </div> 
 

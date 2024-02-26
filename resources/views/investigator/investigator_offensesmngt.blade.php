@@ -137,6 +137,7 @@
             </div> 
         
 
+
             <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -156,7 +157,7 @@
                               </div>
                               <div class="form-group">
                                     <label class="req-label">Description</label>
-                                    <input type="text" class="form-control" name="edit_desc" id="edit_idesc">
+                                    <input type="text" class="form-control" name="edit_desc" id="edit_desc">
                               </div>       
                             <div class="modal-footer">
                                 <button type="button" class="form-buttons" data-dismiss="modal" style="background-color: red">Close&nbsp;&nbsp;<i class="fa-solid fa-xmark"></i></button>
@@ -167,7 +168,7 @@
                     </div>
                 </div>
             </div>
-          </div>
+    
 
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">

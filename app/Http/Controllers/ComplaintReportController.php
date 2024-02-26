@@ -158,8 +158,21 @@ class ComplaintReportController extends Controller
         }
         elseif ($acc_type == 'superadmin'){ 
             return view('superadmin.superadmin_viewcomplaintreport', ['comps' => $comps, 'comp_id'=>$comp_id]); 
+        }  
+    }
+
+    public function readonly_complaintreport($comp_id){
+        $acc_type = Auth::guard('account')->user()->acc_type;
+        $comps = ComplaintReport::select('*')
+        ->where('id', $comp_id)
+        ->get(); 
+
+        if ($acc_type == 'investigator'){
+            return view('investigator.investigator_readonlyreport', ['comps' => $comps, 'comp_id'=>$comp_id]); 
         }
-         
+        elseif ($acc_type == 'superadmin'){ 
+            return view('superadmin.superadmin_viewcomplaintreport', ['comps' => $comps, 'comp_id'=>$comp_id]); 
+        }  
     }
 
     public function edit_complaintreport($comp_id){

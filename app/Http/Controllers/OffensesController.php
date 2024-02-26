@@ -41,19 +41,31 @@ class OffensesController extends Controller
         }
     }
     public function update(Request $request)
- {
-                $currentUserId = Auth::id();
-                $now = Carbon::now();
-                $now->setTimezone('Asia/Manila');
-                $id= $request->input('edit_id');
-                $offensename= $request->input('edit_offense');
-                $desc= $request->input('edit_desc');
-                $offense = Offense::find($id);
-                $offense->offense_name = $offensename;
-                $offense->description = $desc;
-                $offense->updated_at = $now;
-                $offense->update();
-                return redirect()->back()->with('update', 'The record has been updated successfully!');
-            }
+    {
+        $currentUserId = Auth::id();
+        $now = Carbon::now();
+        $now->setTimezone('Asia/Manila');
+        $id= $request->input('edit_id');
+        $offensename= $request->input('edit_offense');
+        $desc= $request->input('edit_desc');
+        $offense = Offense::find($id);
+        $offense->offense_name = $offensename;
+        $offense->description = $desc;
+        $offense->updated_at = $now;
+        $offense->update();
+        return redirect()->back()->with('update', 'The record has been updated successfully!');
     }
+
+    public function filter(Request $request)
+    { 
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+
+        $offenses = Offense::whereBetween('offenses.created_at', [$start_date, $end_date])
+        ->orderBy('offenses.created_at', 'desc')
+        ->paginate();
+
+        return view('investigator.investigator_offensesmngt', ['offenses'=>$offenses]);
+    }
+}
 
