@@ -127,8 +127,9 @@ class SuperAdminController extends Controller
     public function victimsmngt()
     {
         $author_id = Auth::guard('account')->user()->id;
-        $comps = ComplaintReport::where('complaint_reports.status', 'notdeleted')
-            ->orderBy('id', 'DESC') 
+        $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
+        ->where('complaint_reports.status', 'notdeleted')
+            ->orderBy('complaint_reports.id', 'DESC') 
             ->get();
         return view('superadmin.superadmin_victimsmngt', ['comps'=>$comps]);
     }
@@ -144,8 +145,9 @@ class SuperAdminController extends Controller
     public function suspectsmngt()
     {
         $author_id = Auth::guard('account')->user()->id;
-        $comps = ComplaintReport::where('complaint_reports.status', 'notdeleted')
-            ->orderBy('id', 'DESC') 
+        $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
+        ->where('complaint_reports.status', 'notdeleted')
+            ->orderBy('complaint_reports.id', 'DESC') 
             ->get();
         return view('superadmin.superadmin_suspectsmngt', ['comps'=>$comps]);
     }
@@ -187,5 +189,34 @@ class SuperAdminController extends Controller
         ->where('not_delete', '=', false)
         ->get();
         return view('investigator.investigator_offensesmngt', ['offenses'=>$offenses]);
+    } 
+
+    public function filter_allrecords(Request $request)
+    {
+        $start_date = date('Y-m-d', strtotime($request->input('start_date')));
+        $end_date = date('Y-m-d', strtotime($request->input('end_date')));
+
+        $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
+        ->select('accounts.id as accountid', 'accounts.username', 'accounts.team', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'complaint_reports.victim_family_name', 'complaint_reports.victim_firstname', 'complaint_reports.victim_middlename', 'complaint_reports.victim_sex', 'complaint_reports.victim_age', 'complaint_reports.victim_docs_presented', 'complaint_reports.offender_firstname', 'complaint_reports.offender_family_name', 'complaint_reports.offender_middlename', 'complaint_reports.offender_sex', 'complaint_reports.offender_age', 'complaint_reports.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')
+        ->where('complaint_reports.created_at', '>=', [$start_date, $end_date])
+        ->where('complaint_reports.status', 'notdeleted') 
+        ->orderBy('complaint_reports.id', 'DESC') 
+        ->get();
+        return view('superadmin.superadmin_allrecords', ['comps' => $comps]);
+    }
+
+    public function filter_compsmngt(Request $request)
+    {
+        $start_date = date('Y-m-d', strtotime($request->input('start_date')));
+        $end_date = date('Y-m-d', strtotime($request->input('end_date')));
+         
+        $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
+        ->select('accounts.id as accountid', 'accounts.username', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'complaint_reports.victim_family_name', 'complaint_reports.victim_firstname', 'complaint_reports.victim_middlename', 'complaint_reports.victim_sex', 'complaint_reports.victim_age', 'complaint_reports.victim_docs_presented', 'complaint_reports.offender_firstname', 'complaint_reports.offender_family_name', 'complaint_reports.offender_middlename', 'complaint_reports.offender_sex', 'complaint_reports.offender_age', 'complaint_reports.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')
+        // ->where('complaint_report_author', $author_id)
+        ->where('complaint_reports.created_at', '>=', [$start_date, $end_date])
+        ->where('complaint_reports.status', 'notdeleted')
+        ->orderBy('complaint_reports.id', 'DESC') 
+        ->get();
+        return view('superadmin.superadmin_complaintreportmngt', ['comps'=>$comps]);
     }
 } 

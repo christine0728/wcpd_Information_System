@@ -34,6 +34,7 @@ Route::prefix('investigator')->group(function(){
 
     Route::get('/complaintreportmanagement', [InvestigatorController::class, 'complaintreportmngt'])->name('investigator.complaintreport');
     Route::get('/complaintreport_form', [InvestigatorController::class, 'complaintreport_form'])->name('investigator.complaintreport_form'); 
+    
     Route::post('/add_complaint', [ComplaintReportController::class, 'add_complaint'])->name('investigator.add_complaint');
     Route::get('/view_complaintreport/{comp_id}', [ComplaintReportController::class, 'view_complaintreport'])->name('investigator.view_complaintreport');
     Route::get('/edit_complaintreport/{comp_id}', [ComplaintReportController::class, 'edit_complaintreport'])->name('investigator.edit_complaintreport');
@@ -41,6 +42,8 @@ Route::prefix('investigator')->group(function(){
     Route::get('/delete_form/{comp_id}', [ComplaintReportController::class, 'delete_form'])->name('investigator.delete_form');
 
     Route::get('/complaintreport_pdf/{comp_id}', [PDFController::class, 'complaint_pdf'])->name('investigator.complaint_pdf');
+    Route::get('/readonly_complaintreport/{comp_id}', [ComplaintReportController::class, 'readonly_complaintreport'])->name('investigator.readonly_complaintreport');
+    Route::get('/filter-complaintreps', [InvestigatorController::class, 'filter_complaintreps'])->name('investigator.filter_complaintreps');
 
     Route::get('/offensesmanagement', [InvestigatorController::class, 'offensesmngt'])->name('investigator.offensesmanagement');
     Route::get('/delete_offense/{id}', [OffensesController::class, 'delete'])->name('investigator.delete_offense');
@@ -49,12 +52,16 @@ Route::prefix('investigator')->group(function(){
     Route::post('/edit_offense', [OffensesController::class, 'update'])->name('investigator.edit_offense');
 
     Route::get('/victims_management', [InvestigatorController::class, 'victimsmngt'])->name('investigator.victims_mngt');
+    Route::get('/filter-victimsmngt', [InvestigatorController::class, 'filter_victimsmngt'])->name('investigator.filter_victimsmngt');
     Route::get('/suspects_management', [InvestigatorController::class, 'suspectsmngt'])->name('investigator.suspects_mngt');
+    Route::get('/filter-offendersmngt', [InvestigatorController::class, 'filter_offendersmngt'])->name('investigator.filter_offendersmngt');
 
     Route::get('/victim_profile/{id}', [InvestigatorController::class, 'victim_profile'])->name('investigator.victim_profile');
     Route::get('/offender_profile/{id}', [InvestigatorController::class, 'offender_profile'])->name('investigator.offender_profile');
 
     Route::get('/allrecords', [InvestigatorController::class, 'allrecords'])->name('investigator.allrecords');
+    Route::get('/filter-allrecords', [InvestigatorController::class, 'filter_allrecords'])->name('investigator.filter_allrecords');
+    
 
     Route::get('/accountmngt', [InvestigatorController::class, 'accountmngt'])->name('investigator.accountmngt');
 
@@ -95,6 +102,8 @@ Route::prefix('superadmin')->group(function(){
     Route::get('/delete_form/{comp_id}', [ComplaintReportController::class, 'delete_form'])->name('superadmin.delete_form');
 
     Route::get('/allrecords', [SuperAdminController::class, 'allrecords'])->name('superadmin.allrecords');
+    Route::get('/filter-allrecords', [SuperAdminController::class, 'filter_allrecords'])->name('investigator.filter_allrecords');
+    Route::get('/filter-compsmngt', [SuperAdminController::class, 'filter_compsmngt'])->name('investigator.filter_compsmngt');
 
     Route::get('/offensesmanagement', [SuperAdminController::class, 'offensesmngt'])->name('superadmin.offensesmanagement');
     Route::post('/add_offense', [OffensesController::class, 'add'])->name('superadmin.add_offense');

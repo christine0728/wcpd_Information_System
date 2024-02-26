@@ -47,15 +47,15 @@
                 <div class="container-fluid">
                     <div class="col-12">
                         <div class="filter">
-                            <form action="filter-financialsupport" method="GET">
-                            <div class="date-filter">
-                                <label for="start_date">From:</label>&nbsp;&nbsp;
-                                <input type="date" name="start_date" class="form-control" id="start_date" value=" ">&nbsp;&nbsp;
-                                <label for="end_date">To:</label>&nbsp;&nbsp;
-                                <input type="date" class="form-control" name="end_date" id="end_date" value=" ">&nbsp;&nbsp;
-                                <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-                                <a href=" "><button type="button" class="link-buttons">All</button></a>
-                            </div>
+                            <form action="filter-allrecords" method="GET">
+                                <div class="date-filter">
+                                    <label for="start_date">From:</label>&nbsp;&nbsp;
+                                    <input type="date" name="start_date" class="form-control" id="start_date" value=" ">&nbsp;&nbsp;
+                                    <label for="end_date">To:</label>&nbsp;&nbsp;
+                                    <input type="date" class="form-control" name="end_date" id="end_date" value=" ">&nbsp;&nbsp;
+                                    <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
+                                    <a href=" "><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a>
+                                </div>
                             </form>
                         </div>
                     </div>
