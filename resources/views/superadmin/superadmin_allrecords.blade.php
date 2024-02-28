@@ -89,7 +89,7 @@
                                     <tr>  
                                         <td>
                                             <center>
-                                                <a class="view-btn" href="{{ route('superadmin.view_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
+                                                <a class="view-btn" href="{{ route('superadmin.readonly_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
                                             </center>
                                         </td>
                                         <td>{{ $comp->username }} ({{ $comp->team }})</td>

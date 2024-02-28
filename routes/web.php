@@ -88,6 +88,8 @@ Route::prefix('superadmin')->group(function(){
     Route::post('/changing_password', [SuperAdminController::class, 'changing_password'])->name('superadmin.changing_password');
 
     Route::get('/victims_management', [SuperAdminController::class, 'victimsmngt'])->name('superadmin.victims_mngt');
+    Route::get('/filter-victimsmngt', [SuperAdminController::class, 'filter_victimsmngt'])->name('superadmin.filter_victimsmngt');
+
     Route::get('/suspects_management', [SuperAdminController::class, 'suspectsmngt'])->name('superadmin.suspects_mngt');
 
     Route::get('/victim_profile/{id}', [SuperAdminController::class, 'victim_profile'])->name('superadmin.victim_profile');
@@ -97,6 +99,7 @@ Route::prefix('superadmin')->group(function(){
     Route::get('/complaintreport_form', [SuperAdminController::class, 'complaintreport_form'])->name('superadmin.complaintreport_form'); 
     Route::post('/add_complaint', [ComplaintReportController::class, 'add_complaint'])->name('investigator.add_complaint');
     Route::get('/view_complaintreport/{comp_id}', [ComplaintReportController::class, 'view_complaintreport'])->name('superadmin.view_complaintreport');
+    Route::get('/readonly_complaintreport/{comp_id}', [ComplaintReportController::class, 'readonly_complaintreport'])->name('superadmin.readonly_complaintreport');
     Route::get('/edit_complaintreport/{comp_id}', [ComplaintReportController::class, 'edit_complaintreport'])->name('superadmin.edit_complaintreport');
     Route::post('/update_form/{comp_id}', [ComplaintReportController::class, 'update_form'])->name('superadmin.update_form');
     Route::get('/delete_form/{comp_id}', [ComplaintReportController::class, 'delete_form'])->name('superadmin.delete_form');

@@ -99,13 +99,13 @@
                                         <th>Fullname</th>
                                         <th>Sex</th>
                                         <th>Age</th>
-                                        <th>Civil Status</th>
+                                        {{-- <th>Civil Status</th>--}}
                                         <th>Present Address</th>
-                                        <th>Guardian Name</th>
-                                        <th>Contact Person</th> 
-                                        <th>Date Reported</th>
-                                        <th>Offenses</th> 
-                                        <th>Case Updated</th>
+                                        {{-- <th>Guardian Name</th>
+                                        <th>Contact Person</th>  --}}
+                                        <th>Date Reported</th> 
+                                        {{-- <th>Offenses</th>  --}}
+                                        {{-- <th>Case Updated</th> --}}
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -127,26 +127,26 @@
                                         <td>{{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}</td>
                                         <td>{{ $comp->victim_sex }}</td> 
                                         <td>{{ $comp->victim_age }}</td>
-                                        <td>{{ $comp->victim_civil_status }}</td>
+                                        {{-- <td>{{ $comp->victim_civil_status }}</td> --}}
                                         <td>{{ $comp->victim_present_address }}</td>
-                                        <td>{{ $comp->victim_parents_guardian_name }}</td>
-                                        <td>{{ $comp->victim_contactperson_addr_con_num }}</td>
-                                        <td>{{ $comp->date_reported }}</td>
-                                        <td>{{ $comp->offenses }}</td> 
-                                        <td> 
+                                        {{-- <td>{{ $comp->victim_parents_guardian_name }}</td>
+                                        <td>{{ $comp->victim_contactperson_addr_con_num }}</td> --}}
+                                        <td>{{ $comp->date_reported }}</td> 
+                                        {{-- <td>{{ $comp->offenses }}</td>  --}}
+                                        {{-- <td> 
                                             @if ($comp->case_update == null) 
                                                 Case not updated yet.
                                             @else
                                                 {{ $comp->case_update }}
                                             @endif
-                                        </td> 
+                                        </td>  --}}
                                         <td>
                                         <center> 
                                             <a class="view-btn" href="{{ route('investigator.view_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View Case<i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
                                                 
                                             <a class="view-btn" href="{{ route('investigator.victim_profile', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View Profile<i class="fa-regular fa-user" style="font-size: large; padding: 0.5rem"></i></a> 
 
-                                            <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', $comp->id) }}">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a>  
+                                            {{-- <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', $comp->id) }}#victim">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> --}}
                                         </center>
                                         </td>
                                     </tr> 

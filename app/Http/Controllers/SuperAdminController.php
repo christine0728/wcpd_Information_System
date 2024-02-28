@@ -127,8 +127,9 @@ class SuperAdminController extends Controller
     public function victimsmngt()
     {
         $author_id = Auth::guard('account')->user()->id;
-        $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
-        ->where('complaint_reports.status', 'notdeleted')
+        $comps = ComplaintReport::
+        // join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
+        where('complaint_reports.status', 'notdeleted')
             ->orderBy('complaint_reports.id', 'DESC') 
             ->get();
         return view('superadmin.superadmin_victimsmngt', ['comps'=>$comps]);
@@ -145,8 +146,10 @@ class SuperAdminController extends Controller
     public function suspectsmngt()
     {
         $author_id = Auth::guard('account')->user()->id;
-        $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
-        ->where('complaint_reports.status', 'notdeleted')
+        $comps = ComplaintReport::
+        // join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
+        // ->
+        where('complaint_reports.status', 'notdeleted')
             ->orderBy('complaint_reports.id', 'DESC') 
             ->get();
         return view('superadmin.superadmin_suspectsmngt', ['comps'=>$comps]);
@@ -218,5 +221,19 @@ class SuperAdminController extends Controller
         ->orderBy('complaint_reports.id', 'DESC') 
         ->get();
         return view('superadmin.superadmin_complaintreportmngt', ['comps'=>$comps]);
+    }
+
+    public function filter_victimsmngt(Request $request)
+    {
+        $start_date = date('Y-m-d', strtotime($request->input('start_date')));
+        $end_date = date('Y-m-d', strtotime($request->input('end_date')));
+
+        $author_id = Auth::guard('account')->user()->id;
+        $comps = ComplaintReport::
+            where('complaint_reports.created_at', '>=', [$start_date, $end_date])
+            ->where('complaint_reports.status', 'notdeleted')
+            ->orderBy('id', 'DESC') 
+            ->get();
+        return view('superadmin.superadmin_victimsmngt', ['comps'=>$comps]);
     }
 } 

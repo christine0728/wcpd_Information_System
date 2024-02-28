@@ -24,8 +24,9 @@ class PDFController extends Controller
         $options->set('margin-left', 15); // Adjust left margin
 
 
-        $comps = ComplaintReport::select('*')
-            ->where('id', $compid)
+        $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
+            ->select('*')
+            ->where('complaint_reports.id', $compid)
             ->get();
  
         // Create the DOMPDF instance with the custom options
