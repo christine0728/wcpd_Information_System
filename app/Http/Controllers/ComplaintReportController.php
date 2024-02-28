@@ -171,7 +171,7 @@ class ComplaintReportController extends Controller
             return view('investigator.investigator_readonlyreport', ['comps' => $comps, 'comp_id'=>$comp_id]); 
         }
         elseif ($acc_type == 'superadmin'){ 
-            return view('superadmin.superadmin_viewcomplaintreport', ['comps' => $comps, 'comp_id'=>$comp_id]); 
+            return view('superadmin.superadmin_readonlyreport', ['comps' => $comps, 'comp_id'=>$comp_id]); 
         }  
     }
 
@@ -254,8 +254,6 @@ class ComplaintReportController extends Controller
         }
         elseif ($acc_type == 'superadmin'){
             return redirect()->route('superadmin.complaintreport')->with('message', 'record updated successfully');
-        }
-
-        
+        } 
     }
 }

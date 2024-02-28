@@ -62,7 +62,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2"> 
                          <div class="col-6">
-                            <h1 class="m-0" style="font-weight: bold">{{ __('Victims Management') }}</h1>
+                            <h1 class="m-0" style="font-weight: bold">&nbsp;{{ __('Victims Management') }}</h1>
                         </div> 
                     </div>
                 </div>
@@ -76,15 +76,15 @@
                     
                     <div class="col-12">
                         <div class="filter">
-                            <form action="filter-financialsupport" method="GET">
-                            <div class="date-filter">
-                                <label for="start_date">From:</label>&nbsp;&nbsp;
-                                <input type="date" name="start_date" class="form-control" id="start_date" value=" ">&nbsp;&nbsp;
-                                <label for="end_date">To:</label>&nbsp;&nbsp;
-                                <input type="date" class="form-control" name="end_date" id="end_date" value=" ">&nbsp;&nbsp;
-                                <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-                                <a href=" "><button type="button" class="link-buttons">All</button></a>
-                            </div>
+                            <form action="filter-victimsmngt" method="GET">
+                                <div class="date-filter">
+                                    <label for="start_date">From:</label>&nbsp;&nbsp;
+                                    <input type="date" name="start_date" class="form-control" id="start_date" value=" ">&nbsp;&nbsp;
+                                    <label for="end_date">To:</label>&nbsp;&nbsp;
+                                    <input type="date" class="form-control" name="end_date" id="end_date" value=" ">&nbsp;&nbsp;
+                                    <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
+                                    <a href="{{ route('superadmin.victims_mngt') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -99,13 +99,13 @@
                                         <th>Fullname</th>
                                         <th>Sex</th>
                                         <th>Age</th>
-                                        <th>Civil Status</th>
+                                        {{-- <th>Civil Status</th> --}}
                                         <th>Present Address</th>
-                                        <th>Guardian Name</th>
-                                        <th>Contact Person</th> 
+                                        {{-- <th>Guardian Name</th>
+                                        <th>Contact Person</th>  --}}
                                         <th>Date Reported</th>
-                                        <th>Offenses</th> 
-                                        <th>Case Updated</th>
+                                        {{-- <th>Offenses</th> 
+                                        <th>Case Updated</th> --}}
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -127,26 +127,26 @@
                                         <td>{{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}</td>
                                         <td>{{ $comp->victim_sex }}</td> 
                                         <td>{{ $comp->victim_age }}</td>
-                                        <td>{{ $comp->victim_civil_status }}</td>
+                                        {{-- <td>{{ $comp->victim_civil_status }}</td> --}}
                                         <td>{{ $comp->victim_present_address }}</td>
-                                        <td>{{ $comp->victim_parents_guardian_name }}</td>
-                                        <td>{{ $comp->victim_contactperson_addr_con_num }}</td>
+                                        {{-- <td>{{ $comp->victim_parents_guardian_name }}</td>
+                                        <td>{{ $comp->victim_contactperson_addr_con_num }}</td> --}}
                                         <td>{{ $comp->date_reported }}</td>
-                                        <td>{{ $comp->offenses }}</td> 
+                                        {{-- <td>{{ $comp->offenses }}</td> 
                                         <td> 
                                             @if ($comp->case_update == null) 
                                                 Case not updated yet.
                                             @else
                                                 {{ $comp->case_update }}
                                             @endif
-                                        </td> 
+                                        </td>  --}}
                                         <td>
                                         <center> 
                                             <a class="view-btn" href="{{ route('investigator.view_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View Case<i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
                                                 
                                             <a class="view-btn" href="{{ route('superadmin.victim_profile', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View Profile<i class="fa-regular fa-user" style="font-size: large; padding: 0.5rem"></i></a> 
 
-                                            <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', $comp->id) }}">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a>  
+                                            {{-- <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', $comp->id) }}">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a>   --}}
                                         </center>
                                         </td>
                                     </tr> 

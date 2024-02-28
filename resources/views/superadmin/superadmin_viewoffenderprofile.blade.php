@@ -54,7 +54,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2"> 
                          <div class="col-6">
-                            <h1 class="m-0" style="font-weight: bold">{{ __("Offender's Profile") }}</h1>
+                            <h1 class="m-0" style="font-weight: bold">&nbsp;{{ __("Offender's Profile") }}</h1>
                         </div> 
                     </div>
                 </div>
@@ -65,6 +65,14 @@
                     <div class="card col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-bottom: 5rem; padding: 1rem 2rem 1rem 2rem;">
                         @foreach ($comps as $comp) 
                             <div class="row mb-4">
+                                <div class="col-md-3 text-center">
+                                    @if($comp->offender_image)
+                                        <img src="{{ asset('images/offenders/' . $comp->offender_image) }}" alt="{{ $comp->vic_firstname }}" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
+                                    @else
+                                        <p>No Image</p>
+                                    @endif
+                                </div>
+
                                 <div class="col-md-9">  
                                     <div class="row" style="margin-top: -1.5rem">
                                         <div class="col-4">
@@ -134,13 +142,7 @@
                                         </div> 
                                     </div> 
                                 </div>
-                                <div class="col-md-3 text-center">
-                                    @if($comp->offender_image)
-                                        <img src="{{ asset('images/offenders/' . $comp->offender_image) }}" alt="{{ $comp->vic_firstname }}" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
-                                    @else
-                                        <p>No Image</p>
-                                    @endif
-                                </div> 
+                                 
                             </div> 
                             <div class="row" style="margin-top: -3rem">
                                 <div class="col-4">
