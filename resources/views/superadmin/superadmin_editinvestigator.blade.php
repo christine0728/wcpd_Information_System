@@ -18,15 +18,14 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>SuperAdmin | Super Admin Acc. Management</title>
+        <title>SuperAdmin | Edit Investigator</title>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <link rel="icon" href="{{ url('images/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=24">
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=24"> 
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> 
         <script src="https://kit.fontawesome.com/7528702e77.js" crossorigin="anonymous"></script>
         <style>
             .filter {
@@ -56,7 +55,7 @@
             }
         </style>
     </head>
-    <body>
+    <body>  
         @extends('layouts.app')
 
         @section('content')
@@ -65,61 +64,54 @@
                 <div class="container-fluid">
                     <div class="row mb-2"> 
                          <div class="col-6">
-                            <h1 class="m-0" style="font-weight: bold;">&nbsp;{{ __('Super Admin Account Management') }}</h1>
+                            <h1 class="m-0" style="font-weight: bold;">&nbsp;{{ __('Edit Investigator Account') }}</h1>
                         </div> 
                     </div>
                 </div>
             </div>
- 
-            <div class="content" style="margin-top: -2rem">
-                <div class="container-fluid">
-                    {{-- <div class="col-12">
-                        <a class="link-buttons" href="" style="float: left; background-color: #48145B" target="_blank">Add Investigator&nbsp;&nbsp;<i class="fa-solid fa-plus"></i> </a> 
-                    </div>  --}}
-                    
-                    <div class="card col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: 3rem; margin-bottom: 5rem">
-                        <div class="card-body p-1">
-                            <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
-                                <thead>
-                                    <tr>  
-                                        <th>Fullname</th>
-                                        <th>Username</th>  
-                                        <th>Status</th> 
-                                        <th>Created At</th> 
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>   
-                                    @foreach ($invs as $inv) 
-                                    <tr>   
-                                        <td>{{ $inv->firstname }} {{ $inv->lastname }}</td>
-                                        <td>{{ $inv->username }}</td>    
-                                        <td>
-                                            @if ($inv->status == 'active')
-                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="ACTIVE" style="background-color: palegreen; font-weight: bold; color: darkgreen; width: 5rem; border: none; font-size: medium" readonly>
+  
 
-                                            @elseif ($inv->status == 'inactive')
-                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="INACTIVE" style="background-color: pink; font-weight: bold; color: darkred; width: 5.5rem; border: none; font-size: medium" readonly>
+            <div class="content" style="margin-top: -1rem; ">
+                <div class="container-fluid" >   
+                    <div class="card col-5 shadow p-3 mb-5 bg-white rounded" style="overflow-x:auto; background-color: white; border-radius: 0.5rem;  margin-left: 25%;"> 
+                        @if(Session::has('error')) 
+                            <b style="color: red">{{ session::get('error') }}</b> 
+                        @endif
 
-                                            @endif
-                                        </td>  
-                                        <td>{{ $inv->created_at }}</td>
-                                        <td>
-                                            <center>  
-                                                <a class="view-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('superadmin.change_password') }} ">&nbsp;&nbsp;&nbsp;Change Password <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
-                                                <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('superadmin.edit_superadmin_acc', $inv->id) }}">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
-                                                {{-- <a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href=" ">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a> --}}
-                                            </center>
-                                        </td>
-                                    </tr>  
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="card-footer clearfix">
-                             
-                        </div>
-                    </div>
+                        <div class="card-body p-1"> 
+                            @foreach ($invs as $inv) 
+                                <form action="{{ route('superadmin.edit_investigator_details', $inv->id) }}" method="post">
+                                    @csrf
+                                    <div class="card-body p-1">
+                                        <div class="row">
+                                            <div class="col-12" style="margin-top: -1rem">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Firstname: </label>
+                                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="firstname" value="{{ $inv->firstname }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12" style="margin-top: -1.5rem">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Lastname: </label>
+                                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="lastname"  value="{{ $inv->lastname }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-12" style="margin-top: -1.5rem">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Username: </label>
+                                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username"  value="{{ $inv->username }}">
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div> 
+                                    <div class="col-12">
+                                        <button type="submit" class="form-buttons" style="width: 100%">Save Changes</button>
+                                    </div>
+                                </form>
+                            @endforeach
+                        </div>  
+                    </div> 
                 </div>
             </div> 
         @endsection
@@ -204,4 +196,5 @@
         });
     });
 
-</script>
+
+</script> 

@@ -52,8 +52,13 @@ class SuperAdminController extends Controller
             'created_at' => Carbon::now(),
         ]);
 
-        return redirect()->back()->with('message', 'The record has been added successfully!');
+        return redirect()->route('superadmin.inv_account_mngt');
     } 
+
+    public function add_investigator_acc()
+    {
+        return view('superadmin.superadmin_addinvestigator');
+    }
 
     public function dashboard()
     {
@@ -62,14 +67,21 @@ class SuperAdminController extends Controller
 
     public function inv_account_management()
     {
-        $invs = Account::where('acc_type', '=', 'investigator')
+        $invs = Account::where('acc_type', '=', 'investigator') 
             ->get();
         return view('superadmin.superadmin_invaccountmngt', ['invs'=>$invs]);
     }
 
+    public function edit_investigator_acc($id)
+    {
+        $invs = Account::where('id', '=', $id) 
+            ->get();
+        return view('superadmin.superadmin_editinvestigator', ['invs'=>$invs]);
+    }
+ 
     public function superadmin_account_management($id)
     {
-        $invs = Account::where('id', '=', $id)
+        $invs = Account::where('id', '=', $id) 
             ->get();
         return view('superadmin.superadmin_superadminaccmngt', ['invs'=>$invs]);
     }
@@ -175,6 +187,12 @@ class SuperAdminController extends Controller
         return view('superadmin.superadmin_complaintreportmngt', ['comps'=>$comps]);
     }
 
+    public function complaintreport_form()
+    {
+        $offenses = Offense::where('not_delete', '=', false)->get();
+        return view('superadmin.superadmin_complaintreportform', ['offenses'=>$offenses]);
+    }
+
     public function allrecords()
     {
         $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
@@ -235,5 +253,35 @@ class SuperAdminController extends Controller
             ->orderBy('id', 'DESC') 
             ->get();
         return view('superadmin.superadmin_victimsmngt', ['comps'=>$comps]);
+    }
+
+    public function edit_investigator_details(Request $request, $accid)
+    {
+        Account::where('id', $accid)
+            ->update([
+                'firstname' => $request->input('firstname'), 
+                'lastname' => $request->input('lastname'), 
+                'username' => $request->input('username'), 
+            ]);
+        return redirect()->route('superadmin.inv_account_mngt')->with('error', 'investigator account logged in successfully');
+    }
+
+    public function edit_superadmin_acc($id)
+    {
+        $invs = Account::where('id', '=', $id) 
+            ->get();
+        return view('superadmin.superadmin_editsuperadmin', ['invs'=>$invs]);
+    }
+
+    public function edit_superadmin_details(Request $request, $accid)
+    {
+        $author_id = Auth::guard('account')->user()->id;
+        Account::where('id', $accid)
+            ->update([
+                'firstname' => $request->input('firstname'), 
+                'lastname' => $request->input('lastname'), 
+                'username' => $request->input('username'), 
+            ]);
+        return redirect()->route('superadmin.superadmin_account_mngt', ['id'=>$author_id])->with('error', 'investigator account logged in successfully');
     }
 } 

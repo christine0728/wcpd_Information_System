@@ -76,10 +76,13 @@ Route::post('/submit', [InvestigatorController::class, 'submit'])->name('submit'
 
 Route::prefix('superadmin')->group(function(){
     Route::post('/add_teamaccount', [SuperAdminController::class, 'add_superadmin'])->name('superadmin.add_teamaccount');
+    Route::get('/add_investigator_acc', [SuperAdminController::class, 'add_investigator_acc'])->name('superadmin.add_investigator_acc');
     Route::post('/add_investigator', [SuperAdminController::class, 'add_investigator'])->name('superadmin.add_investigator'); 
 
     Route::get('/dashboard', [SuperAdminController::class, 'dashboard'])->name('superadmin.dashboard');
     Route::get('/inv_accountmngt', [SuperAdminController::class, 'inv_account_management'])->name('superadmin.inv_account_mngt');
+    Route::get('/edit_investigator_acc/{id}', [SuperAdminController::class, 'edit_investigator_acc'])->name('superadmin.edit_investigator_acc');
+    Route::post('/edit_investigator_details/{id}', [SuperAdminController::class, 'edit_investigator_details'])->name('superadmin.edit_investigator_details');
     Route::get('/superadmin_accountmngt/{id}', [SuperAdminController::class, 'superadmin_account_management'])->name('superadmin.superadmin_account_mngt');
     Route::post('/change_team/{accid}', [SuperAdminController::class, 'change_team'])->name('superadmin.change_team');
     Route::post('/change_status/{accid}', [SuperAdminController::class, 'change_status'])->name('superadmin.change_status');
@@ -103,6 +106,7 @@ Route::prefix('superadmin')->group(function(){
     Route::get('/edit_complaintreport/{comp_id}', [ComplaintReportController::class, 'edit_complaintreport'])->name('superadmin.edit_complaintreport');
     Route::post('/update_form/{comp_id}', [ComplaintReportController::class, 'update_form'])->name('superadmin.update_form');
     Route::get('/delete_form/{comp_id}', [ComplaintReportController::class, 'delete_form'])->name('superadmin.delete_form');
+    Route::get('/complaintreport_pdf/{comp_id}', [PDFController::class, 'complaint_pdf'])->name('superadmin.complaint_pdf');
 
     Route::get('/allrecords', [SuperAdminController::class, 'allrecords'])->name('superadmin.allrecords');
     Route::get('/filter-allrecords', [SuperAdminController::class, 'filter_allrecords'])->name('investigator.filter_allrecords');
@@ -111,4 +115,7 @@ Route::prefix('superadmin')->group(function(){
     Route::get('/offensesmanagement', [SuperAdminController::class, 'offensesmngt'])->name('superadmin.offensesmanagement');
     Route::post('/add_offense', [OffensesController::class, 'add'])->name('superadmin.add_offense');
     Route::get('/delete_offense/{id}', [OffensesController::class, 'delete'])->name('superadmin.delete_offense');
+
+    Route::get('/edit_superadmin_acc/{id}', [SuperAdminController::class, 'edit_superadmin_acc'])->name('superadmin.edit_superadmin_acc');
+    Route::post('/edit_superadmin_details/{id}', [SuperAdminController::class, 'edit_superadmin_details'])->name('superadmin.edit_superadmin_details');
 });

@@ -104,7 +104,8 @@
             "emptyTable": "No Record Found"
         },
         scrollCollapse: true,
-        // scrollY: '400px'
+        "order": [[0, "desc"]]
+        // scrollY: '400px' 
     });
 
     let newtable = new DataTable('#degrees',{
