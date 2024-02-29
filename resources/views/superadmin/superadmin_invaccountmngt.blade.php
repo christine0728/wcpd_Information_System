@@ -65,7 +65,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2"> 
                          <div class="col-6">
-                            <h1 class="m-0" style="font-weight: bold;">{{ __('Investigator Account Management') }}</h1>
+                            <h1 class="m-0" style="font-weight: bold;">&nbsp;{{ __('Investigator Account Management') }}</h1>
                         </div> 
                     </div>
                 </div>
@@ -74,7 +74,7 @@
             <div class="content" style="margin-top: -2rem">
                 <div class="container-fluid">
                     <div class="col-12">
-                        <a class="link-buttons" href="" style="float: left;" target="_blank">Add Investigator&nbsp;&nbsp;<i class="fa-solid fa-plus"></i> </a> 
+                        <a class="link-buttons" href="{{ route('superadmin.add_investigator_acc') }}" style="float: left; background-color: #48145B" target="_blank" >Add Investigator&nbsp;&nbsp;<i class="fa-solid fa-plus"></i> </a> 
                     </div> 
                     
                     <div class="card col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: 1rem; margin-bottom: 5rem">
@@ -100,48 +100,44 @@
                                         <td>
                                             @if ($inv->team == 'team_a')
                                                 Team A
-
                                             @elseif ($inv->team == 'team_b')
                                                 Team B
-
                                             @endif
                                         </td>   
                                         <td> 
-                                            <form action="{{ route('superadmin.change_team', $inv -> id) }}" method="post">
-                                            @csrf
-                                              <select class="form-control" name="team" style="border-radius: 0.3125rem; border: 2.5px solid #48145B; background: #FFF; width: 8rem; padding: 0.4rem; font-size: medium; margin-bottom: 1rem;">
-                                                <option>Select team:</option>
-                                                  <option value="team_a">Team A</option>
-                                                  <option value="team_b">Team B</option> 
-                                              </select>
-                                              <button type="submit" class="form-buttons" > Change status </button>
+                                            <form action="{{ route('superadmin.change_team', $inv->id) }}" method="post">
+                                                @csrf
+                                                <select class="form-control" name="team" style="border-radius: 0.3125rem; border: 2.5px solid #48145B; background: #FFF; width: 8rem; padding: 0.4rem; font-size: medium; margin-bottom: 1rem;">
+                                                    <option>Select team:</option>
+                                                    <option value="team_a">Team A</option>
+                                                    <option value="team_b">Team B</option> 
+                                                </select>
+                                                <button type="submit" class="form-buttons" > Change status </button>
                                             </form>
                                         </td> 
                                         <td>
                                             @if ($inv->status == 'active')
-                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="ACTIVE" style="background-color: palegreen; font-weight: bold; color: darkgreen; width: 5rem; border: none; font-size: medium" readonly>
-
+                                                <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="ACTIVE" style="background-color: palegreen; font-weight: bold; color: darkgreen; width: 5rem; border: none; font-size: medium" readonly>
                                             @elseif ($inv->status == 'inactive')
-                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="INACTIVE" style="background-color: pink; font-weight: bold; color: darkred; width: 5.5rem; border: none; font-size: medium" readonly>
-
+                                                <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="INACTIVE" style="background-color: pink; font-weight: bold; color: darkred; width: 5.5rem; border: none; font-size: medium" readonly>
                                             @endif
                                         </td> 
                                         <td> 
-                                            <form action="{{ route('superadmin.change_status', $inv -> id) }}" method="post">
-                                            @csrf
-                                              <select class="form-control" name="status" style="border-radius: 0.3125rem; border: 2.5px solid #48145B; background: #FFF; width: 8rem; padding: 0.4rem; font-size: medium; margin-bottom: 1rem">
-                                                <option>Select status:</option>
-                                                  <option value="active">ACTIVE</option>
-                                                  <option value="inactive">INACTIVE</option> 
-                                              </select>
-                                              <button type="submit" class="form-buttons" > Change status </button>
+                                            <form action="{{ route('superadmin.change_status', $inv->id) }}" method="post">
+                                                @csrf
+                                                <select class="form-control" name="status" style="border-radius: 0.3125rem; border: 2.5px solid #48145B; background: #FFF; width: 8rem; padding: 0.4rem; font-size: medium; margin-bottom: 1rem">
+                                                    <option>Select status:</option>
+                                                    <option value="active">ACTIVE</option>
+                                                    <option value="inactive">INACTIVE</option> 
+                                                </select>
+                                                <button type="submit" class="form-buttons" > Change status </button>
                                             </form>
                                         </td> 
                                         <td>{{ $inv->created_at }}</td>
                                         <td>
                                             <center>  
                                                 <a class="view-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href=" ">&nbsp;&nbsp;&nbsp;Change Password <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
-                                                <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href=" ">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
+                                                <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('superadmin.edit_investigator_acc', $inv->id) }}">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
                                                 <a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href=" ">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a>
                                             </center>
                                         </td>

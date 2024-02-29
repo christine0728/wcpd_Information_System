@@ -159,7 +159,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">8. Offenses Committed: </label>
+                                        <label for="exampleInputEmail1">8. Offenses Committed: (press CTRL to select multiple offenses)</label>
                                         <select class="form-control" name="offenses[]" multiple> 
                                             {{-- <option value="Offense 1">Offense 1</option>
                                             <option value="Offense 2">Offense 2</option>

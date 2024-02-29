@@ -71,7 +71,7 @@
             <div class="content" >
                 <div class="container-fluid">
                     <div class="col-12">
-                        <a class="link-buttons" href="{{ route('investigator.complaintreport_form') }}" style="float: left; background-color: #48145B" target="_blank">Add a Complaint Report&nbsp;&nbsp;<i class="fa-solid fa-plus"></i> </a> 
+                        <a class="link-buttons" href="{{ route('superadmin.complaintreport_form') }}" style="float: left; background-color: #48145B" target="_blank">Add a Complaint Report&nbsp;&nbsp;<i class="fa-solid fa-plus"></i> </a> 
                     </div>
 
                     <div class="col-12">

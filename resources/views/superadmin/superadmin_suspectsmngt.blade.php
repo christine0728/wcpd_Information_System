@@ -99,10 +99,10 @@
                                         <th>Fullname</th> 
                                         <th>Age</th>
                                         <th>Previous Criminal Record/s</th>
-                                        <th>Last Known Address</th>
+                                        {{-- <th>Last Known Address</th> --}}
                                         <th>Relationship to Victim</th>
                                         <th>Date Reported</th>
-                                        <th>Offenses</th>
+                                        {{-- <th>Offenses</th> --}}
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -119,10 +119,10 @@
                                         <td>{{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}</td>
                                         <td>{{ $comp->offender_age }}</td>
                                         <td>{{ $comp->offender_prev_criminal_rec }}</td>
-                                        <td>{{ $comp->offender_last_known_addr }}</td>
+                                        {{-- <td>{{ $comp->offender_last_known_addr }}</td> --}}
                                         <td>{{ $comp->offender_relationship_victim }}</td> 
                                         <td>{{ $comp->date_reported }}</td>
-                                        <td>{{ $comp->offenses }}</td>  
+                                        {{-- <td>{{ $comp->offenses }}</td>   --}}
                                         <td>
                                         <center> 
                                             <a class="view-btn" href="{{ route('investigator.view_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View Case<i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>

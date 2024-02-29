@@ -142,7 +142,7 @@
                                         </td>  --}}
                                         <td>
                                         <center> 
-                                            <a class="view-btn" href="{{ route('investigator.view_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View Case<i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
+                                            <a class="view-btn" href="{{ route('superadmin.view_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View Case<i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
                                                 
                                             <a class="view-btn" href="{{ route('superadmin.victim_profile', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View Profile<i class="fa-regular fa-user" style="font-size: large; padding: 0.5rem"></i></a> 
 
