@@ -85,7 +85,7 @@
                                         <th>Fullname</th>
                                         <th>Username</th> 
                                         <th>Team</th>
-                                        <th>Change Team</th> 
+                                        {{-- <th>Change Team</th>  --}}
                                         <th>Status</th>
                                         <th>Change Status</th> 
                                         <th>Created At</th> 
@@ -103,8 +103,21 @@
                                             @elseif ($inv->team == 'team_b')
                                                 Team B
                                             @endif
+
+                                            {{-- <form action="{{ route('superadmin.change_team', $inv->id) }}" method="post">
+                                                @csrf
+                                                <div style="display: flex">
+                                                    <select class="form-control" name="team" style="border-radius: 0.3125rem; border: 2.5px solid #48145B; background: #FFF; width: 6rem; padding: 0.4rem; font-size: medium; margin-bottom: 0.5rem;">
+                                                        <option>Select team:</option>
+                                                        <option value="team_a">Team A</option>
+                                                        <option value="team_b">Team B</option> 
+                                                    </select>
+                                                    <button type="submit" class="form-buttons" > Change team </button>                
+                                                </div>
+
+                                            </form> --}}
                                         </td>   
-                                        <td> 
+                                        {{-- <td> 
                                             <form action="{{ route('superadmin.change_team', $inv->id) }}" method="post">
                                                 @csrf
                                                 <select class="form-control" name="team" style="border-radius: 0.3125rem; border: 2.5px solid #48145B; background: #FFF; width: 8rem; padding: 0.4rem; font-size: medium; margin-bottom: 1rem;">
@@ -114,7 +127,7 @@
                                                 </select>
                                                 <button type="submit" class="form-buttons" > Change status </button>
                                             </form>
-                                        </td> 
+                                        </td>  --}}
                                         <td>
                                             @if ($inv->status == 'active')
                                                 <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="ACTIVE" style="background-color: palegreen; font-weight: bold; color: darkgreen; width: 5rem; border: none; font-size: medium" readonly>
@@ -138,7 +151,7 @@
                                             <center>  
                                                 <a class="view-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href=" ">&nbsp;&nbsp;&nbsp;Change Password <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
                                                 <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('superadmin.edit_investigator_acc', $inv->id) }}">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
-                                                <a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href=" ">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a>
+                                                {{-- <a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href=" ">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a> --}}
                                             </center>
                                         </td>
                                     </tr>  

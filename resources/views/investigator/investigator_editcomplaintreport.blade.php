@@ -132,10 +132,11 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">8. Offenses Committed: </label>
-                                    <select class="form-control" name="offenses" multiple value="{{ $comp->offenses }}">
-                                        <option>Selected: {{ $comp->offenses }}</option>
-                                        <option>Offense 1</option>
-                                        <option>Offense 2</option>
+                                    <select class="form-control" name="offenses[]" multiple>  
+                                        <option value="{{ $comp->offenses }}">Selected: {{ $comp->offenses }}</option>
+                                        @foreach ($offenses as $offense) 
+                                            <option value="{{ $offense->offense_name }}">{{ $offense->offense_name }}</option>
+                                        @endforeach 
                                     </select>
                                 </div> 
                             </div>
@@ -205,7 +206,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">13. Highest Educational Attainment: </label>  
                                     <select class="form-control" name="vic_educ_attainment" onchange="showfield(this.options[this.selectedIndex].value)">
-                                        <option>Selected: {{ $comp->victim_highest_educ_attainment }}</option>
+                                        <option value="{{ $comp->victim_highest_educ_attainment }}">Selected: {{ $comp->victim_highest_educ_attainment }}</option>
                                         <option value="elementary">Elementary</option>
                                         <option value="hsgrad">HS Graduate</option>
                                         <option value="collegegrad">College Graduate</option>
@@ -219,7 +220,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">14. Civil Status: </label> 
                                     <select class="form-control" name="vic_civil_stat">
-                                        <option>Selected: {{ $comp->victim_civil_status }}</option>
+                                        <option value="{{ $comp->victim_civil_status }}">Selected: {{ $comp->victim_civil_status }}</option>
                                         <option value="single">Single</option>
                                         <option value="live-in">Live-in</option>
                                         <option value="married">Married</option>
@@ -326,9 +327,9 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">23. Sex: </label> 
                                     <select class="form-control" name="off_gender">
-                                        <option>Selected: {{ $comp->offender_sex }}</option>
-                                        <option>Female</option>
-                                        <option>Male</option>
+                                        <option value="{{ $comp->offender_sex }}">Selected: {{ $comp->offender_sex }}</option>
+                                        <option value="FEMALE">Female</option>
+                                        <option value="MALE">Male</option>
                                     </select>
                                 </div> 
                             </div>
@@ -342,7 +343,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">25. Civil Status: </label> 
                                     <select class="form-control" name="off_civil_stat">
-                                        <option>Selected: {{ $comp->offender_civil_status }}</option>
+                                        <option value="{{ $comp->offender_civil_status }}">Selected: {{ $comp->offender_civil_status }}</option>
                                         <option value="single">Single</option>
                                         <option value="live-in">Live-in</option>
                                         <option value="married">Married</option>
@@ -358,7 +359,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">26. Highest Educational Attainment: </label>  
                                     <select class="form-control" name="off_educ_attainment" onchange="showfield(this.options[this.selectedIndex].value)">
-                                        <option>Selected: {{ $comp->offender_highest_educ_attainment }}</option>
+                                        <option value="{{ $comp->offender_highest_educ_attainment }}">Selected: {{ $comp->offender_highest_educ_attainment }}</option>
                                         <option value="elementary">Elementary</option>
                                         <option value="hsgrad">HS Graduate</option>
                                         <option value="collegegrad">College Graduate</option>
@@ -443,7 +444,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">34. Motive/Cause: </label> 
                                     <select class="form-control" name="evi_motive">
-                                        <option>Selected: {{ $comp->evidence_motive_cause }}</option>
+                                        <option value="{{ $comp->evidence_motive_cause }}">Selected: {{ $comp->evidence_motive_cause }}</option>
                                         <option value="sex_lust">Sex/Lust</option>
                                         <option value="passion_jealousy">Passion/Jealousy</option>
                                         <option value="misunderstanding">Misunderstanding</option>
@@ -458,7 +459,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">35. Suspect under the influence of: </label> 
                                     <select class="form-control" name="influences" onchange="showfield(this.options[this.selectedIndex].value)">
-                                        <option>Selected: {{ $comp->evidence_influence_of }}</option>
+                                        <option value="{{ $comp->evidence_influence_of }}">Selected: {{ $comp->evidence_influence_of }}</option>
                                         <option value="drugs">Drugs</option>
                                         <option value="alcohol">Alcohol</option>
                                         <option value="both">Both</option>

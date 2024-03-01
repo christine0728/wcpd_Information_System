@@ -144,7 +144,7 @@
     </div><br>
 </div>
     <footer class="w3-container w3-padding-32 w3-margin-top" style="background-color:white">
-    <a href="/team/login" class="w3-button w3-black w3-padding-large w3-margin-bottom login-button" alt="Login" target=”_blank”>Login</a>
+    <a href="/login" class="w3-button w3-black w3-padding-large w3-margin-bottom login-button" alt="Login" target=”_blank”>Login</a>
 
     <p>Copyright © 2024 WCPC Information Management System. All rights reserved. Developed by: PSU UC - IT OJT 2024</p>
     </footer>
