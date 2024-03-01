@@ -223,7 +223,7 @@ class SuperAdminController extends Controller
         ->where('complaint_reports.status', 'notdeleted') 
         ->orderBy('complaint_reports.id', 'DESC') 
         ->get();
-        return view('superadmin.superadmin_allrecords', ['comps' => $comps]);
+        return view('superadmin.superadmin_allrecords', ['comps' => $comps, 'start_date'=>$start_date, 'end_date'=>$end_date]);
     }
 
     public function filter_compsmngt(Request $request)
@@ -238,7 +238,7 @@ class SuperAdminController extends Controller
         ->where('complaint_reports.status', 'notdeleted')
         ->orderBy('complaint_reports.id', 'DESC') 
         ->get();
-        return view('superadmin.superadmin_complaintreportmngt', ['comps'=>$comps]);
+        return view('superadmin.superadmin_complaintreportmngt', ['comps'=>$comps, 'start_date'=>$start_date, 'end_date'=>$end_date]);
     }
 
     public function filter_victimsmngt(Request $request)
@@ -252,7 +252,23 @@ class SuperAdminController extends Controller
             ->where('complaint_reports.status', 'notdeleted')
             ->orderBy('id', 'DESC') 
             ->get();
-        return view('superadmin.superadmin_victimsmngt', ['comps'=>$comps]);
+        return view('superadmin.superadmin_victimsmngt', ['comps'=>$comps, 'start_date'=>$start_date, 'end_date'=>$end_date]);
+    }
+
+    public function filter_offendersmngt(Request $request)
+    {
+        $start_date = date('Y-m-d', strtotime($request->input('start_date')));
+        $end_date = date('Y-m-d', strtotime($request->input('end_date')));
+
+        $author_id = Auth::guard('account')->user()->id;
+        $comps = ComplaintReport::
+        // join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
+        // ->
+        where('complaint_reports.created_at', '>=', [$start_date, $end_date])
+        ->where('complaint_reports.status', 'notdeleted')
+            ->orderBy('complaint_reports.id', 'DESC') 
+            ->get();
+        return view('superadmin.superadmin_suspectsmngt', ['comps'=>$comps, 'start_date'=>$start_date, 'end_date'=>$end_date]);
     }
 
     public function edit_investigator_details(Request $request, $accid)

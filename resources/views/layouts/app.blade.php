@@ -104,7 +104,7 @@
             "emptyTable": "No Record Found"
         },
         scrollCollapse: true,
-        "order": [[0, "desc"]]
+        "order": [[0, 'desc']]
         // scrollY: '400px' 
     });
 

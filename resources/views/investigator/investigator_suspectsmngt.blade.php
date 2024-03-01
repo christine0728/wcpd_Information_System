@@ -18,7 +18,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Suspects Management</title>
+        <title>Offenders Management</title>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <link rel="icon" href="{{ url('images/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
@@ -79,11 +79,11 @@
                             <form action="filter-offendersmngt" method="GET">
                                 <div class="date-filter">
                                     <label for="start_date">From:</label>&nbsp;&nbsp;
-                                    <input type="date" name="start_date" class="form-control" id="start_date" value=" ">&nbsp;&nbsp;
+                                    <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}">&nbsp;&nbsp;
                                     <label for="end_date">To:</label>&nbsp;&nbsp;
-                                    <input type="date" class="form-control" name="end_date" id="end_date" value=" ">&nbsp;&nbsp;
+                                    <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}">&nbsp;&nbsp;
                                     <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-                                    <a href=" "><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a>
+                                    <a href="{{ route('investigator.suspects_mngt') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a>
                                 </div>
                             </form>
                         </div>

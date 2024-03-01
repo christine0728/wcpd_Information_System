@@ -36,6 +36,7 @@ class ComplaintReport extends Model
         'offender_firstname',
         'offender_family_name',
         'offender_middlename',
+        'offender_aliases',
         'offender_sex',
         'offender_age',
         'offender_date_of_birth',

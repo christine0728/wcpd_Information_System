@@ -11,7 +11,8 @@
             body {
                 font-family: Arial, sans-serif;
             }
- 
+
+
             .filter {
                 display: flex;
                 align-items: center;
@@ -42,23 +43,23 @@
                     </div>
                 </div>
             </div>
-            
             <div class="content">
                 <div class="container-fluid">
                     <div class="col-12">
                         <div class="filter">
                             <form action="filter-allrecords" method="GET">
-                                <div class="date-filter">
-                                    <label for="start_date">From:</label>&nbsp;&nbsp;
-                                    <input type="date" name="start_date" class="form-control" id="start_date" value=" ">&nbsp;&nbsp;
-                                    <label for="end_date">To:</label>&nbsp;&nbsp;
-                                    <input type="date" class="form-control" name="end_date" id="end_date" value=" ">&nbsp;&nbsp;
-                                    <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-                                    <a href=" "><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a>
-                                </div>
+                            <div class="date-filter">
+                                <label for="start_date">From:</label>&nbsp;&nbsp;
+                                <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}">&nbsp;&nbsp;
+                                <label for="end_date">To:</label>&nbsp;&nbsp;
+                                <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}">&nbsp;&nbsp;
+                                <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
+                                <a href="{{ route('investigator.allrecords') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a>
+                            </div>
                             </form>
                         </div>
                     </div>
+
                     <div class="card col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: 1rem; margin-bottom: 5rem">
                         <div class="card-body p-1">
                             <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
@@ -66,8 +67,9 @@
                                     <tr> 
                                         <th>View</th>
                                         <th>Complaint Report Author</th>
-                                        <th>Date Reported</th>
-                                        <th>Place of Commission</th>
+                                        <th>Case Details</th>
+                                        <th>People Involved</th>
+                                        {{-- <th>Place of Commission</th>
                                         <th>Offenses Committed</th>
                                         <th>Victim's Fullname</th>
                                         <th>Victim's Sex</th>
@@ -80,7 +82,7 @@
                                         <th>Case Disposition</th>
                                         <th>Suspect Disposition</th>
                                         <th>Case Update</th>
-                                        <th>Date of Case Updated</th>
+                                        <th>Date of Case Updated</th> --}}
                                         {{-- <th>Action</th> --}}
                                     </tr>
                                 </thead>
@@ -93,8 +95,39 @@
                                             </center>
                                         </td>
                                         <td>{{ $comp->username }} ({{ $comp->team }})</td>
-                                        <td>{{ $comp->date_reported }}</td>
-                                        <td>{{ $comp->place_of_commission }}</td>
+                                        <td>
+                                            <b>Date Reported:</b> {{ $comp->date_reported }}
+                                            <br><b>Place of Commission:</b> {{ $comp->place_of_commission }}
+                                            <br><b>Offenses Committed:</b> {{ $comp->offenses }}
+                                            <br><b>Motive/Cause:</b> {{ $comp->evidence_motive_cause }}
+                                            <br><b>Case Disposition:</b> {{ $comp->case_disposition }}
+                                            <br><b>Suspect Disposition:</b> {{ $comp->suspect_disposition }}
+                                            <br><b>Case Update:</b> 
+                                                @if ($comp->case_update == null) 
+                                                    Case not updated yet.
+                                                @else
+                                                    {{ $comp->case_update }}
+                                                @endif
+                                            <br><b>Date of Case Updated:</b>
+                                                @if ($comp->case_update == null) 
+                                                    Case not updated yet.
+                                                @else
+                                                    {{ $comp->date_case_updated }}
+                                                @endif
+                                        </td>
+                                        <td>
+                                            <b>Victim Overview</b>
+                                            <br>Fullname: {{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}
+                                            <br>Sex: {{ $comp->victim_sex }}
+                                            <br>Age: {{ $comp->victim_age }}
+
+                                            <br><b>Offender Overview</b>
+                                            <br>Fullname: {{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}
+                                            <br>Sex: {{ $comp->offender_sex }}
+                                            <br>Age: {{ $comp->offender_age }}
+                                        </td>
+                                        {{-- <td>{{ $comp->date_reported }}</td> --}}
+                                        {{-- <td>{{ $comp->place_of_commission }}</td>
                                         <td>{{ $comp->offenses }}</td> 
                                         <td>{{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}</td>
                                         <td>{{ $comp->victim_sex }}</td>
@@ -119,7 +152,7 @@
                                             @else
                                                 {{ $comp->date_case_updated }}
                                             @endif
-                                        </td>
+                                        </td> --}}
                                         {{-- <td>
                                         <center> 
                                             <a class="case-btn" href=" ">&nbsp;&nbsp;&nbsp;Update Case <i class="fa-regular fa-file" style="font-size: large; padding: 0.5rem"></i></a>  
@@ -133,12 +166,12 @@
                             </table>
                         </div>
                         <div class="card-footer clearfix">
-                             
+                            
                         </div>
                     </div>
                 </div>
                 
-            </div>
+            </div> 
             <!-- /.content -->
         @endsection
     </body>
@@ -250,3 +283,22 @@
         </div>
     </div>
 </div> --}}
+
+<script>
+    var myInput1 = document.getElementById("myInput1");
+
+    var storedValue1 = localStorage.getItem("myInputValue1");
+
+    if (storedValue1) {
+        myInput1.value = storedValue1;
+    }
+
+    myInput1.addEventListener("input", function() {
+        localStorage.setItem("myInputValue1", myInput1.value);
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    var inputElement = document.getElementById('myInput1');
+    inputElement.value = '';  
+    });
+</script>

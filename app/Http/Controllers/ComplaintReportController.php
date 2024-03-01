@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\ComplaintReport;
+use App\Models\Offense;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -181,19 +182,27 @@ class ComplaintReportController extends Controller
         $comps = ComplaintReport::select('*')
             ->where('id', $comp_id)
             ->get(); 
+
+        $offenses = Offense::select('*') 
+            ->where('not_delete', '=', false)
+            ->get();
         
         if ($acc_type == 'investigator'){
-            return view('investigator.investigator_editcomplaintreport', ['comps' => $comps, 'comp_id'=>$comp_id]); 
+            return view('investigator.investigator_editcomplaintreport', ['comps' => $comps, 'comp_id'=>$comp_id, 'offenses'=>$offenses]); 
         }
         elseif ($acc_type == 'superadmin'){ 
-            return view('superadmin.superadmin_editcomplaintreport', ['comps' => $comps, 'comp_id'=>$comp_id]); 
+            return view('superadmin.superadmin_editcomplaintreport', ['comps' => $comps, 'comp_id'=>$comp_id, 'offenses'=>$offenses]); 
         } 
     }
 
     public function update_form(Request $request, $compid) {  
+        $offenses = $request->input('offenses');
+
+        $serializedoffense = implode(', ', $offenses);
+
         ComplaintReport::where('id', $compid)
             ->update([
-                'offenses' => $request->input('offenses'),
+                'offenses' => $serializedoffense,
                 'victim_family_name' => $request->input('vic_familyname'),
                 'victim_firstname' => $request->input('vic_firstname'),
                 'victim_middlename' => $request->input('vic_middlename'),
