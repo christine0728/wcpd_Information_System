@@ -25,6 +25,9 @@
         <link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=24">
 
         <script src="https://kit.fontawesome.com/7528702e77.js" crossorigin="anonymous"></script> 
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <style>
             .filter {
                 display: flex;
@@ -51,6 +54,24 @@
                     display: none !important;
                 }
             }
+
+            .success {
+                background-color: #d4edda; /* Lighter shade of green */
+                border-color: #c3e6cb; /* Adjust border color if needed */
+                color: #155724; /* Adjust text color if needed */
+            }
+
+            .updated {
+                color: #856404;
+                background-color: #fff3cd;
+                border-color: #ffeeba;
+            }
+
+            .delete {
+                color: #721c24;
+                background-color: #f8d7da;
+                border-color: #f5c6cb;
+            }
         </style>
     </head>
     <body>
@@ -71,7 +92,7 @@
             <div class="content" style="margin-top: -2rem">
                 <div class="container-fluid">
                     <div class="col-12">
-                        <a class="link-buttons" href="{{ route('investigator.complaintreport_form') }}" style="float: left; background-color: #48145B" target="_blank">Add a Complaint Report&nbsp;&nbsp;<i class="fa-solid fa-plus"></i> </a> 
+                        <a class="link-buttons" href="{{ route('investigator.complaintreport_form') }}" style="float: left; background-color: #48145B" >Add a Complaint Report&nbsp;&nbsp;<i class="fa-solid fa-plus"></i> </a> 
                     </div>
 
                     <div class="col-12" style="margin-top: 1rem">
@@ -91,6 +112,23 @@
                     
                     <div class="card col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: 1rem; margin-bottom: 5rem">
                         <div class="card-body p-1">
+                            @if(Session::has('success')) 
+                                <div class="alert success" role="alert">
+                                    <b>{{ session::get('success') }}</b>
+                                </div>
+                            @endif
+
+                            @if(Session::has('updated')) 
+                                <div class="alert updated" role="alert">
+                                    <b>{{ session::get('updated') }}</b>
+                                </div>
+                            @endif
+
+                            @if(Session::has('delete')) 
+                                <div class="alert delete" role="alert">
+                                    <b>{{ session::get('delete') }}</b>
+                                </div>
+                            @endif
                             <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                                 <thead>
                                     <tr> 
@@ -143,7 +181,7 @@
                                                     {{ $comp->date_case_updated }}
                                                 @endif
 
-                                            <form action="{{ route('investigator.change_case_status', $comp->id) }}" method="post">
+                                            <form action="{{ route('superadmin.change_case_status', $comp->id) }}" method="post">
                                                 @csrf
                                                 {{-- <div style="display: flex; align-items: center; margin-top: 0.5rem"> --}}
                                                     <select class="form-control" name="status" style="padding: 0.2rem; margin-right: 0.5rem; width: 100%; margin-top: 0.5rem"> 
@@ -194,6 +232,34 @@
             <!-- /.content -->
         @endsection
     </body>
+
+    <script>
+        let inactiveTime = 0;
+        const logoutTime = 5000;
+        // 5 * 60 * 1000; // 5 minutes in milliseconds
+        
+        function resetInactiveTime() {
+            inactiveTime = 0;
+        }
+        
+        function handleUserActivity() {
+            resetInactiveTime();
+        }
+        
+        document.addEventListener('mousemove', handleUserActivity);
+        document.addEventListener('keydown', handleUserActivity);
+        
+        function checkInactiveTime() {
+            inactiveTime += 1000; 
+            if (inactiveTime >= logoutTime) { 
+                window.location.href = "/inactive_screen"; 
+            } else { 
+                setTimeout(checkInactiveTime, 1000); 
+            }
+        }
+        
+        setTimeout(checkInactiveTime, 1000); // Check every 1 second initially 
+    </script>
 </html>
 
 @if(session('updatemessage'))

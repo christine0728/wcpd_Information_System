@@ -70,13 +70,13 @@
                 </div>
             </div>
         
-            <div class="content" style="margin-top: -1rem;">
+            <div class="content" style="margin-top: -1.5rem;">
                 <div class="container-fluid">   
                     <div class="row justify-content-center"> <!-- Centering the row -->
                         <div class="col-12 col-md-6"> <!-- Adjust the column size as needed -->
                             <div class="card shadow p-3 mb-5 bg-white rounded mx-auto" style="overflow-x:auto; background-color: white; border-radius: 0.5rem;"> 
                                 @if(Session::has('error')) 
-                                    <b style="color: red">{{ session::get('error') }}</b> 
+                                    <center><b style="color: red">{{ session::get('error') }}</b> </center>
                                 @endif
         
                                 <div class="card-body p-1"> 
@@ -98,24 +98,24 @@
                                                             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="lastname"  value="{{ $inv->lastname }}">
                                                         </div>
                                                     </div>
-                                                    <div class="col-12">
+                                                    <div class="col-6" style="margin-top: -1.5rem">
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">Username: </label>
                                                             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username"  value="{{ $inv->username }}">
                                                         </div>
                                                     </div>
         
-                                                    <div class="col-12" style="display: flex;">
+                                                    <div class="col-6" style="margin-top: -1.5rem">
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">Team: </label>
                                                             @if ($inv->team == 'team_a')
-                                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username"  value="TEAM A">
+                                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="TEAM A">
                                                             @elseif ($inv->team == 'team_b')
-                                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username"  value="TEAM B">
+                                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="TEAM B">
                                                             @endif  
                                                         </div>
         
-                                                        <form action="{{ route('superadmin.change_team', $inv->id) }}" method="post">
+                                                        {{-- <form action="{{ route('superadmin.change_team', $inv->id) }}" method="post">
                                                             @csrf
                                                             <div style="display: flex; align-items: flex-end;">
                                                                 <label for="teamSelect" class="mr-2">Select team:</label>
@@ -126,12 +126,27 @@
                                                                 </select>
                                                                 <button type="submit" class="btn btn-primary">Change team</button>                
                                                             </div> 
-                                                        </form>
+                                                        </form> --}}
+                                                    </div>
+
+                                                    <div class="col-12">
+                                                        {{-- <form action="{{ route('superadmin.change_team', $inv->id) }}" method="post">
+                                                            @csrf --}}
+                                                            <div style="display: flex; align-items: flex-end;">
+                                                                <label for="teamSelect" class="mr-2">Change Team:</label>
+                                                                <select class="form-control" id="teamSelect" name="team" style="border-radius: 0.3125rem; border: 2.5px solid #48145B; background: #FFF; width: 75%; font-size: medium; margin-right: 0.5rem;">
+                                                                    <option value="{{ $inv->team }}">Select here:</option>
+                                                                    <option value="team_a">TEAM A</option>
+                                                                    <option value="team_b">TEAM B</option> 
+                                                                </select>
+                                                                {{-- <button type="submit" class="form-buttons" style="width: 10rem">Change team</button>                 --}}
+                                                            </div> 
+                                                        {{-- </form> --}}
                                                     </div>
                                                 </div> 
                                             </div> 
                                             <div class="col-12">
-                                                <button type="submit" class="btn btn-success btn-block">Save Changes</button>
+                                                <button type="submit" class="form-buttons" style="width: 100%">Save Changes</button>
                                             </div>
                                         </form>
                                     @endforeach

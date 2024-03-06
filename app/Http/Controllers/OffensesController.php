@@ -23,7 +23,7 @@ class OffensesController extends Controller
             'not_delete' => false,
         ]);
         $offenses->save();
-        return redirect()->back()->with('success', 'The record has been added successfully!');
+        return redirect()->back()->with('success', 'Offense has been added successfully!');
     }
 
     public function delete(Request $request, $offensepid) {  
@@ -34,10 +34,10 @@ class OffensesController extends Controller
 
         $type = Auth::guard('account')->user()->acc_type;
         if ($type == 'investigator'){
-            return redirect()->route('investigator.offensesmanagement')->with('delete', 'The record deleted successfully!'); 
+            return redirect()->route('investigator.offensesmanagement')->with('delete', 'Offense has been deleted successfully!'); 
         }
         elseif ($type == 'superadmin'){
-            return redirect()->route('superadmin.offensesmanagement')->with('delete', 'The record deleted successfully!'); 
+            return redirect()->route('superadmin.offensesmanagement')->with('delete', 'Offense has been deleted successfully!'); 
         }
     }
     public function update(Request $request)
@@ -53,7 +53,7 @@ class OffensesController extends Controller
         $offense->description = $desc;
         $offense->updated_at = $now;
         $offense->update();
-        return redirect()->back()->with('update', 'The record has been updated successfully!');
+        return redirect()->back()->with('updated', 'Offense has been updated successfully!');
     }
 
     public function filter(Request $request)

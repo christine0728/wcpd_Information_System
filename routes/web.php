@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ComplaintReportController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvestigatorController;
 use App\Http\Controllers\OffensesController;
 use App\Http\Controllers\PDFController;
@@ -27,9 +28,10 @@ Route::get('/', function () {
 
 Route::get('/login', [InvestigatorController::class, 'login_view'])->name('login_form');
 Route::post('/login_account', [InvestigatorController::class, 'login'])->name('logging_in');
-Route::get('/logout', [InvestigatorController::class, 'logout'])->name('logout');
+Route::get('/logout', [InvestigatorController::class, 'logout'])->name('logout')->middleware('account'); 
+Route::get('/inactive_screen', [HomeController::class, 'inactive_screen'])->name('inactive_screen');
 
-Route::prefix('investigator')->group(function(){
+Route::prefix('investigator')->middleware('account')->group(function(){
     Route::get('/dashboard', [InvestigatorController::class, 'dashboard'])->name('investigator.dashboard');
 
     Route::get('/complaintreportmanagement', [InvestigatorController::class, 'complaintreportmngt'])->name('investigator.complaintreport');
@@ -74,12 +76,12 @@ Route::prefix('investigator')->group(function(){
 Route::post('/submit', [InvestigatorController::class, 'submit'])->name('submit');
 });
 
-Route::prefix('superadmin')->group(function(){
+Route::prefix('superadmin')->middleware('account')->group(function(){
     Route::post('/add_teamaccount', [SuperAdminController::class, 'add_superadmin'])->name('superadmin.add_teamaccount');
     Route::get('/add_investigator_acc', [SuperAdminController::class, 'add_investigator_acc'])->name('superadmin.add_investigator_acc');
     Route::post('/add_investigator', [SuperAdminController::class, 'add_investigator'])->name('superadmin.add_investigator'); 
 
-    Route::get('/dashboard', [SuperAdminController::class, 'dashboard'])->name('superadmin.dashboard');
+    Route::get('/dashboard', [SuperAdminController::class, 'dashboard'])->name('superadmin.dashboard')->middleware('account');
     Route::get('/inv_accountmngt', [SuperAdminController::class, 'inv_account_management'])->name('superadmin.inv_account_mngt');
     Route::get('/edit_investigator_acc/{id}', [SuperAdminController::class, 'edit_investigator_acc'])->name('superadmin.edit_investigator_acc');
     Route::post('/edit_investigator_details/{id}', [SuperAdminController::class, 'edit_investigator_details'])->name('superadmin.edit_investigator_details');
@@ -108,8 +110,9 @@ Route::prefix('superadmin')->group(function(){
     Route::post('/update_form/{comp_id}', [ComplaintReportController::class, 'update_form'])->name('superadmin.update_form');
     Route::get('/delete_form/{comp_id}', [ComplaintReportController::class, 'delete_form'])->name('superadmin.delete_form');
     Route::get('/complaintreport_pdf/{comp_id}', [PDFController::class, 'complaint_pdf'])->name('superadmin.complaint_pdf');
+    Route::post('/change_case_status/{id}', [SuperAdminController::class, 'change_case_status'])->name('superadmin.change_case_status');
 
-    Route::get('/allrecords', [SuperAdminController::class, 'allrecords'])->name('superadmin.allrecords');
+    Route::get('/allrecords', [SuperAdminController::class, 'allrecords'])->name('superadmin.allrecords')->middleware('account');
     Route::get('/filter-allrecords', [SuperAdminController::class, 'filter_allrecords'])->name('investigator.filter_allrecords');
     Route::get('/filter-compsmngt', [SuperAdminController::class, 'filter_compsmngt'])->name('investigator.filter_compsmngt');
 

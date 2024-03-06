@@ -54,6 +54,24 @@
                     display: none !important;
                 }
             }
+
+            .success {
+                background-color: #d4edda; /* Lighter shade of green */
+                border-color: #c3e6cb; /* Adjust border color if needed */
+                color: #155724; /* Adjust text color if needed */
+            }
+
+            .updated {
+                color: #856404;
+                background-color: #fff3cd;
+                border-color: #ffeeba;
+            }
+
+            .delete {
+                color: #721c24;
+                background-color: #f8d7da;
+                border-color: #f5c6cb;
+            }
         </style>
     </head>
     <body>
@@ -79,6 +97,23 @@
                     
                     <div class="card col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: 3rem; margin-bottom: 5rem">
                         <div class="card-body p-1">
+                            @if(Session::has('success')) 
+                                <div class="alert success" role="alert">
+                                    <b>{{ session::get('success') }}</b>
+                                </div>
+                            @endif
+
+                            @if(Session::has('updated')) 
+                                <div class="alert updated" role="alert">
+                                    <b>{{ session::get('updated') }}</b>
+                                </div>
+                            @endif
+
+                            @if(Session::has('delete')) 
+                                <div class="alert delete" role="alert">
+                                    <b>{{ session::get('delete') }}</b>
+                                </div>
+                            @endif
                             <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                                 <thead>
                                     <tr>  

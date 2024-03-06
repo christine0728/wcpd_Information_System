@@ -52,7 +52,7 @@ class SuperAdminController extends Controller
             'created_at' => Carbon::now(),
         ]);
 
-        return redirect()->route('superadmin.inv_account_mngt');
+        return redirect()->route('superadmin.inv_account_mngt')->with('success', 'Investigator account added successfully!');;
     } 
 
     public function add_investigator_acc()
@@ -68,6 +68,7 @@ class SuperAdminController extends Controller
     public function inv_account_management()
     {
         $invs = Account::where('acc_type', '=', 'investigator') 
+            ->where('status', '=', 'active')
             ->get();
         return view('superadmin.superadmin_invaccountmngt', ['invs'=>$invs]);
     }
@@ -101,7 +102,7 @@ class SuperAdminController extends Controller
             ->update([
                 'status' => $request->input('status'), 
             ]);
-        return redirect()->back()->with('message', 'Account"s team has been added successfully!');
+        return redirect()->back()->with('updated', "Investigator account's status has been updated successfully! Moved to Inactive Accounts Tab");
     }
 
     public function change_password()
@@ -128,11 +129,12 @@ class SuperAdminController extends Controller
                 ->update([
                     'password' => Hash::make($request->new_password),
                 ]);
-                dd('napalitan');
+                // dd('napalitan');
+                return redirect()->back()->with('updated', "Password changed successfully!");
             }
         }
         else{
-            return redirect()->back()->with('error', 'The username or current password you entered is incorrect.');
+            return redirect()->back()->with('delete', 'The username or current password you entered is incorrect.');
         }
     }
 
@@ -177,10 +179,10 @@ class SuperAdminController extends Controller
         
     public function complaintreportmngt()
     {
-        // $author_id = Auth::guard('account')->user()->id;
+        $author_id = Auth::guard('account')->user()->id;
         $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
         ->select('accounts.id as accountid', 'accounts.username', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'complaint_reports.victim_family_name', 'complaint_reports.victim_firstname', 'complaint_reports.victim_middlename', 'complaint_reports.victim_sex', 'complaint_reports.victim_age', 'complaint_reports.victim_docs_presented', 'complaint_reports.offender_firstname', 'complaint_reports.offender_family_name', 'complaint_reports.offender_middlename', 'complaint_reports.offender_sex', 'complaint_reports.offender_age', 'complaint_reports.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')
-        // ->where('complaint_report_author', $author_id)
+        ->where('complaint_report_author', $author_id)
         ->where('complaint_reports.status', 'notdeleted')
         ->orderBy('complaint_reports.id', 'DESC') 
         ->get();
@@ -278,8 +280,11 @@ class SuperAdminController extends Controller
                 'firstname' => $request->input('firstname'), 
                 'lastname' => $request->input('lastname'), 
                 'username' => $request->input('username'), 
+                'team' => $request->input('team'), 
             ]);
-        return redirect()->route('superadmin.inv_account_mngt')->with('error', 'investigator account logged in successfully');
+            
+        // route('superadmin.inv_account_mngt')
+        return redirect()->back()->with('error', "Updated investigator's account successfully!");
     }
 
     public function edit_superadmin_acc($id)
@@ -298,6 +303,15 @@ class SuperAdminController extends Controller
                 'lastname' => $request->input('lastname'), 
                 'username' => $request->input('username'), 
             ]);
-        return redirect()->route('superadmin.superadmin_account_mngt', ['id'=>$author_id])->with('error', 'investigator account logged in successfully');
+        return redirect()->route('superadmin.superadmin_account_mngt', ['id'=>$author_id])->with('updated', "Superadmin's account has been updated successfully!");
+    }
+
+    public function change_case_status(Request $request, $id)
+    {
+        ComplaintReport::where('id', '=', $id)
+            ->update([
+                'case_disposition' => $request->input('status'), 
+            ]);
+        return redirect()->back()->with('updated', 'Updated case disposition successfully!');
     }
 } 
