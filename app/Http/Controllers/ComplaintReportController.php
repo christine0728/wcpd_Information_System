@@ -141,11 +141,18 @@ class ComplaintReportController extends Controller
         ]);
 
         $author_id = Auth::guard('account')->user()->id;
+        $acc_type = Auth::guard('account')->user()->acc_type;
         $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
             ->select('accounts.id as accountid', 'accounts.username', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'complaint_reports.victim_family_name', 'complaint_reports.victim_firstname', 'complaint_reports.victim_middlename', 'complaint_reports.victim_sex', 'complaint_reports.victim_age', 'complaint_reports.victim_docs_presented', 'complaint_reports.offender_firstname', 'complaint_reports.offender_family_name', 'complaint_reports.offender_middlename', 'complaint_reports.offender_sex', 'complaint_reports.offender_age', 'complaint_reports.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')->where('complaint_report_author', '=', $author_id)
         ->get();
         // return view('investigator.investigator_complaintreportmngt', ['comps'=>$comps]);
-        return redirect()->route('investigator.complaintreport')->with('message', 'record updated successfully');
+        
+        if ($acc_type == 'investigator'){
+            return redirect()->route('investigator.complaintreport')->with('success', 'Complaint Report Form added successfully!');
+        }
+        elseif ($acc_type == 'superadmin'){ 
+            return redirect()->route('superadmin.complaintreport')->with('success', 'Complaint Report Form added successfully!');
+        }   
     }
 
     public function view_complaintreport($comp_id){
@@ -188,10 +195,10 @@ class ComplaintReportController extends Controller
             ->get();
         
         if ($acc_type == 'investigator'){
-            return view('investigator.investigator_editcomplaintreport', ['comps' => $comps, 'comp_id'=>$comp_id, 'offenses'=>$offenses]); 
+            return view('investigator.investigator_editcomplaintreport', ['comps' => $comps, 'comp_id'=>$comp_id, 'offenses'=>$offenses])->with('success', 'Complant Report Form added successfully!');
         }
         elseif ($acc_type == 'superadmin'){ 
-            return view('superadmin.superadmin_editcomplaintreport', ['comps' => $comps, 'comp_id'=>$comp_id, 'offenses'=>$offenses]); 
+            return view('superadmin.superadmin_editcomplaintreport', ['comps' => $comps, 'comp_id'=>$comp_id, 'offenses'=>$offenses])->with('success', 'Complant Report Form updated successfully!');; 
         } 
     }
 
@@ -243,10 +250,10 @@ class ComplaintReportController extends Controller
 
         $acc_type = Auth::guard('account')->user()->acc_type;
         if ($acc_type == 'investigator'){
-            return redirect()->route('investigator.complaintreport')->with('message', 'record updated successfully'); 
+            return redirect()->route('investigator.complaintreport')->with('updated', 'Complaint Report Form updated successfully!'); 
         }
         elseif ($acc_type == 'superadmin'){
-            return redirect()->route('superadmin.complaintreport')->with('message', 'record updated successfully');
+            return redirect()->route('superadmin.complaintreport')->with('updated', 'Complaint Report Form updated successfully!');
         }
     }
 
@@ -259,10 +266,10 @@ class ComplaintReportController extends Controller
         $acc_type = Auth::guard('account')->user()->acc_type;
         
         if ($acc_type == 'investigator'){
-            return redirect()->route('investigator.complaintreport')->with('message', 'record updated successfully'); 
+            return redirect()->route('investigator.complaintreport')->with('delete', 'Complaint Report Form deleted successfully!'); 
         }
         elseif ($acc_type == 'superadmin'){
-            return redirect()->route('superadmin.complaintreport')->with('message', 'record updated successfully');
+            return redirect()->route('superadmin.complaintreport')->with('delete', 'Complaint Report Form deleted successfully!');
         } 
     }
 }

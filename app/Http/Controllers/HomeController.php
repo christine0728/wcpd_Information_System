@@ -55,10 +55,21 @@ class HomeController extends Controller
         return redirect()->route('login_form')->with('success', 'Account logged out successfully');
     }
 
+    public function inactive_screen()
+    {
+        Auth::guard('account')->logout();
+        return view('inactive_screen');
+    }
+
     public function dashboard()
     {
         return view('investigator.investigator_dashboard');
     }
+
+    // public function inactive_screen()
+    // {
+    //     return view('inactive_screen');
+    // }
 
     public function testing()
     {
