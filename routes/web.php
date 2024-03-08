@@ -122,4 +122,8 @@ Route::prefix('superadmin')->middleware('account')->group(function(){
 
     Route::get('/edit_superadmin_acc/{id}', [SuperAdminController::class, 'edit_superadmin_acc'])->name('superadmin.edit_superadmin_acc');
     Route::post('/edit_superadmin_details/{id}', [SuperAdminController::class, 'edit_superadmin_details'])->name('superadmin.edit_superadmin_details');
+
+    Route::get('/password_requests', [SuperAdminController::class, 'password_requests'])->name('superadmin.password_requests');
+    Route::get('/inv_changepass_req/{nid}/{id}', [SuperAdminController::class, 'inv_changepass_req'])->name('superadmin.inv_changepass_req');
+    Route::post('/inv_changepass_req_post/{nid}/{id}', [SuperAdminController::class, 'inv_changepass_req_post'])->name('superadmin.inv_changepass_req_post');
 });
