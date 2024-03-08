@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\ComplaintReport;
+use App\Models\Notifications;
 use App\Models\Offense;
 use App\Models\SuperAdmin;
 use App\Models\Team;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
+use App\Notifications\MyNotification;
+use Carbon\Carbon; 
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth; 
+use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification;
 
 class SuperAdminController extends Controller
 {
@@ -313,5 +316,48 @@ class SuperAdminController extends Controller
                 'case_disposition' => $request->input('status'), 
             ]);
         return redirect()->back()->with('updated', 'Updated case disposition successfully!');
+    }
+
+    // public function sendNotification()
+    // {
+    //     $user = Auth::user();
+    //     $user->notify(new MyNotification());
+
+    //     return redirect()->back()->with('success', 'Notification sent successfully');
+    // }
+
+    public function password_requests(Request $request)
+    { 
+        $notifications = Notifications::join('accounts', 'accounts.id', '=', 'notifications.investigator_id')  
+            ->select('accounts.firstname', 'accounts.lastname', 'accounts.id as iid', 'notifications.description', 'notifications.created_at', 'notifications.id as nid', 'notifications.status')  
+            ->orderBy('notifications.id', 'desc')
+            ->get();
+        // dd('and2');
+        return view('superadmin.superadmin_password_requests', ['notifications' => $notifications]);
+    }
+
+    public function inv_changepass_req($nid, $id)
+    {
+        $invs = Notifications::join('accounts', 'accounts.id', '=', 'notifications.investigator_id')  
+            ->select('accounts.firstname', 'accounts.lastname', 'accounts.username', 'accounts.team', 'accounts.id', 'accounts.change_password_req', 'notifications.id as nid')  
+            ->where('notifications.id', '=', $nid)
+            ->get();
+        return view('superadmin.superadmin_inv_changepassw', ['invs'=>$invs, 'nid'=>$nid]);
+    }
+
+    public function inv_changepass_req_post(Request $request, $nid, $id)
+    {
+        Notifications::where('id', $nid)
+            ->update([
+                'status' => 'read', 
+            ]);
+
+        Account::where('id', $id)
+            ->update([
+                'change_password_req' => $request->input('passw_req'), 
+            ]);
+            
+        // route('superadmin.inv_account_mngt')
+        return redirect()->route('superadmin.password_requests')->with('success', 'Investigator account added successfully!');;
     }
 } 

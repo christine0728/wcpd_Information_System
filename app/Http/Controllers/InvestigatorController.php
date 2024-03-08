@@ -7,10 +7,16 @@ use App\Models\Account;
 use App\Models\ComplaintReport;
 use App\Models\Employee;
 use App\Models\Offense;
+use App\Models\Notification;
+use App\Models\Notifications;
 use App\Models\Team;
 use App\Models\TeamModel;
+use App\Notifications\MyNotification;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification as NotificationsNotification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class InvestigatorController extends Controller
 {
@@ -174,15 +180,21 @@ class InvestigatorController extends Controller
         return view('investigator.investigator_accountmngt', ['accs' => $accs]);
     }
 
-    public function change_passw_request()
+    public function change_passw_request(Request $request)
     {
         $id = Auth::guard('account')->user()->id;
         Account::where('id', '=', $id)
             ->update([
                 'change_password_req' => 'pending', 
-            ]);
+            ]); 
 
-        return redirect()->route('investigator.accountmngt')->with('message', 'Record deleted successfully'); 
+        $user = Notifications::create([
+            'investigator_id' => $id,
+            'description' => 'requests to change their password.',
+            'status' => 'unread', 
+            'read_at' => null,
+            'created_at' => Carbon::now(),
+        ]); 
     }
 
     public function filter_allrecords(Request $request)

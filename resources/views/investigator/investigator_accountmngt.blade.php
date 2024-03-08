@@ -110,7 +110,7 @@
                                     <div class="row">
                                         <div class="col-12">
                                             @if ($acc->change_password_req == 'none' || $acc->change_password_req == 'successful')
-                                                <a class="link-buttons" href="{{ route('investigator.change_password_request') }}" style="float: left;">Request for Change Password&nbsp;&nbsp;<i class="fa-solid fa-key icons"></i> </a>
+                                                <a class="link-buttons" href="{{ route('investigator.change_password_request') }}" style="float: left; background-color: #48145B">Request for Change Password&nbsp;&nbsp;<i class="fa-solid fa-key icons"></i> </a>
                                             @elseif ($acc->change_password_req == 'pending')
                                                 <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="REQUEST FOR CHANGE OF PASSWORD ALREADY SENT TO SUPERADMIN" style="background-color: yellow; font-weight: bold; color: black; width: 25rem; border: none; font-size: medium" readonly>
                                             @endif
@@ -234,3 +234,32 @@
         </div>
     </div>
 </div> --}}
+
+<script>
+    let inactiveTime = 0;
+    const logoutTime = 5 * 60 * 1000;
+    // 5 * 60 * 1000; // 5 minutes in milliseconds
+    
+    function resetInactiveTime() {
+        inactiveTime = 0;
+    }
+    
+    function handleUserActivity() {
+        resetInactiveTime();
+    }
+    
+    document.addEventListener('mousemove', handleUserActivity);
+    document.addEventListener('keydown', handleUserActivity);
+    
+    function checkInactiveTime() {
+        inactiveTime += 1000; 
+        if (inactiveTime >= logoutTime) { 
+            window.location.href = "/inactive_screen"; 
+        } else { 
+            setTimeout(checkInactiveTime, 1000); 
+        }
+    }
+    
+    setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
+
+</script>

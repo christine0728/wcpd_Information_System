@@ -249,7 +249,7 @@
         </div>
     </div>
 </div> --}}
-<script>
+{{-- <script>
     let inactiveTime = 0;
     const logoutTime = 5000;
     // 5 * 60 * 1000; // 5 minutes in milliseconds
@@ -276,4 +276,4 @@
     
     setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
 
-</script>
+</script> --}}

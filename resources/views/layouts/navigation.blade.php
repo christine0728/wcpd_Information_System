@@ -228,6 +228,17 @@
                     </a>
                 </li>
             @endif 
+
+            @if (Auth::guard('account')->user()->acc_type == 'superadmin')
+            <li class="nav-item"> 
+                <a href="{{ route('superadmin.password_requests')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>
+                        {{ __('Password Requests Notifications') }}
+                    </p>
+                </a>
+            </li>
+            @endif
         </ul> 
     </nav>
     <!-- /.sidebar-menu -->
