@@ -218,8 +218,9 @@
 
 <script>
     let inactiveTime = 0;
-    const logoutTime = 5000;
+    const logoutTime = 2 * 60 * 1000;
     // 5 * 60 * 1000; // 5 minutes in milliseconds
+    // note: if 30 seconds yung naka-set na time, may additional na 20 seconds before inactive screen is applied
     
     function resetInactiveTime() {
         inactiveTime = 0;

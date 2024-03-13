@@ -93,6 +93,9 @@
                 <b style="font-size: x-large; ">Complaint Standard Report Form</b>
             </div>  
 
+            <div class="col-6">
+                <a class="link-buttons" href="{{ route('investigator.complaint_pdf', [$comp_id]) }}" style="float: right; margin-right: 0.5rem; background-color: #48145B" target="_blank">Download as PDF&nbsp;&nbsp;<i class="fa-regular fa-circle-down icons"></i> </a>
+            </div>
         </div> 
     </div> 
 

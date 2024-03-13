@@ -64,7 +64,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2"> 
                          <div class="col-6">
-                            <h1 class="m-0" style="font-weight: bold;">{{ __('Change Own Password') }}</h1>
+                            <h1 class="m-0" style="font-weight: bold;">&nbsp;{{ __('Change Own Password') }}</h1>
                         </div> 
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                         @endif
 
                         <div class="card-body p-1"> 
-                            <form action="{{ route('superadmin.changing_password') }}" method="post">
+                            <form action="{{ route('investigator.changing_password') }}" method="post">
                                 @csrf
                                 <div class="card-body p-1">
                                     <div class="form-group">

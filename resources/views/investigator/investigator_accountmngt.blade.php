@@ -113,8 +113,19 @@
                                                 <a class="link-buttons" href="{{ route('investigator.change_password_request') }}" style="float: left; background-color: #48145B">Request for Change Password&nbsp;&nbsp;<i class="fa-solid fa-key icons"></i> </a>
                                             @elseif ($acc->change_password_req == 'pending')
                                                 <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="REQUEST FOR CHANGE OF PASSWORD ALREADY SENT TO SUPERADMIN" style="background-color: yellow; font-weight: bold; color: black; width: 25rem; border: none; font-size: medium" readonly>
+                                            @elseif ($acc->change_password_req == 'accepted')
+                                                <a class="link-buttons" href="{{ route('investigator.change_password') }}" style="float: left; background-color: #48145B">Change Password&nbsp;&nbsp;<i class="fa-solid fa-key icons"></i> </a> 
+                                                <br><br><i>(Superadmin accepted your change password request. You can now change your password.)</i>
+                                            @elseif ($acc->change_password_req == 'denied')
+                                                <a class="link-buttons" href="{{ route('investigator.change_password_request') }}" style="float: left; background-color: #48145B">Request for Change Password&nbsp;&nbsp;<i class="fa-solid fa-key icons"></i> </a>
+                                                <br><br><i>(Superadmin denied your change password request. Request again if desired so.)</i>
+                                            @elseif ($acc->change_password_req == 'done')
+                                                <b></b>
                                             @endif
                                         </div>
+                                        @if(Session::has('error')) 
+                                            <b style="color: red">{{ session::get('error') }}</b>
+                                        @endif
                                     </div>
                                     @endforeach
                                 </div>  
@@ -237,7 +248,7 @@
 
 <script>
     let inactiveTime = 0;
-    const logoutTime = 5 * 60 * 1000;
+    const logoutTime = 2 * 60 * 1000;
     // 5 * 60 * 1000; // 5 minutes in milliseconds
     
     function resetInactiveTime() {

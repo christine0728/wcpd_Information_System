@@ -135,9 +135,9 @@
                                                             <div style="display: flex; align-items: flex-end;">
                                                                 <label for="teamSelect" class="mr-2">Password Request:</label>
                                                                 <select class="form-control" id="teamSelect" name="passw_req" style="border-radius: 0.3125rem; border: 2.5px solid #48145B; background: #FFF; width: 69%; font-size: medium; margin-right: 0.5rem;">
-                                                                    <option value="{{ $inv->change_password_req }}">Selected response:</option>
-                                                                    <option value="accept">ACCEPT</option>
-                                                                    <option value="deny">DENY</option> 
+                                                                    <option value="{{ $inv->change_password_req }}">Selected: {{ $inv->change_password_req }}</option>
+                                                                    <option value="accepted">ACCEPT</option>
+                                                                    <option value="denied">DENY</option> 
                                                                 </select>
                                                                 {{-- <button type="submit" class="form-buttons" style="width: 10rem">Change team</button>                 --}}
                                                             </div> 

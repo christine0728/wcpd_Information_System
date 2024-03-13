@@ -57,5 +57,6 @@ class ComplaintReport extends Model
         'updated_at',
         'case_update',
         'date_case_updated',
+        'status'
     ];
 }

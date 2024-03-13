@@ -54,7 +54,7 @@
                                 <label for="end_date">To:</label>&nbsp;&nbsp;
                                 <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}">&nbsp;&nbsp;
                                 <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-                                <a href="{{ route('investigator.allrecords') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a>
+                                <a href="{{ route('superadmin.allrecords') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a>
                             </div>
                             </form>
                         </div>
@@ -65,6 +65,7 @@
                             <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                                 <thead>
                                     <tr> 
+                                        <th style="display: none">id</th>
                                         <th>View</th>
                                         <th>Complaint Report Author</th>
                                         <th>Case Details</th>
@@ -89,12 +90,11 @@
                                 <tbody> 
                                     @foreach ($comps as $comp)  
                                     <tr>  
-                                        <td>
-                                            <center>
-                                                <a class="view-btn" href="{{ route('superadmin.readonly_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
-                                            </center>
+                                        <td style="display: none">{{ $comp->id }}</td>
+                                        <td style="vertical-align: top;"> 
+                                            <a class="view-btn" href="{{ route('superadmin.readonly_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a> 
                                         </td>
-                                        <td>{{ $comp->username }} ({{ $comp->team }})</td>
+                                        <td style="vertical-align: top;">{{ $comp->username }} ({{ $comp->team }})</td>
                                         <td>
                                             <b>Date Reported:</b> {{ $comp->date_reported }}
                                             <br><b>Place of Commission:</b> {{ $comp->place_of_commission }}
@@ -304,7 +304,7 @@
 </script>
 <script>
     let inactiveTime = 0;
-    const logoutTime = 5 * 60 * 1000;
+    const logoutTime = 2 * 60 * 1000;
     // 5 * 60 * 1000; // 5 minutes in milliseconds
     
     function resetInactiveTime() {
