@@ -97,14 +97,14 @@
 
                     <div class="col-12" style="margin-top: 1rem">
                         <div class="filter">
-                            <form action="filter-complaintreps" method="GET">
+                            <form action="filter-compsmngt" method="GET">
                                 <div class="date-filter">
                                     <label for="start_date">From:</label>&nbsp;&nbsp;
                                     <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}">&nbsp;&nbsp;
                                     <label for="end_date">To:</label>&nbsp;&nbsp;
                                     <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}">&nbsp;&nbsp;
                                     <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-                                    <a href="{{ route('investigator.complaintreport') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a>
+                                    <a href="{{ route('superadmin.complaintreport') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a>
                                 </div>
                             </form>
                         </div>
@@ -173,13 +173,18 @@
                                             <br><br><b>Offender Overview</b>
                                             <br>Fullname: {{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}
                                         </td>
-                                        <td style="vertical-align: top; width: 8rem">
-                                            Current: {{ $comp->case_disposition }}
-                                            <br>@if ($comp->case_update == null) 
-                                                    Case not updated yet.
-                                                @else
-                                                    {{ $comp->date_case_updated }}
-                                                @endif
+                                        <td style="vertical-align: top; width: 14rem">
+                                            @if ($comp->case_update == 'not update yet') 
+                                                Current: {{ $comp->case_disposition }}
+                                            @else
+                                                Update: {{ $comp->case_update }}
+                                            @endif
+                                            <br>
+                                            @if ($comp->case_update == null) 
+                                                Case not updated yet.
+                                            @else
+                                                {{ $comp->date_case_updated }}
+                                            @endif
 
                                             <form action="{{ route('superadmin.change_case_status', $comp->id) }}" method="post">
                                                 @csrf
@@ -235,7 +240,7 @@
 
     <script>
         let inactiveTime = 0;
-        const logoutTime = 5000;
+        const logoutTime = 2 * 60 * 1000;
         // 5 * 60 * 1000; // 5 minutes in milliseconds
         
         function resetInactiveTime() {

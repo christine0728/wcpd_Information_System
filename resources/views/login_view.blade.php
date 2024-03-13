@@ -102,9 +102,9 @@
   <div class="container">
     <div class="login-container">
       <div class="login-left" style="background-color:#9947B6">
-      <b> <p style="font-size: 20px">Woman And Children Protection Center</p></b>
-      <b> <p style="font-size: 30px">WCPC Information Management System</p></b>
-      <b><p style="margin-bottom: 0;font-size: 20px">Philippine National Police<br><b style="font-size:12px">Urdaneta City Police Station</b></p></b>
+        <b> <p style="font-size: 20px">Woman And Children Protection Center</p></b>
+        <b> <p style="font-size: 30px">WCPC Information Management System</p></b>
+        <b><p style="margin-bottom: 0;font-size: 20px">Philippine National Police<br><b style="font-size:12px">Urdaneta City Police Station</b></p></b>
       </div>
       <div class="login-form" style="background-color:#E7D9F7">
         <center><img src="{{ asset('images/wcpc_logo.jpg') }}" alt="Login Image" height="100px" width="100px"></center><br>

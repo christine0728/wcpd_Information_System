@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\ComplaintReport;
+use App\Models\Logs;
 use App\Models\Offense;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,9 +17,8 @@ class ComplaintReportController extends Controller
     public function add_complaint(Request $request){
         $currentUserId = Auth::guard('account')->user()->id; 
 
-        // $request->validate([
-        //     'input' => 'required|regex:/^[a-zA-Z0-9]*$/',
-        // ]);
+        $now = Carbon::now();
+        $now->setTimezone('Asia/Manila');
 
         $vic_date_birth = $request->input('vic_date_birth');
 
@@ -132,20 +132,28 @@ class ComplaintReportController extends Controller
             'case_disposition' => $dispo,
             'suspect_disposition' => $sus_dispo,
             'investigator_on_case' => $request->input('investigator'),
-            'created_at' => Carbon::now(),
+            'created_at' => $now,
+            'updated_at' => $now,
+            'case_update' => 'not update yet',
+            'date_case_updated' => null
         ]);
         
 
         Validator::make($request->all(), [
             'input' => 'required|string', // Example validation rule, adjust as needed
         ]);
+ 
+        $acc_type = Auth::guard('account')->user()->acc_type;  
 
-        $author_id = Auth::guard('account')->user()->id;
-        $acc_type = Auth::guard('account')->user()->acc_type;
-        $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
-            ->select('accounts.id as accountid', 'accounts.username', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'complaint_reports.victim_family_name', 'complaint_reports.victim_firstname', 'complaint_reports.victim_middlename', 'complaint_reports.victim_sex', 'complaint_reports.victim_age', 'complaint_reports.victim_docs_presented', 'complaint_reports.offender_firstname', 'complaint_reports.offender_family_name', 'complaint_reports.offender_middlename', 'complaint_reports.offender_sex', 'complaint_reports.offender_age', 'complaint_reports.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')->where('complaint_report_author', '=', $author_id)
-        ->get();
-        // return view('investigator.investigator_complaintreportmngt', ['comps'=>$comps]);
+        $authorID = Auth::guard('account')->user()->id;
+        $log = new Logs();
+        $log->author_type = Auth::guard('account')->user()->acc_type;
+        $log->author_id = $authorID; 
+        $log->action = "Add";
+        $log->details = "Added Complaint Report Form";
+        $log->created_at = $now;
+        $log->updated_at = $now;
+        $log->save();
         
         if ($acc_type == 'investigator'){
             return redirect()->route('investigator.complaintreport')->with('success', 'Complaint Report Form added successfully!');
@@ -205,6 +213,9 @@ class ComplaintReportController extends Controller
     public function update_form(Request $request, $compid) {  
         $offenses = $request->input('offenses');
 
+        $now = Carbon::now();
+        $now->setTimezone('Asia/Manila');
+
         $serializedoffense = implode(', ', $offenses);
 
         ComplaintReport::where('id', $compid)
@@ -246,7 +257,18 @@ class ComplaintReportController extends Controller
                 'offender_nationality' => $request->input('off_nationality'),
                 'offender_nationality' => $request->input('off_nationality'),
                 'offender_nationality' => $request->input('off_nationality'),
+                'updated_at' => $now,
             ]);
+
+        $authorID = Auth::guard('account')->user()->id;
+        $log = new Logs();
+        $log->author_type = Auth::guard('account')->user()->acc_type;
+        $log->author_id = $authorID; 
+        $log->action = "Edit";
+        $log->details = "Edited Complaint Report Form";
+        $log->created_at = $now;
+        $log->updated_at = $now;
+        $log->save();
 
         $acc_type = Auth::guard('account')->user()->acc_type;
         if ($acc_type == 'investigator'){
@@ -257,13 +279,25 @@ class ComplaintReportController extends Controller
         }
     }
 
-    public function delete_form(Request $request, $compid) {  
+    public function delete_form(Request $request, $compid) { 
+        $now = Carbon::now();
+        $now->setTimezone('Asia/Manila'); 
+
         ComplaintReport::where('id', $compid)
             ->update([
                 'status' => 'deleted', 
             ]);
             
         $acc_type = Auth::guard('account')->user()->acc_type;
+        $authorID = Auth::guard('account')->user()->id;
+        $log = new Logs();
+        $log->author_type = Auth::guard('account')->user()->acc_type;
+        $log->author_id = $authorID; 
+        $log->action = "Delete";
+        $log->details = "Deleted Complaint Report Form";
+        $log->created_at = $now;
+        $log->updated_at = $now;
+        $log->save();
         
         if ($acc_type == 'investigator'){
             return redirect()->route('investigator.complaintreport')->with('delete', 'Complaint Report Form deleted successfully!'); 
@@ -271,5 +305,39 @@ class ComplaintReportController extends Controller
         elseif ($acc_type == 'superadmin'){
             return redirect()->route('superadmin.complaintreport')->with('delete', 'Complaint Report Form deleted successfully!');
         } 
+    }
+
+    public function restore_form(Request $request, $compid) { 
+        $now = Carbon::now();
+        $now->setTimezone('Asia/Manila'); 
+
+        ComplaintReport::where('id', $compid)
+            ->update([
+                'status' => 'notdeleted', 
+            ]);
+            
+        $acc_type = Auth::guard('account')->user()->acc_type;
+        $authorID = Auth::guard('account')->user()->id;
+        $log = new Logs();
+        $log->author_type = Auth::guard('account')->user()->acc_type;
+        $log->author_id = $authorID; 
+        $log->action = "Restore";
+        $log->details = "Restored Complaint Report Form";
+        $log->created_at = $now;
+        $log->updated_at = $now;
+        $log->save();
+        
+        if ($acc_type == 'investigator'){
+            return redirect()->route('investigator.trash')->with('delete', 'Complaint Report Form deleted successfully!'); 
+        }
+        elseif ($acc_type == 'superadmin'){
+            return redirect()->route('superadmin.trash')->with('delete', 'Complaint Report Form deleted successfully!');
+        } 
+    }
+
+    public function permanent_del(string $id){
+        $book = ComplaintReport::find($id);
+        $book->delete();
+        return redirect()->back()->with('delete', 'Complaint Report Form deleted permanently!');
     }
 }

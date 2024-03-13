@@ -68,7 +68,16 @@ Route::prefix('investigator')->middleware('account')->group(function(){
     Route::get('/accountmngt', [InvestigatorController::class, 'accountmngt'])->name('investigator.accountmngt');
 
     Route::get('/change_password_request', [InvestigatorController::class, 'change_passw_request'])->name('investigator.change_password_request');
+    Route::get('/change_password', [InvestigatorController::class, 'change_password'])->name('investigator.change_password');
+    Route::post('/changing_password', [InvestigatorController::class, 'changing_password'])->name('investigator.changing_password');
 
+    Route::get('/logs', [InvestigatorController::class, 'logs'])->name('investigator.logs');
+    Route::get('/filter-logs-inv', [InvestigatorController::class, 'filter_logs'])->name('investigator.filter_logs');
+
+    Route::get('/trash', [InvestigatorController::class, 'trash'])->name('investigator.trash');
+    Route::get('/filter-allrecords', [InvestigatorController::class, 'filter_allrecords'])->name('investigator.filter_allrecords');
+    Route::get('/restore_form/{comp_id}', [ComplaintReportController::class, 'restore_form'])->name('investigator.restore_form');
+    Route::get('/permanent_del/{comp_id}', [ComplaintReportController::class, 'permanent_del'])->name('investigator.permanent_del');
 
     Route::get('/testing', [InvestigatorController::class, 'testing'])->name('investigator.testing');
     Route::post('/store', [InvestigatorController::class, 'store'])->name('investigator.store');
@@ -113,8 +122,8 @@ Route::prefix('superadmin')->middleware('account')->group(function(){
     Route::post('/change_case_status/{id}', [SuperAdminController::class, 'change_case_status'])->name('superadmin.change_case_status');
 
     Route::get('/allrecords', [SuperAdminController::class, 'allrecords'])->name('superadmin.allrecords')->middleware('account');
-    Route::get('/filter-allrecords', [SuperAdminController::class, 'filter_allrecords'])->name('investigator.filter_allrecords');
-    Route::get('/filter-compsmngt', [SuperAdminController::class, 'filter_compsmngt'])->name('investigator.filter_compsmngt');
+    Route::get('/filter-allrecords', [SuperAdminController::class, 'filter_allrecords'])->name('superadmin.filter_allrecords');
+    Route::get('/filter-compsmngt', [SuperAdminController::class, 'filter_compsmngt'])->name('superadmin.filter_compsmngt');
 
     Route::get('/offensesmanagement', [SuperAdminController::class, 'offensesmngt'])->name('superadmin.offensesmanagement');
     Route::post('/add_offense', [OffensesController::class, 'add'])->name('superadmin.add_offense');
@@ -126,4 +135,11 @@ Route::prefix('superadmin')->middleware('account')->group(function(){
     Route::get('/password_requests', [SuperAdminController::class, 'password_requests'])->name('superadmin.password_requests');
     Route::get('/inv_changepass_req/{nid}/{id}', [SuperAdminController::class, 'inv_changepass_req'])->name('superadmin.inv_changepass_req');
     Route::post('/inv_changepass_req_post/{nid}/{id}', [SuperAdminController::class, 'inv_changepass_req_post'])->name('superadmin.inv_changepass_req_post');
+
+    Route::get('/logs', [SuperAdminController::class, 'logs'])->name('superadmin.logs');
+    Route::get('/filter-logs', [SuperAdminController::class, 'filter_logs'])->name('superadmin.filter_logs');
+
+    Route::get('/trash', [SuperAdminController::class, 'trash'])->name('superadmin.trash'); 
+    Route::get('/restore_form/{comp_id}', [ComplaintReportController::class, 'restore_form'])->name('investigator.restore_form');
+    Route::get('/permanent_del/{comp_id}', [ComplaintReportController::class, 'permanent_del'])->name('investigator.permanent_del');
 });

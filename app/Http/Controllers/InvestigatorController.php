@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\ComplaintReport;
 use App\Models\Employee;
+use App\Models\Logs;
 use App\Models\Offense;
 use App\Models\Notification;
 use App\Models\Notifications;
@@ -16,6 +17,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notification as NotificationsNotification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class InvestigatorController extends Controller
@@ -81,7 +83,7 @@ class InvestigatorController extends Controller
     {
         $author_id = Auth::guard('account')->user()->id;
         $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
-        ->select('accounts.id as accountid', 'accounts.username', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'complaint_reports.victim_family_name', 'complaint_reports.victim_firstname', 'complaint_reports.victim_middlename', 'complaint_reports.victim_sex', 'complaint_reports.victim_age', 'complaint_reports.victim_docs_presented', 'complaint_reports.offender_firstname', 'complaint_reports.offender_family_name', 'complaint_reports.offender_middlename', 'complaint_reports.offender_sex', 'complaint_reports.offender_age', 'complaint_reports.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')->where('complaint_report_author', $author_id)
+        ->select('accounts.id as accountid', 'accounts.username', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'complaint_reports.victim_family_name', 'complaint_reports.victim_firstname', 'complaint_reports.victim_middlename', 'complaint_reports.victim_sex', 'complaint_reports.victim_age', 'complaint_reports.victim_docs_presented', 'complaint_reports.offender_firstname', 'complaint_reports.offender_family_name', 'complaint_reports.offender_middlename', 'complaint_reports.offender_sex', 'complaint_reports.offender_age', 'complaint_reports.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition', 'complaint_reports.date_case_updated', 'complaint_reports.case_update')->where('complaint_report_author', $author_id)
         ->where('complaint_reports.status', 'notdeleted')
         ->orderBy('complaint_reports.id', 'DESC') 
         ->get();
@@ -177,6 +179,8 @@ class InvestigatorController extends Controller
         $id = Auth::guard('account')->user()->id;
         $accs = Account::where('id', '=', $id)->get();
         // dd($id);
+    
+        $chang_passw = Auth::guard('account')->user()->change_passw_request; 
         return view('investigator.investigator_accountmngt', ['accs' => $accs]);
     }
 
@@ -195,6 +199,8 @@ class InvestigatorController extends Controller
             'read_at' => null,
             'created_at' => Carbon::now(),
         ]); 
+
+        return redirect()->back()->with('success', 'Form submitted successfully.');
     }
 
     public function filter_allrecords(Request $request)
@@ -205,7 +211,8 @@ class InvestigatorController extends Controller
         $team = Auth::guard('account')->user()->team;
         $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
         ->select('accounts.id as accountid', 'accounts.username', 'accounts.team', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'complaint_reports.victim_family_name', 'complaint_reports.victim_firstname', 'complaint_reports.victim_middlename', 'complaint_reports.victim_sex', 'complaint_reports.victim_age', 'complaint_reports.victim_docs_presented', 'complaint_reports.offender_firstname', 'complaint_reports.offender_family_name', 'complaint_reports.offender_middlename', 'complaint_reports.offender_sex', 'complaint_reports.offender_age', 'complaint_reports.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')
-        ->where('complaint_reports.created_at', '>=', [$start_date, $end_date])
+        ->whereDate('complaint_reports.created_at', '>=', $start_date)
+        ->whereDate('complaint_reports.created_at', '<=', $end_date)
         ->where('complaint_reports.status', 'notdeleted')
         ->where('accounts.team', $team)
         ->orderBy('complaint_reports.id', 'DESC') 
@@ -216,14 +223,15 @@ class InvestigatorController extends Controller
 
     public function filter_complaintreps(Request $request)
     { 
-        $start_date = date('Y-m-d', strtotime($request->input('start_date')));
-        $end_date = date('Y-m-d', strtotime($request->input('end_date')));
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
 
 
         $team = Auth::guard('account')->user()->team;
         $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
         ->select('accounts.id as accountid', 'accounts.username', 'accounts.team', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'complaint_reports.victim_family_name', 'complaint_reports.victim_firstname', 'complaint_reports.victim_middlename', 'complaint_reports.victim_sex', 'complaint_reports.victim_age', 'complaint_reports.victim_docs_presented', 'complaint_reports.offender_firstname', 'complaint_reports.offender_family_name', 'complaint_reports.offender_middlename', 'complaint_reports.offender_sex', 'complaint_reports.offender_age', 'complaint_reports.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')
-        ->where('complaint_reports.created_at', '>=', [$start_date, $end_date])
+        ->whereDate('complaint_reports.created_at', '>=', $start_date)
+        ->whereDate('complaint_reports.created_at', '<=', $end_date)
         ->where('complaint_reports.status', 'notdeleted')
         ->where('accounts.team', $team)
         ->orderBy('complaint_reports.id', 'DESC') 
@@ -264,10 +272,90 @@ class InvestigatorController extends Controller
 
     public function change_case_status(Request $request, $id)
     {
+        $now = Carbon::now();
+        $now->setTimezone('Asia/Manila');
         ComplaintReport::where('id', '=', $id)
             ->update([
-                'case_disposition' => $request->input('status'), 
+                'case_update' => $request->input('status'),
+                'date_case_updated' => $now,
             ]);
         return redirect()->back()->with('message', 'Account"s team has been added successfully!');
+    }
+
+    public function change_password()
+    {
+        $id = Auth::guard('account')->user()->id;
+        $invs = Account::where('id', '=', $id)
+            ->get();
+        return view('investigator.investigator_changepassword', ['invs'=>$invs]);
+    }
+
+    public function changing_password(Request $request)
+    { 
+        $id = Auth::guard('account')->user()->id;
+        $username = $request->input('username');
+        $invs = Account::where('id', '=', $id)
+            ->first();
+        $check = $request->all();
+
+        // with('error', 'Admin account logged in successfully!');
+        if (Auth::guard('account')->attempt(['username' => $check['username'], 'password' => $check['curr_password']])){
+            if(Auth::guard('account')->check()){
+                // dd('goods');
+                Account::where('id', $id)
+                ->update([
+                    'password' => Hash::make($request->new_password),
+                    'change_password_req' => 'done', 
+                ]);
+                // dd('napalitan');
+                return redirect()->route('investigator.accountmngt')->with('error', 'Password changed successfully!');;
+            }
+        }
+        else{
+            return redirect()->back()->with('error', 'Username or current password you entered is incorrect.');
+        }
+    }
+
+    public function logs()
+    {
+        $author_id = Auth::guard('account')->user()->id;
+        $logs = Logs::join('accounts', 'accounts.id', '=', 'logs.author_id')  
+            ->select('accounts.firstname', 'accounts.lastname', 'logs.author_type', 'logs.id', 'logs.action', 'logs.details', 'logs.created_at') 
+            ->where('logs.author_id', '=', $author_id)
+            ->get();
+        $notifs = Notifications::where('status', '=', 'unread')
+            ->count();
+        return view('investigator.investigator_logs', ['logs'=>$logs, 'notifs'=>$notifs]);
+    }
+
+    public function filter_logs(Request $request)
+    {
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+
+        $author_id = Auth::guard('account')->user()->id; 
+        $logs = Logs::join('accounts', 'accounts.id', '=', 'logs.author_id')  
+            ->select('accounts.firstname', 'accounts.lastname', 'logs.author_type', 'logs.id', 'logs.action', 'logs.details', 'logs.created_at') 
+            ->whereDate('logs.created_at', '>=', $start_date)
+            ->whereDate('logs.created_at', '<=', $end_date) 
+            ->where('logs.author_id', '=', $author_id)
+            ->get();
+
+        $notifs = Notifications::where('status', '=', 'unread')
+            ->count();
+            
+        return view('investigator.investigator_logs', ['logs'=>$logs, 'notifs'=>$notifs, 'start_date'=>$start_date, 'end_date'=>$end_date]);
+    }
+
+    public function trash()
+    {
+        $team = Auth::guard('account')->user()->team;
+        $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
+        ->select('accounts.id as accountid', 'accounts.username', 'accounts.team', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'complaint_reports.victim_family_name', 'complaint_reports.victim_firstname', 'complaint_reports.victim_middlename', 'complaint_reports.victim_sex', 'complaint_reports.victim_age', 'complaint_reports.victim_docs_presented', 'complaint_reports.offender_firstname', 'complaint_reports.offender_family_name', 'complaint_reports.offender_middlename', 'complaint_reports.offender_sex', 'complaint_reports.offender_age', 'complaint_reports.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')
+        ->where('complaint_reports.status', 'deleted')
+        ->where('accounts.team', $team)
+        ->orderBy('complaint_reports.id', 'DESC') 
+        ->get();
+        return view('investigator.investigator_deletedforms', ['comps' => $comps]);
     }
 }

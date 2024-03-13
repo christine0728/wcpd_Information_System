@@ -120,8 +120,8 @@
                                         </div>  
                                     </div></a>
                                 @else
-                                    <a href="" class="notif"><div class="card" style="margin: 1rem; " >   
-                                        <div class="card-body row" onclick="showAlert(event)"> 
+                                    <a href="{{ route('superadmin.inv_changepass_req', [$notification->nid, $notification->iid]) }}" class="notif"><div class="card" style="margin: 1rem; " >   
+                                        <div class="card-body row" > 
                                             {{-- <div class="col-2" style="padding: 0rem"> 
                                                 <div class="col-12" style="border-radius: 5rem; background-color: white; width: 18%"> 
                                                 </div>

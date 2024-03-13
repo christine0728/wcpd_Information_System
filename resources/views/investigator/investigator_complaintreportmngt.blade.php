@@ -22,7 +22,7 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <link rel="icon" href="{{ url('images/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=24">
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=30">
 
         <script src="https://kit.fontawesome.com/7528702e77.js" crossorigin="anonymous"></script> 
         <style>
@@ -135,13 +135,18 @@
                                             <br><br><b>Offender Overview</b>
                                             <br>Fullname: {{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}
                                         </td>
-                                        <td style="vertical-align: top; width: 8rem">
-                                            Current: {{ $comp->case_disposition }}
-                                            <br>@if ($comp->case_update == null) 
-                                                    Case not updated yet.
-                                                @else
-                                                    {{ $comp->date_case_updated }}
-                                                @endif
+                                        <td style="vertical-align: top; width: 14rem">  
+                                            @if ($comp->case_update == 'not update yet') 
+                                                Current: {{ $comp->case_disposition }}
+                                            @else
+                                                Update: {{ $comp->case_update }}
+                                            @endif
+                                            <br>
+                                            @if ($comp->case_update == null) 
+                                                Case not updated yet.
+                                            @else
+                                                {{ $comp->date_case_updated }}
+                                            @endif
 
                                             <form action="{{ route('investigator.change_case_status', $comp->id) }}" method="post">
                                                 @csrf
@@ -175,7 +180,7 @@
                                         <center> 
                                             {{-- <a class="case-btn" href=" ">&nbsp;&nbsp;&nbsp;Update Case <i class="fa-regular fa-file" style="font-size: large; padding: 0.5rem"></i></a>   --}} 
                                             <a class="view-btn" href="{{ route('investigator.view_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
-                                            <br><a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', $comp->id) }}" style="margin-top: 0.3rem">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
+                                            <br><a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', $comp->id) }}" style="margin-top: 0.3rem;">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
                                             
                                             <br><a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href="{{ route('investigator.delete_form', $comp->id) }}" style="margin-top: 0.3rem">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a>
                                         </center>
@@ -280,7 +285,7 @@
 
 <script>
     let inactiveTime = 0;
-    const logoutTime = 5 * 60 * 1000;
+    const logoutTime = 2 * 60 * 1000;
     // 5 * 60 * 1000; // 5 minutes in milliseconds
     
     function resetInactiveTime() {

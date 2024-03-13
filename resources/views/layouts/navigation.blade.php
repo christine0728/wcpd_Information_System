@@ -3,6 +3,10 @@
 .sideber{
     position: fixed;
 }
+
+.ico.fa-solid.fa-circle {
+    font-size: 0.7rem !important; 
+}
 </style>
 <div class="sidebar" style="position:fixed">
     <!-- Sidebar user panel (optional) -->
@@ -41,7 +45,7 @@
             @if (Auth::guard('account')->user()->acc_type == 'superadmin')
                 <li class="nav-item"> 
                     <a href="{{ route('superadmin.allrecords')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fa-regular fa-folder-open"></i>
                         <p>
                             {{ __('All Records') }}
                         </p>
@@ -50,64 +54,18 @@
 
             @elseif (Auth::guard('account')->user()->acc_type == 'investigator' )<li class="nav-item">
                 <a href="{{ route('investigator.allrecords') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                    <i class="nav-icon fas fa-th"></i>
+                    <i class="nav-icon fa-regular fa-folder-open"></i>
                     <p>
                         {{ __('All Records') }}
                     </p>
                 </a>
             </li> 
-            @endif
-            {{-- <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-cogs"></i> <!-- Updated icon for Administration -->
-                    <p>
-                        {{ __('All Records') }}
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview" style="display: none;">
-                    <li class="nav-item">
-                        <a href="" class="nav-link {{ request()->is('universityofficial') ? 'text-primary' : 'text-dark' }}">
-                            <p>University Official</p>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="nav nav-treeview" style="display: none;">
-                    <li class="nav-item">
-                        <a href="" class="nav-link {{ request()->is('organizationalstructure') ? 'text-primary' : 'text-dark' }}">
-                            <p>Organizational Structure of Library</p>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="nav nav-treeview" style="display: none;">
-                    <li class="nav-item">
-                        <a href="" class="nav-link {{ request()->is('libraryproceduralmanual') ? 'text-primary' : 'text-dark' }}">
-                            <p>Library Procedural Manual</p>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="nav nav-treeview" style="display: none;">
-                    <li class="nav-item">
-                        <a href=""  class="nav-link {{ request()->is('librarygoalmissionandobjective') ? 'text-primary' : 'text-dark' }}">
-                            <p>Library Goal Mission and Objective</p>
-                        </a>
-                    </li>
-                </ul>
-            </li> --}}
-
-            {{-- <li class="nav-item">
-                <a href="{{ route('investigator.complaintreport')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                    <i class="nav-icon fas fa-th"></i>
-                    <p>
-                        {{ __('Complaint Report Management') }}
-                    </p>
-                </a>
-            </li> --}}
+            @endif 
 
             @if (Auth::guard('account')->user()->acc_type == 'superadmin')
                 <li class="nav-item"> 
                     <a href="{{ route('superadmin.complaintreport')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fa-solid fa-file-invoice"></i>
                         <p>
                             {{ __('Complaint Report Management') }}
                         </p>
@@ -116,27 +74,18 @@
 
             @elseif (Auth::guard('account')->user()->acc_type == 'investigator' )<li class="nav-item">
                 <a href="{{ route('investigator.complaintreport')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                    <i class="nav-icon fas fa-th"></i>
+                    <i class="nav-icon fa-solid fa-file-invoice"></i>
                     <p>
                         {{ __('Complaint Report Management') }}
                     </p>
                 </a>
             </li> 
-            @endif
-
-            {{-- <li class="nav-item">
-                <a href="{{ route('investigator.offensesmanagement')}}"  class="nav-link {{ request()->is('librarymanpower') ? 'text-primary' : 'text-dark' }}">
-                    <i class="nav-icon far fa-address-card"></i>
-                    <p>
-                        {{ __('Update Types of Offenses') }}
-                    </p>
-                </a>
-            </li> --}}
+            @endif 
 
             @if (Auth::guard('account')->user()->acc_type == 'superadmin')
                 <li class="nav-item"> 
                     <a href="{{ route('superadmin.offensesmanagement') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fa-solid fa-gavel"></i>
                         <p>
                             {{ __('Update Types of Offenses') }}
                         </p>
@@ -145,7 +94,7 @@
 
             @elseif (Auth::guard('account')->user()->acc_type == 'investigator' )<li class="nav-item">
                 <a href="{{ route('investigator.offensesmanagement') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                    <i class="nav-icon fas fa-th"></i>
+                    <i class="nav-icon fa-solid fa-gavel"></i>
                     <p>
                         {{ __('Update Types of Offenses') }}
                     </p>
@@ -156,7 +105,7 @@
             @if (Auth::guard('account')->user()->acc_type == 'superadmin')
                 <li class="nav-item"> 
                     <a href="{{ route('superadmin.victims_mngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fa-regular fa-user"></i>
                         <p>
                             {{ __('Victims Management') }}
                         </p>
@@ -165,7 +114,7 @@
 
             @elseif (Auth::guard('account')->user()->acc_type == 'investigator' )<li class="nav-item">
                 <a href="{{ route('investigator.victims_mngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                    <i class="nav-icon fas fa-th"></i>
+                    <i class="nav-icon fa-regular fa-user"></i>
                     <p>
                         {{ __('Victims Management') }}
                     </p>
@@ -176,7 +125,7 @@
             @if (Auth::guard('account')->user()->acc_type == 'superadmin')
                 <li class="nav-item"> 
                     <a href="{{ route('superadmin.suspects_mngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fa-solid fa-user"></i>
                         <p>
                             {{ __('Offenders Management') }}
                         </p>
@@ -185,7 +134,7 @@
 
             @elseif (Auth::guard('account')->user()->acc_type == 'investigator' )<li class="nav-item">
                 <a href="{{ route('investigator.suspects_mngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                    <i class="nav-icon fas fa-th"></i>
+                    <i class="nav-icon fa-solid fa-user"></i>
                     <p>
                         {{ __('Offenders Management') }}
                     </p>
@@ -196,7 +145,7 @@
             @if (Auth::guard('account')->user()->acc_type == 'superadmin')
                 <li class="nav-item">
                     <a href="" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fa-solid fa-circle-user"></i>
                         <p>
                             {{ __('Account Management') }}
                             <i class="fas fa-angle-left right"></i>
@@ -221,24 +170,73 @@
             @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
                 <li class="nav-item">
                     <a href="{{ route('investigator.accountmngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fa-solid fa-circle-user"></i>
                         <p>
                             {{ __('Account Management') }}
-                        </p>
+                        </p> 
+                        
+                        @if (Auth::guard('account')->user()->change_password_req == 'accepted')
+                            &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-circle ico" style="color: green"></i>
+                        @elseif (Auth::guard('account')->user()->change_password_req == 'denied')
+                            &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-circle ico" style="color: red"></i>
+                        @endif
                     </a>
+
+                </li>
+            @endif 
+
+            @if (Auth::guard('account')->user()->acc_type == 'superadmin')
+                <li class="nav-item">
+                    <a href="{{ route('superadmin.logs') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fa-solid fa-rectangle-list"></i>
+                        <p>
+                            {{ __('Logs') }} 
+                        </p>
+                    </a> 
+                </li>
+            @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
+                <li class="nav-item">
+                    <a href="{{ route('investigator.logs') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fa-solid fa-rectangle-list"></i>
+                        <p>
+                            {{ __('Logs') }}
+                        </p>  
+                    </a>
+
                 </li>
             @endif 
 
             @if (Auth::guard('account')->user()->acc_type == 'superadmin')
             <li class="nav-item"> 
                 <a href="{{ route('superadmin.password_requests')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                    <i class="nav-icon fas fa-th"></i>
+                    <i class="nav-icon fa-solid fa-unlock-keyhole"></i>
                     <p>
-                        {{ __('Password Requests Notifications') }}
+                        {{ __('Password Requests') }} - <b>{{ $notifs }}</b>
                     </p>
                 </a>
             </li>
             @endif
+
+            @if (Auth::guard('account')->user()->acc_type == 'superadmin')
+                <li class="nav-item">
+                    <a href="{{ route('superadmin.trash') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fa-solid fa-trash-can"></i>
+                        <p>
+                            {{ __('Trash') }} 
+                        </p>
+                    </a> 
+                </li>
+            @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
+                <li class="nav-item">
+                    <a href="{{ route('investigator.trash') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fa-solid fa-trash-can"></i>
+                        <p>
+                            {{ __('Trash') }}
+                        </p>  
+                    </a>
+
+                </li>
+            @endif 
         </ul> 
     </nav>
     <!-- /.sidebar-menu -->

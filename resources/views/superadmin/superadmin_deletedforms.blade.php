@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>All Records</title>
+        <title>Investigator | Deleted Forms</title>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <link rel="icon" href="{{ url('images/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
@@ -38,7 +38,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                          <div class="col-sm-6">
-                            <h1 class="m-0">&nbsp;<b>{{ __('All Records') }}</b></h1>
+                            <h1 class="m-0">&nbsp;<b>{{ __('Trash') }}</b></h1>
                         </div>
                     </div>
                 </div>
@@ -65,35 +65,17 @@
                             <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                                 <thead>
                                     <tr> 
-                                        <th>View</th>
+                                        <th style="display: none">id</th>
                                         <th>Complaint Report Author</th>
                                         <th>Case Details</th>
                                         <th>People Involved</th>
-                                        {{-- <th>Place of Commission</th>
-                                        <th>Offenses Committed</th>
-                                        <th>Victim's Fullname</th>
-                                        <th>Victim's Sex</th>
-                                        <th>Victim's Age</th> 
-                                        <th>Offender's Fullname</th>
-                                        <th>Offender's Sex</th>
-                                        <th>Offender's Age</th>
-                                        <th>Relationship to Victim</th>
-                                        <th>Motive/Cause</th>
-                                        <th>Case Disposition</th>
-                                        <th>Suspect Disposition</th>
-                                        <th>Case Update</th>
-                                        <th>Date of Case Updated</th> --}}
-                                        {{-- <th>Action</th> --}}
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody> 
                                     @foreach ($comps as $comp)  
                                     <tr>  
-                                        <td style="vertical-align: top;">
-                                            <center>
-                                                <a class="view-btn" href="{{ route('investigator.readonly_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
-                                            </center>
-                                        </td>
+                                        <td style="display: none">{{ $comp->id }}</td>
                                         <td style="vertical-align: top;">{{ $comp->username }} ({{ $comp->team }})</td>
                                         <td>
                                             <b>Date Reported:</b> {{ $comp->date_reported }}
@@ -126,40 +108,13 @@
                                             <br>Sex: {{ $comp->offender_sex }}
                                             <br>Age: {{ $comp->offender_age }}
                                         </td>
-                                        {{-- <td>{{ $comp->date_reported }}</td> --}}
-                                        {{-- <td>{{ $comp->place_of_commission }}</td>
-                                        <td>{{ $comp->offenses }}</td> 
-                                        <td>{{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}</td>
-                                        <td>{{ $comp->victim_sex }}</td>
-                                        <td>{{ $comp->victim_age }}</td>
-                                        <td>{{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}</td>
-                                        <td>{{ $comp->offender_age }}</td>
-                                        <td>{{ $comp->offender_sex }}</td>
-                                        <td>{{ $comp->offender_relationship_victim }}</td>
-                                        <td>{{ $comp->evidence_motive_cause }}</td>
-                                        <td>{{ $comp->case_disposition }}</td>
-                                        <td>{{ $comp->suspect_disposition }}</td>
-                                        <td> 
-                                            @if ($comp->case_update == null) 
-                                                Case not updated yet.
-                                            @else
-                                                {{ $comp->case_update }}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($comp->case_update == null) 
-                                                Case not updated yet.
-                                            @else
-                                                {{ $comp->date_case_updated }}
-                                            @endif
-                                        </td> --}}
-                                        {{-- <td>
-                                        <center> 
-                                            <a class="case-btn" href=" ">&nbsp;&nbsp;&nbsp;Update Case <i class="fa-regular fa-file" style="font-size: large; padding: 0.5rem"></i></a>  
-                                            <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', $comp->id) }}">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
-                                            <a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href="{{ route('investigator.delete_form', $comp->id) }}">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a>
-                                        </center>
-                                        </td> --}}
+                                        <td style="vertical-align: top;">
+                                            <center>   
+                                                <br><a class="edit-btn" onclick="return confirm('Are you sure you want to RESTORE this record?')" href="{{ route('investigator.restore_form', $comp->id) }}" style="margin-top: 0.3rem">&nbsp;&nbsp;&nbsp;Restore<i class="fa-solid fa-rotate-left" style="font-size: large; padding: 0.5rem"></i></a>  
+
+                                                <br><a class="delete-btn" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this record?')" href="{{ route('investigator.permanent_del', $comp->id) }}" style="margin-top: 0.3rem">&nbsp;&nbsp;&nbsp; Delete Permanently<i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a>
+                                            </center>
+                                            </td>
                                     </tr> 
                                     @endforeach 
                                 </tbody>
@@ -249,40 +204,6 @@
     });
 
 </script>
-
-<!-- Edit Organizational Structure Modal -->
-{{-- <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalAddLabel">Update Records</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="{{ route('update_activity') }}" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <input type="hidden" id="edit_id" name="edit_id">
-                    </div>
-                    <div class="form-group">
-                        <label for="barcode">Activity title:</label>
-                        <input type="text" class="form-control" id="edit_activity_title" name="edit_activity_title" required placeholder="Enter the activity_title">
-                    </div>
-                    <div class="form-group">
-                        <label for="barcode">Status:</label>
-                        <input type="text" class="form-control" id="edit_status" name="edit_status" required placeholder="Enter the status">
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save Changes</button>
-            </div>
-            </form>
-        </div>
-    </div>
-</div> --}}
 
 <script>
     var myInput1 = document.getElementById("myInput1");

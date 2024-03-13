@@ -116,21 +116,19 @@
                                                 No Image
                                             @endif
                                         </td>
-                                        <td>{{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}</td>
-                                        <td>{{ $comp->offender_age }}</td>
-                                        <td>{{ $comp->offender_prev_criminal_rec }}</td>
+                                        <td style="vertical-align: top;">{{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}</td>
+                                        <td style="vertical-align: top;">{{ $comp->offender_age }}</td>
+                                        <td style="vertical-align: top;">{{ $comp->offender_prev_criminal_rec }}</td>
                                         {{-- <td>{{ $comp->offender_last_known_addr }}</td> --}}
-                                        <td>{{ $comp->offender_relationship_victim }}</td> 
-                                        <td>{{ $comp->date_reported }}</td>
+                                        <td style="text-align: top;">{{ $comp->offender_relationship_victim }}</td> 
+                                        <td style="vertical-align: top;">{{ $comp->date_reported }}</td>
                                         {{-- <td>{{ $comp->offenses }}</td>   --}}
-                                        <td>
-                                        <center> 
+                                        <td style="vertical-align: top;"> 
                                             <a class="view-btn" href="{{ route('investigator.view_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View Case<i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
                                                 
                                             <a class="view-btn" href="{{ route('investigator.offender_profile', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View Profile<i class="fa-regular fa-user" style="font-size: large; padding: 0.5rem"></i></a> 
 
-                                            {{-- <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', $comp->id) }}">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a>   --}}
-                                        </center>
+                                            {{-- <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', $comp->id) }}">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a>   --}} 
                                         </td>
                                     </tr> 
                                     @endforeach 
@@ -260,7 +258,7 @@
 
 <script>
     let inactiveTime = 0;
-    const logoutTime = 5 * 60 * 1000;
+    const logoutTime = 2 * 60 * 1000;
     // 5 * 60 * 1000; // 5 minutes in milliseconds
     
     function resetInactiveTime() {
