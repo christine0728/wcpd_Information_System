@@ -38,6 +38,7 @@ return new class extends Migration
             $table->string('offender_firstname'); 
             $table->string('offender_family_name'); 
             $table->string('offender_middlename'); 
+            $table->string('offender_aliases'); 
             $table->string('offender_sex'); 
             $table->integer('offender_age'); 
             $table->date('offender_date_of_birth'); 

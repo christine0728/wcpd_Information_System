@@ -54,7 +54,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2"> 
                          <div class="col-6">
-                            <h1 class="m-0" style="font-weight: bold">{{ __("Victim's Profile") }}</h1>
+                            <h1 class="m-0" style="font-weight: bold">&nbsp;{{ __("Victim's Profile") }}</h1>
                         </div> 
                     </div>
                 </div>
@@ -197,6 +197,10 @@
                                     </div> 
                                 </div> 
                             </div> 
+
+                            <div class="col-12">
+                                <a class="link-buttons" href="{{ route('superadmin.edit_victim', $comp->id) }}" style="background-color: #48145B">Edit Profile&nbsp;&nbsp;<i class="fa fa-edit"></i></a>
+                            </div>
                         @endforeach 
                     </div>
                 </div>

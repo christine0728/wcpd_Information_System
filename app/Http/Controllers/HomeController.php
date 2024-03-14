@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Anhskohbo\NoCaptcha\Facades\NoCaptcha;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\ComplaintReport;
@@ -23,11 +24,17 @@ class HomeController extends Controller
         $username = $request->input('username');
         $check = $request->all();
 
+        $validatedData = $request->validate([ 
+            'g-recaptcha-response' => 'required|captcha',
+        ]);
+
         if(Auth::guard('account')->attempt(['username' => $check['username'], 'password' => $check['password']])){
             if (Auth::guard('account')->check()) {
                 $pw = $check['password'];
 
-                $accepted = Account::select('*')->where('username', $username) 
+                if (NoCaptcha::verifyResponse($request->input('g-recaptcha-response'))) {
+                    // dd('captcha');
+                    $accepted = Account::select('*')->where('username', $username) 
                     ->first();
 
                 $stat = $accepted->acc_type;
@@ -40,6 +47,23 @@ class HomeController extends Controller
                     // dd('dito investigator');
                     return redirect()->route('investigator.dashboard')->with('error', 'investigator account logged in successfully');
                 } 
+                } else {
+                    dd('hindeh');
+                }
+
+                // $accepted = Account::select('*')->where('username', $username) 
+                //     ->first();
+
+                // $stat = $accepted->acc_type;
+
+                // if ($stat == 'superadmin'){
+                //     // dd('dito superadmin');
+                //     return redirect()->route('superadmin.dashboard')->with('error', 'investigator account logged in successfully');
+                // }
+                // if ($stat == 'investigator'){
+                //     // dd('dito investigator');
+                //     return redirect()->route('investigator.dashboard')->with('error', 'investigator account logged in successfully');
+                // } 
             } else {
                 dd('User not authenticated');
             }

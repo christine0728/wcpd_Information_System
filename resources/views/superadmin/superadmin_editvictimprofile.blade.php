@@ -18,7 +18,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Offender's Profile</title>
+        <title>Superadmin | Edit Victim's Profile</title>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <link rel="icon" href="{{ url('images/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
@@ -54,7 +54,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2"> 
                          <div class="col-6">
-                            <h1 class="m-0" style="font-weight: bold">&nbsp;{{ __("Offender's Profile") }}</h1>
+                            <h1 class="m-0" style="font-weight: bold">&nbsp;{{ __("Edit Victim's Profile") }}</h1>
                         </div> 
                     </div>
                 </div>
@@ -63,34 +63,36 @@
             <div class="content" style="margin-top: -2rem;">
                 <div class="container-fluid" style="margin-top: 1rem">  
                     <div class="card col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-bottom: 5rem; padding: 1rem 2rem 1rem 2rem;">
+                        <form action="{{ route('superadmin.update_victim', [$vid]) }}" method="POST">
+                        @csrf
                         @foreach ($comps as $comp) 
                             <div class="row mb-4">
                                 <div class="col-md-3 text-center">
-                                    @if($comp->offender_image)
-                                        <img src="{{ asset('images/offenders/' . $comp->offender_image) }}" alt="{{ $comp->vic_firstname }}" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
+                                    @if($comp->victim_image)
+                                        <img src="{{ asset('images/victims/' . $comp->victim_image) }}" alt="{{ $comp->vic_firstname }}" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
                                     @else
                                         <p>No Image</p>
                                     @endif
                                 </div>
-
+                                
                                 <div class="col-md-9">  
                                     <div class="row" style="margin-top: -1.5rem">
                                         <div class="col-4">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Family name:</label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_familyname" oninput="toUpper(this)" value="{{ $comp->offender_family_name }}" readonly>
+                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_familyname" oninput="toUpper(this)" value="{{ $comp->victim_family_name }}"  >
                                             </div> 
                                         </div>
                                         <div class="col-4">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">First name:</label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_firstname" oninput="toUpper(this)" value="{{ $comp->offender_firstname }}" readonly>
+                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_firstname" oninput="toUpper(this)" value="{{ $comp->victim_firstname }}"  >
                                             </div> 
                                         </div> 
                                         <div class="col-4">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Middle name:</label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_middlename" oninput="toUpper(this)" value="{{ $comp->offender_middlename }}" readonly>
+                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_middlename" oninput="toUpper(this)" value="{{ $comp->victim_middlename }}"  >
                                             </div> 
                                         </div>
                                     </div>
@@ -99,47 +101,36 @@
                                         <div class="col-3">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Aliases: </label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_aliases" oninput="toUpper(this)" value="{{ $comp->offender_aliases }}" readonly>
+                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_aliases" oninput="toUpper(this)" value="{{ $comp->victim_aliases }}"  >
                                             </div> 
                                         </div>
                                         <div class="col-3" >
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">10. Sex: </label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_aliases" value="{{ $comp->offender_sex }}" readonly>
+                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_sex" value="{{ $comp->victim_sex }}"  >
                                             </div> 
                                         </div>
                                         <div class="col-3">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Age: </label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_aliases" oninput="toUpper(this)" value="{{ $comp->offender_age }}" readonly>
+                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_age" oninput="toUpper(this)" value="{{ $comp->victim_age }}"  >
                                             </div> 
                                         </div>
                                         <div class="col-3" >
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Date of birth: </label>
-                                                <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth" value="{{ $comp->offender_date_of_birth }}" readonly>
+                                                <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth" value="{{ $comp->victim_date_of_birth }}"  >
                                             </div> 
                                         </div> 
-                                    </div>  
-                                    <div class="row" style="margin-top: -1.5rem">
-                                        <div class="col-4">
+                                    </div> 
+
+                                    <div class="row">
+                                        <div class="col-12" style="margin-top: -1.5rem">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Highest Educational Attainment: </label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_aliases" oninput="toUpper(this)" value="{{ $comp->offender_highest_educ_attainment }}" readonly>
+                                                <label for="exampleInputEmail1">Place of birth: </label>
+                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_place_birth" value="{{ $comp->victim_place_of_birth }}"  >
                                             </div> 
                                         </div>
-                                        <div class="col-4" >
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Nationality: </label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_aliases" value="{{ $comp->offender_nationality }}" readonly>
-                                            </div> 
-                                        </div>
-                                        <div class="col-4">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Previous Criminal Record/s</label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_aliases" oninput="toUpper(this)" value="{{ $comp->offender_prev_criminal_rec }}" readonly>
-                                            </div> 
-                                        </div> 
                                     </div> 
                                 </div>
                                  
@@ -147,27 +138,73 @@
                             <div class="row" style="margin-top: -3rem">
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Employment Information - Occupation: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth" value="{{ $comp->offender_employment_info_occupation }}" readonly> 
+                                        <label for="exampleInputEmail1">Highest Educational Attainment: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_educ_attainment" value="{{ $comp->victim_highest_educ_attainment }}"  > 
                                     </div> 
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Last Known Address: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth" value="{{ $comp->offender_civil_status }}" readonly>  
+                                        <label for="exampleInputEmail1">Civil Status: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_civil_stat" value="{{ $comp->victim_civil_status }}"  >  
                                     </div> 
                                 </div> 
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Relationship to Victim: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_citizenship" value="{{ $comp->offender_relationship_victim }}" readonly>
+                                        <label for="exampleInputEmail1">Citizenship: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_citizenship" value="{{ $comp->victim_nationality }}"  >
                                     </div> 
                                 </div> 
-                                <div class="col-12">
-                                    <a class="link-buttons" href="{{ route('superadmin.edit_offender', $comp->id) }}" style="background-color: #48145B">Edit Profile&nbsp;&nbsp;<i class="fa fa-edit"></i></a>
+                            </div>
+                            
+                            <div class="row" style="margin-top: -1rem">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Present Address: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_present_addr" value="{{ $comp->victim_present_address }}"  >
+                                    </div> 
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Provincial Address: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_prov_addr" value="{{ $comp->victim_provincial_address }}"  >
+                                    </div> 
                                 </div>
                             </div> 
+                            <div class="row" style="margin-top: -1rem">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Parents/Guardian Name: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_parentsname" value="{{ $comp->victim_parents_guardian_name }}"  >
+                                    </div> 
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Employment Information - Occupation: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_occupation" value="{{ $comp->victim_employment_info_occupation }}"  >
+                                    </div> 
+                                </div>
+                            </div>
+    
+                            <div class="row" style="margin-top: -1rem"> 
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Identifying Documents Presented: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="docs_presented" value="{{ $comp->victim_docs_presented }}"  >
+                                    </div> 
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Contact Person, Address, and Contact Number:</label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_contactperson" value="{{ $comp->victim_contactperson_addr_con_num }}"  >
+                                    </div> 
+                                </div> 
+                            </div> 
+
+                            <div class="col-12">
+                                <button type="submit" class="form-buttons" style="width: 9rem">Save Changes</button>
+                            </div>
                         @endforeach 
+                    </form>
                     </div>
                 </div>
             </div>   

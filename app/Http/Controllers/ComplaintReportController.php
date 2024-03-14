@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\ComplaintReport;
 use App\Models\Logs;
+use App\Models\Offender;
 use App\Models\Offense;
+use App\Models\Victim;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -163,6 +165,209 @@ class ComplaintReportController extends Controller
         }   
     }
 
+    public function add_complaint1(Request $request){
+        $currentUserId = Auth::guard('account')->user()->id; 
+
+        $now = Carbon::now();
+        $now->setTimezone('Asia/Manila');
+
+        $vic_date_birth = $request->input('vic_date_birth');
+
+        $vic_age = Carbon::parse($vic_date_birth)->diffInYears(Carbon::now());
+
+        $off_date_birth = $request->input('off_date_birth');
+        $off_age = Carbon::parse($off_date_birth)->diffInYears(Carbon::now()); 
+
+        $offenses = $request->input('offenses');
+
+        $serializedoffense = implode(', ', $offenses);
+
+        $v_educ_attain = $request->input('vic_educ_attainment');
+
+        if ($v_educ_attain == "Others"){
+            $v_educ_attain = $request->input('others');
+        }
+        else {
+            $v_educ_attain = $request->input('vic_educ_attainment');
+        }
+
+        $o_educ_attain = $request->input('off_educ_attainment');
+        if ($o_educ_attain == "Others2"){
+            $o_educ_attain = $request->input('others2');
+        }
+        else {
+            $o_educ_attain = $request->input('off_educ_attainment');
+        }
+
+        $influence = $request->input('influences');
+        if ($influence == "Others3"){
+            $influence = $request->input('others3');
+        }
+        else {
+            $influence = $request->input('influences');
+        }
+
+        $dispo = $request->input('disposition');
+        if ($dispo == "Others4"){
+            $dispo = $request->input('others4');
+        }
+        else {
+            $dispo = $request->input('disposition');
+        }
+
+        $sus_dispo = $request->input('sus_disposition');
+        if ($sus_dispo == "Others5"){
+            $sus_dispo = $request->input('others5');
+        }
+        else {
+            $sus_dispo = $request->input('sus_disposition');
+        }
+
+        if ($request->hasFile('vic_image')) {
+            $vic_file = $request->file('vic_image');
+            $vic_extension = $vic_file->getClientOriginalExtension();
+            $vic_filename = time() . '.' . $vic_extension;
+            $vic_file->move('images/victims/', $vic_filename);
+        } else {
+            $vic_filename = 'no image';
+        }
+        
+        if ($request->hasFile('off_image')) {
+            $off_file = $request->file('off_image');
+            $off_extension = $off_file->getClientOriginalExtension();
+            $off_filename = time() . '.' . $off_extension;
+            $off_file->move('images/offenders/', $off_filename);
+        } else {
+            $off_filename = 'no image';
+        }
+
+        $comp = ComplaintReport::create([
+            'complaint_report_author' => $currentUserId,
+            'date_reported' => $request->input('datetime_commission'),
+            'place_of_commission' => $request->input('place_commission'),
+            'offenses' => $serializedoffense, 
+            'evidence_motive_cause' => $request->input('evi_motive'),
+            'evidence_influence_of' => $influence,
+            'case_disposition' => $dispo,
+            'suspect_disposition' => $sus_dispo,
+            'investigator_on_case' => $request->input('investigator'),
+            'created_at' => $now,
+            'updated_at' => $now,
+            'case_update' => 'not update yet',
+            'date_case_updated' => null
+        ]);
+        
+
+        Validator::make($request->all(), [
+            'input' => 'required|string', // Example validation rule, adjust as needed
+        ]);
+ 
+        $acc_type = Auth::guard('account')->user()->acc_type;  
+
+        // $authorID = Auth::guard('account')->user()->id;
+        // $log = new Logs();
+        // $log->author_type = Auth::guard('account')->user()->acc_type;
+        // $log->author_id = $authorID; 
+        // $log->action = "Add";
+        // $log->details = "Added Complaint Report Form";
+        // $log->created_at = $now;
+        // $log->updated_at = $now;
+        // $log->save();
+        
+        $comp_id = $comp->id;
+        if ($acc_type == 'investigator'){
+            return redirect()->route('investigator.complaintreport')->with('success', 'Complaint Report Form added successfully!');
+        }
+        elseif ($acc_type == 'superadmin'){ 
+            return redirect()->route('superadmin.victim_form', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
+        }   
+    }
+
+    public function offender_form(Request $request, $comp_id){
+        $acc_type = Auth::guard('account')->user()->acc_type;
+        $comps = ComplaintReport::select('*')
+        ->where('id', $comp_id)
+        ->get(); 
+        
+        if ($acc_type == 'investigator'){
+            return view('investigator.investigator_readonlyreport', ['comps' => $comps, 'comp_id'=>$comp_id]); 
+        }
+        elseif ($acc_type == 'superadmin'){ 
+            return view('superadmin.superadmin_offenderform', ['comp_id'=>$comp_id]);
+        }  
+    }
+
+    public function insert_offender(Request $request, $comp_id){
+        $acc_type = Auth::guard('account')->user()->acc_type;
+        $comps = ComplaintReport::select('*')
+        ->where('id', $comp_id)
+        ->get(); 
+
+        // dd($comp_id);
+        $now = Carbon::now();
+        $now->setTimezone('Asia/Manila');
+
+        $vic_date_birth = $request->input('vic_date_birth');
+        $vic_age = Carbon::parse($vic_date_birth)->diffInYears(Carbon::now());
+
+        if ($request->hasFile('vic_image')) {
+            $vic_file = $request->file('vic_image');
+            $vic_extension = $vic_file->getClientOriginalExtension();
+            $vic_filename = time() . '.' . $vic_extension;
+            $vic_file->move('images/victims/', $vic_filename);
+        } else {
+            $vic_filename = 'no image';
+        }
+
+        $o_educ_attain = $request->input('off_educ_attainment');
+        if ($o_educ_attain == "Others"){
+            $o_educ_attain = $request->input('others');
+        }
+        else {
+            $o_educ_attain = $request->input('off_educ_attainment');
+        }
+
+        if ($request->hasFile('off_image')) {
+            $off_file = $request->file('off_image');
+            $off_extension = $off_file->getClientOriginalExtension();
+            $off_filename = time() . '.' . $off_extension;
+            $off_file->move('images/offenders/', $off_filename);
+        } else {
+            $off_filename = 'no image';
+        }
+
+        $off_date_birth = $request->input('off_date_birth');
+        $off_age = Carbon::parse($off_date_birth)->diffInYears(Carbon::now()); 
+            // dd($comp_id);
+        $user = Offender::create([ 
+            'comp_report_id' => $comp_id,
+            'offender_firstname' => $request->input('off_firstname'),
+            'offender_family_name' => $request->input('off_familyname'),
+            'offender_middlename' => $request->input('off_middlename'),
+            'offender_aliases' => $request->input('off_aliases'),
+            'offender_sex' => $request->input('off_gender'),
+            'offender_age' => $off_age,
+            'offender_date_of_birth' => $request->input('off_date_birth'),
+            'offender_civil_status' => $request->input('off_civil_stat'),
+            'offender_highest_educ_attainment' => $o_educ_attain,
+            'offender_nationality' => $request->input('off_nationality'),
+            'offender_prev_criminal_rec' => $request->input('crim_rec_specify'),
+            'offender_employment_info_occupation' => $request->input('off_occupation'),
+            'offender_last_known_addr' => $request->input('off_last_addr'),
+            'offender_relationship_victim' => $request->input('rel_to_victim'),
+            'offender_image' => $off_filename,
+            'created_at' => $now,
+            'updated_at' => $now, 
+        ]);
+
+        if ($acc_type == 'investigator'){
+            return view('investigator.investigator_readonlyreport', ['comps' => $comps, 'comp_id'=>$comp_id]); 
+        }
+        elseif ($acc_type == 'superadmin'){ 
+            return redirect()->route('superadmin.offender_form', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
+        }   
+    }
+
     public function view_complaintreport($comp_id){
         $acc_type = Auth::guard('account')->user()->acc_type;
         $comps = ComplaintReport::select('*')
@@ -284,9 +489,9 @@ class ComplaintReportController extends Controller
         $now->setTimezone('Asia/Manila'); 
 
         ComplaintReport::where('id', $compid)
-            ->update([
-                'status' => 'deleted', 
-            ]);
+        ->update([
+            'status' => 'deleted', 
+        ]);
             
         $acc_type = Auth::guard('account')->user()->acc_type;
         $authorID = Auth::guard('account')->user()->id;

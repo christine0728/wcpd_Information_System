@@ -17,7 +17,7 @@
     
     <link rel="stylesheet" href="https://cdn.mobiscroll.com/4.9.0/css/mobiscroll.jquery.min.css">
 
-    <title>Superadmin | Complaint Report Form</title>
+    <title>Team | Complaint Report Form</title>
     <style>
         body {
             background-color: #D9D9D9;
@@ -121,7 +121,9 @@
 
     <div class="container" style="margin-top: -2rem;">
         <div class="nav nav-fill" style="background-color: white;">
-            <label class="nav-link shadow-sm step0 border ml-2 active">Section A<br>Offense Data</label> 
+            <label class="nav-link shadow-sm step0 border ml-2 active">Section A<br>Offense Data</label>
+            <label class="nav-link shadow-sm step1 border ml-2 ">Section B<br>Victim's Data</label>
+            <label class="nav-link shadow-sm step2 border ml-2 ">Section C<br>Offender's Data</label>
             <label class="nav-link shadow-sm step3 border ml-2 ">Section D<br>Evidence Data</label>
             <label class="nav-link shadow-sm step4 border ml-2 ">Section F<br>Case Disposition</label>
         </div>
@@ -130,7 +132,7 @@
     <div class="container row" style="margin-top: -1rem">
         <div class="header" style="background-color: white;">  
             <div class="col-12">
-                <form action="{{ route('superadmin.add_complaint') }}" class="employee-form" method="post" enctype="multipart/form-data">
+                <form action="{{ route('investigator.add_complaint') }}" class="employee-form" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="form-section">  
@@ -175,7 +177,7 @@
                             </div>
                         </div>
 
-                        {{-- <div class="form-section">
+                        <div class="form-section">
                             <div class="header">  
                                 <p style="font-size: medium;">Section B: <b style="font-size: medium;">Victim's Data</b></p>
                             </div> 
@@ -476,7 +478,7 @@
                                     <div id="imagePreview2"></div>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
 
                         {{-- EVIDENCE DATA --}}
                         <div class="form-section">

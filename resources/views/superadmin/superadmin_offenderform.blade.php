@@ -17,7 +17,7 @@
     
     <link rel="stylesheet" href="https://cdn.mobiscroll.com/4.9.0/css/mobiscroll.jquery.min.css">
 
-    <title>Superadmin | Complaint Report Form</title>
+    <title>Superadmin | Offender Form</title>
     <style>
         body {
             background-color: #D9D9D9;
@@ -120,61 +120,20 @@
     </div> 
 
     <div class="container" style="margin-top: -2rem;">
-        <div class="nav nav-fill" style="background-color: white;">
+        {{-- <div class="nav nav-fill" style="background-color: white;">
             <label class="nav-link shadow-sm step0 border ml-2 active">Section A<br>Offense Data</label> 
             <label class="nav-link shadow-sm step3 border ml-2 ">Section D<br>Evidence Data</label>
             <label class="nav-link shadow-sm step4 border ml-2 ">Section F<br>Case Disposition</label>
-        </div>
+        </div> --}}
     </div> 
 
     <div class="container row" style="margin-top: -1rem">
         <div class="header" style="background-color: white;">  
             <div class="col-12">
-                <form action="{{ route('superadmin.add_complaint') }}" class="employee-form" method="post" enctype="multipart/form-data">
+                <form action="{{ route('superadmin.insert_offender', [$comp_id]) }}" class="employee-form" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="form-section">  
-                            <div class="header" >  
-                                <p style="font-size: medium;">Section A: <b style="font-size: medium; color: black">Offense Data</b></p>
-                            </div> 
-                            <hr style="margin-top: -1rem">
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">6. Time/Day/Month/Year of Commission:</label>
-                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="datetime_commission">
-                                    </div> 
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">7. Place of Commission: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" oninput="toUpper(this)">
-                                    </div> 
-                                </div> 
-                            </div>
-
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">8. Offenses Committed: (press CTRL to select multiple offenses)</label>
-                                        <select class="form-control" name="offenses[]" multiple> 
-                                            {{-- <option value="Offense 1">Offense 1</option>
-                                            <option value="Offense 2">Offense 2</option>
-                                            <option value="Offense 3">Offense 3</option>
-                                            <option value="Offense 4">Offense 4</option>
-                                            <option value="Offense 5">Offense 5</option>
-                                            <option value="Offense 6">Offense 6</option> --}}
-                                            {{-- <option>Select offense</option> --}}
-                                            @foreach ($offenses as $offense) 
-                                            <option value="{{ $offense->offense_name }}">{{ $offense->offense_name }}</option>
-                                            @endforeach 
-                                        </select>
-                                    </div> 
-                                </div>
-                            </div>
-                        </div>
-
+                        
                         {{-- <div class="form-section">
                             <div class="header">  
                                 <p style="font-size: medium;">Section B: <b style="font-size: medium;">Victim's Data</b></p>
@@ -326,7 +285,7 @@
                                     <div id="imagePreview"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="form-section">
                             <div class="header">  
@@ -476,10 +435,10 @@
                                     <div id="imagePreview2"></div>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
 
                         {{-- EVIDENCE DATA --}}
-                        <div class="form-section">
+                        {{-- <div class="form-section">
                             <div class="header">  
                                 <p style="font-size: medium;">Section D: <b style="font-size: medium;">Evidence Data</b></p>
                             </div> 
@@ -515,10 +474,10 @@
                                     </div> 
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         {{-- CASE DISPOSITION --}}
-                        <div class="form-section">
+                        {{-- <div class="form-section">
                             <div class="f">  
                                 <p style="font-size: medium;">Section F: <b style="font-size: medium;">Case Disposition</b></p>
                             </div> 
@@ -565,16 +524,18 @@
                                     </div>
                                 </div> 
                             </div>
-                        </div> 
+                        </div>  --}}
 
 
-                        <div class="col-12 form-navigation">
-                            <a class="link-buttons" href=" " style="float: left;">Cancel <i class="fa-solid fa-xmark icons"></i> </a> 
+                        <div class="col-12 ">  
                             {{-- <a class="link-buttons" href=" " style="float: right;">Next</a>  --}}
 
-                           <button type="button" class="next form-buttons" style="float: right; width: 5rem">Next <i class="fa-solid fa-arrow-right icons"></i></button> 
-                           <button type="submit" class="form-buttons" style="float: right;">Submit <i class="fa-solid fa-check icons"></i></button>
-                           <button type="button" class="previous form-buttons" style="float: right; margin-right: 0.5rem; width: 5rem"><i class="fa-solid fa-arrow-left icons"></i> Back</button> 
+                           {{-- <button type="button" class="next form-buttons" style="float: right; width: 5rem">Next <i class="fa-solid fa-arrow-right icons"></i></button>  --}}
+                           {{-- <button type="submit" class="form-buttons" style="float: right; " formaction="{{ route('superadmin.offender_form', [$comp_id]) }}">Next (Add Offender) <i class="fa-solid fa-check icons"></i></button> --}}
+                           <button type="submit" class="form-buttons" style="float: right;">Add Offender <i class="fa-solid fa-check icons"></i></button>
+                           <a class="link-buttons" href="{{ route('superadmin.complaintreport') }}" style="float: right; background-color: #48145B; margin-right: 0.5rem">Back <i class="fa-solid fa-xmark"></i> </a>
+ 
+                           {{-- <button type="button" class="previous form-buttons" style="float: right; margin-right: 0.5rem; width: 5rem"><i class="fa-solid fa-arrow-left icons"></i> Back</button>  --}}
                         </div>
                     </div>
                 </form>
@@ -702,7 +663,7 @@
     </script>
     
 </body>
-<script>
+{{-- <script>
     let inactiveTime = 0;
     const logoutTime = 2 * 60 * 1000;
     // 5 * 60 * 1000; // 5 minutes in milliseconds
@@ -729,5 +690,5 @@
     
     setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
 
-</script>
+</script> --}}
 </html>
