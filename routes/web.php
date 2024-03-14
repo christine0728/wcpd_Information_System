@@ -3,11 +3,15 @@
 use App\Http\Controllers\ComplaintReportController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvestigatorController;
+use App\Http\Controllers\OffenderController;
 use App\Http\Controllers\OffensesController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\VictimController;
+use App\Models\ComplaintReport;
 use App\Models\Offense;
 use App\Models\SuperAdmin;
+use App\Models\Victim;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,9 +30,9 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/login', [InvestigatorController::class, 'login_view'])->name('login_form');
-Route::post('/login_account', [InvestigatorController::class, 'login'])->name('logging_in');
-Route::get('/logout', [InvestigatorController::class, 'logout'])->name('logout')->middleware('account'); 
+Route::get('/login', [HomeController::class, 'login_view'])->name('login_form');
+Route::post('/login_account', [HomeController::class, 'login'])->name('logging_in');
+Route::get('/logout', [HomeController::class, 'logout'])->name('logout')->middleware('account'); 
 Route::get('/inactive_screen', [HomeController::class, 'inactive_screen'])->name('inactive_screen');
 
 Route::prefix('investigator')->middleware('account')->group(function(){
@@ -107,12 +111,17 @@ Route::prefix('superadmin')->middleware('account')->group(function(){
     Route::get('/offenders_management', [SuperAdminController::class, 'suspectsmngt'])->name('superadmin.suspects_mngt');
     Route::get('/filter-offendersmngt', [SuperAdminController::class, 'filter_offendersmngt'])->name('superadmin.filter_offendersmngt');
 
-    Route::get('/victim_profile/{id}', [SuperAdminController::class, 'victim_profile'])->name('superadmin.victim_profile');
+    Route::get('/victim_profile/{vid}', [SuperAdminController::class, 'victim_profile'])->name('superadmin.victim_profile');
+    Route::get('/edit_victim/{vid}', [VictimController::class, 'edit_victim'])->name('superadmin.edit_victim');
+    Route::post('/update_victim/{vid}', [VictimController::class, 'update_victim'])->name('superadmin.update_victim');
+
     Route::get('/offender_profile/{id}', [SuperAdminController::class, 'offender_profile'])->name('superadmin.offender_profile');
+    Route::get('/edit_offender/{oid}', [OffenderController::class, 'edit_offender'])->name('superadmin.edit_offender');
+    Route::post('/update_offender/{oid}', [OffenderController::class, 'update_offender'])->name('superadmin.update_offender');
 
     Route::get('/complaintreportmanagement', [SuperAdminController::class, 'complaintreportmngt'])->name('superadmin.complaintreport');
     Route::get('/complaintreport_form', [SuperAdminController::class, 'complaintreport_form'])->name('superadmin.complaintreport_form'); 
-    Route::post('/add_complaint', [ComplaintReportController::class, 'add_complaint'])->name('investigator.add_complaint');
+    Route::post('/add_complaint', [ComplaintReportController::class, 'add_complaint1'])->name('investigator.add_complaint');
     Route::get('/view_complaintreport/{comp_id}', [ComplaintReportController::class, 'view_complaintreport'])->name('superadmin.view_complaintreport');
     Route::get('/readonly_complaintreport/{comp_id}', [ComplaintReportController::class, 'readonly_complaintreport'])->name('superadmin.readonly_complaintreport');
     Route::get('/edit_complaintreport/{comp_id}', [ComplaintReportController::class, 'edit_complaintreport'])->name('superadmin.edit_complaintreport');
@@ -120,6 +129,12 @@ Route::prefix('superadmin')->middleware('account')->group(function(){
     Route::get('/delete_form/{comp_id}', [ComplaintReportController::class, 'delete_form'])->name('superadmin.delete_form');
     Route::get('/complaintreport_pdf/{comp_id}', [PDFController::class, 'complaint_pdf'])->name('superadmin.complaint_pdf');
     Route::post('/change_case_status/{id}', [SuperAdminController::class, 'change_case_status'])->name('superadmin.change_case_status');
+
+    Route::get('/victim_form/{comp_id}', [VictimController::class, 'victim_form'])->name('superadmin.victim_form');
+    Route::post('/insert_victim/{comp_id}', [VictimController::class, 'insert_victim'])->name('superadmin.insert_victim');
+
+    Route::get('/offender_form/{comp_id}', [ComplaintReportController::class, 'offender_form'])->name('superadmin.offender_form');
+    Route::post('/insert_offender/{comp_id}', [ComplaintReportController::class, 'insert_offender'])->name('superadmin.insert_offender');
 
     Route::get('/allrecords', [SuperAdminController::class, 'allrecords'])->name('superadmin.allrecords')->middleware('account');
     Route::get('/filter-allrecords', [SuperAdminController::class, 'filter_allrecords'])->name('superadmin.filter_allrecords');

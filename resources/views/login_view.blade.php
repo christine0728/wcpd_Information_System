@@ -134,6 +134,15 @@
               @enderror
             </div>
           </div><br>
+
+          {!! NoCaptcha::renderJs() !!}
+          {!! NoCaptcha::display() !!}
+
+          @error('g-recaptcha-response')
+              <p class="text-danger">{{ $message }}</p>
+          @enderror
+
+          <br>
           <button type="submit" class="btn btn-primary w-100" style="background-color:#9947B6"> Login&nbsp;<i class="fa fa-arrow-right"></i></button>
         </form>
 

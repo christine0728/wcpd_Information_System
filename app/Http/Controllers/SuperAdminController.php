@@ -7,9 +7,11 @@ use App\Models\Account;
 use App\Models\ComplaintReport;
 use App\Models\Logs;
 use App\Models\Notifications;
+use App\Models\Offender;
 use App\Models\Offense;
 use App\Models\SuperAdmin;
 use App\Models\Team;
+use App\Models\Victim;
 use App\Notifications\MyNotification;
 use Carbon\Carbon; 
 use Illuminate\Support\Facades\Hash;
@@ -157,10 +159,14 @@ class SuperAdminController extends Controller
     public function victimsmngt()
     {
         $author_id = Auth::guard('account')->user()->id;
-        $comps = ComplaintReport::
-        // join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
-        where('complaint_reports.status', 'notdeleted')
-            ->orderBy('complaint_reports.id', 'DESC') 
+        // $comps = ComplaintReport::
+        // // join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
+        // where('complaint_reports.status', 'notdeleted')
+        //     ->orderBy('complaint_reports.id', 'DESC') 
+        //     ->get();
+
+        $comps = Victim::join('complaint_reports', 'complaint_reports.id', '=', 'victims.comp_report_id')
+            ->select('complaint_reports.id as compid', 'victims.id as vid', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented')
             ->get();
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
@@ -169,23 +175,28 @@ class SuperAdminController extends Controller
 
     public function victim_profile($id)
     { 
-        $comps = ComplaintReport::  
+        $comps = Victim::  
             where('id', '=', $id)
             ->get();
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
         return view('superadmin.superadmin_viewvictimprofile', ['comps'=>$comps, 'notifs'=>$notifs]);
-    }
+    } 
 
     public function suspectsmngt()
     {
         $author_id = Auth::guard('account')->user()->id;
-        $comps = ComplaintReport::
-        // join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
-        // ->
-        where('complaint_reports.status', 'notdeleted')
-            ->orderBy('complaint_reports.id', 'DESC') 
+        // $comps = ComplaintReport::
+        // // join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
+        // // ->
+        // where('complaint_reports.status', 'notdeleted')
+        //     ->orderBy('complaint_reports.id', 'DESC') 
+        //     ->get();
+ 
+        $comps = Offender::join('complaint_reports', 'complaint_reports.id', '=', 'offenders.comp_report_id')
+            ->select('complaint_reports.id as compid', 'offenders.id as oid', 'offenders.offender_family_name', 'offenders.offender_firstname', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age')
             ->get();
+
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
         return view('superadmin.superadmin_suspectsmngt', ['comps'=>$comps, 'notifs'=>$notifs]);
@@ -193,7 +204,7 @@ class SuperAdminController extends Controller
 
     public function offender_profile($id)
     { 
-        $comps = ComplaintReport::  
+        $comps = Offender::  
             where('id', '=', $id)
             ->get();
         $notifs = Notifications::where('status', '=', 'unread')
