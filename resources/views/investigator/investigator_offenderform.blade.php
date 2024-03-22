@@ -17,7 +17,7 @@
     
     <link rel="stylesheet" href="https://cdn.mobiscroll.com/4.9.0/css/mobiscroll.jquery.min.css">
 
-    <title>Superadmin | Complaint Report Form</title>
+    <title>Investigator | Offender Form</title>
     <style>
         body {
             background-color: #D9D9D9;
@@ -120,61 +120,20 @@
     </div> 
 
     <div class="container" style="margin-top: -2rem;">
-        <div class="nav nav-fill" style="background-color: white;">
-            <label class="nav-link shadow-sm step0 border ml-2 active">OFFENSE DATA</label> 
-            <label class="nav-link shadow-sm step3 border ml-2 ">EVIDENCE DATA</label>
-            <label class="nav-link shadow-sm step4 border ml-2 ">CASE DISPOSITION</label>
-        </div>
+        {{-- <div class="nav nav-fill" style="background-color: white;">
+            <label class="nav-link shadow-sm step0 border ml-2 active">Section A<br>Offense Data</label> 
+            <label class="nav-link shadow-sm step3 border ml-2 ">Section D<br>Evidence Data</label>
+            <label class="nav-link shadow-sm step4 border ml-2 ">Section F<br>Case Disposition</label>
+        </div> --}}
     </div> 
 
     <div class="container row" style="margin-top: -1rem">
         <div class="header" style="background-color: white;">  
             <div class="col-12">
-                <form action="{{ route('superadmin.add_complaint') }}" class="employee-form" method="post" enctype="multipart/form-data">
+                <form action="{{ route('investigator.insert_offender', [$comp_id]) }}" class="employee-form" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="form-section">  
-                            <div class="header" >  
-                                <p style="font-size: medium;">Section A: <b style="font-size: medium; color: black">Offense Data</b></p>
-                            </div> 
-                            <hr style="margin-top: -1rem">
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">6. Time/Day/Month/Year of Commission:</label>
-                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="datetime_commission" required>
-                                    </div> 
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">7. Place of Commission: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" oninput="toUpper(this)" required>
-                                    </div> 
-                                </div> 
-                            </div>
-
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">8. Offenses Committed: (press CTRL to select multiple offenses)</label>
-                                        <select class="form-control" name="offenses[]" multiple required> 
-                                            {{-- <option value="Offense 1">Offense 1</option>
-                                            <option value="Offense 2">Offense 2</option>
-                                            <option value="Offense 3">Offense 3</option>
-                                            <option value="Offense 4">Offense 4</option>
-                                            <option value="Offense 5">Offense 5</option>
-                                            <option value="Offense 6">Offense 6</option> --}}
-                                            {{-- <option>Select offense</option> --}}
-                                            @foreach ($offenses as $offense) 
-                                            <option value="{{ $offense->offense_name }}">{{ $offense->offense_name }}</option>
-                                            @endforeach 
-                                        </select>
-                                    </div> 
-                                </div>
-                            </div>
-                        </div>
-
+                        
                         {{-- <div class="form-section">
                             <div class="header">  
                                 <p style="font-size: medium;">Section B: <b style="font-size: medium;">Victim's Data</b></p>
@@ -326,7 +285,7 @@
                                     <div id="imagePreview"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="form-section">
                             <div class="header">  
@@ -338,24 +297,40 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">22. Family name:</label>
                                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_familyname" oninput="toUpper(this)">
+
+                                        @if ($errors->has('off_familyname')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('off_familyname') }}</span>
+                                        @endif
                                     </div> 
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">First name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_firstname" oninput="toUpper(this)">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_firstname" oninput="toUpper(this)" value="{{ old('off_firstname') }}">
+
+                                        @if ($errors->has('off_firstname')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('off_firstname') }}</span>
+                                        @endif
                                     </div> 
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Middle name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_middlename" oninput="toUpper(this)">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_middlename" oninput="toUpper(this)" value="{{ old('off_middlename') }}">
+
+                                        @if ($errors->has('off_middlename')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('off_middlename') }}</span>
+                                        @endif
                                     </div> 
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Aliases:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_aliases" oninput="toUpper(this)">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_aliases" oninput="toUpper(this)" value="{{ old('off_aliases') }}">
+
+                                        @if ($errors->has('off_aliases')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('off_aliases') }}</span>
+                                        @endif
                                     </div> 
                                 </div>
                             </div>
@@ -365,29 +340,41 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">23. Sex: </label>
                                         <select class="form-control" name="off_gender">
-                                            <option>Select sex</option>
+                                            <option value="">Select sex</option>
                                             <option value="FEMALE">Female</option>
                                             <option value="MALE">Male</option>
                                         </select>
+
+                                        @if ($errors->has('off_gender')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('off_gender') }}</span>
+                                        @endif
                                     </div> 
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">24. Date of birth:</label>
-                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_date_birth">
+                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_date_birth" value="{{ old('off_date_birth') }}">
+
+                                        @if ($errors->has('off_date_birth')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('off_date_birth') }}</span>
+                                        @endif
                                     </div> 
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">25. Civil Status: </label>
                                         <select class="form-control" name="off_civil_stat">
-                                            <option>Select civil status</option>
+                                            <option value="">Select civil status</option>
                                             <option value="SINGLE">Single</option>
                                             <option value="LIVE-IN">Live-in</option>
                                             <option value="MARRIED">Married</option>
                                             <option value="WIDOW/ER">Widow/er</option>
                                             <option value="SEPARATED">Separated</option>
                                         </select>
+
+                                        @if ($errors->has('off_civil_stat')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('off_civil_stat') }}</span>
+                                        @endif
                                     </div> 
                                 </div>
                             </div>
@@ -397,20 +384,27 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">26. Highest Educational Attainment: </label>
                                         <select class="form-control" name="off_educ_attainment" onchange="showfield(this.options[this.selectedIndex].value)">
-                                            <option>Select highest educational attainment</option>
+                                            <option value="">Select highest educational attainment</option>
                                             <option value="ELEMENTARY">Elementary</option>
                                             <option value="HS GRADUATE">HS Graduate</option>
                                             <option value="COLLEGE GRAD">College Graduate</option>
                                             <option value="POST GRADUATE">Post Graduate</option>
                                             <option value="Others2">Others</option> 
                                         </select>
+                                        @if ($errors->has('off_educ_attainment')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('off_educ_attainment') }}</span>
+                                        @endif
                                         <div id="div2" style="margin-top: 1rem"></div>
                                     </div> 
                                 </div> 
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">27. Nationality: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_nationality" oninput="toUpper(this)">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_nationality" oninput="toUpper(this)" value="{{ old('off_nationality') }}">
+
+                                        @if ($errors->has('off_nationality')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('off_nationality') }}</span>
+                                        @endif
                                     </div> 
                                 </div>
                             </div>
@@ -448,14 +442,22 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">29. Employment Information - Occupation:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_occupation" oninput="toUpper(this)">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_occupation" oninput="toUpper(this)" value="{{ old('off_occupation') }}">
+
+                                        @if ($errors->has('off_occupation')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('off_occupation') }}</span>
+                                        @endif
                                     </div>
                                 </div>
 
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">30. Last Known Address:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_last_addr" oninput="toUpper(this)">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_last_addr" oninput="toUpper(this)" value="{{ old('off_last_addr') }}">
+
+                                        @if ($errors->has('off_last_addr')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('off_last_addr') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -464,7 +466,11 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">31. Relationship to Victim:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim" oninput="toUpper(this)">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim" oninput="toUpper(this)" value="{{ old('rel_to_victim') }}">
+
+                                        @if ($errors->has('rel_to_victim')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('rel_to_victim') }}</span>
+                                        @endif
                                     </div>
                                 </div> 
                                 <div class="col-12">
@@ -476,10 +482,10 @@
                                     <div id="imagePreview2"></div>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
 
                         {{-- EVIDENCE DATA --}}
-                        <div class="form-section">
+                        {{-- <div class="form-section">
                             <div class="header">  
                                 <p style="font-size: medium;">Section D: <b style="font-size: medium;">Evidence Data</b></p>
                             </div> 
@@ -488,8 +494,8 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">34. Motive/Cause: </label>
-                                        <select class="form-control" name="evi_motive" required>
-                                            <option value="">Select motive/cause</option>
+                                        <select class="form-control" name="evi_motive">
+                                            <option>Select motive/cause</option>
                                             <option value="sex_lust">Sex/Lust</option>
                                             <option value="passion_jealousy">Passion/Jealousy</option>
                                             <option value="misunderstanding">Misunderstanding</option>
@@ -503,8 +509,8 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">35. Suspect under the influence of: </label>
-                                        <select class="form-control" name="influences" onchange="showfield(this.options[this.selectedIndex].value)" required>
-                                            <option value="">Select influence</option>
+                                        <select class="form-control" name="influences" onchange="showfield(this.options[this.selectedIndex].value)">
+                                            <option>Select influence</option>
                                             <option value="drugs">Drugs</option>
                                             <option value="alcohol">Alcohol</option>
                                             <option value="both">Both</option>
@@ -515,10 +521,10 @@
                                     </div> 
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         {{-- CASE DISPOSITION --}}
-                        <div class="form-section">
+                        {{-- <div class="form-section">
                             <div class="f">  
                                 <p style="font-size: medium;">Section F: <b style="font-size: medium;">Case Disposition</b></p>
                             </div> 
@@ -527,8 +533,8 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">47. Disposition: </label>
-                                        <select class="form-control" name="disposition" onchange="showfield(this.options[this.selectedIndex].value)" required>
-                                            <option value="">Select disposition of case</option>
+                                        <select class="form-control" name="disposition" onchange="showfield(this.options[this.selectedIndex].value)">
+                                            <option>Select disposition of case</option>
                                             <option value="settled_at_barangay">Settled at barangay</option>
                                             <option value="settled_by_parties">Settled by parties</option>
                                             <option value="under_police_investigation">Under police investigation</option>
@@ -545,8 +551,8 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">48. Suspect disposition: </label>
-                                        <select class="form-control" name="sus_disposition" onchange="showfield2(this.options[this.selectedIndex].value)" required>
-                                            <option value="">Select disposition of case</option>
+                                        <select class="form-control" name="sus_disposition" onchange="showfield2(this.options[this.selectedIndex].value)">
+                                            <option>Select disposition of case</option>
                                             <option value="arrested">Arrested</option>
                                             <option value="at_large">At large</option>
                                             <option value="detained">Detained</option> 
@@ -561,20 +567,22 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Investigator on case:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="investigator" oninput="toUpper(this)" required>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="investigator" oninput="toUpper(this)">
                                     </div>
                                 </div> 
                             </div>
-                        </div> 
+                        </div>  --}}
 
 
-                        <div class="col-12 form-navigation">
-                            <a class="link-buttons" href=" " style="float: left;">Cancel <i class="fa-solid fa-xmark icons"></i> </a> 
+                        <div class="col-12 ">  
                             {{-- <a class="link-buttons" href=" " style="float: right;">Next</a>  --}}
 
-                           <button type="button" class="next form-buttons" style="float: right; width: 5rem">Next <i class="fa-solid fa-arrow-right icons"></i></button> 
-                           <button type="submit" class="form-buttons" style="float: right;">Submit <i class="fa-solid fa-check icons"></i></button>
-                           <button type="button" class="previous form-buttons" style="float: right; margin-right: 0.5rem; width: 5rem"><i class="fa-solid fa-arrow-left icons"></i> Back</button> 
+                           {{-- <button type="button" class="next form-buttons" style="float: right; width: 5rem">Next <i class="fa-solid fa-arrow-right icons"></i></button>  --}}
+                           {{-- <button type="submit" class="form-buttons" style="float: right; " formaction="{{ route('superadmin.offender_form', [$comp_id]) }}">Next (Add Offender) <i class="fa-solid fa-check icons"></i></button> --}}
+                           <button type="submit" class="form-buttons" style="float: right;">Add Offender <i class="fa-solid fa-check icons"></i></button>
+                           <a class="link-buttons" href="{{ route('investigator.complaintreport') }}" style="float: right; background-color: #48145B; margin-right: 0.5rem">Back <i class="fa-solid fa-xmark"></i> </a>
+ 
+                           {{-- <button type="button" class="previous form-buttons" style="float: right; margin-right: 0.5rem; width: 5rem"><i class="fa-solid fa-arrow-left icons"></i> Back</button>  --}}
                         </div>
                     </div>
                 </form>
@@ -606,10 +614,10 @@
     }
 
     // Function to handle navigation when nav-link is clicked
-    // $navLinks.click(function() {
-    //     var index = $(this).index(); // Get the index of the clicked nav-link
-    //     navigateTo(index);
-    // });
+    $navLinks.click(function() {
+        var index = $(this).index(); // Get the index of the clicked nav-link
+        navigateTo(index);
+    });
 
     $('.form-navigation .previous').click(function(){
         var currentIndex = curIndex();
@@ -702,7 +710,7 @@
     </script>
     
 </body>
-<script>
+{{-- <script>
     let inactiveTime = 0;
     const logoutTime = 2 * 60 * 1000;
     // 5 * 60 * 1000; // 5 minutes in milliseconds
@@ -729,5 +737,5 @@
     
     setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
 
-</script>
+</script> --}}
 </html>

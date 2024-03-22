@@ -167,32 +167,36 @@
 
                         <div class="form-section">
                             <div class="header">  
-                                <p style="font-size: medium;">Section B: <b style="font-size: medium;">Victim's Data</b></p>
+                                <p style="font-size: medium;"><b style="font-size: medium;">Victim's Data</b></p>
                             </div> 
                             <hr style="margin-top: -1rem">
                             <div class="row">
                                 <div class="col-3">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">9. Family name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_familyname" oninput="toUpper(this)">
+                                        <label for="exampleInputEmail1">Family name:</label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_familyname" oninput="toUpper(this)" required>
+
+                                        {{-- @error('vic_familyname')
+                                            <span class="text-danger" style="color: black">{{ $message }}</span>
+                                        @enderror --}}
                                     </div> 
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">First name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_firstname" oninput="toUpper(this)">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_firstname" oninput="toUpper(this)" required>
                                     </div> 
                                 </div> 
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Middle name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_middlename" oninput="toUpper(this)">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_middlename" oninput="toUpper(this)" required>
                                     </div> 
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Aliases: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_aliases" oninput="toUpper(this)">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_aliases" oninput="toUpper(this)" required>
                                     </div> 
                                 </div> 
                             </div>
@@ -200,9 +204,9 @@
                             <div class="row">
                                 <div class="col-2" >
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">10. Sex: </label>
-                                        <select class="form-control" name="vic_gender">
-                                            <option>Select sex</option>
+                                        <label for="exampleInputEmail1">Sex: </label>
+                                        <select class="form-control" name="vic_gender" required>
+                                            <option value="">Select sex</option>
                                             <option value="FEMALE">Female</option>
                                             <option value="MALE">Male</option>
                                         </select>
@@ -210,14 +214,14 @@
                                 </div> 
                                 <div class="col-2" >
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">11. Date of birth: </label>
-                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth" oninput="toUpper(this)">
+                                        <label for="exampleInputEmail1">Date of birth: </label>
+                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth" oninput="toUpper(this)" required>
                                     </div> 
                                 </div> 
                                 <div class="col-8" >
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">12. Place of birth: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_place_birth" oninput="toUpper(this)">
+                                        <label for="exampleInputEmail1">Place of birth: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_place_birth" oninput="toUpper(this)" required>
                                     </div> 
                                 </div> 
                             </div>
@@ -225,9 +229,9 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">13. Highest Educational Attainment: </label>
-                                        <select class="form-control" name="vic_educ_attainment" onchange="showfield(this.options[this.selectedIndex].value)">
-                                            <option>Select highest educational attainment</option>
+                                        <label for="exampleInputEmail1">Highest Educational Attainment: </label>
+                                        <select class="form-control" name="vic_educ_attainment" onchange="showfield(this.options[this.selectedIndex].value)" required>
+                                            <option value="">Select highest educational attainment</option>
                                             <option value="ELEMENTARY">Elementary</option>
                                             <option value="HS GRADUATE">HS Graduate</option>
                                             <option value="COLLEGE GRAD">College Graduate</option>
@@ -240,8 +244,8 @@
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">14. Civil Status: </label>
-                                        <select class="form-control" name="vic_civil_stat">
-                                            <option>Select civil status</option>
+                                        <select class="form-control" name="vic_civil_stat" required> 
+                                            <option value="">Select civil status</option>
                                             <option value="SINGLE">Single</option>
                                             <option value="LIVE-IN">Live-in</option>
                                             <option value="MARRIED">Married</option>
@@ -252,8 +256,8 @@
                                 </div> 
                                 <div class="col-3">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">15. Citizenship: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_citizenship" oninput="toUpper(this)">
+                                        <label for="exampleInputEmail1">Citizenship: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_citizenship" oninput="toUpper(this)" required>
                                     </div> 
                                 </div> 
                             </div>
@@ -261,8 +265,8 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">16. Present Address: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_present_addr" oninput="toUpper(this)" pattern="[a-zA-Z0-9]+">
+                                        <label for="exampleInputEmail1">Present Address: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_present_addr" oninput="toUpper(this)" pattern="[a-zA-Z0-9\s\.,#-]+" required>
                                     </div> 
                                 </div>
                             </div>
@@ -270,8 +274,8 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">17. Provincial Address: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_prov_addr" oninput="toUpper(this)">
+                                        <label for="exampleInputEmail1">Provincial Address: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_prov_addr" oninput="toUpper(this)" required>
                                     </div> 
                                 </div>
                             </div>
@@ -279,8 +283,8 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">18. Parents/Guardian Name: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_parentsname" oninput="toUpper(this)">
+                                        <label for="exampleInputEmail1">Parents/Guardian Name: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_parentsname" oninput="toUpper(this)" required>
                                     </div> 
                                 </div>
                             </div>
@@ -288,8 +292,8 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">19. Employment Information - Occupation: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_occupation" oninput="toUpper(this)">
+                                        <label for="exampleInputEmail1">Employment Information - Occupation: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_occupation" oninput="toUpper(this)" required>
                                     </div> 
                                 </div>
                                 <div class="col-6">

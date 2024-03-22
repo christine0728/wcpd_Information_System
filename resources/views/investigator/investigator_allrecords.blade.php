@@ -68,7 +68,7 @@
                                         <th>View</th>
                                         <th>Complaint Report Author</th>
                                         <th>Case Details</th>
-                                        <th>People Involved</th>
+                                        {{-- <th>People Involved</th> --}}
                                         {{-- <th>Place of Commission</th>
                                         <th>Offenses Committed</th>
                                         <th>Victim's Fullname</th>
@@ -115,7 +115,7 @@
                                                     {{ $comp->date_case_updated }}
                                                 @endif
                                         </td>
-                                        <td>
+                                        {{-- <td>
                                             <b>Victim Overview</b>
                                             <br>Fullname: {{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}
                                             <br>Sex: {{ $comp->victim_sex }}
@@ -125,7 +125,7 @@
                                             <br>Fullname: {{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}
                                             <br>Sex: {{ $comp->offender_sex }}
                                             <br>Age: {{ $comp->offender_age }}
-                                        </td>
+                                        </td> --}}
                                         {{-- <td>{{ $comp->date_reported }}</td> --}}
                                         {{-- <td>{{ $comp->place_of_commission }}</td>
                                         <td>{{ $comp->offenses }}</td> 

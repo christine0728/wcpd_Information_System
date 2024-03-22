@@ -194,6 +194,9 @@
                                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_contactperson" value="{{ $comp->victim_contactperson_addr_con_num }}" readonly>
                                     </div> 
                                 </div> 
+                                <div class="col-12">
+                                    <a class="link-buttons" href="{{ route('investigator.edit_victim', $comp->id) }}" style="background-color: #48145B">Edit Profile&nbsp;&nbsp;<i class="fa fa-edit"></i></a>
+                                </div>
                             </div> 
                         @endforeach 
                     </div>

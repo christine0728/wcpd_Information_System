@@ -17,7 +17,7 @@
     
     <link rel="stylesheet" href="https://cdn.mobiscroll.com/4.9.0/css/mobiscroll.jquery.min.css">
 
-    <title>Superadmin | Complaint Report Form</title>
+    <title>Investigator | Victim Form</title>
     <style>
         body {
             background-color: #D9D9D9;
@@ -120,20 +120,20 @@
     </div> 
 
     <div class="container" style="margin-top: -2rem;">
-        <div class="nav nav-fill" style="background-color: white;">
-            <label class="nav-link shadow-sm step0 border ml-2 active">OFFENSE DATA</label> 
-            <label class="nav-link shadow-sm step3 border ml-2 ">EVIDENCE DATA</label>
-            <label class="nav-link shadow-sm step4 border ml-2 ">CASE DISPOSITION</label>
-        </div>
+        {{-- <div class="nav nav-fill" style="background-color: white;">
+            <label class="nav-link shadow-sm step0 border ml-2 active">Section A<br>Offense Data</label> 
+            <label class="nav-link shadow-sm step3 border ml-2 ">Section D<br>Evidence Data</label>
+            <label class="nav-link shadow-sm step4 border ml-2 ">Section F<br>Case Disposition</label>
+        </div> --}}
     </div> 
 
     <div class="container row" style="margin-top: -1rem">
         <div class="header" style="background-color: white;">  
             <div class="col-12">
-                <form action="{{ route('superadmin.add_complaint') }}" class="employee-form" method="post" enctype="multipart/form-data">
+                <form action="{{ route('investigator.insert_victim', [$comp_id]) }}" class="employee-form" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="form-section">  
+                        {{-- <div class="form-section">  
                             <div class="header" >  
                                 <p style="font-size: medium;">Section A: <b style="font-size: medium; color: black">Offense Data</b></p>
                             </div> 
@@ -143,13 +143,13 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">6. Time/Day/Month/Year of Commission:</label>
-                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="datetime_commission" required>
+                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="datetime_commission">
                                     </div> 
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">7. Place of Commission: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" oninput="toUpper(this)" required>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" oninput="toUpper(this)">
                                     </div> 
                                 </div> 
                             </div>
@@ -158,51 +158,59 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">8. Offenses Committed: (press CTRL to select multiple offenses)</label>
-                                        <select class="form-control" name="offenses[]" multiple required> 
-                                            {{-- <option value="Offense 1">Offense 1</option>
-                                            <option value="Offense 2">Offense 2</option>
-                                            <option value="Offense 3">Offense 3</option>
-                                            <option value="Offense 4">Offense 4</option>
-                                            <option value="Offense 5">Offense 5</option>
-                                            <option value="Offense 6">Offense 6</option> --}}
-                                            {{-- <option>Select offense</option> --}}
-                                            @foreach ($offenses as $offense) 
-                                            <option value="{{ $offense->offense_name }}">{{ $offense->offense_name }}</option>
-                                            @endforeach 
+                                        <select class="form-control" name="offenses[]" multiple>  
                                         </select>
                                     </div> 
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
-                        {{-- <div class="form-section">
+                        <div class="form-section">
                             <div class="header">  
-                                <p style="font-size: medium;">Section B: <b style="font-size: medium;">Victim's Data</b></p>
+                                <p style="font-size: medium;"><b style="font-size: medium;">Victim's Data</b></p>
                             </div> 
                             <hr style="margin-top: -1rem">
                             <div class="row">
                                 <div class="col-3">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">9. Family name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_familyname" oninput="toUpper(this)">
+                                        <label for="exampleInputEmail1">Family name:</label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_familyname" oninput="toUpper(this)" value="{{ old('vic_familyname') }}">
+
+                                        {{-- @error('vic_familyname')
+                                            <span class="text-danger" style="color: black">{{ $message }}</span>
+                                        @enderror --}}
+
+                                        @if ($errors->has('vic_familyname')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_familyname') }}</span>
+                                        @endif
                                     </div> 
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">First name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_firstname" oninput="toUpper(this)">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_firstname" oninput="toUpper(this)" value="{{ old('vic_firstname') }}">
+
+                                        @if ($errors->has('vic_firstname')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_firstname') }}</span>
+                                        @endif
                                     </div> 
                                 </div> 
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Middle name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_middlename" oninput="toUpper(this)">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_middlename" oninput="toUpper(this)" value="{{ old('vic_middlename') }}">
+                                        @if ($errors->has('vic_middlename')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_middlename') }}</span>
+                                        @endif
                                     </div> 
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Aliases: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_aliases" oninput="toUpper(this)">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_aliases" oninput="toUpper(this)" value="{{ old('vic_aliases') }}">
+                                        @if ($errors->has('vic_aliases')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_aliases') }}</span>
+                                        @endif
                                     </div> 
                                 </div> 
                             </div>
@@ -210,24 +218,33 @@
                             <div class="row">
                                 <div class="col-2" >
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">10. Sex: </label>
-                                        <select class="form-control" name="vic_gender">
-                                            <option>Select sex</option>
+                                        <label for="exampleInputEmail1">Sex: </label>
+                                        <select class="form-control" name="vic_gender" value="{{ old('vic_gender') }}">
+                                            <option value="">Select sex</option>
                                             <option value="FEMALE">Female</option>
                                             <option value="MALE">Male</option>
                                         </select>
+                                        @if ($errors->has('vic_gender')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_gender') }}</span>
+                                        @endif
                                     </div> 
                                 </div> 
                                 <div class="col-2" >
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">11. Date of birth: </label>
-                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth" oninput="toUpper(this)">
+                                        <label for="exampleInputEmail1">Date of birth: </label>
+                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth" oninput="toUpper(this)" value="{{ old('vic_date_birth') }}">
+                                        @if ($errors->has('vic_date_birth')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_date_birth') }}</span>
+                                        @endif
                                     </div> 
                                 </div> 
                                 <div class="col-8" >
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">12. Place of birth: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_place_birth" oninput="toUpper(this)">
+                                        <label for="exampleInputEmail1">Place of birth: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_place_birth" oninput="toUpper(this)" value="{{ old('vic_place_birth') }}">
+                                        @if ($errors->has('vic_place_birth')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_place_birth') }}</span>
+                                        @endif
                                     </div> 
                                 </div> 
                             </div>
@@ -235,35 +252,44 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">13. Highest Educational Attainment: </label>
-                                        <select class="form-control" name="vic_educ_attainment" onchange="showfield(this.options[this.selectedIndex].value)">
-                                            <option>Select highest educational attainment</option>
+                                        <label for="exampleInputEmail1">Highest Educational Attainment: </label>
+                                        <select class="form-control" name="vic_educ_attainment" onchange="showfield(this.options[this.selectedIndex].value)" value="{{ old('vic_educ_attainment') }}">
+                                            <option value="">Select highest educational attainment</option>
                                             <option value="ELEMENTARY">Elementary</option>
                                             <option value="HS GRADUATE">HS Graduate</option>
                                             <option value="COLLEGE GRAD">College Graduate</option>
                                             <option value="POST GRADUATE">Post Graduate</option>
                                             <option value="Others">Others  </option> 
                                         </select>
+                                        @if ($errors->has('vic_educ_attainment')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_educ_attainment') }}</span>
+                                        @endif
                                         <div id="div1" style="margin-top: 1rem"></div>
                                     </div> 
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">14. Civil Status: </label>
-                                        <select class="form-control" name="vic_civil_stat">
-                                            <option>Select civil status</option>
+                                        <select class="form-control" name="vic_civil_stat"  > 
+                                            <option value="">Select civil status</option>
                                             <option value="SINGLE">Single</option>
                                             <option value="LIVE-IN">Live-in</option>
                                             <option value="MARRIED">Married</option>
                                             <option value="WIDOW/ER">Widow/er</option>
                                             <option value="SEPARATED">Separated</option>
                                         </select>
+                                        @if ($errors->has('vic_civil_stat')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_civil_stat') }}</span>
+                                        @endif
                                     </div> 
                                 </div> 
                                 <div class="col-3">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">15. Citizenship: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_citizenship" oninput="toUpper(this)">
+                                        <label for="exampleInputEmail1">Citizenship: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_citizenship" oninput="toUpper(this)" value="{{ old('vic_citizenship') }}">
+                                        @if ($errors->has('vic_citizenship')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_citizenship') }}</span>
+                                        @endif
                                     </div> 
                                 </div> 
                             </div>
@@ -271,8 +297,11 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">16. Present Address: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_present_addr" oninput="toUpper(this)" pattern="[a-zA-Z0-9]+">
+                                        <label for="exampleInputEmail1">Present Address: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_present_addr" oninput="toUpper(this)" pattern="[a-zA-Z0-9\s\.,#-]+" value="{{ old('vic_present_addr') }}">
+                                        @if ($errors->has('vic_present_addr')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_present_addr') }}</span>
+                                        @endif
                                     </div> 
                                 </div>
                             </div>
@@ -280,8 +309,11 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">17. Provincial Address: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_prov_addr" oninput="toUpper(this)">
+                                        <label for="exampleInputEmail1">Provincial Address: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_prov_addr" oninput="toUpper(this)" value="{{ old('vic_prov_addr') }}">
+                                        @if ($errors->has('vic_prov_addr')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_prov_addr') }}</span>
+                                        @endif
                                     </div> 
                                 </div>
                             </div>
@@ -289,8 +321,11 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">18. Parents/Guardian Name: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_parentsname" oninput="toUpper(this)">
+                                        <label for="exampleInputEmail1">Parents/Guardian Name: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_parentsname" oninput="toUpper(this)" value="{{ old('vic_parentsname') }}">
+                                        @if ($errors->has('vic_parentsname')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_parentsname') }}</span>
+                                        @endif
                                     </div> 
                                 </div>
                             </div>
@@ -298,14 +333,20 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">19. Employment Information - Occupation: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_occupation" oninput="toUpper(this)">
+                                        <label for="exampleInputEmail1">Employment Information - Occupation: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_occupation" oninput="toUpper(this)" value="{{ old('vic_occupation') }}">
+                                        @if ($errors->has('vic_occupation')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_occupation') }}</span>
+                                        @endif
                                     </div> 
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">20. Identifying Documents Presented: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="docs_presented" oninput="toUpper(this)">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="docs_presented" oninput="toUpper(this)" value="{{ old('docs_presented') }}">
+                                        @if ($errors->has('docs_presented')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('docs_presented') }}</span>
+                                        @endif
                                     </div> 
                                 </div>
                             </div>
@@ -314,7 +355,10 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">21.Contact Person, Address, and Contact Number:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_contactperson" oninput="toUpper(this)">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_contactperson" oninput="toUpper(this)" value="{{ old('vic_contactperson') }}">
+                                        @if ($errors->has('vic_contactperson')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_contactperson') }}</span>
+                                        @endif
                                     </div> 
                                 </div>
                                 <div class="col-12">
@@ -328,7 +372,7 @@
                             </div>
                         </div>
 
-                        <div class="form-section">
+                        {{-- <div class="form-section">
                             <div class="header">  
                                 <p style="font-size: medium;">Section C: <b style="font-size: medium;">Offender's Data</b></p>
                             </div> 
@@ -476,10 +520,10 @@
                                     <div id="imagePreview2"></div>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div> --}} 
 
                         {{-- EVIDENCE DATA --}}
-                        <div class="form-section">
+                        {{-- <div class="form-section">
                             <div class="header">  
                                 <p style="font-size: medium;">Section D: <b style="font-size: medium;">Evidence Data</b></p>
                             </div> 
@@ -488,8 +532,8 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">34. Motive/Cause: </label>
-                                        <select class="form-control" name="evi_motive" required>
-                                            <option value="">Select motive/cause</option>
+                                        <select class="form-control" name="evi_motive">
+                                            <option>Select motive/cause</option>
                                             <option value="sex_lust">Sex/Lust</option>
                                             <option value="passion_jealousy">Passion/Jealousy</option>
                                             <option value="misunderstanding">Misunderstanding</option>
@@ -503,8 +547,8 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">35. Suspect under the influence of: </label>
-                                        <select class="form-control" name="influences" onchange="showfield(this.options[this.selectedIndex].value)" required>
-                                            <option value="">Select influence</option>
+                                        <select class="form-control" name="influences" onchange="showfield(this.options[this.selectedIndex].value)">
+                                            <option>Select influence</option>
                                             <option value="drugs">Drugs</option>
                                             <option value="alcohol">Alcohol</option>
                                             <option value="both">Both</option>
@@ -515,10 +559,10 @@
                                     </div> 
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         {{-- CASE DISPOSITION --}}
-                        <div class="form-section">
+                        {{-- <div class="form-section">
                             <div class="f">  
                                 <p style="font-size: medium;">Section F: <b style="font-size: medium;">Case Disposition</b></p>
                             </div> 
@@ -527,8 +571,8 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">47. Disposition: </label>
-                                        <select class="form-control" name="disposition" onchange="showfield(this.options[this.selectedIndex].value)" required>
-                                            <option value="">Select disposition of case</option>
+                                        <select class="form-control" name="disposition" onchange="showfield(this.options[this.selectedIndex].value)">
+                                            <option>Select disposition of case</option>
                                             <option value="settled_at_barangay">Settled at barangay</option>
                                             <option value="settled_by_parties">Settled by parties</option>
                                             <option value="under_police_investigation">Under police investigation</option>
@@ -545,8 +589,8 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">48. Suspect disposition: </label>
-                                        <select class="form-control" name="sus_disposition" onchange="showfield2(this.options[this.selectedIndex].value)" required>
-                                            <option value="">Select disposition of case</option>
+                                        <select class="form-control" name="sus_disposition" onchange="showfield2(this.options[this.selectedIndex].value)">
+                                            <option>Select disposition of case</option>
                                             <option value="arrested">Arrested</option>
                                             <option value="at_large">At large</option>
                                             <option value="detained">Detained</option> 
@@ -561,20 +605,24 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Investigator on case:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="investigator" oninput="toUpper(this)" required>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="investigator" oninput="toUpper(this)">
                                     </div>
                                 </div> 
                             </div>
-                        </div> 
+                        </div>  --}}
 
 
-                        <div class="col-12 form-navigation">
-                            <a class="link-buttons" href=" " style="float: left;">Cancel <i class="fa-solid fa-xmark icons"></i> </a> 
+                        <div class="col-12 ">  
                             {{-- <a class="link-buttons" href=" " style="float: right;">Next</a>  --}}
 
-                           <button type="button" class="next form-buttons" style="float: right; width: 5rem">Next <i class="fa-solid fa-arrow-right icons"></i></button> 
-                           <button type="submit" class="form-buttons" style="float: right;">Submit <i class="fa-solid fa-check icons"></i></button>
-                           <button type="button" class="previous form-buttons" style="float: right; margin-right: 0.5rem; width: 5rem"><i class="fa-solid fa-arrow-left icons"></i> Back</button> 
+                           {{-- <button type="button" class="next form-buttons" style="float: right; width: 5rem">Next <i class="fa-solid fa-arrow-right icons"></i></button>  --}}
+                           {{-- <button type="submit" class="form-buttons" style="float: right; " formaction="{{ route('superadmin.offender_form', [$comp_id]) }}">Next (Add Offender) <i class="fa-solid fa-check icons"></i></button> --}}
+                           <a class="link-buttons" href="{{ route('investigator.offender_form', [$comp_id]) }}" style="float: right; background-color: #48145B">Next (Add Offender) <i class="fa-solid fa-xmark"></i> </a>
+
+                           <button type="submit" class="form-buttons" style="float: right; margin-right: 0.5rem">Add Victim <i class="fa-solid fa-check icons"></i></button>
+
+                           
+                           {{-- <button type="button" class="previous form-buttons" style="float: right; margin-right: 0.5rem; width: 5rem"><i class="fa-solid fa-arrow-left icons"></i> Back</button>  --}}
                         </div>
                     </div>
                 </form>
@@ -606,10 +654,10 @@
     }
 
     // Function to handle navigation when nav-link is clicked
-    // $navLinks.click(function() {
-    //     var index = $(this).index(); // Get the index of the clicked nav-link
-    //     navigateTo(index);
-    // });
+    $navLinks.click(function() {
+        var index = $(this).index(); // Get the index of the clicked nav-link
+        navigateTo(index);
+    });
 
     $('.form-navigation .previous').click(function(){
         var currentIndex = curIndex();
@@ -702,7 +750,7 @@
     </script>
     
 </body>
-<script>
+{{-- <script>
     let inactiveTime = 0;
     const logoutTime = 2 * 60 * 1000;
     // 5 * 60 * 1000; // 5 minutes in milliseconds
@@ -729,5 +777,5 @@
     
     setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
 
-</script>
+</script> --}}
 </html>
