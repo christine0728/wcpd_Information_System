@@ -9,9 +9,11 @@ use App\Models\ComplaintReport;
 use App\Models\Employee;
 use App\Models\Offense;
 use App\Models\Team;
-use App\Models\TeamModel;
+use App\Models\TeamModel; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
 
 class HomeController extends Controller
 {
@@ -21,6 +23,8 @@ class HomeController extends Controller
     }
 
     public function login(Request $request){ 
+        $previousUrl = Session::put('previous_url', url()->previous());
+
         $username = $request->input('username');
         $check = $request->all();
 
@@ -39,14 +43,28 @@ class HomeController extends Controller
 
                 $stat = $accepted->acc_type;
 
-                if ($stat == 'superadmin'){
-                    // dd('dito superadmin');
-                    return redirect()->route('superadmin.dashboard')->with('error', 'investigator account logged in successfully');
-                }
-                if ($stat == 'investigator'){
-                    // dd('dito investigator');
-                    return redirect()->route('investigator.dashboard')->with('error', 'investigator account logged in successfully');
-                } 
+                    if ($stat == 'superadmin'){
+                        // dd('dito superadmin');
+                        return redirect()->route('superadmin.dashboard')->with('error', 'investigator account logged in successfully');
+                    }
+                    if ($stat == 'investigator'){
+                        // dd('dito investigator');
+                        // $storedUrl = Session::get('previous_url');
+                        // // dd($storedUrl);
+
+                        // $previousUrl = Session::get('previous_url');
+ 
+                        dd($previousUrl);
+                        if ($previousUrl) { 
+                            Session::forget('previous_url');
+                            return redirect()->to($previousUrl);
+                        }
+
+                        // If there's no previous URL, redirect the user to a default location
+                        // return redirect()->route('default_route_name');
+
+                        return redirect()->route('investigator.dashboard')->with('error', 'investigator account logged in successfully');
+                    } 
                 } else {
                     dd('hindeh');
                 }
@@ -79,8 +97,17 @@ class HomeController extends Controller
         return redirect()->route('login_form')->with('success', 'Account logged out successfully');
     }
 
-    public function inactive_screen()
+    public function inactive_screen(Request $request)
     {
+        Session::put('previous_url', $request->url());
+
+        return redirect()->route('inactive_screen1');
+    }
+
+    public function inactive_screen1(Request $request)
+    {
+        Session::put('previous_url', $request->url());
+
         Auth::guard('account')->logout();
         return view('inactive_screen');
     }

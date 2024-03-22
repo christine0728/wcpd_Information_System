@@ -133,7 +133,7 @@
                 {{ $message }}
               @enderror
             </div>
-          </div><br>
+          </div>
 
           {!! NoCaptcha::renderJs() !!}
           {!! NoCaptcha::display() !!}

@@ -9,6 +9,7 @@ use App\Http\Controllers\PDFController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\VictimController;
 use App\Models\ComplaintReport;
+use App\Models\Offender;
 use App\Models\Offense;
 use App\Models\SuperAdmin;
 use App\Models\Victim;
@@ -34,6 +35,7 @@ Route::get('/login', [HomeController::class, 'login_view'])->name('login_form');
 Route::post('/login_account', [HomeController::class, 'login'])->name('logging_in');
 Route::get('/logout', [HomeController::class, 'logout'])->name('logout')->middleware('account'); 
 Route::get('/inactive_screen', [HomeController::class, 'inactive_screen'])->name('inactive_screen');
+Route::get('/inactive_screen1', [HomeController::class, 'inactive_screen1'])->name('inactive_screen1');
 
 Route::prefix('investigator')->middleware('account')->group(function(){
     Route::get('/dashboard', [InvestigatorController::class, 'dashboard'])->name('investigator.dashboard');
@@ -41,7 +43,7 @@ Route::prefix('investigator')->middleware('account')->group(function(){
     Route::get('/complaintreportmanagement', [InvestigatorController::class, 'complaintreportmngt'])->name('investigator.complaintreport');
     Route::get('/complaintreport_form', [InvestigatorController::class, 'complaintreport_form'])->name('investigator.complaintreport_form'); 
     
-    Route::post('/add_complaint', [ComplaintReportController::class, 'add_complaint'])->name('investigator.add_complaint');
+    Route::post('/add_complaint', [ComplaintReportController::class, 'add_complaint1'])->name('investigator.add_complaint');
     Route::get('/view_complaintreport/{comp_id}', [ComplaintReportController::class, 'view_complaintreport'])->name('investigator.view_complaintreport');
     Route::get('/edit_complaintreport/{comp_id}', [ComplaintReportController::class, 'edit_complaintreport'])->name('investigator.edit_complaintreport');
     Route::post('/update_form/{comp_id}', [ComplaintReportController::class, 'update_form'])->name('investigator.update_form');
@@ -51,6 +53,12 @@ Route::prefix('investigator')->middleware('account')->group(function(){
     Route::get('/readonly_complaintreport/{comp_id}', [ComplaintReportController::class, 'readonly_complaintreport'])->name('investigator.readonly_complaintreport');
     Route::get('/filter-complaintreps', [InvestigatorController::class, 'filter_complaintreps'])->name('investigator.filter_complaintreps');
     Route::post('/change_case_status/{id}', [InvestigatorController::class, 'change_case_status'])->name('investigator.change_case_status');
+
+    Route::get('/victim_form/{comp_id}', [VictimController::class, 'victim_form'])->name('investigator.victim_form');
+    Route::post('/insert_victim/{comp_id}', [VictimController::class, 'insert_victim'])->name('investigator.insert_victim');
+
+    Route::get('/offender_form/{comp_id}', [OffenderController::class, 'offender_form'])->name('investigator.offender_form');
+    Route::post('/insert_offender/{comp_id}', [OffenderController::class, 'insert_offender'])->name('investigator.insert_offender');
 
     Route::get('/offensesmanagement', [InvestigatorController::class, 'offensesmngt'])->name('investigator.offensesmanagement');
     Route::get('/delete_offense/{id}', [OffensesController::class, 'delete'])->name('investigator.delete_offense');
@@ -63,8 +71,13 @@ Route::prefix('investigator')->middleware('account')->group(function(){
     Route::get('/offenders_management', [InvestigatorController::class, 'suspectsmngt'])->name('investigator.suspects_mngt');
     Route::get('/filter-offendersmngt', [InvestigatorController::class, 'filter_offendersmngt'])->name('investigator.filter_offendersmngt');
 
-    Route::get('/victim_profile/{id}', [InvestigatorController::class, 'victim_profile'])->name('investigator.victim_profile');
-    Route::get('/offender_profile/{id}', [InvestigatorController::class, 'offender_profile'])->name('investigator.offender_profile');
+    Route::get('/victim_profile/{vid}', [InvestigatorController::class, 'victim_profile'])->name('investigator.victim_profile');
+    Route::get('/edit_victim/{vid}', [VictimController::class, 'edit_victim'])->name('investigator.edit_victim');
+    Route::post('/update_victim/{vid}', [VictimController::class, 'update_victim'])->name('investigator.update_victim');
+
+    Route::get('/offender_profile/{oid}', [InvestigatorController::class, 'offender_profile'])->name('investigator.offender_profile');
+    Route::get('/edit_offender/{oid}', [OffenderController::class, 'edit_offender'])->name('investigator.edit_offender');
+    Route::post('/update_offender/{oid}', [OffenderController::class, 'update_offender'])->name('investigator.update_offender');
 
     Route::get('/allrecords', [InvestigatorController::class, 'allrecords'])->name('investigator.allrecords');
     Route::get('/filter-allrecords', [InvestigatorController::class, 'filter_allrecords'])->name('investigator.filter_allrecords');
@@ -121,7 +134,7 @@ Route::prefix('superadmin')->middleware('account')->group(function(){
 
     Route::get('/complaintreportmanagement', [SuperAdminController::class, 'complaintreportmngt'])->name('superadmin.complaintreport');
     Route::get('/complaintreport_form', [SuperAdminController::class, 'complaintreport_form'])->name('superadmin.complaintreport_form'); 
-    Route::post('/add_complaint', [ComplaintReportController::class, 'add_complaint1'])->name('investigator.add_complaint');
+    Route::post('/add_complaint', [ComplaintReportController::class, 'add_complaint1'])->name('superadmin.add_complaint');
     Route::get('/view_complaintreport/{comp_id}', [ComplaintReportController::class, 'view_complaintreport'])->name('superadmin.view_complaintreport');
     Route::get('/readonly_complaintreport/{comp_id}', [ComplaintReportController::class, 'readonly_complaintreport'])->name('superadmin.readonly_complaintreport');
     Route::get('/edit_complaintreport/{comp_id}', [ComplaintReportController::class, 'edit_complaintreport'])->name('superadmin.edit_complaintreport');

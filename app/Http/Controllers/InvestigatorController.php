@@ -10,8 +10,10 @@ use App\Models\Logs;
 use App\Models\Offense;
 use App\Models\Notification;
 use App\Models\Notifications;
+use App\Models\Offender;
 use App\Models\Team;
 use App\Models\TeamModel;
+use App\Models\Victim;
 use App\Notifications\MyNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -127,17 +129,16 @@ class InvestigatorController extends Controller
     public function victimsmngt()
     {
         $author_id = Auth::guard('account')->user()->id;
-        $comps = ComplaintReport::
-            where('complaint_report_author', $author_id)
-            ->where('complaint_reports.status', 'notdeleted')
-            ->orderBy('id', 'DESC') 
+        $comps = Victim::join('complaint_reports', 'complaint_reports.id', '=', 'victims.comp_report_id')
+            ->select('complaint_reports.id as compid', 'victims.id as vid', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented')
+            ->where('complaint_reports.complaint_report_author', '=', $author_id)
             ->get();
         return view('investigator.investigator_victimsmngt', ['comps'=>$comps]);
     }
 
     public function victim_profile($id)
     { 
-        $comps = ComplaintReport::  
+        $comps = Victim::  
             where('id', '=', $id)
             ->get();
         return view('investigator.investigator_viewvictimprofile', ['comps'=>$comps]);
@@ -146,17 +147,17 @@ class InvestigatorController extends Controller
     public function suspectsmngt()
     {
         $author_id = Auth::guard('account')->user()->id;
-        $comps = ComplaintReport::
-            where('complaint_report_author', $author_id)
-            ->where('complaint_reports.status', 'notdeleted')
-            ->orderBy('id', 'DESC') 
+        $comps = Offender::join('complaint_reports', 'complaint_reports.id', '=', 'offenders.comp_report_id')
+            ->select('complaint_reports.id as compid', 'offenders.id as oid', 'offenders.offender_family_name', 'offenders.offender_firstname', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age', 'offenders.offender_image')
+            ->where('complaint_reports.complaint_report_author', '=', $author_id)
+            ->orderBy('offenders.id', 'desc')
             ->get();
         return view('investigator.investigator_suspectsmngt', ['comps'=>$comps]);
     }
 
     public function offender_profile($id)
     { 
-        $comps = ComplaintReport::  
+        $comps = Offender::  
             where('id', '=', $id)
             ->get();
         return view('investigator.investigator_viewoffenderprofile', ['comps'=>$comps]);
@@ -166,7 +167,9 @@ class InvestigatorController extends Controller
     {
         $team = Auth::guard('account')->user()->team;
         $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
-        ->select('accounts.id as accountid', 'accounts.username', 'accounts.team', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'complaint_reports.victim_family_name', 'complaint_reports.victim_firstname', 'complaint_reports.victim_middlename', 'complaint_reports.victim_sex', 'complaint_reports.victim_age', 'complaint_reports.victim_docs_presented', 'complaint_reports.offender_firstname', 'complaint_reports.offender_family_name', 'complaint_reports.offender_middlename', 'complaint_reports.offender_sex', 'complaint_reports.offender_age', 'complaint_reports.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')
+        ->leftJoin('victims', 'victims.comp_report_id', '=', 'complaint_reports.complaint_report_author')
+        ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.complaint_report_author')
+        ->select('accounts.id as accountid', 'accounts.username', 'accounts.team', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'offenders.offender_firstname', 'offenders.offender_family_name', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age', 'offenders.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')
         ->where('complaint_reports.status', 'notdeleted')
         ->where('accounts.team', $team)
         ->orderBy('complaint_reports.id', 'DESC') 

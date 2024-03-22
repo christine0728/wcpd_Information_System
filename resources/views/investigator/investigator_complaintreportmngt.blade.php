@@ -98,7 +98,7 @@
                                         {{-- <th>View</th> --}}
                                         {{-- <th><center>Complaint Report<br>Author</center></th> --}}
                                         <th><center>CASE DETAILS</center></th>
-                                        <th><center>PEOPLE INVOLVED</center></th>
+                                        {{-- <th><center>PEOPLE INVOLVED</center></th> --}}
                                         {{-- <th>Victim's Fullname</th>
                                         <th>Victim's Sex</th>
                                         <th>Victim's Age</th> 
@@ -128,13 +128,13 @@
                                             <br><br><b>Place of Commission:</b><br>{{ $comp->place_of_commission }}
                                             <br><br><b>Offenses Committed:</b><br>{{ $comp->offenses }}
                                         </td>
-                                        <td style="vertical-align: top;">
+                                        {{-- <td style="vertical-align: top;">
                                             <b>Victim Overview</b>
                                             <br>Fullname: {{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}
 
                                             <br><br><b>Offender Overview</b>
                                             <br>Fullname: {{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}
-                                        </td>
+                                        </td> --}}
                                         <td style="vertical-align: top; width: 14rem">  
                                             @if ($comp->case_update == 'not update yet') 
                                                 Current: {{ $comp->case_disposition }}
