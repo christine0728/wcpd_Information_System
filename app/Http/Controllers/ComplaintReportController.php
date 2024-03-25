@@ -173,33 +173,7 @@ class ComplaintReportController extends Controller
         $currentUserId = Auth::guard('account')->user()->id; 
 
         $now = Carbon::now();
-        $now->setTimezone('Asia/Manila');
-
-        $vic_date_birth = $request->input('vic_date_birth');
-
-        $vic_age = Carbon::parse($vic_date_birth)->diffInYears(Carbon::now());
-
-        $off_date_birth = $request->input('off_date_birth');
-        $off_age = Carbon::parse($off_date_birth)->diffInYears(Carbon::now()); 
-
-        
-
-        $v_educ_attain = $request->input('vic_educ_attainment');
-
-        if ($v_educ_attain == "Others"){
-            $v_educ_attain = $request->input('others');
-        }
-        else {
-            $v_educ_attain = $request->input('vic_educ_attainment');
-        }
-
-        $o_educ_attain = $request->input('off_educ_attainment');
-        if ($o_educ_attain == "Others2"){
-            $o_educ_attain = $request->input('others2');
-        }
-        else {
-            $o_educ_attain = $request->input('off_educ_attainment');
-        }
+        $now->setTimezone('Asia/Manila');   
 
         $influence = $request->input('influences');
         if ($influence == "Others3"){
@@ -224,24 +198,7 @@ class ComplaintReportController extends Controller
         else {
             $sus_dispo = $request->input('sus_disposition');
         }
-
-        if ($request->hasFile('vic_image')) {
-            $vic_file = $request->file('vic_image');
-            $vic_extension = $vic_file->getClientOriginalExtension();
-            $vic_filename = time() . '.' . $vic_extension;
-            $vic_file->move('images/victims/', $vic_filename);
-        } else {
-            $vic_filename = 'no image';
-        }
-        
-        if ($request->hasFile('off_image')) {
-            $off_file = $request->file('off_image');
-            $off_extension = $off_file->getClientOriginalExtension();
-            $off_filename = time() . '.' . $off_extension;
-            $off_file->move('images/offenders/', $off_filename);
-        } else {
-            $off_filename = 'no image';
-        }
+ 
 
         $validator = Validator::make($request->all(), [
             'datetime_commission' => 'required',

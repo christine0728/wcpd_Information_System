@@ -296,7 +296,7 @@
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">22. Family name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_familyname" oninput="toUpper(this)">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_familyname" oninput="toUpper(this)" value="{{ old('off_familyname') }}">
 
                                         @if ($errors->has('off_familyname')) 
                                             <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('off_familyname') }}</span>

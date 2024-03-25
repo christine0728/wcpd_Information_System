@@ -54,7 +54,7 @@ class HomeController extends Controller
 
                         // $previousUrl = Session::get('previous_url');
  
-                        dd($previousUrl);
+                        // dd($previousUrl);
                         if ($previousUrl) { 
                             Session::forget('previous_url');
                             return redirect()->to($previousUrl);

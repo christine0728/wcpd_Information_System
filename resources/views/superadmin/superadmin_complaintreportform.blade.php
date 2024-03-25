@@ -121,9 +121,11 @@
 
     <div class="container" style="margin-top: -2rem;">
         <div class="nav nav-fill" style="background-color: white;">
-            <label class="nav-link shadow-sm step0 border ml-2 active">OFFENSE DATA</label> 
-            <label class="nav-link shadow-sm step3 border ml-2 ">EVIDENCE DATA</label>
-            <label class="nav-link shadow-sm step4 border ml-2 ">CASE DISPOSITION</label>
+            {{-- <label class="nav-link shadow-sm step0 border ml-2 active">Offense Data</label> --}}
+            {{-- <label class="nav-link shadow-sm step1 border ml-2 ">Section B<br>Victim's Data</label>
+            <label class="nav-link shadow-sm step2 border ml-2 ">Section C<br>Offender's Data</label> --}}
+            {{-- <label class="nav-link shadow-sm step3 border ml-2 ">Evidence Data</label>
+            <label class="nav-link shadow-sm step4 border ml-2 ">Case Disposition</label> --}}
         </div>
     </div> 
 
@@ -133,9 +135,9 @@
                 <form action="{{ route('superadmin.add_complaint') }}" class="employee-form" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="form-section">  
+                        <div class="" style="margin-bottom: 2rem">  
                             <div class="header" >  
-                                <p style="font-size: medium;">Section A: <b style="font-size: medium; color: black">Offense Data</b></p>
+                                <p style="font-size: medium;"><b style="font-size: medium; color: black">OFFENSE DATA</b></p>
                             </div> 
                             <hr style="margin-top: -1rem">
 
@@ -143,13 +145,22 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">6. Time/Day/Month/Year of Commission:</label>
-                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="datetime_commission" required>
+                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="datetime_commission" value="{{ old('datetime_commission') }}">
+                                        @if ($errors->has('datetime_commission')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('datetime_commission') }}</span>
+                                        @endif
+                                        {{-- @error('datetime_commission')
+                                        <span class="text-red text-sm" style="color:red; font-size: 13px; float: left">{{$message}}</span>
+                                        @enderror --}}
                                     </div> 
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">7. Place of Commission: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" oninput="toUpper(this)" required>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" oninput="toUpper(this)" value="{{ old('place_commission') }}">
+                                        @if ($errors->has('place_commission')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('place_commission') }}</span>
+                                        @endif
                                     </div> 
                                 </div> 
                             </div>
@@ -157,8 +168,8 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">8. Offenses Committed: (press CTRL to select multiple offenses)</label>
-                                        <select class="form-control" name="offenses[]" multiple required> 
+                                        <label for="exampleInputEmail1">8. Offenses Committed: (press CTRL to select multiple offenses) </label>
+                                        <select class="form-control" name="offenses[]" multiple> 
                                             {{-- <option value="Offense 1">Offense 1</option>
                                             <option value="Offense 2">Offense 2</option>
                                             <option value="Offense 3">Offense 3</option>
@@ -166,16 +177,20 @@
                                             <option value="Offense 5">Offense 5</option>
                                             <option value="Offense 6">Offense 6</option> --}}
                                             {{-- <option>Select offense</option> --}}
+                                            <option value="">Select:</option>
                                             @foreach ($offenses as $offense) 
                                             <option value="{{ $offense->offense_name }}">{{ $offense->offense_name }}</option>
                                             @endforeach 
                                         </select>
+                                        @if ($errors->has('offenses')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('offenses') }}</span>
+                                        @endif
                                     </div> 
                                 </div>
                             </div>
                         </div>
-
-                        {{-- <div class="form-section">
+                        
+                        {{-- <div class="">
                             <div class="header">  
                                 <p style="font-size: medium;">Section B: <b style="font-size: medium;">Victim's Data</b></p>
                             </div> 
@@ -326,9 +341,9 @@
                                     <div id="imagePreview"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
-                        <div class="form-section">
+                        {{-- <div class="">
                             <div class="header">  
                                 <p style="font-size: medium;">Section C: <b style="font-size: medium;">Offender's Data</b></p>
                             </div> 
@@ -479,16 +494,14 @@
                         </div> --}}
 
                         {{-- EVIDENCE DATA --}}
-                        <div class="form-section">
-                            <div class="header">  
-                                <p style="font-size: medium;">Section D: <b style="font-size: medium;">Evidence Data</b></p>
-                            </div> 
+                        <div class="" style="margin-bottom: 2rem">
+                            <p style="font-size: medium;"><b style="font-size: medium; color: black">EVIDENCE DATA<br></b></p>
                             <hr style="margin-top: -1rem">
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">34. Motive/Cause: </label>
-                                        <select class="form-control" name="evi_motive" required>
+                                        <label for="exampleInputEmail1">Motive/Cause: </label>
+                                        <select class="form-control" name="evi_motive" >
                                             <option value="">Select motive/cause</option>
                                             <option value="sex_lust">Sex/Lust</option>
                                             <option value="passion_jealousy">Passion/Jealousy</option>
@@ -497,13 +510,16 @@
                                             <option value="family_trouble">Family trouble</option>
                                             <option value="poverty">Poverty</option>
                                         </select>
+                                        @if ($errors->has('evi_motive')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('evi_motive') }}</span>
+                                        @endif
                                     </div> 
                                 </div>
 
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">35. Suspect under the influence of: </label>
-                                        <select class="form-control" name="influences" onchange="showfield(this.options[this.selectedIndex].value)" required>
+                                        <select class="form-control" name="influences" onchange="showfield(this.options[this.selectedIndex].value)">
                                             <option value="">Select influence</option>
                                             <option value="drugs">Drugs</option>
                                             <option value="alcohol">Alcohol</option>
@@ -511,23 +527,26 @@
                                             <option value="none">None</option>
                                             <option value="Others3">Others </option>
                                         </select>
-                                        <div id="div3" style="margin-top: 1rem"></div>
+                                        @if ($errors->has('influences')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('influences') }}</span>
+                                        @endif
+                                        <div id="div3" style="margin-top: 1rem"></div> 
                                     </div> 
                                 </div>
                             </div>
                         </div>
 
-                        {{-- CASE DISPOSITION --}}
-                        <div class="form-section">
-                            <div class="f">  
-                                <p style="font-size: medium;">Section F: <b style="font-size: medium;">Case Disposition</b></p>
+                        {{-- CASE DISPOSITION --}} 
+                        <div class="">
+                            <div class="">  
+                                <p style="font-size: medium;"><b style="font-size: medium;">CASE DISPOSITION<br></b></p>
                             </div> 
                             <hr style="margin-top: -1rem">
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">47. Disposition: </label>
-                                        <select class="form-control" name="disposition" onchange="showfield(this.options[this.selectedIndex].value)" required>
+                                        <select class="form-control" name="disposition" onchange="showfield(this.options[this.selectedIndex].value)">
                                             <option value="">Select disposition of case</option>
                                             <option value="settled_at_barangay">Settled at barangay</option>
                                             <option value="settled_by_parties">Settled by parties</option>
@@ -538,21 +557,27 @@
                                             <option value="referred_to_other_gov_agencies">Referred to other government agencies</option>
                                             <option value="Others4">Others </option>
                                         </select>
-                                        <div id="div4" style="margin-top: 1rem"></div>
+                                        @if ($errors->has('disposition')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('disposition') }}</span>
+                                        @endif
+                                        <div id="div4" style="margin-top: 1rem"></div> 
                                     </div> 
                                 </div>
 
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">48. Suspect disposition: </label>
-                                        <select class="form-control" name="sus_disposition" onchange="showfield2(this.options[this.selectedIndex].value)" required>
+                                        <select class="form-control" name="sus_disposition" onchange="showfield2(this.options[this.selectedIndex].value)">
                                             <option value="">Select disposition of case</option>
                                             <option value="arrested">Arrested</option>
                                             <option value="at_large">At large</option>
                                             <option value="detained">Detained</option> 
                                             <option value="Others5">Others </option>
                                         </select>
-                                        <div id="div5" style="margin-top: 1rem"></div>
+                                        @if ($errors->has('sus_disposition')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('sus_disposition') }}</span>
+                                        @endif
+                                        <div id="div5" style="margin-top: 1rem"></div> 
                                     </div> 
                                 </div> 
                             </div>
@@ -561,7 +586,10 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Investigator on case:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="investigator" oninput="toUpper(this)" required>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="investigator" oninput="toUpper(this)" value="{{ old('investigator') }}">
+                                        @if ($errors->has('investigator')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('investigator') }}</span>
+                                        @endif
                                     </div>
                                 </div> 
                             </div>
@@ -572,7 +600,7 @@
                             <a class="link-buttons" href=" " style="float: left;">Cancel <i class="fa-solid fa-xmark icons"></i> </a> 
                             {{-- <a class="link-buttons" href=" " style="float: right;">Next</a>  --}}
 
-                           <button type="button" class="next form-buttons" style="float: right; width: 5rem">Next <i class="fa-solid fa-arrow-right icons"></i></button> 
+                           {{-- <button type="button" class="next form-buttons" style="float: right; width: 5rem">Next <i class="fa-solid fa-arrow-right icons"></i></button>  --}}
                            <button type="submit" class="form-buttons" style="float: right;">Submit <i class="fa-solid fa-check icons"></i></button>
                            <button type="button" class="previous form-buttons" style="float: right; margin-right: 0.5rem; width: 5rem"><i class="fa-solid fa-arrow-left icons"></i> Back</button> 
                         </div>
@@ -584,7 +612,7 @@
 
     <script> 
         $(function(){
-    var $sections = $('.form-section'); 
+    var $sections = $('.'); 
     var $navLinks = $('.nav-link');
     
     function navigateTo(index){ 
@@ -702,32 +730,4 @@
     </script>
     
 </body>
-<script>
-    let inactiveTime = 0;
-    const logoutTime = 2 * 60 * 1000;
-    // 5 * 60 * 1000; // 5 minutes in milliseconds
-    
-    function resetInactiveTime() {
-        inactiveTime = 0;
-    }
-    
-    function handleUserActivity() {
-        resetInactiveTime();
-    }
-    
-    document.addEventListener('mousemove', handleUserActivity);
-    document.addEventListener('keydown', handleUserActivity);
-    
-    function checkInactiveTime() {
-        inactiveTime += 1000; 
-        if (inactiveTime >= logoutTime) { 
-            window.location.href = "/inactive_screen"; 
-        } else { 
-            setTimeout(checkInactiveTime, 1000); 
-        }
-    }
-    
-    setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
-
-</script>
 </html>

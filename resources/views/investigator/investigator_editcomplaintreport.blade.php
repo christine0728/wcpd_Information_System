@@ -109,7 +109,7 @@
                 <div class="row">
                     <div class="form-section">  
                         <div class="header" >  
-                            <p style="font-size: large;">Section A: <b style="font-size: large; color: black">Offense Data</b></p>
+                            <p style="font-size: large;"><b style="font-size: large; color: black">OFFENSE DATA</b></p>
                         </div> 
                         <hr style="margin-top: -1rem">
 
@@ -146,7 +146,7 @@
                     <div class="form-section" style="margin-top: 3rem">
                         <hr style="margin-top: -1rem">
                         <div class="header">  
-                            <p style="font-size: large;">Section D: <b style="font-size: large;">Evidence Data</b></p>
+                            <p style="font-size: large;"><b style="font-size: large;">EVIDENCE DATA</b></p>
                         </div> 
                         <hr style="margin-top: -1rem">
                         <div class="row">
@@ -186,7 +186,7 @@
                     <div class="form-section" style="margin-top: 3rem">
                         <hr style="margin-top: -1rem">
                         <div class="header">  
-                            <p style="font-size: large;">Section F: <b style="font-size: large;">Case Disposition</b></p>
+                            <p style="font-size: large;"><b style="font-size: large;">CASE DISPOSITION</b></p>
                         </div> 
                         <hr style="margin-top: -1rem">
                         <div class="row">
