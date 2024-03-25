@@ -146,8 +146,8 @@ Route::prefix('superadmin')->middleware('account')->group(function(){
     Route::get('/victim_form/{comp_id}', [VictimController::class, 'victim_form'])->name('superadmin.victim_form');
     Route::post('/insert_victim/{comp_id}', [VictimController::class, 'insert_victim'])->name('superadmin.insert_victim');
 
-    Route::get('/offender_form/{comp_id}', [ComplaintReportController::class, 'offender_form'])->name('superadmin.offender_form');
-    Route::post('/insert_offender/{comp_id}', [ComplaintReportController::class, 'insert_offender'])->name('superadmin.insert_offender');
+    Route::get('/offender_form/{comp_id}', [OffenderController::class, 'offender_form'])->name('superadmin.offender_form');
+    Route::post('/insert_offender/{comp_id}', [OffenderController::class, 'insert_offender'])->name('superadmin.insert_offender');
 
     Route::get('/allrecords', [SuperAdminController::class, 'allrecords'])->name('superadmin.allrecords')->middleware('account');
     Route::get('/filter-allrecords', [SuperAdminController::class, 'filter_allrecords'])->name('superadmin.filter_allrecords');

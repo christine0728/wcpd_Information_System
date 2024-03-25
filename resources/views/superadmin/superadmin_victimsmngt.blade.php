@@ -94,7 +94,7 @@
                             <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                                 <thead>
                                     <tr> 
-                                        {{-- <th>View</th> --}}
+                                        <th style="display: none"></th>
                                         <th>Image</th>
                                         <th>Fullname</th>
                                         <th>Sex</th>
@@ -117,6 +117,7 @@
                                                 <a class="view-btn" href="{{ route('investigator.view_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
                                             </center>
                                         </td> --}}  
+                                        <td style="display: none">{{$comp->vid}}</td>
                                         <td> 
                                             @if($comp->victim_image)
                                             <img src="{{ asset('images/victims/' . $comp->victim_image) }}" alt="{{ $comp->victim_firstname }}" class="img-thumbnail" style="max-width: 110px; max-height: 110px;">

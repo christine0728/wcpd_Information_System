@@ -197,25 +197,59 @@ class OffenderController extends Controller
         $off_age = Carbon::parse($off_date_birth)->diffInYears(Carbon::now()); 
             // dd($comp_id);
 
+            $validator = Validator::make($request->all(), [
+                'off_familyname' => ['required', 'regex:/^[a-zA-Z\s]+$/'], 
+                'off_firstname' => ['required', 'regex:/^[a-zA-Z\s]+$/'], 
+                'off_middlename' => ['required', 'regex:/^[a-zA-Z\s]+$/'], 
+                'off_aliases' => ['required', 'regex:/^[a-zA-Z\s]+$/'], 
+                'off_date_birth' => 'required', 
+                'off_educ_attainment' => 'required',  
+                'off_nationality' => ['required', 'regex:/^[a-zA-Z]+$/'],  
+                'off_occupation' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
+                'off_last_addr' => ['required', 'regex:/^[a-zA-Z0-9\s\-_.,#]+$/'],
+                'rel_to_victim' => ['required', 'regex:/^[a-zA-Z]+$/'], 
+            ], [
+                'off_familyname.required' => 'This field is required.',
+                'off_familyname.regex' => 'This field must contain letters only.',
+                'off_firstname.required' => 'This field is required.',
+                'off_firstname.regex' => 'This field must contain letters only.', 
+                'off_middlename.required' => 'This field is required.',
+                'off_middlename.regex' => 'This field must contain letters only.',  
+                'off_aliases.required' => 'This field is required.',
+                'off_aliases.regex' => 'This field must contain letters only.',
+                // 'off_gender' => 'This field is empty', 
+                'off_date_birth' => 'This field is empty',  
+                'off_educ_attainment' => 'This field is empty', 
+                // 'off_civil_stat' => 'This field is empty', 
+                'off_nationality.required' => 'This field is required.',
+                'off_nationality.regex' => 'This field must contain letters only.',  
+                'off_occupation.required' => 'This field is required.',
+                'off_occupation.regex' => 'This field must contain letters only.', 
+                'off_last_addr.required' => 'This field is required.',
+                'off_last_addr.regex' => 'This field must contain only letters, numbers, # sign and periods.',
+                'rel_to_victim.required' => 'This field is required.',
+                'rel_to_victim.regex' => 'This field must contain letters only.',
+            ]);
+            
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
         
         $user = Offender::where('id', $oid)
         ->update([  
             'offender_firstname' => $request->input('off_firstname'),
             'offender_family_name' => $request->input('off_familyname'),
             'offender_middlename' => $request->input('off_middlename'),
-            'offender_aliases' => $request->input('off_aliases'),
-            'offender_sex' => $request->input('off_gender'),
+            'offender_aliases' => $request->input('off_aliases'), 
             'offender_age' => $off_age,
-            'offender_date_of_birth' => $request->input('off_date_birth'),
-            'offender_civil_status' => $request->input('off_civil_stat'),
+            'offender_date_of_birth' => $request->input('off_date_birth'), 
             'offender_highest_educ_attainment' => $o_educ_attain,
             'offender_nationality' => $request->input('off_nationality'),
             'offender_prev_criminal_rec' => $request->input('crim_rec_specify'),
             'offender_employment_info_occupation' => $request->input('off_occupation'),
             'offender_last_known_addr' => $request->input('off_last_addr'),
             'offender_relationship_victim' => $request->input('rel_to_victim'),
-            'offender_image' => $off_filename,
-            'created_at' => $now,
+            'offender_image' => $off_filename, 
             'updated_at' => $now, 
         ]);
 

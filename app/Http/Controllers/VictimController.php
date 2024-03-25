@@ -190,18 +190,65 @@ class VictimController extends Controller
         else {
             $v_educ_attain = $request->input('vic_educ_attainment');
         }
+        // dd('herewee');
+
+        $validator = Validator::make($request->all(), [
+            'vic_familyname' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
+            'vic_firstname' => ['required', 'regex:/^[a-zA-Z\s]+$/'], 
+            'vic_middlename' => ['required', 'regex:/^[a-zA-Z\s]+$/'], 
+            'vic_aliases' => ['required', 'regex:/^[a-zA-Z\s]+$/'], 
+            'vic_date_birth' => 'required', 
+            'vic_place_birth' => ['required', 'regex:/^[a-zA-Z0-9\s\-_.,#]+$/'], 
+            'vic_educ_attainment' => 'required',  
+            'vic_citizenship' => ['required', 'regex:/^[a-zA-Z]+$/'], 
+            'vic_present_addr' => ['required', 'regex:/^[a-zA-Z0-9\s\-_.,#]+$/'],
+            'vic_prov_addr' => ['required', 'regex:/^[a-zA-Z0-9\s\-_.,#]+$/'], 
+            'vic_parentsname' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
+            'vic_occupation' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
+            'docs_presented' => ['required', 'regex:/^[a-zA-Z,\s]+$/'],
+            'vic_contactperson' => ['required', 'regex:/^[a-zA-Z0-9\s\-_.,#]+$/'],
+            'vic_present_addr' => ['required', 'regex:/^[a-zA-Z0-9\s\-_.,#]+$/'], 
+        ], [
+            'vic_familyname.required' => 'This field is required.',
+            'vic_familyname.regex' => 'This field must contain letters only.', 
+            'vic_firstname.required' => 'This field is required.',
+            'vic_firstname.regex' => 'This field must contain letters only.', 
+            'vic_middlename.required' => 'This field is required.',
+            'vic_middlename.regex' => 'This field must contain letters only.',  
+            'vic_aliases' => 'This field is empty.',  
+            'vic_date_birth' => 'This field is empty.', 
+            'vic_place_birth.required' => 'This field is required.',
+            'vic_place_birth.regex' => 'This field must contain only letters, numbers, # sign and periods.',     
+            'vic_citizenship.required' => 'This field is required.',
+            'vic_citizenship.regex' => 'This field must contain letters only.',
+            'vic_present_addr.required' => 'This field is required.',
+            'vic_present_addr.regex' => 'This field must contain only letters, numbers, # sign and periods.', 
+            'vic_prov_addr.required' => 'This field is required.',
+            'vic_prov_addr.regex' => 'This field must contain only letters, numbers, # sign and periods.',  
+            'vic_parentsname.required' => 'This field is required.',
+            'vic_parentsname.regex' => 'This field must contain letters only.',
+            'vic_occupation.required' => 'This field is required.',
+            'vic_occupation.regex' => 'This field must contain letters only.',
+            'docs_presented.required' => 'This field is required.',
+            'docs_presented.regex' => 'This field must contain letters and commas only.',
+            'vic_contactperson.required' => 'This field is required.',
+            'vic_contactperson.regex' => 'This field must contain only letters, numbers, # sign and periods.',  
+            'vic_present_addr.required' => 'This field is required.',
+            'vic_present_addr.regex' => 'This field must contain only letters, numbers, # sign and periods.',  
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        } 
 
         Victim::where('id', $vid)
         ->update([ 
             'victim_firstname' => $request->input('vic_firstname'),
             'victim_family_name' => $request->input('vic_familyname'),
             'victim_middlename' => $request->input('vic_middlename'),
-            'victim_aliases' => $request->input('vic_aliases'),
-            'victim_sex' => $request->input('vic_gender'),
-            'victim_age' => $vic_age,
+            'victim_aliases' => $request->input('vic_aliases'), 
             'victim_date_of_birth' => $request->input('vic_date_birth'),
-            'victim_place_of_birth' => $request->input('vic_place_birth'),'victim_highest_educ_attainment' => $v_educ_attain, 
-            'victim_civil_status' => $request->input('vic_civil_stat'),
+            'victim_place_of_birth' => $request->input('vic_place_birth'),'victim_highest_educ_attainment' => $v_educ_attain,  
             'victim_nationality' => $request->input('vic_citizenship'),
             'victim_present_address' => $request->input('vic_present_addr'),
             'victim_provincial_address' => $request->input('vic_prov_addr'),

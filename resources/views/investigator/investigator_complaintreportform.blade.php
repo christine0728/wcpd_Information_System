@@ -17,7 +17,7 @@
     
     <link rel="stylesheet" href="https://cdn.mobiscroll.com/4.9.0/css/mobiscroll.jquery.min.css">
 
-    <title>Team | Complaint Report Form</title>
+    <title>Investigator | Complaint Report Form</title>
     <style>
         body {
             background-color: #D9D9D9;

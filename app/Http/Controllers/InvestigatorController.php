@@ -130,8 +130,9 @@ class InvestigatorController extends Controller
     {
         $author_id = Auth::guard('account')->user()->id;
         $comps = Victim::join('complaint_reports', 'complaint_reports.id', '=', 'victims.comp_report_id')
-            ->select('complaint_reports.id as compid', 'victims.id as vid', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented')
+            ->select('complaint_reports.id as compid', 'victims.id as vid', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'victims.victim_image', 'victims.victim_present_address', 'complaint_reports.date_reported')
             ->where('complaint_reports.complaint_report_author', '=', $author_id)
+            ->orderByDesc('victims.id')
             ->get();
         return view('investigator.investigator_victimsmngt', ['comps'=>$comps]);
     }
@@ -148,7 +149,7 @@ class InvestigatorController extends Controller
     {
         $author_id = Auth::guard('account')->user()->id;
         $comps = Offender::join('complaint_reports', 'complaint_reports.id', '=', 'offenders.comp_report_id')
-            ->select('complaint_reports.id as compid', 'offenders.id as oid', 'offenders.offender_family_name', 'offenders.offender_firstname', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age', 'offenders.offender_image')
+            ->select('complaint_reports.id as compid', 'offenders.id as oid', 'offenders.offender_family_name', 'offenders.offender_firstname', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age', 'offenders.offender_image', 'offenders.offender_prev_criminal_rec')
             ->where('complaint_reports.complaint_report_author', '=', $author_id)
             ->orderBy('offenders.id', 'desc')
             ->get();
