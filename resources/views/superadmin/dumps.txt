@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Superadmin | Dashboard</title>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <link rel="icon" href="{{ url('asset/favicon.ico') }}">
+        <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+
+
+            .filter {
+                display: flex;
+                align-items: center;
+            }
+
+            .date-filter {
+                display: flex;
+                align-items: center;
+                margin-right: 10px;
+            }
+
+            .date-filter label {
+                margin-right: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        @extends('layouts.app')
+
+        @section('content')
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                         <div class="col-sm-6">
+                            <h1 class="m-0">{{ __('Dashboard') }}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="content">
+                                <div class="container-fluid">
+                                    {{-- <div class="row">
+                                        <div class="col-lg-12">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAdd">
+                                                <i class="fas fa-plus"></i> Add Activity
+                                            </button><br><br>
+                                        </div>
+                                    </div> --}}
+                                    <!-- /.row -->
+                                </div><!-- /.container-fluid -->
+                            </div>
+                                <div class="card" style="width: 50%; height: 7rem">
+                                    <div class="card-body">
+                                    {{-- <h5 class="card-title">Card title</h5>  --}}
+                                    <div id="chart_div" style="width: 100%; height: 500px;"></div>
+                                    </div>
+                                </div>
+
+                                <div class="card-footer clearfix">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+            <!-- /.content -->
+        @endsection
+    </body>
+</html>
+
+@if(session('updatemessage'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Successfuly updated!',
+        text: '{{ session('success') }}'
+    });
+</script>
+@endif
+
+<script>
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Are you sure to delete this book?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+            $.ajax({
+                type: 'POST',
+                url: '/admin/activity_destroy/' + id,
+                data: {
+                _token: '{{ csrf_token() }}',
+                _method: 'DELETE'
+                },
+                success: function (response) {
+                Swal.fire(
+                    'Deleted!',
+                    'The record has been deleted.',
+                    'success'
+                ).then(function () {
+                    location.reload();
+                });
+                },
+                error: function (error) {
+                    console.log(error);
+                Swal.fire(
+                    'Error!',
+                    'An error occurred while deleting the record.',
+                    'error'
+                );
+                }
+            });
+            }
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const editButtons = document.querySelectorAll('.btn-edit');
+
+        editButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                const modal = document.getElementById('modalEdit');
+                const editId = this.getAttribute('data-id');
+                const editactivity_title = this.getAttribute('data-activity_title');
+                const editstatus = this.getAttribute('data-status');
+
+                document.getElementById('edit_id').value = editId;
+                document.getElementById('edit_activity_title').value = editactivity_title;
+                document.getElementById('edit_status').value = editstatus;
+
+                document.getElementById('edit_id').value = editId;
+
+                $(modal).modal('show');
+            });
+        });
+    });
+
+</script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script> 
+    google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawChart);
+    var monthNames = [
+    'Jan.', 'Feb.', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Month', ''],
+            @foreach($comps as $comp)
+                ['{{ $comp->comp_month }}', {{ $comp->total_comps }}],
+            @endforeach
+        ]);
+
+        var options = {
+            chart: {
+                title: 'Total Cases per Month',
+                subtitle: 'Grouped by Month',
+            }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('chart_div'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options)); 
+      }
+  </script>
+
+{{-- <script>
+    let inactiveTime = 0;
+    const logoutTime = 5000;
+    // 5 * 60 * 1000; // 5 minutes in milliseconds
+    
+    function resetInactiveTime() {
+        inactiveTime = 0;
+    }
+    
+    function handleUserActivity() {
+        resetInactiveTime();
+    }
+    
+    document.addEventListener('mousemove', handleUserActivity);
+    document.addEventListener('keydown', handleUserActivity);
+    
+    function checkInactiveTime() {
+        inactiveTime += 1000; 
+        if (inactiveTime >= logoutTime) { 
+            window.location.href = "/inactive_screen"; 
+        } else { 
+            setTimeout(checkInactiveTime, 1000); 
+        }
+    }
+    
+    setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
+
+</script> --}}
