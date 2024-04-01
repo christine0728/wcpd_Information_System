@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth; 
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\DB;
 
 class SuperAdminController extends Controller
 {
@@ -68,10 +69,56 @@ class SuperAdminController extends Controller
 
     public function dashboard()
     {
+        $filter_year = null;
+        $filter_year1 = null; 
+
+        $comps = ComplaintReport::join('victims', 'victims.comp_report_id', '=', 'complaint_reports.id')
+            ->select(
+                DB::raw('DATE_FORMAT(complaint_reports.date_reported, "%b") AS comp_month'),
+                DB::raw('COUNT(complaint_reports.id) AS total_comps'),
+                DB::raw('SUM(victims.victim_sex = "MALE") AS male_total_comps'),
+                DB::raw('SUM(victims.victim_sex = "FEMALE") AS female_total_comps'),
+                DB::raw('GROUP_CONCAT(DISTINCT complaint_reports.offenses) AS offense')
+            ) 
+            ->groupBy('comp_month')
+            ->orderBy(DB::raw('MONTH(complaint_reports.date_reported)'))
+            ->get();
+
+        $comps11 = ComplaintReport::join('victims', function ($join) {
+            $join->on('victims.comp_report_id', '=', 'complaint_reports.id')
+                    ->where('victims.victim_sex', '=', 'FEMALE');
+            })
+            ->select(
+                DB::raw('CASE 
+                    WHEN victims.victim_age BETWEEN 0 AND 17 THEN "0-17" 
+                    ELSE "18+"
+                END AS age_range'), 
+                DB::raw('COUNT(complaint_reports.id) AS total_comps')
+            ) 
+            ->groupBy('age_range')
+            ->get();
+
+        $comps_male = ComplaintReport::join('victims', function ($join) {
+            $join->on('victims.comp_report_id', '=', 'complaint_reports.id')
+                    ->where('victims.victim_sex', '=', 'MALE');
+            })
+            ->select(
+                DB::raw('CASE 
+                    WHEN victims.victim_age BETWEEN 0 AND 17 THEN "0-17" 
+                    ELSE "18+"
+                END AS age_range'), 
+                DB::raw('COUNT(complaint_reports.id) AS total_comps')
+            ) 
+            ->groupBy('age_range')
+            ->get();
+    
+
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
-        return view('superadmin.superadmin_dashboard', ['notifs'=>$notifs]);
+
+        return view('superadmin.superadmin_dashboard', ['notifs'=>$notifs, 'comps'=>$comps, 'comps11'=>$comps11, 'comps_male'=>$comps_male, 'filter_year'=>$filter_year, 'filter_year1'=>$filter_year1]);
     }
+    
 
     public function inv_account_management()
     {
@@ -477,5 +524,25 @@ class SuperAdminController extends Controller
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
         return view('superadmin.superadmin_deletedforms', ['comps' => $comps, 'notifs'=>$notifs]);
+    }
+
+    public function prescriptive_forecasting(){ 
+
+        $filter_year = null;
+        $filter_year1 = null;
+        $fid =  Auth::guard('fishfarmer')->user()->location; 
+        $ffid =Auth::guard('fishfarmer')->user()->fishfarmID;
+
+        $comps = ComplaintReport::select(
+            DB::raw('DATE_FORMAT(date_reported, "%b") AS comp_month'),
+            DB::raw('COUNT(complaikn) AS total_comps')
+        ) 
+        ->groupBy('comp_month')
+        ->orderBy(DB::raw('MONTH(date_reported)'))
+        ->get();
+ 
+ 
+        return view('superadmin.superadmin_dashboard', ['comps'=>$comps, 'filter_year'=>$filter_year, 'filter_year1'=>$filter_year1
+        ]);
     }
 } 
