@@ -67,6 +67,8 @@
                     <div class="col-6">
                         <div class="card">
                             <div class="card-body"> 
+                            <button id="download-button" class="btn btn-success">Download CSV</button>
+
                             <div id="chart_div" style="width: 100%; height: 15rem;"></div>
                             </div>
                         </div>
@@ -212,12 +214,12 @@ $(document).ready(function() {
           });
       });
 
+  
+</script>
+<script>
     google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(drawChart);
-    var monthNames = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-    ];
+
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
             ['Month', 'Male', 'Female'], 
@@ -240,8 +242,25 @@ $(document).ready(function() {
         var chart = new google.charts.Bar(document.getElementById('chart_div'));
 
         chart.draw(data, google.charts.Bar.convertOptions(options)); 
+        
+        // Function to download chart data as CSV
+        function downloadCSV() {
+            var csvContent = google.visualization.dataTableToCsv(data);
+            var encodedUri = encodeURI('data:text/csv;charset=utf-8,' + csvContent);
+            var link = document.createElement('a');
+            link.setAttribute('href', encodedUri);
+            link.setAttribute('download', 'chart_data.csv');
+            document.body.appendChild(link);
+            link.click();
         }
+
+        // Add event listener to the download button
+        document.getElementById('download-button').addEventListener('click', function() {
+            downloadCSV();
+        });
+    }
 </script>
+
 <script type="text/javascript">
     google.charts.load('current', {'packages': ['corechart']});
     google.charts.setOnLoadCallback(drawChart3);
