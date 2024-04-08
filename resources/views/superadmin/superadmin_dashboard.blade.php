@@ -125,6 +125,67 @@
                         </div>
                     </div>
 
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; margin-top: 1rem;"> 
+                                <div>
+                                    <b>TOTAL NUMBER OF VICTIMS PER GENDER</b>
+                                </div>
+                                <br><div id="pie_chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; margin-top: 1rem;"> 
+                                <div>
+                                    <b> TOTAL NUMBER OF OFFENDERS PER GENDER</b>
+                                </div>
+                                <br><div id="pie_chart5"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; margin-top: 1rem;"> 
+                                <div>
+                                    <b>TOP FIVE PLACES WITH MOST NUMBER OF CASE</b>
+                                </div>
+                                <br> <div id="chart_div1"></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; margin-top: 1rem;"> 
+                                <div>
+                                    <b> TOTAL NUMBER OF RECORDS PER RELATIONSHIP OF VICTIM TO SUSPECT PER GENDER </b>
+                                </div>
+                                <table id="compsTbl">
+                                    <thead>
+                                        <tr>
+                                            <th> RELATIONSHIP </th>
+                                            <th>Male Count</th>
+                                            <th>Female Count</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($relationshipCounts as $item)
+                                            <tr>
+                                                <td>{{ $item->offender_relationship_victim }}</td>
+                                                <td>{{ $item->male_count }}</td>
+                                                <td>{{ $item->female_count }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                   
                     <div class="card-footer clearfix"> 
                     </div>
                 </div>
@@ -133,9 +194,24 @@
     @endsection
     </body>
 </html> 
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script> 
+
+$(document).ready(function() {
+          $('#compsTbl').DataTable({
+            "order": [[0, "desc"]]
+          });
+      });
+
     google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(drawChart);
     var monthNames = [
@@ -270,3 +346,81 @@
     setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
 
 </script> --}}
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Gender', 'Count'],
+            ['Male', {{ $maleVictim }}],
+            ['Female', {{ $femaleVictim }}]
+        ]);
+
+        var options = {
+            title: 'Male and Female Victims Distribution',
+            is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('pie_chart'));
+        chart.draw(data, options);
+    }
+</script>
+
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Gender', 'Count'],
+            ['Male', {{ $maleOffenders }}],
+            ['Female', {{ $femaleOffenders }}]
+        ]);
+
+        var options = {
+            title: 'Male and Female Victims Distribution',
+            is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('pie_chart5'));
+        chart.draw(data, options);
+    }
+</script>
+
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Place');
+        data.addColumn('number', 'Total Cases');
+
+        // Prepare data from PHP array
+        var topPlaces = {!! json_encode($topPlaces) !!};
+        var rows = [];
+        topPlaces.forEach(function(place) {
+            rows.push([place.place_of_commission, parseInt(place.total_cases)]);
+        });
+
+        data.addRows(rows);
+
+        var options = {
+            title: 'Top Five Places with Most Number of Cases',
+            legend: { position: 'none' },
+            chartArea: { width: '50%' },
+            hAxis: {
+                title: 'Total Cases',
+                minValue: 0
+            },
+            vAxis: {
+                title: 'Place'
+            }
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div1'));
+        chart.draw(data, options);
+    }
+</script>
+
