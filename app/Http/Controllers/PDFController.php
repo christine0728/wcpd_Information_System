@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\ComplaintReport;
+use App\Models\Offender;
+use App\Models\Victim;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +15,8 @@ class PDFController extends Controller
 {
     public function complaint_pdf(Request $request, $compid)
     {
+        $acc_type = Auth::guard('account')->user()->acc_type;
+
         $options = new Options(); 
 
         // Set custom margins (in millimeters)
@@ -28,6 +32,9 @@ class PDFController extends Controller
             ->select('*')
             ->where('complaint_reports.id', $compid)
             ->get();
+
+        $vics = Victim::where('comp_report_id', '=', $compid)->get();
+        $offs = Offender::where('comp_report_id', '=', $compid)->get();
  
         // Create the DOMPDF instance with the custom options
         $pdf = app('dompdf.wrapper', ['options' => $options]);
@@ -35,8 +42,17 @@ class PDFController extends Controller
         $name = Auth::guard('account')->user()->firstname;
         $rundate = Carbon::now();
  
-        $pdf->loadView('investigator.investigator_complaintreportpdf', ['rundate'=>$rundate, 'comps'=>$comps]);
+        if ($acc_type == 'investigator'){
+            $pdf->loadView('investigator.investigator_complaintreportpdf', ['rundate'=>$rundate, 'comps'=>$comps, 'vics'=>$vics, 'offs'=>$offs]);
  
-        return $pdf->stream('complaint_report.pdf'); 
+            return $pdf->stream('complaint_report.pdf'); 
+        }
+
+        elseif ($acc_type == 'superadmin'){
+            $pdf->loadView('superadmin.superadmin_complaintreportpdf', ['rundate'=>$rundate, 'comps'=>$comps, 'vics'=>$vics, 'offs'=>$offs]);
+ 
+            return $pdf->stream('complaint_report.pdf'); 
+        }
+        
     }
 }

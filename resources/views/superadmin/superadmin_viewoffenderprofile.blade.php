@@ -145,28 +145,39 @@
                                  
                             </div> 
                             <div class="row" style="margin-top: -3rem">
-                                <div class="col-4">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Employment Information - Occupation: </label>
                                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth" value="{{ $comp->offender_employment_info_occupation }}" readonly> 
                                     </div> 
                                 </div>
-                                <div class="col-4">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Last Known Address: </label>
                                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth" value="{{ $comp->offender_civil_status }}" readonly>  
                                     </div> 
-                                </div> 
-                                <div class="col-4">
+                                </div>   
+                            </div> 
+
+                            <div class="row" style="margin-top: -1.5rem">
+                                <div class="col-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Relationship to Victim: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_citizenship" value="{{ $comp->offender_relationship_victim }}" readonly>
+                                        <label for="exampleInputEmail1">Place of birth: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth" value="{{ $comp->offender_place_of_birth }}" readonly>  
+                                    </div> 
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Relationship to victim: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth" value="{{ $comp->offender_relationship_victim }}" readonly> 
                                     </div> 
                                 </div> 
+
                                 <div class="col-12">
                                     <a class="link-buttons" href="{{ route('superadmin.edit_offender', $comp->id) }}" style="background-color: #48145B">Edit Profile&nbsp;&nbsp;<i class="fa fa-edit"></i></a>
                                 </div>
-                            </div> 
+                            </div>
                         @endforeach 
                     </div>
                 </div>

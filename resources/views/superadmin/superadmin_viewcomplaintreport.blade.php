@@ -477,6 +477,12 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Place of birth:</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_place_birth" value="{{ $off->offender_place_of_birth }}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
                                     <label for="exampleInputEmail1">31. Relationship to Victim:</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim"value="{{ $off->offender_relationship_victim }}" readonly>
                                 </div>

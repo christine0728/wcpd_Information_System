@@ -70,6 +70,7 @@
                                 <div class="col-md-3 text-center">
                                     @if($comp->offender_image)
                                         <img src="{{ asset('images/offenders/' . $comp->offender_image) }}" alt="{{ $comp->vic_firstname }}" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
+                                        <input type="hidden" name="off_image" value="{{ $comp->offender_image }}">
                                     @else
                                         <p>No Image</p>
                                     @endif
@@ -147,22 +148,32 @@
                                  
                             </div> 
                             <div class="row" style="margin-top: -3rem">
-                                <div class="col-4">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Employment Information - Occupation: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_occupation" value="{{ $comp->offender_employment_info_occupation }}"   > 
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_occupation" value="{{ $comp->offender_employment_info_occupation }}"> 
                                     </div> 
                                 </div>
-                                <div class="col-4">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Last Known Address: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_civil_stat" value="{{ $comp->offender_civil_status }}"   >  
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_last_addr" value="{{ $comp->offender_last_known_addr }}">  
                                     </div> 
-                                </div> 
-                                <div class="col-4">
+                                </div>  
+                            </div> 
+
+                            <div class="row" style="margin-top: -1.5rem">
+                                <div class="col-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Relationship to Victim: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim" value="{{ $comp->offender_relationship_victim }}"   >
+                                        <label for="exampleInputEmail1">Place of birth: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_place_birth" value="{{ $comp->offender_place_of_birth }}" >  
+                                    </div> 
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Relationship to victim: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim" value="{{ $comp->offender_relationship_victim }}" > 
                                     </div> 
                                 </div> 
                                 <div class="col-12">

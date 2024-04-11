@@ -76,6 +76,7 @@ class OffenderController extends Controller
             'off_aliases' => ['required', 'regex:/^[a-zA-Z\s]+$/'], 
             'off_gender' => 'required', 
             'off_date_birth' => 'required', 
+            'off_place_birth' => ['required', 'regex:/^[a-zA-Z0-9\s\-_.,#]+$/'],
             'off_educ_attainment' => 'required', 
             'off_civil_stat' => 'required', 
             'off_nationality' => ['required', 'regex:/^[a-zA-Z]+$/'],  
@@ -92,7 +93,9 @@ class OffenderController extends Controller
             'off_aliases.required' => 'This field is required.',
             'off_aliases.regex' => 'This field must contain letters only.',
             'off_gender' => 'This field is empty', 
-            'off_date_birth' => 'This field is empty',  
+            'off_date_birth' => 'This field is empty', 
+            'off_place_birth.required' => 'This field is required.',
+            'off_place_birth.regex' => 'This field must contain only letters, numbers, # sign and periods.', 
             'off_educ_attainment' => 'This field is empty', 
             'off_civil_stat' => 'This field is empty', 
             'off_nationality.required' => 'This field is required.',
@@ -118,6 +121,7 @@ class OffenderController extends Controller
             'offender_sex' => $request->input('off_gender'),
             'offender_age' => $off_age,
             'offender_date_of_birth' => $request->input('off_date_birth'),
+            'offender_place_of_birth' => $request->input('off_place_birth'),
             'offender_civil_status' => $request->input('off_civil_stat'),
             'offender_highest_educ_attainment' => $o_educ_attain,
             'offender_nationality' => $request->input('off_nationality'),
@@ -197,12 +201,14 @@ class OffenderController extends Controller
         $off_age = Carbon::parse($off_date_birth)->diffInYears(Carbon::now()); 
             // dd($comp_id);
 
+        
             $validator = Validator::make($request->all(), [
                 'off_familyname' => ['required', 'regex:/^[a-zA-Z\s]+$/'], 
                 'off_firstname' => ['required', 'regex:/^[a-zA-Z\s]+$/'], 
                 'off_middlename' => ['required', 'regex:/^[a-zA-Z\s]+$/'], 
                 'off_aliases' => ['required', 'regex:/^[a-zA-Z\s]+$/'], 
                 'off_date_birth' => 'required', 
+                'off_place_birth' => ['required', 'regex:/^[a-zA-Z0-9\s\-_.,#]+$/'], 
                 'off_educ_attainment' => 'required',  
                 'off_nationality' => ['required', 'regex:/^[a-zA-Z]+$/'],  
                 'off_occupation' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
@@ -218,7 +224,9 @@ class OffenderController extends Controller
                 'off_aliases.required' => 'This field is required.',
                 'off_aliases.regex' => 'This field must contain letters only.',
                 // 'off_gender' => 'This field is empty', 
-                'off_date_birth' => 'This field is empty',  
+                'off_date_birth' => 'This field is empty', 
+                'off_place_birth.required' => 'This field is required.',
+                'off_place_birth.regex' => 'This field must contain only letters, numbers, # sign and periods.',  
                 'off_educ_attainment' => 'This field is empty', 
                 // 'off_civil_stat' => 'This field is empty', 
                 'off_nationality.required' => 'This field is required.',
@@ -233,8 +241,8 @@ class OffenderController extends Controller
             
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
-            }
-        
+            } 
+            
         $user = Offender::where('id', $oid)
         ->update([  
             'offender_firstname' => $request->input('off_firstname'),
@@ -243,6 +251,7 @@ class OffenderController extends Controller
             'offender_aliases' => $request->input('off_aliases'), 
             'offender_age' => $off_age,
             'offender_date_of_birth' => $request->input('off_date_birth'), 
+            'offender_place_of_birth' => $request->input('off_place_birth'),
             'offender_highest_educ_attainment' => $o_educ_attain,
             'offender_nationality' => $request->input('off_nationality'),
             'offender_prev_criminal_rec' => $request->input('crim_rec_specify'),

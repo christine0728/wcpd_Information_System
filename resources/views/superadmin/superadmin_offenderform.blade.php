@@ -465,6 +465,16 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
+                                        <label for="exampleInputEmail1">Place of birth:</label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_place_birth" oninput="toUpper(this)" value="{{ old('off_place_birth') }}">
+
+                                        @if ($errors->has('off_place_birth')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('off_place_birth') }}</span>
+                                        @endif
+                                    </div>
+                                </div> 
+                                <div class="col-6">
+                                    <div class="form-group">
                                         <label for="exampleInputEmail1">31. Relationship to Victim:</label>
                                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim" oninput="toUpper(this)" value="{{ old('rel_to_victim') }}">
 

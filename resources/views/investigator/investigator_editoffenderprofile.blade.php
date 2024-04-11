@@ -180,40 +180,38 @@
                                 </div>
                             </div> 
                             <div class="row" style="margin-top: -3rem">
-                                <div class="col-4">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Employment Information - Occupation: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_occupation" value="{{ $comp->offender_employment_info_occupation }}" >
-                                        
-                                        @if ($errors->has('off_occupation')) 
-                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('off_occupation') }}</span>
-                                        @endif
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_occupation" value="{{ $comp->offender_employment_info_occupation }}"> 
                                     </div> 
                                 </div>
-                                <div class="col-4">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Last Known Address: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_last_addr" value="{{ $comp->offender_last_known_addr }}" > 
-
-                                        @if ($errors->has('off_last_addr')) 
-                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('off_last_addr') }}</span>
-                                        @endif
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_last_addr" value="{{ $comp->offender_last_known_addr }}">  
                                     </div> 
-                                </div> 
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Relationship to Victim: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim" value="{{ $comp->offender_relationship_victim }}"   >
+                                </div>  
+                            </div> 
 
-                                        @if ($errors->has('rel_to_victim')) 
-                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('rel_to_victim') }}</span>
-                                        @endif
+                            <div class="row" style="margin-top: -1.5rem">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Place of birth: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_place_birth" value="{{ $comp->offender_place_of_birth }}" >  
+                                    </div> 
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Relationship to victim: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim" value="{{ $comp->offender_relationship_victim }}" > 
                                     </div> 
                                 </div> 
                                 <div class="col-12">
                                     <button type="submit" class="form-buttons" style="width: 9rem">Save Changes</button>
                                 </div>
-                            </div> 
+                            </div>
                         @endforeach 
                         </form>
                     </div>
