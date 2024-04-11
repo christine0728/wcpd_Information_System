@@ -7,7 +7,7 @@
     <script src="https://kit.fontawesome.com/7528702e77.js" crossorigin="anonymous"></script>
     <link rel="icon" href="{{ url('images/favicon.ico') }}"> 
 
-    <title>Investigator | Complaint Report PDF</title>
+    <title>Superadmin | Complaint Report PDF</title>
     <style> 
         body {
             font-family: Arial, sans-serif;

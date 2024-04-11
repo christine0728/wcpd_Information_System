@@ -18,6 +18,7 @@ class Offender extends Model
         'offender_sex',
         'offender_age',
         'offender_date_of_birth',
+        'offender_place_of_birth',
         'offender_civil_status',
         'offender_highest_educ_attainment',
         'offender_nationality',
