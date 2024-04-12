@@ -112,7 +112,7 @@
                 <div class="row">
                     <div class="form-section">  
                         <div class="header" >  
-                            <p style="font-size: large;">Section A: <b style="font-size: large; color: black">Offense Data</b></p>
+                            <p style="font-size: large;"><b style="font-size: large; color: black">OFFENSE DATA</b></p>
                         </div> 
                         <hr style="margin-top: -1rem">
 
@@ -143,7 +143,7 @@
                     <div class="form-section" style="margin-top: 3rem">
                         <hr style="margin-top: -1rem">
                         <div class="header">  
-                            <p style="font-size: large;">Section D: <b style="font-size: large;">Evidence Data</b></p>
+                            <p style="font-size: large;"><b style="font-size: large;">EVIDENCE DATA</b></p>
                         </div> 
                         <hr style="margin-top: -1rem">
                         <div class="row">
@@ -167,7 +167,7 @@
                     <div class="form-section" style="margin-top: 3rem">
                         <hr style="margin-top: -1rem">
                         <div class="header">  
-                            <p style="font-size: large;">Section F: <b style="font-size: large;">Case Disposition</b></p>
+                            <p style="font-size: large;"><b style="font-size: large;">CASE DISPOSITION</b></p>
                         </div> 
                         <hr style="margin-top: -1rem">
                         <div class="row">
@@ -196,12 +196,13 @@
                         </div>
                     </div> 
                 @endforeach
-                @foreach ($vics as $vic)
-                    <div class="form-section" style="margin-top: 3rem">
-                        <hr style="margin-top: -1rem">
-                        <div class="header">  
-                            <p style="font-size: large;">Section B: <b style="font-size: large;">Victim's Data</b></p>
-                        </div> 
+
+                <div class="form-section" style="margin-top: 3rem">
+                    <hr style="margin-top: -1rem">
+                    <div class="header">  
+                        <p style="font-size: large;"><b style="font-size: large;">VICTIM'S DATA</b></p>
+                    </div>
+                @foreach ($vics as $vic) 
                         <hr style="margin-top: -1rem">
                         <div class="row mb-4">
                             <div class="col-md-3 text-center">
@@ -336,7 +337,7 @@
                             </div> 
                         </div>
 
-                        <div class="row">
+                        <div class="row" style="margin-bottom: 2rem">
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">21.Contact Person, Address, and Contact Number:</label>
@@ -346,13 +347,14 @@
                         </div>
                     </div>
                 @endforeach
-                @foreach ($offs as $off)
-                    <div class="form-section" style="margin-top: 3rem">
-                        <hr style="margin-top: -1rem">
-                        <div class="header">  
-                            <p style="font-size: large;">Section C: <b style="font-size: large;">Offender's Data</b></p>
-                        </div> 
-                        <hr style="margin-top: -1rem">
+
+                <div class="form-section" style="margin-top: 1rem">
+                    <hr style="margin-top: -1rem">
+                    <div class="header">  
+                        <p style="font-size: large;"> <b style="font-size: large;">OFFENDER'S DATA</b></p>
+                    </div> 
+                @foreach ($offs as $off) 
+                        <hr style="margin-top: -1rem;">
                         <div class="row mb-4">
                             <div class="col-md-3 text-center">
                                 @if($off->offender_image)
@@ -474,7 +476,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row" style="margin-bottom: 2.1rem">
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Place of birth:</label>

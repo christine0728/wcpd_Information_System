@@ -98,6 +98,7 @@
                             <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                                 <thead>
                                     <tr>  
+                                        <th style="display: none"></th>
                                         <th>Author Type</th>
                                         <th>Fullname</th>  
                                         <th>Action</th> 
@@ -107,7 +108,8 @@
                                 </thead>
                                 <tbody>   
                                     @foreach ($logs as $log) 
-                                    <tr>   
+                                    <tr>  
+                                        <td style="display: none">{{ $log->lid }}</td> 
                                         <td>{{ $log->author_type }}</td>
                                         <td>{{ $log->firstname }} {{ $log->lastname }}</td>    
                                         <td><center>

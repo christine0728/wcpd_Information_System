@@ -35,8 +35,7 @@ class VictimController extends Controller
 
         // dd($comp_id);
         $now = Carbon::now();
-        $now->setTimezone('Asia/Manila');
-
+        $now->setTimezone('Asia/Manila'); 
 
         $vic_date_birth = $request->input('vic_date_birth');
         $vic_age = Carbon::parse($vic_date_birth)->diffInYears(Carbon::now());
@@ -180,7 +179,7 @@ class VictimController extends Controller
             $vic_filename = time() . '.' . $vic_extension;
             $vic_file->move('images/victims/', $vic_filename);
         } else {
-            $vic_filename = 'no image';
+            $vic_filename = $request->input('vic_image_inp');
         }
 
         $v_educ_attain = $request->input('vic_educ_attainment');
