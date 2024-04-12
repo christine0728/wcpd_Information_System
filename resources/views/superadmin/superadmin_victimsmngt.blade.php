@@ -90,6 +90,18 @@
                     </div>
                     
                     <div class="card col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: 1rem; margin-bottom: 5rem">
+                        @if(Session::has('success')) 
+                                <div class="alert success" role="alert">
+                                    <b>{{ session::get('success') }}</b>
+                                </div>
+                            @endif
+
+                            @if(Session::has('updated')) 
+                                <div class="alert updated" role="alert">
+                                    <b>{{ session::get('updated') }}</b>
+                                </div>
+                            @endif
+                            
                         <div class="card-body p-1">
                             <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                                 <thead>

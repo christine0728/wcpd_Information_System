@@ -64,20 +64,62 @@
         <div class="content" style="margin-top: 1rem; ">
             <div class="container-fluid" >   
                 <div class="row col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: -1.5rem; margin-bottom: 2rem; padding: 1rem">
+                    <div class="col-12">
+                        <div class="filter">
+                            <form action="filter-allrecords" method="GET">
+                            <div class="date-filter">
+                                <label for="start_date">From:</label>&nbsp;&nbsp;
+                                <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}">&nbsp;&nbsp;
+                                <label for="end_date">To:</label>&nbsp;&nbsp;
+                                <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}">&nbsp;&nbsp;
+                                <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
+                                <a href="{{ route('superadmin.allrecords') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
                     <div class="col-6">
                         <div class="card">
-                            <div class="card-body"> 
-                            <button id="download-button" class="btn btn-success">Download CSV</button>
+                            <div class="card-body">  
+                                <div id="chart_div" style="width: 100%; height: 15rem;"></div>
 
-                            <div id="chart_div" style="width: 100%; height: 15rem;"></div>
+                                <button id="download-button" class="form-buttons" style="width: 13rem; margin-top: 1rem">Download Monthly Data&nbsp;&nbsp;<i class="fa-solid fa-download"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
+                                <div>
+                                    <b style="color: #48145B; font-size: large"> TOTAL NUMBER OF RECORDS PER RELATIONSHIP OF VICTIM TO SUSPECT PER GENDER </b>
+                                </div>
+                                <table id="compsTbl">
+                                    <thead>
+                                        <tr>
+                                            <th>RELATIONSHIP </th>
+                                            <th>Male Count</th>
+                                            <th>Female Count</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($relationshipCounts as $item)
+                                            <tr>
+                                                <td>{{ $item->offender_relationship_victim }}</td>
+                                                <td>{{ $item->male_count }}</td>
+                                                <td>{{ $item->female_count }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
                             </div>
                         </div>
                     </div>
                         
-                    <div class="col-6">
+                    {{-- <div class="col-6">
                         <div class="card">
-                            <div class="card-body" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; "> 
-                            
+                            <div class="card-body" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; ">  
                                 <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                                     <thead> 
                                         <tr> 
@@ -103,13 +145,13 @@
                                 </table> 
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="col-6">
                         <div class="card">
-                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; margin-top: 1rem;"> 
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
                                 <div>
-                                    <b>Total number of cases per age range in FEMALE</b>
+                                    <b style="color: #48145B; font-size: large">TOTAL NUMBER OF CASES PER AGE RANGE IN FEMALE</b>
                                 </div>
                                 <br><div class="pie-chart_fem" id="pie-chart_fem"></div>
                             </div>
@@ -118,9 +160,9 @@
 
                     <div class="col-6">
                         <div class="card">
-                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; margin-top: 1rem;"> 
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
                                 <div>
-                                    <b>Total number of cases per age range in MALE</b>
+                                    <b style="color: #48145B; font-size: large">TOTAL NUMBER OF CASES PER AGE RANGE IN MALE</b>
                                 </div>
                                 <br><div class="pie-chart_male" id="pie-chart_male"></div>
                             </div>
@@ -129,46 +171,46 @@
 
                     <div class="col-6">
                         <div class="card">
-                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; margin-top: 1rem;"> 
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
                                 <div>
-                                    <b>TOTAL NUMBER OF VICTIMS PER GENDER</b>
+                                    <b style="color: #48145B; font-size: large">TOTAL NUMBER OF VICTIMS PER GENDER</b>
                                 </div>
-                                <br><div id="pie_chart"></div>
+                                <br><div id="pie_chart" ></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="card">
-                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; margin-top: 1rem;"> 
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
                                 <div>
-                                    <b> TOTAL NUMBER OF OFFENDERS PER GENDER</b>
+                                    <b style="color: #48145B; font-size: large"> TOTAL NUMBER OF OFFENDERS PER GENDER</b>
                                 </div>
                                 <br><div id="pie_chart5"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12">
                         <div class="card">
-                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; margin-top: 1rem;"> 
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
                                 <div>
-                                    <b>TOP FIVE PLACES WITH MOST NUMBER OF CASE</b>
+                                    <b style="color: #48145B; font-size: large">TOP FIVE PLACES WITH MOST NUMBER OF CASE</b>
                                 </div>
-                                <br> <div id="chart_div1"></div>
+                                <div id="chart_div1" ></div>
                             </div>
                         </div>
                     </div>
 
 
-                    <div class="col-6">
+                    {{-- <div class="col-6">
                         <div class="card">
-                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; margin-top: 1rem;"> 
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
                                 <div>
-                                    <b> TOTAL NUMBER OF RECORDS PER RELATIONSHIP OF VICTIM TO SUSPECT PER GENDER </b>
+                                    <b style="color: #48145B; font-size: large"> TOTAL NUMBER OF RECORDS PER RELATIONSHIP OF VICTIM TO SUSPECT PER GENDER </b>
                                 </div>
                                 <table id="compsTbl">
                                     <thead>
                                         <tr>
-                                            <th> RELATIONSHIP </th>
+                                            <th>RELATIONSHIP </th>
                                             <th>Male Count</th>
                                             <th>Female Count</th>
                                         </tr>
@@ -186,7 +228,7 @@
 
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                    
                     <div class="card-footer clearfix"> 
                     </div>
@@ -233,7 +275,7 @@ $(document).ready(function() {
 
         var options = {
             chart: {
-                title: 'Total Cases per Month',
+                title: 'Total Cases per Month per Gender',
                 subtitle: 'Grouped by Month and Gender',
             },
             bars: 'vertical' // Ensuring vertical bars
@@ -376,9 +418,8 @@ $(document).ready(function() {
             ['Female', {{ $femaleVictim }}]
         ]);
 
-        var options = {
-            title: 'Male and Female Victims Distribution',
-            is3D: true,
+        var options = { 
+            is3D: true,  
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('pie_chart'));
@@ -397,8 +438,7 @@ $(document).ready(function() {
             ['Female', {{ $femaleOffenders }}]
         ]);
 
-        var options = {
-            title: 'Male and Female Victims Distribution',
+        var options = { 
             is3D: true,
         };
 
@@ -415,8 +455,7 @@ $(document).ready(function() {
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Place');
         data.addColumn('number', 'Total Cases');
-
-        // Prepare data from PHP array
+ 
         var topPlaces = {!! json_encode($topPlaces) !!};
         var rows = [];
         topPlaces.forEach(function(place) {
@@ -425,16 +464,15 @@ $(document).ready(function() {
 
         data.addRows(rows);
 
-        var options = {
-            title: 'Top Five Places with Most Number of Cases',
+        var options = { 
             legend: { position: 'none' },
             chartArea: { width: '50%' },
             hAxis: {
-                title: 'Total Cases',
-                minValue: 0
+                title: 'Total Number Cases',
+                minValue: 0, 
             },
             vAxis: {
-                title: 'Place'
+                title: 'Place', 
             }
         };
 

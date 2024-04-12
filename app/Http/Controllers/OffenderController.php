@@ -177,7 +177,7 @@ class OffenderController extends Controller
             $off_filename = time() . '.' . $off_extension;
             $off_file->move('images/offenders/', $off_filename);
         } else {
-            $off_filename = 'no image';
+            $off_filename = $request->input('off_image_inp');
         }
 
         $o_educ_attain = $request->input('off_educ_attainment');
@@ -187,21 +187,11 @@ class OffenderController extends Controller
         else {
             $o_educ_attain = $request->input('off_educ_attainment');
         }
-
-        if ($request->hasFile('off_image')) {
-            $off_file = $request->file('off_image');
-            $off_extension = $off_file->getClientOriginalExtension();
-            $off_filename = time() . '.' . $off_extension;
-            $off_file->move('images/offenders/', $off_filename);
-        } else {
-            $off_filename = 'no image';
-        }
-
+  
         $off_date_birth = $request->input('off_date_birth');
         $off_age = Carbon::parse($off_date_birth)->diffInYears(Carbon::now()); 
             // dd($comp_id);
-
-        
+ 
             $validator = Validator::make($request->all(), [
                 'off_familyname' => ['required', 'regex:/^[a-zA-Z\s]+$/'], 
                 'off_firstname' => ['required', 'regex:/^[a-zA-Z\s]+$/'], 

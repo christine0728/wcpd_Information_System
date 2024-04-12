@@ -589,8 +589,11 @@
 
                            {{-- <button type="button" class="next form-buttons" style="float: right; width: 5rem">Next <i class="fa-solid fa-arrow-right icons"></i></button>  --}}
                            {{-- <button type="submit" class="form-buttons" style="float: right; " formaction="{{ route('superadmin.offender_form', [$comp_id]) }}">Next (Add Offender) <i class="fa-solid fa-check icons"></i></button> --}}
+                           <a class="link-buttons" href="{{ route('superadmin.view_complaintreport', [$comp_id]) }}" style="float: left; background-color: #48145B">Cancel <i class="fa-solid fa-xmark icons"></i> </a> 
+
                            <button type="submit" class="form-buttons" style="float: right;">Add Offender <i class="fa-solid fa-check icons"></i></button>
-                           <a class="link-buttons" href="{{ route('superadmin.complaintreport') }}" style="float: right; background-color: #48145B; margin-right: 0.5rem">Back <i class="fa-solid fa-xmark"></i> </a>
+                           
+                           {{-- <a class="link-buttons" href="{{ route('superadmin.complaintreport') }}" style="float: right; background-color: #48145B; margin-right: 0.5rem">Back <i class="fa-solid fa-xmark"></i> </a> --}}
  
                            {{-- <button type="button" class="previous form-buttons" style="float: right; margin-right: 0.5rem; width: 5rem"><i class="fa-solid fa-arrow-left icons"></i> Back</button>  --}}
                         </div>

@@ -108,6 +108,8 @@ Route::prefix('superadmin')->middleware('account')->group(function(){
     Route::post('/add_investigator', [SuperAdminController::class, 'add_investigator'])->name('superadmin.add_investigator'); 
 
     Route::get('/dashboard', [SuperAdminController::class, 'dashboard'])->name('superadmin.dashboard')->middleware('account');
+    Route::get('/filter-dashboard', [SuperAdminController::class, 'filter_dashboard'])->name('superadmin.filter_dashboard');
+    
     Route::get('/inv_accountmngt', [SuperAdminController::class, 'inv_account_management'])->name('superadmin.inv_account_mngt');
     Route::get('/edit_investigator_acc/{id}', [SuperAdminController::class, 'edit_investigator_acc'])->name('superadmin.edit_investigator_acc');
     Route::post('/edit_investigator_details/{id}', [SuperAdminController::class, 'edit_investigator_details'])->name('superadmin.edit_investigator_details');

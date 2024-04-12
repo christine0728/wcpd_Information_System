@@ -31,6 +31,9 @@
         <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.min.js"></script>
 
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
         <style> 
 
             @media only screen and (max-width: 768px) {
@@ -63,16 +66,21 @@
             <div class="content" style="margin-top: -2rem;">
                 <div class="container-fluid" style="margin-top: 1rem">  
                     <div class="card col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-bottom: 5rem; padding: 1rem 2rem 1rem 2rem;">
-                        <form action="{{ route('superadmin.update_victim', [$vid]) }}" method="POST">
+                        <form action="{{ route('superadmin.update_victim', [$vid]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @foreach ($comps as $comp) 
                             <div class="row mb-4">
                                 <div class="col-md-3 text-center">
                                     @if($comp->victim_image)
                                         <img src="{{ asset('images/victims/' . $comp->victim_image) }}" alt="{{ $comp->vic_firstname }}" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
+
+                                        <input type="hidden" name="vic_image_inp" value="{{ $comp->victim_image }}">
+
+                                        <span style="font-size: small">Uploaded Image last: {{ \Carbon\Carbon::parse($comp->created_at)->format('Y-m-d, g:i a') }}</span>
                                     @else
                                         <p>No Image</p>
-                                    @endif
+                                    @endif 
+
                                 </div>
                                 
                                 <div class="col-md-9">  
@@ -198,6 +206,15 @@
                                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_contactperson" value="{{ $comp->victim_contactperson_addr_con_num }}"  >
                                     </div> 
                                 </div> 
+
+                                <div class="col-4" style="margin-top: -1rem">
+                                    <div class="form-group">
+                                        <label for="image">Update Victim's Image:</label>
+                                        <input type="file" class="form-control" id="file" name="vic_image" accept="image/*" onchange="previewImage(this)">
+                                    </div>
+
+                                    <div id="imagePreview"></div>
+                                </div>
                             </div> 
 
                             <div class="col-12">
@@ -290,4 +307,20 @@
         });
     });
 
+    function previewImage(input) {
+            var previewContainer = document.getElementById('imagePreview');
+            var file = input.files[0];
+
+            if (file) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    previewContainer.innerHTML = '<img src="' + e.target.result + '" class="img-thumbnail" style="max-width:50%; max-height:50%;">';
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                previewContainer.innerHTML = '';
+            }
+        }
 </script>

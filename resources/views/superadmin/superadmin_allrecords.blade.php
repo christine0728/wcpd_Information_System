@@ -68,23 +68,7 @@
                                         <th style="display: none">id</th>
                                         <th>View</th>
                                         <th>Complaint Report Author</th>
-                                        <th>Case Details</th>
-                                        {{-- <th>People Involved</th> --}}
-                                        {{-- <th>Place of Commission</th>
-                                        <th>Offenses Committed</th>
-                                        <th>Victim's Fullname</th>
-                                        <th>Victim's Sex</th>
-                                        <th>Victim's Age</th> 
-                                        <th>Offender's Fullname</th>
-                                        <th>Offender's Sex</th>
-                                        <th>Offender's Age</th>
-                                        <th>Relationship to Victim</th>
-                                        <th>Motive/Cause</th>
-                                        <th>Case Disposition</th>
-                                        <th>Suspect Disposition</th>
-                                        <th>Case Update</th>
-                                        <th>Date of Case Updated</th> --}}
-                                        {{-- <th>Action</th> --}}
+                                        <th>Case Details</th> 
                                     </tr>
                                 </thead>
                                 <tbody> 
@@ -114,52 +98,7 @@
                                                 @else
                                                     {{ $comp->date_case_updated }}
                                                 @endif
-                                        </td>
-                                        {{-- <td>
-                                            <b>Victim Overview</b>
-                                            <br>Fullname: {{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}
-                                            <br>Sex: {{ $comp->victim_sex }}
-                                            <br>Age: {{ $comp->victim_age }}
-
-                                            <br><b>Offender Overview</b>
-                                            <br>Fullname: {{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}
-                                            <br>Sex: {{ $comp->offender_sex }}
-                                            <br>Age: {{ $comp->offender_age }}
-                                        </td> --}}
-                                        {{-- <td>{{ $comp->date_reported }}</td> --}}
-                                        {{-- <td>{{ $comp->place_of_commission }}</td>
-                                        <td>{{ $comp->offenses }}</td> 
-                                        <td>{{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}</td>
-                                        <td>{{ $comp->victim_sex }}</td>
-                                        <td>{{ $comp->victim_age }}</td>
-                                        <td>{{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}</td>
-                                        <td>{{ $comp->offender_age }}</td>
-                                        <td>{{ $comp->offender_sex }}</td>
-                                        <td>{{ $comp->offender_relationship_victim }}</td>
-                                        <td>{{ $comp->evidence_motive_cause }}</td>
-                                        <td>{{ $comp->case_disposition }}</td>
-                                        <td>{{ $comp->suspect_disposition }}</td>
-                                        <td> 
-                                            @if ($comp->case_update == null) 
-                                                Case not updated yet.
-                                            @else
-                                                {{ $comp->case_update }}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($comp->case_update == null) 
-                                                Case not updated yet.
-                                            @else
-                                                {{ $comp->date_case_updated }}
-                                            @endif
-                                        </td> --}}
-                                        {{-- <td>
-                                        <center> 
-                                            <a class="case-btn" href=" ">&nbsp;&nbsp;&nbsp;Update Case <i class="fa-regular fa-file" style="font-size: large; padding: 0.5rem"></i></a>  
-                                            <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', $comp->id) }}">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
-                                            <a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href="{{ route('investigator.delete_form', $comp->id) }}">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a>
-                                        </center>
-                                        </td> --}}
+                                        </td> 
                                     </tr> 
                                     @endforeach 
                                 </tbody>
