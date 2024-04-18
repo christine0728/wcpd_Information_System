@@ -44,6 +44,8 @@
                 }
             }
         </style>
+
+
     </head>
     <body>
         @extends('layouts.app')
@@ -137,9 +139,12 @@
                                 </div>
                                  
                                 <div class="col-md-3 text-center">
-                                    @if($comp->offender_image)
-                                        <img src="{{ asset('images/offenders/' . $comp->offender_image) }}" alt="{{ $comp->vic_firstname }}" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
-                                    @else
+                                @if($comp->offender_image != 'no image')
+
+                                    <img src="{{ asset('images/offenders/' . $comp->offender_image) }}" alt="{{ $comp->vic_firstname }}" id="previewImage" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
+                                         @else
+                                         <img src="{{ asset('images/default.png') }}" alt="{{ $comp->vic_firstname }}" id="previewImage" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
+                               
                                         <p>No Image</p>
                                     @endif
                                 </div>
@@ -264,4 +269,24 @@
         });
     });
 
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('previewImage');
+            if (output) {
+                output.src = reader.result;
+            } else {
+                console.error("Image preview element not found.");
+            }
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    // Attach event listener to the file input
+    var fileInput = document.getElementById('image');
+    if (fileInput) {
+        fileInput.addEventListener('change', previewImage);
+    } else {
+        console.error("File input element not found.");
+    }
 </script>

@@ -118,10 +118,12 @@
                                             </center>
                                         </td> --}}  
                                         <td> 
-                                            @if($comp->victim_image)
+                                            @if($comp->victim_image != 'no image')
                                             <img src="{{ asset('images/victims/' . $comp->victim_image) }}" alt="{{ $comp->victim_firstname }}" class="img-thumbnail" style="max-width: 110px; max-height: 110px;">
                                             @else
-                                                No Image
+                                            <img src="{{ asset('images/default.png') }}" alt="{{ $comp->vic_firstname }}" id="previewImage" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
+                                                <center> <p>No Image</p></center>
+                                           
                                             @endif
                                         </td>
                                         <td>{{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}</td>

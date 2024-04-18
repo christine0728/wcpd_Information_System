@@ -83,6 +83,7 @@
                             <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                                 <thead>
                                     <tr>  
+                                        
                                         <th>Author Type</th>
                                         <th>Fullname</th>  
                                         <th>Action</th> 
@@ -93,16 +94,21 @@
                                 <tbody>   
                                     @foreach ($logs as $log) 
                                     <tr>   
+                                       
                                         <td>{{ $log->author_type }}</td>
                                         <td>{{ $log->firstname }} {{ $log->lastname }}</td>    
                                         <td><center>
                                         @if ($log->action == 'Add')
                                             <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="ADD" style="background-color: palegreen; font-weight: bold; color: darkgreen; width: 3.5rem; border: none; font-size: medium" readonly>
                                         @elseif ($log->action == 'Edit')
-                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="EDIT" style="background-color: #fff3cd; font-weight: bold; color: #856404;; width: 3.5rem; border: none; font-size: medium" readonly>
+                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="EDIT" style="background-color: #fff3cd; font-weight: bold; color: #856404; width: 3.5rem; border: none; font-size: medium" readonly>
                                         @elseif ($log->action == 'Delete')
                                             <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="DELETE" style="background-color: pink; font-weight: bold; color: darkred; width: 5rem; border: none; font-size: medium" readonly>
-                                        @endif</center>
+                                        @elseif ($log->action == 'Restore')
+                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="RESTORE" style="background-color: lightblue; font-weight: bold; color: blue; width: 6rem; border: none; font-size: medium" readonly>
+                                        @endif
+
+
                                         </td>  
                                         <td>{{ $log->details }}</td>
                                         <td>{{ $log->created_at }}</td>

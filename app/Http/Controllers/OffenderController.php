@@ -163,20 +163,23 @@ class OffenderController extends Controller
 
     public function update_offender(Request $request, $oid){
         $acc_type = Auth::guard('account')->user()->acc_type; 
-
+        $image = $request->file('image');
+     
         // dd($comp_id);
         $now = Carbon::now();
         $now->setTimezone('Asia/Manila');
-
+        $ii= $request->input('off_image_inp');
+ 
         $off_date_birth = $request->input('off_date_birth');
         $off_age = Carbon::parse($off_date_birth)->diffInYears(Carbon::now());
 
-        if ($request->hasFile('off_image')) {
-            $off_file = $request->file('off_image');
+        if ($request->hasFile('image')) {
+            $off_file = $request->file('image');
             $off_extension = $off_file->getClientOriginalExtension();
             $off_filename = time() . '.' . $off_extension;
             $off_file->move('images/offenders/', $off_filename);
         } else {
+            
             $off_filename = $request->input('off_image_inp');
         }
 

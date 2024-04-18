@@ -511,7 +511,9 @@
  
  
                     <div class="col-12 form-navigation">
-                        <a class="link-buttons" href=" " style="float: left; background-color: #48145B">Cancel <i class="fa-solid fa-xmark icons"></i> </a> 
+                        
+                        <a class="link-buttons" href="/investigator/complaintreportmanagement" style="float: left; background-color: #48145B">Cancel <i class="fa-solid fa-xmark icons"></i> </a> 
+                     
                         {{-- <a class="link-buttons" href=" " style="float: right;">Next</a>  --}} 
 
                         <button type="submit" class="form-buttons" style="float: right;">Submit Update <i class="fa-solid fa-check icons"></i></button> 

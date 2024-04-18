@@ -173,8 +173,8 @@ class VictimController extends Controller
         $now = Carbon::now();
         $now->setTimezone('Asia/Manila');
  
-        if ($request->hasFile('vic_image')) {
-            $vic_file = $request->file('vic_image');
+        if ($request->hasFile('image')) {
+            $vic_file = $request->file('image');
             $vic_extension = $vic_file->getClientOriginalExtension();
             $vic_filename = time() . '.' . $vic_extension;
             $vic_file->move('images/victims/', $vic_filename);

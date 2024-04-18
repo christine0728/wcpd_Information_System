@@ -124,11 +124,15 @@
                                     </div> 
                                 </div>
                                 <div class="col-md-3 text-center">
-                                    @if($comp->victim_image)
-                                        <img src="{{ asset('images/victims/' . $comp->victim_image) }}" alt="{{ $comp->vic_firstname }}" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
+                                @if($comp->victim_image != 'no image')
+
+                                <img src="{{ asset('images/victims/' . $comp->victim_image) }}" alt="{{ $comp->vic_firstname }}" id="previewImage" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
                                     @else
-                                        <p>No Image</p>
-                                    @endif
+                                    <img src="{{ asset('images/default.png') }}" alt="{{ $comp->vic_firstname }}" id="previewImage" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
+
+                                    <p>No Image</p>
+                                @endif
+              
                                 </div> 
                             </div> 
                             <div class="row" style="margin-top: -3rem">
