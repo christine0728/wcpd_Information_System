@@ -44,6 +44,30 @@
                 }
             }
         </style>
+                        <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        function previewImage(event) {
+                            var reader = new FileReader();
+                            reader.onload = function() {
+                                var output = document.getElementById('previewImage');
+                                if (output) {
+                                    output.src = reader.result;
+                                } else {
+                                    console.error("Image preview element not found.");
+                                }
+                            }
+                            reader.readAsDataURL(event.target.files[0]);
+                        }
+
+                        // Attach event listener to the file input
+                        var fileInput = document.getElementById('image');
+                        if (fileInput) {
+                            fileInput.addEventListener('change', previewImage);
+                        } else {
+                            console.error("File input element not found.");
+                        }
+                    });
+                </script>
     </head>
     <body>
         @extends('layouts.app')
@@ -63,9 +87,11 @@
             <div class="content" style="margin-top: -2rem;">
                 <div class="container-fluid" style="margin-top: 1rem">  
                     <div class="card col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-bottom: 5rem; padding: 1rem 2rem 1rem 2rem;">
-                        <form action="{{ route('investigator.update_victim', [$vid]) }}" method="POST">
+                        <form action="{{ route('investigator.update_victim', [$vid]) }}" enctype="multipart/form-data" method="POST">
                         @csrf
                         @foreach ($comps as $comp) 
+                        <input type="hidden" name="vic_image_inp" value="{{ $comp->victim_image }}">
+
                             <div class="row mb-4"> 
                                 <div class="col-md-9">  
                                     <div class="row" style="margin-top: -1.5rem">
@@ -151,11 +177,16 @@
                                     </div> 
                                 </div>
                                 <div class="col-md-3 text-center">
-                                    @if($comp->victim_image)
-                                        <img src="{{ asset('images/victims/' . $comp->victim_image) }}" alt="{{ $comp->vic_firstname }}" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
+                                @if($comp->victim_image != 'no image')
+                                    <img src="{{ asset('images/victims/' . $comp->victim_image) }}" alt="{{ $comp->vic_firstname }}" id="previewImage" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
+                                    <input type="file" name="image" id="image" accept="image/*">
                                     @else
+                                    <img src="{{ asset('images/default.png') }}" alt="{{ $comp->vic_firstname }}" id="previewImage" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
                                         <p>No Image</p>
+                                        <input type="file" name="image" id="image" accept="image/*">
                                     @endif
+
+
                                 </div>
                             </div> 
                             <div class="row" style="margin-top: -3rem">

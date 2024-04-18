@@ -3,16 +3,16 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>DASHBOARD</title>
+        <title>SuperAdmin | Dashboard</title>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-        <link rel="icon" href="{{ url('asset/favicon.ico') }}">
+        <link rel="icon" href="{{ url('images/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=24"> 
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> 
+        <script src="https://kit.fontawesome.com/7528702e77.js" crossorigin="anonymous"></script>
         <style>
-            body {
-                font-family: Arial, sans-serif;
-            }
-
-
             .filter {
                 display: flex;
                 align-items: center;
@@ -27,200 +27,362 @@
             .date-filter label {
                 margin-right: 5px;
             }
+
+            @media only screen and (max-width: 768px) {
+                /* For mobile phones: */
+                [class*="col-"] {
+                width: 100%;
+                }
+                
+                div{
+                    display: none !important;
+                }
+            }
+
+            .notif div:hover{
+                background-color: #f0f0f0 !important;
+                border-radius: 0.5rem !important;
+            }
         </style>
     </head>
-    <body>
-        @extends('layouts.app')
+    <body>  
+    @extends('layouts.app')
 
-        @section('content')
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                         <div class="col-sm-6">
-                            <h1 class="m-0">{{ __('Dashboard') }}</h1>
-                        </div>
-                    </div>
+    @section('content')
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2"> 
+                        <div class="col-6">
+                        <h1 class="m-0" style="font-weight: bold;">&nbsp;{{ __('Dashboard') }}</h1>
+                    </div> 
                 </div>
             </div>
-            <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="content">
-                                <div class="container-fluid">
-                                    {{-- <div class="row">
-                                        <div class="col-lg-12">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAdd">
-                                                <i class="fas fa-plus"></i> Add Activity
-                                            </button><br><br>
-                                        </div>
-                                    </div> --}}
-                                    <!-- /.row -->
-                                </div><!-- /.container-fluid -->
-                            </div>
-                            {{-- <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg modal-dialog-scrollable">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="modalAddLabel">Add Announcement</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form method="post" action="{{ route('add_activity') }}">
-                                                @csrf
-                                                <div class="form-group">
-                                                    <label for="barcode">Activity title:</label>
-                                                    <input type="text" class="form-control" id="activity_title" name="activity_title" required placeholder="Enter the activity title">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="barcode">Status:</label>
-                                                    <input type="text" class="form-control" id="status" name="status" required placeholder="Enter the accession">
-                                                </div>
-                                        </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Add</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>  --}}
+        </div>
 
-                            {{-- <div class="card" style="overflow-x: auto;">
-                                <div class="card-body p-1">
-                                    <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
-                                        <thead>
+
+        <div class="content" style="margin-top: 1rem; ">
+            <div class="container-fluid" >   
+                <div class="row col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: -1.5rem; margin-bottom: 2rem; padding: 1rem">
+                    <div class="col-12">
+                        <div class="filter">
+                            <form action="filter-allrecords" method="GET">
+                            <div class="date-filter">
+                                <label for="start_date">From:</label>&nbsp;&nbsp;
+                                <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}">&nbsp;&nbsp;
+                                <label for="end_date">To:</label>&nbsp;&nbsp;
+                                <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}">&nbsp;&nbsp;
+                                <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
+                                <a href="{{ route('superadmin.allrecords') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body">  
+                                <div id="chart_div" style="width: 100%; height: 15rem;"></div>
+
+                                <button id="download-button" class="form-buttons" style="width: 13rem; margin-top: 1rem">Download Monthly Data&nbsp;&nbsp;<i class="fa-solid fa-download"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
+                                <div>
+                                    <b style="color: #48145B; font-size: large"> TOTAL NUMBER OF RECORDS PER RELATIONSHIP OF VICTIM TO SUSPECT PER GENDER </b>
+                                </div>
+                                <table id="compsTbl">
+                                    <thead>
+                                        <tr>
+                                            <th>RELATIONSHIP </th>
+                                            <th>Male Count</th>
+                                            <th>Female Count</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($relationshipCounts as $item)
                                             <tr>
-                                                <th>Activity title</th>
-                                                <th>Status</th>
-                                                <th>Created By</th>
-                                                <th>Created Date</th>
-                                                <th>Modified By</th>
-                                                <th>Modified Date</th>
-                                                <th>Action</th>
+                                                <td>{{ $item->offender_relationship_victim }}</td>
+                                                <td>{{ $item->male_count }}</td>
+                                                <td>{{ $item->female_count }}</td>
                                             </tr>
-                                        </thead>
-                                        <tbody style="font-size: 13px">
-                                            @foreach($activities as $activity)
-                                                <tr>
-                                                    <td>{{ $activity->activity_title }}</td>
-                                                    <td>{{ $activity->status}}</td>
-                                                    <td>{{ $activity->created_by_name }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($activity->created_at)->format('F j, Y \a\t g:i a') }}</td>
-                                                    <td>{{ $activity->modified_by_name }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($activity->updated_at)->format('F j, Y \a\t g:i a') }}</td>
-                                                    <td>
-                                                    <button type="button" class="btn btn-danger btn-xs" onclick="confirmDelete('{{ $activity->id }}')">
-                                                    <i style="color: white; font-size: 12px;" class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                    <a href="#" class="btn-edit" data-toggle="modal" data-id="{{ $activity->id }}" data-activity_title="{{ $activity->activity_title }}" data-status="{{ $activity->status }}" data-image="" data-target="#modalEdit">
-                                                        <button type="button" class="btn btn-success btn-xs">
-                                                            <i style="color: white; font-size: 12px;" class="fa fa-edit"></i>
-                                                        </button>
-                                                    </a>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div> --}}
-                                <!-- /.card-body -->
+                                        @endforeach
+                                    </tbody>
+                                </table>
 
-                                <div class="card-footer clearfix">
-
-                                </div>
                             </div>
                         </div>
                     </div>
+                        
+                    {{-- <div class="col-6">
+                        <div class="card">
+                            <div class="card-body" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; ">  
+                                <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
+                                    <thead> 
+                                        <tr> 
+                                            <th>Case</th>
+                                            @foreach($comps as $comp) 
+                                                <th>{{ $comp->comp_month }}</th> 
+                                            @endforeach
+                                        </tr>
+                                    </thead>
+                                    <tbody>  
+                                        @foreach($comps as $comp)
+                                            <tr>
+                                                <td>
+                                                    {{ $comp->offense }}
+                                                </td> 
+                                                @foreach($comps as $comp) 
+                                                <td>Male: {{ $comp->male_total_comps }} 
+                                                    <br>Female: {{ $comp->female_total_comps }}</td> 
+                                                @endforeach 
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table> 
+                            </div>
+                        </div>
+                    </div> --}}
+
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
+                                <div>
+                                    <b style="color: #48145B; font-size: large">TOTAL NUMBER OF CASES PER AGE RANGE IN FEMALE</b>
+                                </div>
+                                <br><div class="pie-chart_fem" id="pie-chart_fem"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
+                                <div>
+                                    <b style="color: #48145B; font-size: large">TOTAL NUMBER OF CASES PER AGE RANGE IN MALE</b>
+                                </div>
+                                <br><div class="pie-chart_male" id="pie-chart_male"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
+                                <div>
+                                    <b style="color: #48145B; font-size: large">TOTAL NUMBER OF VICTIMS PER GENDER</b>
+                                </div>
+                                <br><div id="pie_chart" ></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
+                                <div>
+                                    <b style="color: #48145B; font-size: large"> TOTAL NUMBER OF OFFENDERS PER GENDER</b>
+                                </div>
+                                <br><div id="pie_chart5"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
+                                <div>
+                                    <b style="color: #48145B; font-size: large">TOP FIVE PLACES WITH MOST NUMBER OF CASE</b>
+                                </div>
+                                <div id="chart_div1" ></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    {{-- <div class="col-6">
+                        <div class="card">
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
+                                <div>
+                                    <b style="color: #48145B; font-size: large"> TOTAL NUMBER OF RECORDS PER RELATIONSHIP OF VICTIM TO SUSPECT PER GENDER </b>
+                                </div>
+                                <table id="compsTbl">
+                                    <thead>
+                                        <tr>
+                                            <th>RELATIONSHIP </th>
+                                            <th>Male Count</th>
+                                            <th>Female Count</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($relationshipCounts as $item)
+                                            <tr>
+                                                <td>{{ $item->offender_relationship_victim }}</td>
+                                                <td>{{ $item->male_count }}</td>
+                                                <td>{{ $item->female_count }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div> --}}
+                   
+                    <div class="card-footer clearfix"> 
+                    </div>
                 </div>
             </div>
-            <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
-            <!-- /.content -->
-        @endsection
+        </div> 
+    @endsection
     </body>
-</html>
+</html> 
 
-@if(session('updatemessage'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'Successfuly updated!',
-        text: '{{ session('success') }}'
-    });
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script> 
+
+$(document).ready(function() {
+          $('#compsTbl').DataTable({
+            "order": [[0, "desc"]]
+          });
+      });
+
+  
 </script>
-@endif
-
 <script>
-    function confirmDelete(id) {
-        Swal.fire({
-            title: 'Are you sure to delete this book?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-            $.ajax({
-                type: 'POST',
-                url: '/admin/activity_destroy/' + id,
-                data: {
-                _token: '{{ csrf_token() }}',
-                _method: 'DELETE'
-                },
-                success: function (response) {
-                Swal.fire(
-                    'Deleted!',
-                    'The record has been deleted.',
-                    'success'
-                ).then(function () {
-                    location.reload();
-                });
-                },
-                error: function (error) {
-                    console.log(error);
-                Swal.fire(
-                    'Error!',
-                    'An error occurred while deleting the record.',
-                    'error'
-                );
-                }
-            });
-            }
+    google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Month', 'Male', 'Female'], 
+            @foreach($comps as $comp)
+                ['{{ $comp->comp_month }}', 
+                {{ $comp->male_total_comps ?? 0 }}, 
+                {{ $comp->female_total_comps ?? 0 }}
+                ],
+            @endforeach
+        ]);
+
+        var options = {
+            chart: {
+                title: 'Total Cases per Month per Gender',
+                subtitle: 'Grouped by Month and Gender',
+            },
+            bars: 'vertical' // Ensuring vertical bars
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('chart_div'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options)); 
+        
+        // Function to download chart data as CSV
+        function downloadCSV() {
+            var csvContent = google.visualization.dataTableToCsv(data);
+            var encodedUri = encodeURI('data:text/csv;charset=utf-8,' + csvContent);
+            var link = document.createElement('a');
+            link.setAttribute('href', encodedUri);
+            link.setAttribute('download', 'chart_data.csv');
+            document.body.appendChild(link);
+            link.click();
+        }
+
+        // Add event listener to the download button
+        document.getElementById('download-button').addEventListener('click', function() {
+            downloadCSV();
         });
     }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const editButtons = document.querySelectorAll('.btn-edit');
-
-        editButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                const modal = document.getElementById('modalEdit');
-                const editId = this.getAttribute('data-id');
-                const editactivity_title = this.getAttribute('data-activity_title');
-                const editstatus = this.getAttribute('data-status');
-
-                document.getElementById('edit_id').value = editId;
-                document.getElementById('edit_activity_title').value = editactivity_title;
-                document.getElementById('edit_status').value = editstatus;
-
-                document.getElementById('edit_id').value = editId;
-
-                $(modal).modal('show');
-            });
-        });
-    });
-
 </script>
 
-<script>
+<script type="text/javascript">
+    google.charts.load('current', {'packages': ['corechart']});
+    google.charts.setOnLoadCallback(drawChart3);
+
+    function drawChart3() {
+        var data3 = new google.visualization.DataTable();
+        data3.addColumn('string', 'Age Range');
+        data3.addColumn('number', 'Total Complaints'); 
+
+        var rawData = {!! json_encode($comps11) !!}; // Ensure proper JSON encoding
+
+        rawData.forEach(function(row) {
+            data3.addRow([row.age_range, row.total_comps]);
+        });
+
+        var options3 = {
+            title: 'Complaints by Age Range',
+            is3D: false,
+            chartArea: {
+                left: 50,
+                right: 50,
+                width: '100%',
+                height: '100%'
+            },
+            fontSize: 20,
+            legend: {
+                position: 'left',
+                fontSize: 17,
+                textStyle: {
+                    fontSize: 16
+                }
+            },
+            pieSliceTextStyle: {
+                fontSize: 15
+            },  
+        };
+
+        var chart3 = new google.visualization.PieChart(document.getElementById('pie-chart_fem'));
+        chart3.draw(data3, options3);
+
+        var data_male = new google.visualization.DataTable();
+        data_male.addColumn('string', 'Age Range');
+        data_male.addColumn('number', 'Total Complaints'); 
+
+        var rawDatam = {!! json_encode($comps_male) !!}; 
+
+        rawDatam.forEach(function(row) {
+            data_male.addRow([row.age_range, row.total_comps]);
+        });
+
+        var options_male = {
+            title: 'Complaints by Age Range',
+            is_3D: false,
+            chartArea: {
+                left: 50,
+                right: 50,
+                width: '100%',
+                height: '100%'
+            },
+            fontSize: 20,
+            legend: {
+                position: 'left',
+                fontSize: 17,
+                textStyle: {
+                    fontSize: 16
+                }
+            },
+            pieSliceTextStyle: {
+                fontSize: 15
+            }, 
+        };
+
+        var chart_male = new google.visualization.PieChart(document.getElementById('pie-chart_male'));
+        chart_male.draw(data_male, options_male);
+    }  
+</script>
+{{-- <script>
     let inactiveTime = 0;
-    const logoutTime = 2 * 60 * 1000;
+    const logoutTime = 5 * 60 * 1000;
     // 5 * 60 * 1000; // 5 minutes in milliseconds
-    // note: if 30 seconds yung naka-set na time, may additional na 20 seconds before inactive screen is applied
     
     function resetInactiveTime() {
         inactiveTime = 0;
@@ -244,38 +406,112 @@
     
     setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
 
+</script> --}}
+<script type="text/javascript">
+     google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Month', 'Male', 'Female'], 
+            @foreach($comps as $comp)
+                ['{{ $comp->comp_month }}', 
+                {{ $comp->male_total_comps ?? 0 }}, 
+                {{ $comp->female_total_comps ?? 0 }}
+                ],
+            @endforeach
+        ]);
+
+        var options = {
+            chart: {
+                title: 'Total Cases per Month',
+                subtitle: 'Grouped by Month and Gender',
+            },
+            bars: 'vertical' // Ensuring vertical bars
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('chart_div'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options)); 
+        
+        // Function to download chart data as CSV
+        function downloadCSV() {
+            var csvContent = 'Month,Male,Female\n'; // Header line
+            for (var i = 0; i < data.getNumberOfRows(); i++) {
+                for (var j = 0; j < data.getNumberOfColumns(); j++) {
+                    csvContent += data.getFormattedValue(i, j);
+                    if (j < data.getNumberOfColumns() - 1) { 
+                        csvContent += ',';
+                    }
+                }
+                csvContent += '\n';
+            }
+            var encodedUri = encodeURI('data:text/csv;charset=utf-8,' + csvContent);
+            var link = document.createElement('a');
+            link.setAttribute('href', encodedUri);
+            link.setAttribute('download', 'chart_data.csv');
+            document.body.appendChild(link);
+            link.click();
+        }
+
+        // Add event listener to the download button
+        document.getElementById('download-button').addEventListener('click', function() {
+            downloadCSV();
+        });
+    }
 </script>
 
-<!-- Edit Organizational Structure Modal -->
-{{-- <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalAddLabel">Update Records</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="{{ route('update_activity') }}" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <input type="hidden" id="edit_id" name="edit_id">
-                    </div>
-                    <div class="form-group">
-                        <label for="barcode">Activity title:</label>
-                        <input type="text" class="form-control" id="edit_activity_title" name="edit_activity_title" required placeholder="Enter the activity_title">
-                    </div>
-                    <div class="form-group">
-                        <label for="barcode">Status:</label>
-                        <input type="text" class="form-control" id="edit_status" name="edit_status" required placeholder="Enter the status">
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save Changes</button>
-            </div>
-            </form>
-        </div>
-    </div>
-</div> --}}
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Gender', 'Count'],
+            ['Male', {{ $maleOffenders }}],
+            ['Female', {{ $femaleOffenders }}]
+        ]);
+
+        var options = { 
+            is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('pie_chart5'));
+        chart.draw(data, options);
+    }
+</script>
+
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Place');
+        data.addColumn('number', 'Total Cases');
+ 
+        var topPlaces = {!! json_encode($topPlaces) !!};
+        var rows = [];
+        topPlaces.forEach(function(place) {
+            rows.push([place.place_of_commission, parseInt(place.total_cases)]);
+        });
+
+        data.addRows(rows);
+
+        var options = { 
+            legend: { position: 'none' },
+            chartArea: { width: '50%' },
+            hAxis: {
+                title: 'Total Number Cases',
+                minValue: 0, 
+            },
+            vAxis: {
+                title: 'Place', 
+            }
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div1'));
+        chart.draw(data, options);
+    }
+</script>
+
