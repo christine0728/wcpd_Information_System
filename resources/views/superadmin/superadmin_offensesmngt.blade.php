@@ -87,7 +87,7 @@
                                 <thead>
                                     <tr>  
                                         <th>Offense Name</th>
-                                        <th>Description</th> 
+                                        {{-- <th>Description</th>  --}}
                                         <th>Created At</th>
                                         <th>Action</th>
                                     </tr>
@@ -95,13 +95,11 @@
                                 <tbody> 
                                     @foreach ($offenses as $offense)  
                                     <tr>   
-                                        <td>{{ $offense->offense_name }}</td>
-                                        <td>{{ $offense->description }}</td> 
+                                        <td>{{ $offense->offense_name }}</td> 
                                         <td>{{ $offense->created_at }}</td>
                                         <td>
                                         <center> 
-                                            <a class="case-btn" href=" ">&nbsp;&nbsp;&nbsp;Update Case <i class="fa-regular fa-file" style="font-size: large; padding: 0.5rem"></i></a>  
-                                            <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', $offense->id) }}">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
+                                            <a  class="edit-btn" data-toggle="modal" data-id="{{ $offense->id }}" data-offense="{{ $offense->offense_name }}" data-desc="{{ $offense->description }}" data-target="#modalEdit">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
                                             <a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href="{{ route('superadmin.delete_offense', $offense->id) }}">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a>
                                         </center>
                                         </td>
@@ -116,11 +114,38 @@
                     </div>
                 </div>
             </div> 
-            <!-- Button trigger modal -->
-        {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                Launch demo modal
-            </button> --}} 
-            <!-- Modal -->
+            
+            <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add Offense</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="{{ route('superadmin.edit_offense') }}" method="post">
+                            <div class="modal-body">
+                             @csrf
+                              <input type="hidden" name="edit_id" id="edit_id">
+                              <div class="form-group">
+                                    <label class="req-label">Offenses:</label>
+                                    <input type="text" class="form-control" name="edit_offense" id="edit_offense">
+                              </div>
+                              <div class="form-group">
+                                    <label class="req-label">Description</label>
+                                    <input type="text" class="form-control" name="edit_desc" id="edit_desc">
+                              </div>       
+                            <div class="modal-footer">
+                                <button type="button" class="form-buttons" data-dismiss="modal" style="background-color: red">Close&nbsp;&nbsp;<i class="fa-solid fa-xmark"></i></button>
+                                <button type="submit" class="form-buttons">Save Changes&nbsp;&nbsp;<i class="fa-solid fa-check"></i></button>  
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                 <div class="modal-content">
@@ -170,6 +195,27 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 
+<script>   
+    document.addEventListener("DOMContentLoaded", function () {
+        const editButtons = document.querySelectorAll('.edit-btn');
+
+        editButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                const modal = document.getElementById('modalEdit');
+                const editId = this.getAttribute('data-id');
+                const editoffense = this.getAttribute('data-offense');
+                const editdesc = this.getAttribute('data-desc');
+                console.log(editdesc);
+                document.getElementById('edit_id').value = editId;
+                document.getElementById('edit_offense').value = editoffense;
+                document.getElementById('edit_desc').value = editdesc; 
+                $(modal).modal('show');
+            });
+        });
+    });
+
+</script>
+
 <script>
     $(document).ready(function() {
           $('#compsTbl').DataTable({
@@ -214,27 +260,6 @@
             });
             }
         });
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const editButtons = document.querySelectorAll('.btn-edit');
-
-        editButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                const modal = document.getElementById('modalEdit');
-                const editId = this.getAttribute('data-id');
-                const editactivity_title = this.getAttribute('data-activity_title');
-                const editstatus = this.getAttribute('data-status'); 
-
-                document.getElementById('edit_id').value = editId;
-                document.getElementById('edit_activity_title').value = editactivity_title;
-                document.getElementById('edit_status').value = editstatus; 
-
-                document.getElementById('edit_id').value = editId;
-
-                $(modal).modal('show');
-            });
-        });
-    });
+    } 
 
 </script>

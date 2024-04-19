@@ -66,12 +66,12 @@
                 <div class="row col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: -1.5rem; margin-bottom: 2rem; padding: 1rem">
                     <div class="col-12">
                         <div class="filter">
-                            <form action="filter-allrecords" method="GET">
+                            <form action="filter-dashboard" method="GET">
                             <div class="date-filter">
                                 <label for="start_date">From:</label>&nbsp;&nbsp;
-                                <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}">&nbsp;&nbsp;
+                                <input type="month" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}">&nbsp;&nbsp;
                                 <label for="end_date">To:</label>&nbsp;&nbsp;
-                                <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}">&nbsp;&nbsp;
+                                <input type="month" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}">&nbsp;&nbsp;
                                 <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
                                 <a href="{{ route('superadmin.allrecords') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a>
                             </div>
@@ -81,8 +81,10 @@
                     <div class="col-6">
                         <div class="card">
                             <div class="card-body">  
-                                <div id="chart_div" style="width: 100%; height: 15rem;"></div>
-
+                                <div style="margin-bottom: 1rem">
+                                    <b style="color: #48145B; font-size: large"> TOTAL CASES PER MONTH PER GENDER </b>
+                                </div>
+                                <div id="chart_div" style="width: 100%; height: 15rem;"></div> 
                                 <button id="download-button" class="form-buttons" style="width: 13rem; margin-top: 1rem">Download Monthly Data&nbsp;&nbsp;<i class="fa-solid fa-download"></i></button>
                             </div>
                         </div>
@@ -91,7 +93,7 @@
                     <div class="col-6">
                         <div class="card">
                             <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
-                                <div>
+                                <div style="margin-bottom: 1rem">
                                     <b style="color: #48145B; font-size: large"> TOTAL NUMBER OF RECORDS PER RELATIONSHIP OF VICTIM TO SUSPECT PER GENDER </b>
                                 </div>
                                 <table id="compsTbl">
@@ -274,10 +276,10 @@ $(document).ready(function() {
         ]);
 
         var options = {
-            chart: {
-                title: 'Total Cases per Month per Gender',
-                subtitle: 'Grouped by Month and Gender',
-            },
+            // chart: {
+            //     title: 'Total Cases per Month per Gender',
+            //     subtitle: 'Grouped by Month and Gender',
+            // },
             bars: 'vertical' // Ensuring vertical bars
         };
 
@@ -327,12 +329,12 @@ $(document).ready(function() {
                 width: '100%',
                 height: '100%'
             },
-            fontSize: 20,
+            fontSize: 15,
             legend: {
                 position: 'left',
-                fontSize: 17,
+                fontSize: 15,
                 textStyle: {
-                    fontSize: 16
+                    fontSize: 15
                 }
             },
             pieSliceTextStyle: {
@@ -362,12 +364,12 @@ $(document).ready(function() {
                 width: '100%',
                 height: '100%'
             },
-            fontSize: 20,
+            fontSize: 15,
             legend: {
                 position: 'left',
-                fontSize: 17,
+                fontSize: 15,
                 textStyle: {
-                    fontSize: 16
+                    fontSize: 15
                 }
             },
             pieSliceTextStyle: {
@@ -440,6 +442,14 @@ $(document).ready(function() {
 
         var options = { 
             is3D: true,
+            pieSliceText: 'percentage', 
+            backgroundColor: 'transparent', // Transparent background
+            chartArea: {
+                left: 10,
+                top: 10,
+                width: '100%',
+                height: '100%'
+            }
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('pie_chart5'));

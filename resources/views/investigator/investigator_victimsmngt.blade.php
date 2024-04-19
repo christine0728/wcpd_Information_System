@@ -94,7 +94,7 @@
                             <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                                 <thead>
                                     <tr> 
-                                        {{-- <th>View</th> --}}
+                                        <th style="display: none"></th>
                                         <th>Image</th>
                                         <th>Fullname</th>
                                         <th>Sex</th>
@@ -117,11 +117,11 @@
                                                 <a class="view-btn" href="{{ route('investigator.view_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
                                             </center>
                                         </td> --}}  
+                                        <td style="display: none">{{$comp->vid}}</td>
                                         <td> 
                                             @if($comp->victim_image != 'no image')
                                             <img src="{{ asset('images/victims/' . $comp->victim_image) }}" alt="{{ $comp->victim_firstname }}" class="img-thumbnail" style="max-width: 110px; max-height: 110px;">
-                                            @else
-                                            <img src="{{ asset('images/default.png') }}" alt="{{ $comp->vic_firstname }}" id="previewImage" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
+                                            @else 
                                                 <center> <p>No Image</p></center>
                                            
                                             @endif
@@ -146,7 +146,7 @@
                                         <center> 
                                             <a class="view-btn" href="{{ route('investigator.view_complaintreport', $comp->compid) }}">&nbsp;&nbsp;&nbsp;View Case<i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
                                                 
-                                            <a class="view-btn" href="{{ route('investigator.victim_profile', $comp->vid) }}">&nbsp;&nbsp;&nbsp;View Profile<i class="fa-regular fa-user" style="font-size: large; padding: 0.5rem"></i></a> 
+                                            <br><a class="view-btn" href="{{ route('investigator.victim_profile', $comp->vid) }}" style="margin-top: 0.5rem">&nbsp;&nbsp;&nbsp;View Profile<i class="fa-regular fa-user" style="font-size: large; padding: 0.5rem"></i></a> 
 
                                             {{-- <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', $comp->id) }}#victim">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> --}}
                                         </center>

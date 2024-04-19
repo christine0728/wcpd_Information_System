@@ -682,9 +682,7 @@
     });
 
     navigateTo(0); 
-});
-
-        
+}); 
         function showfield(name){
             if(name=='Others')document.getElementById('div1').innerHTML='Pls. specify: <input type="text" name="others" class="form-control" />';
             else document.getElementById('div1').innerHTML='';

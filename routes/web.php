@@ -157,6 +157,7 @@ Route::prefix('superadmin')->middleware('account')->group(function(){
 
     Route::get('/offensesmanagement', [SuperAdminController::class, 'offensesmngt'])->name('superadmin.offensesmanagement');
     Route::post('/add_offense', [OffensesController::class, 'add'])->name('superadmin.add_offense');
+    Route::post('/edit_offense', [OffensesController::class, 'update'])->name('superadmin.edit_offense');
     Route::get('/delete_offense/{id}', [OffensesController::class, 'delete'])->name('superadmin.delete_offense');
 
     Route::get('/edit_superadmin_acc/{id}', [SuperAdminController::class, 'edit_superadmin_acc'])->name('superadmin.edit_superadmin_acc');

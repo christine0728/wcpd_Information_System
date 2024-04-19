@@ -79,9 +79,7 @@ class InvestigatorController extends Controller
         )
         ->groupBy('month', 'offenses', 'offender_sex')
         ->orderBy('month')
-        ->get();
-    
-  
+        ->get(); 
 
         $comps = DB::table('complaint_reports as cr')
         ->join('victims as v', 'v.comp_report_id', '=', 'cr.id')
@@ -95,9 +93,7 @@ class InvestigatorController extends Controller
         ->groupBy('comp_month')
         ->orderBy(DB::raw('MONTH(cr.date_reported)'))
         ->get();
-    
-        
-
+     
         $comps11 = ComplaintReport::join('victims', function ($join) {
             $join->on('victims.comp_report_id', '=', 'complaint_reports.id')
                     ->where('victims.victim_sex', '=', 'FEMALE');
@@ -346,7 +342,9 @@ class InvestigatorController extends Controller
 
         $team = Auth::guard('account')->user()->team;
         $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
-        ->select('accounts.id as accountid', 'accounts.username', 'accounts.team', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses',   'complaint_reports.offender_firstname', 'complaint_reports.offender_family_name', 'complaint_reports.offender_middlename', 'complaint_reports.offender_sex', 'complaint_reports.offender_age', 'complaint_reports.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')
+        ->leftJoin('victims', 'victims.comp_report_id', '=', 'complaint_reports.complaint_report_author')
+        ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.complaint_report_author')
+        ->select('accounts.id as accountid', 'accounts.username', 'accounts.team', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'offenders.offender_firstname', 'offenders.offender_family_name', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age', 'offenders.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition', 'complaint_reports.date_case_updated', 'complaint_reports.case_update')
         ->whereDate('complaint_reports.created_at', '>=', $start_date)
         ->whereDate('complaint_reports.created_at', '<=', $end_date)
         ->where('complaint_reports.status', 'notdeleted')
@@ -363,11 +361,12 @@ class InvestigatorController extends Controller
         $end_date = date('Y-m-d', strtotime($request->input('end_date')));
 
         $author_id = Auth::guard('account')->user()->id;
-        $comps = ComplaintReport::
-            where('complaint_report_author', $author_id)
+        $comps = Victim::join('complaint_reports', 'complaint_reports.id', '=', 'victims.comp_report_id')
+        ->select('complaint_reports.id as compid', 'victims.id as vid', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'victims.victim_image', 'victims.victim_present_address', 'complaint_reports.date_reported')
+            ->where('complaint_reports.complaint_report_author', $author_id)
             ->where('complaint_reports.created_at', '>=', [$start_date, $end_date])
             ->where('complaint_reports.status', 'notdeleted')
-            ->orderBy('id', 'DESC') 
+            ->orderBy('victims.id', 'DESC') 
             ->get();
         return view('investigator.investigator_victimsmngt', ['comps'=>$comps, 'start_date'=>$start_date, 'end_date'=>$end_date]);
     }
@@ -378,12 +377,13 @@ class InvestigatorController extends Controller
         $end_date = date('Y-m-d', strtotime($request->input('end_date')));
         
         $author_id = Auth::guard('account')->user()->id;
-        $comps = ComplaintReport::
-            where('complaint_report_author', $author_id)
-            ->where('complaint_reports.created_at', '>=', [$start_date, $end_date])
-            ->where('complaint_reports.status', 'notdeleted')
-            ->orderBy('id', 'DESC') 
-            ->get();
+        $comps = Offender::join('complaint_reports', 'complaint_reports.id', '=', 'offenders.comp_report_id')
+        ->select('complaint_reports.id as compid', 'offenders.id as oid', 'offenders.offender_family_name', 'offenders.offender_firstname', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age','offenders.offender_image', 'offenders.offender_prev_criminal_rec', 'offenders.offender_relationship_victim', 'complaint_reports.date_reported')
+        ->orderByDesc('offenders.id')
+        ->whereDate('complaint_reports.created_at', '>=', $start_date)
+        ->whereDate('complaint_reports.created_at', '<=', $end_date)
+        ->where('complaint_reports.complaint_report_author', '=', $author_id) 
+        ->get();
         return view('investigator.investigator_suspectsmngt', ['comps'=>$comps, 'start_date'=>$start_date, 'end_date'=>$end_date]);
     }
 

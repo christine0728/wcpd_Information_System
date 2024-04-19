@@ -202,7 +202,8 @@
         @endsection
     </body>
 </html>
-<script>    document.addEventListener("DOMContentLoaded", function () {
+<script>   
+    document.addEventListener("DOMContentLoaded", function () {
         const editButtons = document.querySelectorAll('.edit-btn');
 
         editButtons.forEach(function (button) {
