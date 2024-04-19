@@ -70,22 +70,20 @@
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" style="height: 10rem">
+    <div class="content-wrapper" >
         @yield('content')
     </div>
     <!-- /.content-wrapper --> 
 
     <!-- Main Footer -->
-    <footer class="main-footer">
+    <footer class="main-footer" style="position: fixed; bottom: 0; width: 100%;">
         <!-- To the right -->
         
-        <div class="float-right d-none d-sm-inline"> 
-            Developed by &nbsp;&nbsp;
-            PSU UC - IT 0JT 2024
-        </div>
-        <!-- Default to the left -->
+        
         <strong>Copyright &copy; 2024 WCPC Information Management System</strong> All rights reserved.
-
+        <div class=" d-none d-sm-inline"> 
+            Developed by PSU UC - IT 0JT 2024.
+        </div> 
     </footer>
 </div>
 <!-- ./wrapper -->

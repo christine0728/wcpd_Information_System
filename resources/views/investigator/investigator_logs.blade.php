@@ -83,7 +83,7 @@
                             <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                                 <thead>
                                     <tr>  
-                                        
+                                        <th style="display: none"></th>
                                         <th>Author Type</th>
                                         <th>Fullname</th>  
                                         <th>Action</th> 
@@ -94,7 +94,7 @@
                                 <tbody>   
                                     @foreach ($logs as $log) 
                                     <tr>   
-                                       
+                                        <td style="display: none">{{ $log->lid }}</td> 
                                         <td>{{ $log->author_type }}</td>
                                         <td>{{ $log->firstname }} {{ $log->lastname }}</td>    
                                         <td><center>
@@ -105,7 +105,7 @@
                                         @elseif ($log->action == 'Delete')
                                             <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="DELETE" style="background-color: pink; font-weight: bold; color: darkred; width: 5rem; border: none; font-size: medium" readonly>
                                         @elseif ($log->action == 'Restore')
-                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="RESTORE" style="background-color: lightblue; font-weight: bold; color: blue; width: 6rem; border: none; font-size: medium" readonly>
+                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="RESTORE" style="background-color: #b5e8ff; font-weight: bold; color: rgb(0, 0, 78); width: 5.5rem; border: none; font-size: medium" readonly>
                                         @endif
 
 
