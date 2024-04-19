@@ -258,8 +258,9 @@ $(document).ready(function() {
 
   
 </script>
-<script>
-    google.charts.load('current', {'packages':['bar']});
+
+<script type="text/javascript">
+     google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
@@ -275,7 +276,7 @@ $(document).ready(function() {
 
         var options = {
             chart: {
-                title: 'Total Cases per Month per Gender',
+                title: 'Total Cases per Month',
                 subtitle: 'Grouped by Month and Gender',
             },
             bars: 'vertical' // Ensuring vertical bars
@@ -287,7 +288,16 @@ $(document).ready(function() {
         
         // Function to download chart data as CSV
         function downloadCSV() {
-            var csvContent = google.visualization.dataTableToCsv(data);
+            var csvContent = 'Month,Male,Female\n'; // Header line
+            for (var i = 0; i < data.getNumberOfRows(); i++) {
+                for (var j = 0; j < data.getNumberOfColumns(); j++) {
+                    csvContent += data.getFormattedValue(i, j);
+                    if (j < data.getNumberOfColumns() - 1) { 
+                        csvContent += ',';
+                    }
+                }
+                csvContent += '\n';
+            }
             var encodedUri = encodeURI('data:text/csv;charset=utf-8,' + csvContent);
             var link = document.createElement('a');
             link.setAttribute('href', encodedUri);
@@ -302,7 +312,6 @@ $(document).ready(function() {
         });
     }
 </script>
-
 <script type="text/javascript">
     google.charts.load('current', {'packages': ['corechart']});
     google.charts.setOnLoadCallback(drawChart3);
@@ -407,59 +416,6 @@ $(document).ready(function() {
     setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
 
 </script> --}}
-<script type="text/javascript">
-     google.charts.load('current', {'packages':['bar']});
-    google.charts.setOnLoadCallback(drawChart);
-
-    function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['Month', 'Male', 'Female'], 
-            @foreach($comps as $comp)
-                ['{{ $comp->comp_month }}', 
-                {{ $comp->male_total_comps ?? 0 }}, 
-                {{ $comp->female_total_comps ?? 0 }}
-                ],
-            @endforeach
-        ]);
-
-        var options = {
-            chart: {
-                title: 'Total Cases per Month',
-                subtitle: 'Grouped by Month and Gender',
-            },
-            bars: 'vertical' // Ensuring vertical bars
-        };
-
-        var chart = new google.charts.Bar(document.getElementById('chart_div'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options)); 
-        
-        // Function to download chart data as CSV
-        function downloadCSV() {
-            var csvContent = 'Month,Male,Female\n'; // Header line
-            for (var i = 0; i < data.getNumberOfRows(); i++) {
-                for (var j = 0; j < data.getNumberOfColumns(); j++) {
-                    csvContent += data.getFormattedValue(i, j);
-                    if (j < data.getNumberOfColumns() - 1) { 
-                        csvContent += ',';
-                    }
-                }
-                csvContent += '\n';
-            }
-            var encodedUri = encodeURI('data:text/csv;charset=utf-8,' + csvContent);
-            var link = document.createElement('a');
-            link.setAttribute('href', encodedUri);
-            link.setAttribute('download', 'chart_data.csv');
-            document.body.appendChild(link);
-            link.click();
-        }
-
-        // Add event listener to the download button
-        document.getElementById('download-button').addEventListener('click', function() {
-            downloadCSV();
-        });
-    }
-</script>
 
 <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
