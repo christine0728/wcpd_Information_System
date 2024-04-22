@@ -14,7 +14,7 @@
   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js" integrity="sha512-eyHL1atYNycXNXZMDndxrDhNAegH2BDWt1TmkXJPoGf1WLlNYt08CSjkqF5lnCRmdm3IrkHid8s2jOUY4NIZVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> 
 
-    <title>SuperAdmin | Complaint Report</title>
+    <title>Investigator | View Complaint Report</title>
     <style>
         body {
             background-color: #D9D9D9;
@@ -94,11 +94,11 @@
             </div> 
             
             <div class="col-6" > 
-                <a class="link-buttons" href="{{ route('superadmin.complaint_pdf', [$comp_id]) }}" style="float: right; margin-right: 0.5rem; background-color: #48145B" target="_blank">Download as PDF&nbsp;&nbsp;<i class="fa-regular fa-circle-down icons"></i> </a>
+                <a class="link-buttons" href="{{ route('investigator.complaint_pdf', [$comp_id]) }}" style="float: right; margin-right: 0.5rem; background-color: #48145B" target="_blank">Download as PDF&nbsp;&nbsp;<i class="fa-regular fa-circle-down icons"></i> </a>
                 
-                <a class="link-buttons" onclick="return confirm('Are you sure you want to DELETE this record?')" href="{{ route('superadmin.delete_form', [$comp_id]) }}" style="float: right; background-color: darkred; margin-right: 0.5rem">Delete&nbsp;&nbsp;<i class="fa-solid fa-pen-to-square icons"></i> </a>
+                <a class="link-buttons" onclick="return confirm('Are you sure you want to DELETE this record?')" href="{{ route('investigator.delete_form', [$comp_id]) }}" style="float: right; background-color: darkred; margin-right: 0.5rem">Delete&nbsp;&nbsp;<i class="fa-solid fa-pen-to-square icons"></i> </a>
 
-                <a class="link-buttons" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('superadmin.edit_complaintreport', [$comp_id]) }}" style="float: right; background-color: darkgreen; margin-right: 0.5rem" target="_blank">Edit&nbsp;&nbsp;<i class="fa-solid fa-pen-to-square icons"></i> </a>
+                <a class="link-buttons" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', [$comp_id]) }}" style="float: right; background-color: darkgreen; margin-right: 0.5rem" target="_blank">Edit&nbsp;&nbsp;<i class="fa-solid fa-pen-to-square icons"></i> </a>
             </div>  
 
         </div> 
