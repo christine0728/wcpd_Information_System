@@ -81,6 +81,7 @@
                                         <td style="vertical-align: top;">{{ $comp->username }} ({{ $comp->team }})</td>
                                         <td>
                                             <b>Date Reported:</b> {{ $comp->date_reported }}
+                                            <br><b>Investigation/Case No.:</b> {{ $comp->inv_case_no }}
                                             <br><b>Place of Commission:</b> {{ $comp->place_of_commission }}
                                             <br><b>Offenses Committed:</b> {{ $comp->offenses }}
                                             <br><b>Motive/Cause:</b> {{ $comp->evidence_motive_cause }}

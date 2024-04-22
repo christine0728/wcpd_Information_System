@@ -119,13 +119,19 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">6. Time/Day/Month/Year of Commission:</label>
+                                    <label for="exampleInputEmail1">Time/Day/Month/Year of Commission:</label>
                                     <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="datetime_commission" value="{{ $comp->date_reported }}" readonly>
                                 </div> 
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">7. Place of Commission: </label>
+                                    <label for="exampleInputEmail1">Investigation/Case No.:</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="inv_case_no" oninput="toUpper(this)" value="{{ $comp->inv_case_no }}" readonly> 
+                                </div> 
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Place of Commission: </label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" value="{{ $comp->place_of_commission }}" readonly>
                                 </div> 
                             </div> 
@@ -134,7 +140,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">8. Offenses Committed: </label>
+                                    <label for="exampleInputEmail1">Offenses Committed: </label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" value="{{ $comp->offenses }}" readonly> 
                                 </div> 
                             </div>
@@ -149,14 +155,14 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">34. Motive/Cause: </label>
+                                    <label for="exampleInputEmail1">Motive/Cause: </label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim"value="{{ $comp->evidence_motive_cause }}" readonly> 
                                 </div> 
                             </div>
 
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">35. Suspect under the influence of: </label>
+                                    <label for="exampleInputEmail1">Suspect under the influence of: </label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim"value="{{ $comp->evidence_influence_of }}" readonly> 
                                 </div> 
                             </div>

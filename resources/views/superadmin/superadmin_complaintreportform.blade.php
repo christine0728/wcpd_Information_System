@@ -120,12 +120,7 @@
     </div> 
 
     <div class="container" style="margin-top: -2rem;">
-        <div class="nav nav-fill" style="background-color: white;">
-            {{-- <label class="nav-link shadow-sm step0 border ml-2 active">Offense Data</label> --}}
-            {{-- <label class="nav-link shadow-sm step1 border ml-2 ">Section B<br>Victim's Data</label>
-            <label class="nav-link shadow-sm step2 border ml-2 ">Section C<br>Offender's Data</label> --}}
-            {{-- <label class="nav-link shadow-sm step3 border ml-2 ">Evidence Data</label>
-            <label class="nav-link shadow-sm step4 border ml-2 ">Case Disposition</label> --}}
+        <div class="nav nav-fill" style="background-color: white;"> 
         </div>
     </div> 
 
@@ -144,19 +139,25 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">6. Time/Day/Month/Year of Commission:</label>
+                                        <label for="exampleInputEmail1">Time/Day/Month/Year of Commission:</label>
                                         <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="datetime_commission" value="{{ old('datetime_commission') }}">
                                         @if ($errors->has('datetime_commission')) 
                                             <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('datetime_commission') }}</span>
-                                        @endif
-                                        {{-- @error('datetime_commission')
-                                        <span class="text-red text-sm" style="color:red; font-size: 13px; float: left">{{$message}}</span>
-                                        @enderror --}}
+                                        @endif 
                                     </div> 
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">7. Place of Commission: </label>
+                                        <label for="exampleInputEmail1">Investigation/Case No.:</label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="inv_case_no" oninput="toUpper(this)" value="{{ old('inv_case_no') }}">
+                                        @if ($errors->has('inv_case_no')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('inv_case_no') }}</span>
+                                        @endif
+                                    </div> 
+                                </div> 
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Place of Commission: </label>
                                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" oninput="toUpper(this)" value="{{ old('place_commission') }}">
                                         @if ($errors->has('place_commission')) 
                                             <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('place_commission') }}</span>
@@ -168,15 +169,8 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">8. Offenses Committed: (press CTRL to select multiple offenses) </label>
+                                        <label for="exampleInputEmail1">Offenses Committed: (press CTRL to select multiple offenses) </label>
                                         <select class="form-control" name="offenses[]" multiple> 
-                                            {{-- <option value="Offense 1">Offense 1</option>
-                                            <option value="Offense 2">Offense 2</option>
-                                            <option value="Offense 3">Offense 3</option>
-                                            <option value="Offense 4">Offense 4</option>
-                                            <option value="Offense 5">Offense 5</option>
-                                            <option value="Offense 6">Offense 6</option> --}}
-                                            {{-- <option>Select offense</option> --}}
                                             <option value="">Select:</option>
                                             @foreach ($offenses as $offense) 
                                             <option value="{{ $offense->offense_name }}">{{ $offense->offense_name }}</option>
@@ -188,312 +182,7 @@
                                     </div> 
                                 </div>
                             </div>
-                        </div>
-                        
-                        {{-- <div class="">
-                            <div class="header">  
-                                <p style="font-size: medium;">Section B: <b style="font-size: medium;">Victim's Data</b></p>
-                            </div> 
-                            <hr style="margin-top: -1rem">
-                            <div class="row">
-                                <div class="col-3">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">9. Family name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_familyname" oninput="toUpper(this)">
-                                    </div> 
-                                </div>
-                                <div class="col-3">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">First name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_firstname" oninput="toUpper(this)">
-                                    </div> 
-                                </div> 
-                                <div class="col-3">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Middle name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_middlename" oninput="toUpper(this)">
-                                    </div> 
-                                </div>
-                                <div class="col-3">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Aliases: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_aliases" oninput="toUpper(this)">
-                                    </div> 
-                                </div> 
-                            </div>
- 
-                            <div class="row">
-                                <div class="col-2" >
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">10. Sex: </label>
-                                        <select class="form-control" name="vic_gender">
-                                            <option>Select sex</option>
-                                            <option value="FEMALE">Female</option>
-                                            <option value="MALE">Male</option>
-                                        </select>
-                                    </div> 
-                                </div> 
-                                <div class="col-2" >
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">11. Date of birth: </label>
-                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth" oninput="toUpper(this)">
-                                    </div> 
-                                </div> 
-                                <div class="col-8" >
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">12. Place of birth: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_place_birth" oninput="toUpper(this)">
-                                    </div> 
-                                </div> 
-                            </div>
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">13. Highest Educational Attainment: </label>
-                                        <select class="form-control" name="vic_educ_attainment" onchange="showfield(this.options[this.selectedIndex].value)">
-                                            <option>Select highest educational attainment</option>
-                                            <option value="ELEMENTARY">Elementary</option>
-                                            <option value="HS GRADUATE">HS Graduate</option>
-                                            <option value="COLLEGE GRAD">College Graduate</option>
-                                            <option value="POST GRADUATE">Post Graduate</option>
-                                            <option value="Others">Others  </option> 
-                                        </select>
-                                        <div id="div1" style="margin-top: 1rem"></div>
-                                    </div> 
-                                </div>
-                                <div class="col-3">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">14. Civil Status: </label>
-                                        <select class="form-control" name="vic_civil_stat">
-                                            <option>Select civil status</option>
-                                            <option value="SINGLE">Single</option>
-                                            <option value="LIVE-IN">Live-in</option>
-                                            <option value="MARRIED">Married</option>
-                                            <option value="WIDOW/ER">Widow/er</option>
-                                            <option value="SEPARATED">Separated</option>
-                                        </select>
-                                    </div> 
-                                </div> 
-                                <div class="col-3">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">15. Citizenship: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_citizenship" oninput="toUpper(this)">
-                                    </div> 
-                                </div> 
-                            </div>
-
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">16. Present Address: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_present_addr" oninput="toUpper(this)" pattern="[a-zA-Z0-9]+">
-                                    </div> 
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">17. Provincial Address: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_prov_addr" oninput="toUpper(this)">
-                                    </div> 
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">18. Parents/Guardian Name: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_parentsname" oninput="toUpper(this)">
-                                    </div> 
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">19. Employment Information - Occupation: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_occupation" oninput="toUpper(this)">
-                                    </div> 
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">20. Identifying Documents Presented: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="docs_presented" oninput="toUpper(this)">
-                                    </div> 
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">21.Contact Person, Address, and Contact Number:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_contactperson" oninput="toUpper(this)">
-                                    </div> 
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="image">Upload Victim's Image:</label>
-                                        <input type="file" class="form-control-file" id="file" name="vic_image" accept="image/*" onchange="previewImage(this)">
-                                    </div>
-
-                                    <div id="imagePreview"></div>
-                                </div>
-                            </div>
-                        </div> --}}
-
-                        {{-- <div class="">
-                            <div class="header">  
-                                <p style="font-size: medium;">Section C: <b style="font-size: medium;">Offender's Data</b></p>
-                            </div> 
-                            <hr style="margin-top: -1rem">
-                            <div class="row">
-                                <div class="col-3">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">22. Family name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_familyname" oninput="toUpper(this)">
-                                    </div> 
-                                </div>
-                                <div class="col-3">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">First name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_firstname" oninput="toUpper(this)">
-                                    </div> 
-                                </div>
-                                <div class="col-3">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Middle name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_middlename" oninput="toUpper(this)">
-                                    </div> 
-                                </div>
-                                <div class="col-3">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Aliases:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_aliases" oninput="toUpper(this)">
-                                    </div> 
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">23. Sex: </label>
-                                        <select class="form-control" name="off_gender">
-                                            <option>Select sex</option>
-                                            <option value="FEMALE">Female</option>
-                                            <option value="MALE">Male</option>
-                                        </select>
-                                    </div> 
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">24. Date of birth:</label>
-                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_date_birth">
-                                    </div> 
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">25. Civil Status: </label>
-                                        <select class="form-control" name="off_civil_stat">
-                                            <option>Select civil status</option>
-                                            <option value="SINGLE">Single</option>
-                                            <option value="LIVE-IN">Live-in</option>
-                                            <option value="MARRIED">Married</option>
-                                            <option value="WIDOW/ER">Widow/er</option>
-                                            <option value="SEPARATED">Separated</option>
-                                        </select>
-                                    </div> 
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">26. Highest Educational Attainment: </label>
-                                        <select class="form-control" name="off_educ_attainment" onchange="showfield(this.options[this.selectedIndex].value)">
-                                            <option>Select highest educational attainment</option>
-                                            <option value="ELEMENTARY">Elementary</option>
-                                            <option value="HS GRADUATE">HS Graduate</option>
-                                            <option value="COLLEGE GRAD">College Graduate</option>
-                                            <option value="POST GRADUATE">Post Graduate</option>
-                                            <option value="Others2">Others</option> 
-                                        </select>
-                                        <div id="div2" style="margin-top: 1rem"></div>
-                                    </div> 
-                                </div> 
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">27. Nationality: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_nationality" oninput="toUpper(this)">
-                                    </div> 
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-5">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        28. Previous Criminal Record:
-                                    </label>
-                                    
-                                    <div style="display: flex">
-                                        <div class="form-check" style="margin-right: 2rem; margin-left: 2rem">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                            <label class="form-check-label" for="flexRadioDefault1">
-                                            Yes
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                            <label class="form-check-label" for="flexRadioDefault2">
-                                            No
-                                            </label>
-                                        </div>
-                                    </div> 
-                                </div>
-                                <div class="col-7">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Pls. specify:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="crim_rec_specify" oninput="toUpper(this)">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">29. Employment Information - Occupation:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_occupation" oninput="toUpper(this)">
-                                    </div>
-                                </div>
-
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">30. Last Known Address:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_last_addr" oninput="toUpper(this)">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">31. Relationship to Victim:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim" oninput="toUpper(this)">
-                                    </div>
-                                </div> 
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="image">Upload Offender's Image:</label>
-                                        <input type="file" class="form-control-file" id="file" name="off_image" accept="image/*" onchange="previewImage2(this)">
-                                    </div>
-
-                                    <div id="imagePreview2"></div>
-                                </div>
-                            </div>
-                        </div> --}}
-
-                        {{-- EVIDENCE DATA --}}
+                        </div> 
                         <div class="" style="margin-bottom: 2rem">
                             <p style="font-size: medium;"><b style="font-size: medium; color: black">EVIDENCE DATA<br></b></p>
                             <hr style="margin-top: -1rem">
@@ -518,7 +207,7 @@
 
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">35. Suspect under the influence of: </label>
+                                        <label for="exampleInputEmail1">Suspect under the influence of: </label>
                                         <select class="form-control" name="influences" onchange="showfield(this.options[this.selectedIndex].value)">
                                             <option value="">Select influence</option>
                                             <option value="drugs">Drugs</option>
@@ -545,7 +234,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">47. Disposition: </label>
+                                        <label for="exampleInputEmail1">Disposition: </label>
                                         <select class="form-control" name="disposition" onchange="showfield(this.options[this.selectedIndex].value)">
                                             <option value="">Select disposition of case</option>
                                             <option value="settled_at_barangay">Settled at barangay</option>
@@ -566,7 +255,7 @@
 
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">48. Suspect disposition: </label>
+                                        <label for="exampleInputEmail1">Suspect disposition: </label>
                                         <select class="form-control" name="sus_disposition" onchange="showfield2(this.options[this.selectedIndex].value)">
                                             <option value="">Select disposition of case</option>
                                             <option value="arrested">Arrested</option>
