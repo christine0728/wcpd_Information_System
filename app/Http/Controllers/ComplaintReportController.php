@@ -264,15 +264,15 @@ class ComplaintReportController extends Controller
  
         $acc_type = Auth::guard('account')->user()->acc_type;  
 
-        // $authorID = Auth::guard('account')->user()->id;
-        // $log = new Logs();
-        // $log->author_type = Auth::guard('account')->user()->acc_type;
-        // $log->author_id = $authorID; 
-        // $log->action = "Add";
-        // $log->details = "Added Complaint Report Form";
-        // $log->created_at = $now;
-        // $log->updated_at = $now;
-        // $log->save();
+        $authorID = Auth::guard('account')->user()->id;
+        $log = new Logs();
+        $log->author_type = Auth::guard('account')->user()->acc_type;
+        $log->author_id = $authorID; 
+        $log->action = "Add";
+        $log->details = "Added Complaint Report Form";
+        $log->created_at = $now;
+        $log->updated_at = $now;
+        $log->save();
         
         $comp_id = $comp->id;
         if ($acc_type == 'investigator'){
