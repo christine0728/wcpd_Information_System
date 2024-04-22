@@ -422,6 +422,18 @@ $(document).ready(function() {
 
         var options = { 
             is3D: true,  
+            pieSliceText: 'percentage', 
+            backgroundColor: 'transparent',  
+            chartArea: {
+                left: 10,
+                top: 10,
+                width: '100%',
+                height: '100%'
+            },
+            pieSliceTextStyle: {
+                fontSize: 15
+            },
+            fontSize: 15,
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('pie_chart'));
@@ -443,13 +455,17 @@ $(document).ready(function() {
         var options = { 
             is3D: true,
             pieSliceText: 'percentage', 
-            backgroundColor: 'transparent', // Transparent background
+            backgroundColor: 'transparent',  
             chartArea: {
                 left: 10,
                 top: 10,
                 width: '100%',
                 height: '100%'
-            }
+            },
+            pieSliceTextStyle: {
+                fontSize: 15
+            },
+            fontSize: 15,
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('pie_chart5'));

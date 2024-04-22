@@ -80,7 +80,7 @@
         <!-- To the right -->
         
         
-        <strong>Copyright &copy; 2024 WCPC Information Management System</strong> All rights reserved.
+        <strong>Copyright &copy; 2024 WCPC Information Management System.</strong> All rights reserved.
         <div class=" d-none d-sm-inline"> 
             Developed by PSU UC - IT 0JT 2024.
         </div> 

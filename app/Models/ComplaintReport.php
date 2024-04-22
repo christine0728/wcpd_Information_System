@@ -11,6 +11,7 @@ class ComplaintReport extends Model
 
     protected $fillable = [
         'complaint_report_author',
+        'inv_case_no',
         'date_reported', 
         'place_of_commission',
         'offenses',

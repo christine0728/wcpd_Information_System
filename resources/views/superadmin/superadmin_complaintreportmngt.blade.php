@@ -162,17 +162,11 @@
                                         </td> --}}
                                         <td style="display: none">{{ $comp->id }}</td>
                                         <td>
-                                            <b>Date Reported:</b> {{ $comp->date_reported }}
+                                            <b>Investigation/Case No.:</b> {{ $comp->inv_case_no }}
+                                            <br><br><b>Date Reported:</b> {{ $comp->date_reported }}
                                             <br><br><b>Place of Commission:</b><br>{{ $comp->place_of_commission }}
                                             <br><br><b>Offenses Committed:</b><br>{{ $comp->offenses }}
-                                        </td>
-                                        {{-- <td style="vertical-align: top;">
-                                            <b>Victim Overview</b>
-                                            <br>Fullname: {{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}
-
-                                            <br><br><b>Offender Overview</b>
-                                            <br>Fullname: {{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}
-                                        </td> --}}
+                                        </td> 
                                         <td style="vertical-align: top; width: 14rem">
                                             @if ($comp->case_update == 'not update yet') 
                                                 Current: {{ $comp->case_disposition }}
@@ -187,36 +181,18 @@
                                             @endif
 
                                             <form action="{{ route('superadmin.change_case_status', $comp->id) }}" method="post">
-                                                @csrf
-                                                {{-- <div style="display: flex; align-items: center; margin-top: 0.5rem"> --}}
+                                                @csrf 
                                                     <select class="form-control" name="status" style="padding: 0.2rem; margin-right: 0.5rem; width: 100%; margin-top: 0.5rem"> 
                                                         <option>Update case:</option>
                                                         <option value="SETTLED">SETTLED</option> 
                                                         <option value="CONVICTED">CONVICTED</option>
                                                         <option value="DISMISS">DISMISS</option>
                                                     </select>
-                                                    <button type="submit" class="form-buttons" style="width: 50%; margin-top: 0.3rem; float: right"> Update Case </button>                
-                                                {{-- </div>  --}}
+                                                    <button type="submit" class="form-buttons" style="width: 50%; margin-top: 0.3rem; float: right"> Update Case </button>   
                                             </form>
-                                        </td>
-                                        {{-- <td>{{ $comp->suspect_disposition }}</td>
-                                        <td> 
-                                            @if ($comp->case_update == null) 
-                                                Case not updated yet.
-                                            @else
-                                                {{ $comp->case_update }}
-                                            @endif
-                                        </td> --}}
-                                        {{-- <td>
-                                            @if ($comp->case_update == null) 
-                                                Case not updated yet.
-                                            @else
-                                                {{ $comp->date_case_updated }}
-                                            @endif
-                                        </td> --}}
+                                        </td> 
                                         <td style="vertical-align: top;">
-                                        <center> 
-                                            {{-- <a class="case-btn" href=" ">&nbsp;&nbsp;&nbsp;Update Case <i class="fa-regular fa-file" style="font-size: large; padding: 0.5rem"></i></a>   --}} 
+                                        <center>  
                                             <a class="view-btn" href="{{ route('superadmin.view_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
                                             <br><a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('superadmin.edit_complaintreport', $comp->id) }}" style="margin-top: 0.3rem">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
                                             
