@@ -67,23 +67,7 @@
                                     <tr> 
                                         <th>View</th>
                                         <th>Complaint Report Author</th>
-                                        <th>Case Details</th>
-                                        {{-- <th>People Involved</th> --}}
-                                        {{-- <th>Place of Commission</th>
-                                        <th>Offenses Committed</th>
-                                        <th>Victim's Fullname</th>
-                                        <th>Victim's Sex</th>
-                                        <th>Victim's Age</th> 
-                                        <th>Offender's Fullname</th>
-                                        <th>Offender's Sex</th>
-                                        <th>Offender's Age</th>
-                                        <th>Relationship to Victim</th>
-                                        <th>Motive/Cause</th>
-                                        <th>Case Disposition</th>
-                                        <th>Suspect Disposition</th>
-                                        <th>Case Update</th>
-                                        <th>Date of Case Updated</th> --}}
-                                        {{-- <th>Action</th> --}}
+                                        <th>Case Details</th> 
                                     </tr>
                                 </thead>
                                 <tbody> 
@@ -97,6 +81,7 @@
                                         <td style="vertical-align: top;">{{ $comp->username }} ({{ $comp->team }})</td>
                                         <td>
                                             <b>Date Reported:</b> {{ $comp->date_reported }}
+                                            <br><b>Investigation/Case No.:</b> {{ $comp->inv_case_no }}
                                             <br><b>Place of Commission:</b> {{ $comp->place_of_commission }}
                                             <br><b>Offenses Committed:</b> {{ $comp->offenses }}
                                             <br><b>Motive/Cause:</b> {{ $comp->evidence_motive_cause }}

@@ -124,7 +124,8 @@
                                         </td> --}}
                                         <td style="display: none">{{ $comp->id }}</td>
                                         <td>
-                                            <b>Date Reported:</b> {{ $comp->date_reported }}
+                                            <b>Investigation/Case No.:</b> {{ $comp->inv_case_no }}
+                                            <br><br><b>Date Reported:</b> {{ $comp->date_reported }}
                                             <br><br><b>Place of Commission:</b><br>{{ $comp->place_of_commission }}
                                             <br><br><b>Offenses Committed:</b><br>{{ $comp->offenses }}
                                         </td>
