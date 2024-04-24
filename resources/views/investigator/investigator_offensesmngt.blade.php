@@ -53,6 +53,40 @@
 
         @section('content')
             <!-- Content Header (Page header) -->
+            <!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="editinfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Offense</h5>
+        
+      </div>
+      <div class="modal-body">
+        <form action="{{ route('investigator.edit_offense') }}" method="post">
+        <div class="modal-body">
+            @csrf
+            <input type="hidden" name="edit_id" id="edit_id">
+            <div class="form-group">
+                <label class="req-label">Offenses:</label>
+                <input type="text" class="form-control" name="edit_offense" id="edit_offense">
+            </div>
+            <div class="form-group">
+                <label class="req-label">Description</label>
+                <input type="text" class="form-control" name="edit_desc" id="edit_desc">
+            </div>       
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="form-buttons">Save changes</button>
+            </div>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2"> 
@@ -120,7 +154,9 @@
                                         <td>{{ $offense->created_at }}</td>
                                         <td>
                                         <center>  
-                                            <a  class="edit-btn" data-toggle="modal" data-id="{{ $offense->id }}" data-offense="{{ $offense->offense_name }}" data-desc="{{ $offense->description }}" data-target="#modalEdit">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
+                                        <a class="edit-btn" data-id="{{ $offense->id }}" data-offense="{{ $offense->offense_name }}" data-desc="{{ $offense->description }}"  data-bs-toggle="modal" data-bs-target="#editinfo" style="font-size: large; padding: 0.3rem">Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a>
+                                            <!-- <a  class="edit-btn" data-toggle="modal" data-id="{{ $offense->id }}" data-offense="{{ $offense->offense_name }}" data-desc="{{ $offense->description }}" data-target="#modalEdit">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
+                                             -->
                                             <a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href="{{ route('investigator.delete_offense', $offense->id) }}">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a>
                                         </center>
                                         </td>
@@ -168,7 +204,7 @@
                     </div>
                 </div>
             </div>
-    
+
 
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -208,7 +244,7 @@
 
         editButtons.forEach(function (button) {
             button.addEventListener('click', function () {
-                const modal = document.getElementById('modalEdit');
+                const modal = document.getElementById('editinfo');
                 const editId = this.getAttribute('data-id');
                 const editoffense = this.getAttribute('data-offense');
                 const editdesc = this.getAttribute('data-desc');
