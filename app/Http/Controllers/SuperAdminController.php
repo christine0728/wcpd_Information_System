@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\ComplaintReport;
+
 use App\Models\Logs;
 use App\Models\Notifications;
 use App\Models\Offender;
@@ -162,8 +163,8 @@ class SuperAdminController extends Controller
         $filter_year = null;
         $filter_year1 = null; 
 
-        $start_date = date('Y-m', strtotime($request->input('start_date')));
-        $end_date = date('Y-m', strtotime($request->input('end_date')));
+        $start_date = date('Y-m-d', strtotime($request->input('start_date')));
+        $end_date = date('Y-m-d', strtotime($request->input('end_date')));
 
         $crimeData = DB::table('complaint_reports')
         ->select(
@@ -171,7 +172,9 @@ class SuperAdminController extends Controller
             DB::raw('COUNT(*) as total_cases'),
             'offenses',
             'offender_sex'
-        ) 
+        )
+        ->whereDate('created_at', '>=', $start_date)
+        ->whereDate('created_at', '<=', $end_date)
         ->groupBy('month', 'offenses', 'offender_sex')
         ->orderBy('month')
         ->get();
@@ -185,11 +188,11 @@ class SuperAdminController extends Controller
             DB::raw('SUM(CASE WHEN v.victim_sex = "FEMALE" THEN 1 ELSE 0 END) AS female_total_comps'),
             DB::raw('GROUP_CONCAT(DISTINCT cr.offenses) AS offense')
         )
-        ->whereRaw("DATE_FORMAT(cr.created_at, '%Y-%m') >= ?", [$start_date])
-        ->whereRaw("DATE_FORMAT(cr.created_at, '%Y-%m') <= ?", [$end_date])
         ->groupBy('comp_month')
         ->orderBy(DB::raw('MONTH(cr.date_reported)'))
-        ->get(); 
+        ->get();
+    
+        
 
         $comps11 = ComplaintReport::join('victims', function ($join) {
             $join->on('victims.comp_report_id', '=', 'complaint_reports.id')
@@ -245,7 +248,9 @@ class SuperAdminController extends Controller
         )
         ->groupBy('offender_relationship_victim')
         ->get();
- 
+
+       
+
         return view('superadmin.superadmin_dashboard', ['relationshipCounts'=> $relationshipCounts,'topPlaces'=>$topPlaces, 'maleOffenders'=>$maleOffenders, 'femaleOffenders'=>$femaleOffenders, 'maleVictim'=>$maleVictim, 'femaleVictim'=>$femaleVictim, 'notifs'=>$notifs, 'comps'=>$comps, 'comps11'=>$comps11, 'comps_male'=>$comps_male, 'filter_year'=>$filter_year, 'filter_year1'=>$filter_year1]);
     }
 
@@ -254,13 +259,9 @@ class SuperAdminController extends Controller
         $invs = Account::where('acc_type', '=', 'investigator') 
             ->where('status', '=', 'active')
             ->get();
-
-        $inacts = Account::where('acc_type', '=', 'investigator') 
-            ->where('status', '=', 'inactive')
-            ->get();
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
-        return view('superadmin.superadmin_invaccountmngt', ['invs'=>$invs, 'inacts'=>$inacts, 'notifs'=>$notifs]);
+        return view('superadmin.superadmin_invaccountmngt', ['invs'=>$invs, 'notifs'=>$notifs]);
     }
 
     public function edit_investigator_acc($id)
@@ -445,7 +446,7 @@ class SuperAdminController extends Controller
         
         $notifs = Notifications::where('status', '=', 'unread')
         ->count();
-        return view('superadmin.superadmin_offensesmngt', ['offenses'=>$offenses, 'notifs'=>$notifs]);
+        return view('investigator.investigator_offensesmngt', ['offenses'=>$offenses, 'notifs'=>$notifs]);
     } 
 
     public function filter_allrecords(Request $request)
@@ -503,7 +504,6 @@ class SuperAdminController extends Controller
             ->where('complaint_reports.status', 'notdeleted')
             ->whereDate('complaint_reports.created_at', '>=', $start_date)
             ->whereDate('complaint_reports.created_at', '<=', $end_date)
-            ->where('complaint_reports.status', 'notdeleted')
             ->orderBy('victims.id', 'DESC') 
             ->get();
 
