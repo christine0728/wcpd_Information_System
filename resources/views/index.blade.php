@@ -1,152 +1,193 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-TW">
 <head>
-<title>WCPC Welcome Page</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arial">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<style>
-    *{
-        font-family: 'Arial';
-    }
-    body,h1,h2,h3,h4,h5 {font-family: "Arial", sans-serif}
-
-    .w3-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    }
-
-    .logo-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    }
-
-    .logo-container img {
-    width: 100px;
-    height: 100px;
-    margin-right: 10px;
-    border-radius: 50%;
-    }
-
-    .map-container {
-    width: 100%;
-    height: 400px;
-    margin-bottom: 20px;
-    }
-    .login-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>WCPD Index Page</title>
+    <meta name="description" content="Free bootstrap template Atlas">
+    <link rel="icon" href="images/favicon.png" sizes="32x32" type="image/png">
+    <link rel="stylesheet" href="css/wcpdindex.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-Mug+b8NKMIGj9PdQk+iOrNkDoz72NTb0ghlDh6e6vXuBj+qBfJgVgQ0LRjYXCBi7VqTiFzocXNQYOXM4wFwq8g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/aos.css">
 </head>
-<body style="background-color:#9947b6">
-<div class="w3-content" style="max-width:1400px">
-    <header class="w3-container w3-padding-32">
-    <div class="header-background">
-        <div class="login-logo-container">
-        <div class="logo-container">
-            <img src="{{ asset('images/pnp_logo.png') }}" alt="PNP Logo" >
-            <img src="{{ asset('images/wcpc_logo.jpg') }}" alt="WCPC Logo">
-            <img src="{{ asset('images/ucps_logo.jpg') }}" alt="UCPS Logo" >
+<body style="background-color:#9947B6">
+    <div class="jumbotron jumbotron-fluid" id="banner" style="background-image: url(images/pnp.png);">
+        <div class="container text-center text-md-left">
+        <header class="header-logos">
+    <div class="row justify-content-start align-items-center">
+        <div class="col-auto">
+            <img src="{{ asset('images/pnp_logo.png') }}" alt="PNP Logo" style="width: 300px; height: auto; border-radius: 50%; margin-left: 15px;">
         </div>
+        <div class="col-auto">
+            <img src="{{ asset('images/wcpd_logo.png') }}" alt="WCPD Logo" style="width: 300px; height: auto; border-radius: 50%;">
         </div>
-        <center>
-            <p style="font-size:17px; color: #F3E600">Republic of the Philippines<br>National Police Commision <br> Police Regional Office 1<br><hr>
-            </p><h1 style="font-size:48px; color: #F3E600"><b>Woman And Child Protection Center <br></b></h1>
-            <p style="font-size:33px; color: #F3E600">Philippine National Police Urdaneta City Pangasinan</p>
-        </center>
+        <div class="col-auto">
+            <img src="{{ asset('images/ucps_logo.png') }}" alt="UCPS Logo" style="width: 300px; height: auto; border-radius: 50%;">
+        </div>
     </div>
-    </header>
+</header>
+
+
+
+
+<h1 data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="display-3 text-white font-weight-bold my-5 animated" style="font-size: 50px; text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5); letter-spacing: 2px; line-height: 1.2;">
+    WCPD Information Management System<br>
+</h1>
+
+            <p data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="lead text-white my-4">
+               Woman And Children Protection Desk
+                <br>Urdaneta City Police Station Urdaneta City
+            </p>
+            <a href="/login" target="_blank" data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="btn my-4 font-weight-bold atlas-cta cta-purple">Login</a>
+        </div>
     </div>
-        <div class="w3-row">
-        <div class="w3-col l8 s12">
-        <div class="w3-card-4 w3-margin w3-white"><br>
-         <center><img src="{{ asset('images/pnp_woman.jpg') }}" alt="PNP Woman" style="height:17%; width: 17%"></center>
-            <div class="w3-container">
-            <h3><b>WOMAN AND CHILD PROTECTION CENTER</b></h3>
+
+    <!-- three-blcok -->
+    <div class="container my-5 py-2" style="color:white" >
+        <h2 class="text-center font-weight-bold my-5">"WCPD: Safeguarding Rights and Dignity"</h2>
+        <div class="row">
+            <div data-aos="fade-up" data-aos-delay="0" data-aos-duration="1000" data-aos-once="true"
+                class="col-md-4 text-center">
+                <i class="fa fa-balance-scale fa-5x" aria-hidden="true"></i>
+                <h4>Legal Aid</h4>
+                <p>Providing legal assistance and representation for women and children in need.</p>
             </div>
-            <div class="w3-container">
-        <p style=" text-align: justify">
-            Establishment: The WCPC traces its origins back to 1993 when it was established as the first women's desk within the Directorate for Police Community Relations (DPCR) of the PNP. Over the years, it has evolved and undergone various transformations to adapt to changing needs and circumstances.
-            <br><br>
-            Mandate: The primary mandate of WCPC is to provide assistance and support to women and children who are victims of abuse, violence, exploitation, and other forms of gender-based crimes. It plays a crucial role in ensuring the protection of their rights and well-being.
-            <br><br>
-            Functions:
-            Investigation: WCPC conducts investigations into cases involving violence against women and children, including domestic violence, sexual assault, human trafficking, and online exploitation.
-            <br><br>
-            Victim Support: The center provides support services to victims, including counseling, legal assistance, medical referrals, and shelter placement.
-            <br><br>
-            Prevention and Advocacy: WCPC is actively involved in advocacy and awareness-raising campaigns to prevent violence against women and children. It collaborates with government agencies, NGOs, and other stakeholders to promote gender equality and human rights.
-            <br><br>
-            Organizational Structure: WCPC operates under the supervision of the Directorate for Investigation and Detective Management (DIDM) of the PNP. It is staffed by specially trained police officers and personnel with expertise in handling cases involving women and children.
-            <br><br>
-            Collaboration: WCPC works closely with various government agencies, non-governmental organizations (NGOs), civil society groups, and international organizations involved in promoting the rights and welfare of women and children. It also collaborates with local communities to address issues at the grassroots level.
-            <br><br>
-            Training and Capacity Building: WCPC conducts training programs and capacity-building initiatives for PNP personnel and other stakeholders involved in responding to cases of violence against women and children. These initiatives aim to enhance skills, knowledge, and sensitivity in handling such cases.
-            <br><br>
-            Community Outreach: WCPC engages in community outreach activities to raise awareness about gender-based violence, child protection, and related issues. It conducts seminars, workshops, and information campaigns to empower communities and encourage reporting of cases.
-        </p>
-        <br>
+
+            <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000" data-aos-once="true" class="col-md-4 text-center">
+            <i class="fa fa-handshake-o fa-5x"></i>
+            <h4>Counseling</h4>
+            <p>Offering confidential counseling services to support individuals affected by abuse or trauma.</p>
+            </div>
+
+            <div data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000" data-aos-once="true"
+                class="col-md-4 text-center">
+                <i class="fa fa-medium fa-5x" aria-hidden="true"></i>
+                <h4>Emergency Assistance</h4>
+                <p>Providing immediate support and assistance to women and children facing emergencies or crises.</p>
+            </div>
         </div>
-        </div>
-        <hr>
-    <br>
-    <div class="map-container">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30683.624680511228!2d120.55108198063611!3d15.989912574944626!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33913f5cb2e26b2d%3A0xdadccf9cdce8a355!2sUrdaneta%20City%20Police%20Station!5e0!3m2!1sen!2suk!4v1707358278286!5m2!1sen!2suk" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
-    <br>
-    <div class="w3-card-4 w3-margin " style="background-color:#9947B6">
-        <div class="w3-container">
-    <center><img src="{{ asset('images/ucps_hm.jpg') }}" alt="PNP Human Trafficking" style="height:50%; width: 50%;"></center>
-        <div class="w3-row">
-        </div>
-        </div>
-    </div>
     </div>
 
-    <div class="w3-col l4">
-    <div class="w3-card w3-margin w3-margin-top"><br>
-    <center>  <h2 style="color:white">Contact Us!</h2></center>
-        <div class="w3-container " style="background-color: #2F8AFF">
-        <center><img src="{{ asset('images/wcpc_contact.png') }}" alt="PNP Contact" style="height:100%; width: 100%"></center>
-        </div>
-    </div><hr>
-    <div class="w3-card w3-margin">
-        <div class="w3-container w3-padding">
-        <h4 style="color: white">Clickable Links</h4>
-        </div>
-        <ul class="w3-ul w3-hoverable w3-white">
-        <li class="w3-padding-16">
-            <iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Fwcpdurdaneta.ereklamo%2Fvideos%2F171009934659071%2F&show_text=false&width=560&t=0" width="445" height="300" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
-        </li>
-        <li class="w3-padding-16">
-            <iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Fwcpdurdaneta.ereklamo%2Fvideos%2F2893787514216277%2F&show_text=false&width=560&t=0" width="445" height="300" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
-        </li>
-        <li class="w3-padding-16">
-            <iframe src="https://www.facebook.com/plugins/video.php?height=373&href=https%3A%2F%2Fwww.facebook.com%2Fwcpdurdaneta.ereklamo%2Fvideos%2F120090439751021%2F&show_text=false&width=560&t=0" width="445" height="300" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
-        </li>
-        <li class="w3-padding-16">
-        <iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Fwcpdurdaneta.ereklamo%2Fvideos%2F306198654473531%2F&show_text=false&width=560&t=0" width="445" height="300" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
-        </li>
-        </ul>
-    </div>
-    <hr>
-    <div class="w3-card w3-margin">
-    </div>
-        </div>
-    </div><br>
-</div>
-    <footer class="w3-container w3-padding-32 w3-margin-top" style="background-color:white">
-    <a href="/login" class="w3-button w3-black w3-padding-large w3-margin-bottom login-button" alt="Login" target=”_blank”>Login</a>
 
-    <p>Copyright © 2024 WCPC Information Management System. All rights reserved. Developed by: PSU UC - IT OJT 2024</p>
-    </footer>
+    <!-- price table
+    <div class="container my-5 py-2" id="price-table">
+        <h2 class="text-center font-weight-bold d-block mb-3">Check our pricing</h2>
+        <div class="row">
+            <div data-aos="fade-right" data-aos-delay="200" data-aos-duration="1000" data-aos-once="true" class="col-md-4 text-center py-4 mt-5">
+                <h4 class="my-4">STARTUP</h4>
+                <p class="font-weight-bold">$ <span class="display-2 font-weight-bold">0</span> / MO.</p>
+                <ul class="list-unstyled">
+                    <li>Up to 5 Documents</li>
+                    <li>Up to 3 Reviews</li>
+                    <li>5 team Members</li>
+                    <li>Limited Support</li>
+                </ul>
+                <a href="#" class="btn my-4 font-weight-bold atlas-cta cta-ghost">Get Free</a>
+            </div>
+            <div data-aos="fade-up" data-aos-duration="1000" data-aos-once="true" class="col-md-4 text-center py-4 mt-5 rounded" id="price-table__premium">
+                <h4 class="my-4">PREMIUM</h4>
+                <p class="font-weight-bold">$ <span class="display-2 font-weight-bold">10</span> / MO.</p>
+                <ul class="list-unstyled">
+                    <li>Up to 15 Documents</li>
+                    <li>Up to 10 Reviews</li>
+                    <li>25 team Members</li>
+                    <li>Limited Support</li>
+                </ul>
+                <a href="#" class="btn my-4 font-weight-bold atlas-cta cta-green">Get Free</a>
+            </div>
+            <div data-aos="fade-left" data-aos-delay="200" data-aos-duration="1000" data-aos-once="true" class="col-md-4 text-center py-4 mt-5">
+                <h4 class="my-4">PROFESSIONAL</h4>
+                <p class="font-weight-bold">$ <span class="display-2 font-weight-bold">30</span> / MO.</p>
+                <ul class="list-unstyled">
+                    <li>Unlimited Documents</li>
+                    <li>Unlimited Reviews</li>
+                    <li>Unlimited Members</li>
+                    <li>Unlimited Support</li>
+                </ul>
+                <a href="#" class="btn my-4 font-weight-bold atlas-cta cta-ghost">Get Free</a>
+            </div>
+        </div>
+    </div> -->
+    <!-- client -->
+    <!-- <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 col-md-2 py-2 align-self-center">
+                    <img src="images/client-1.png" class="mx-auto d-block">
+                </div>
+                <div class="col-sm-4 col-md-2 py-2 align-self-center">
+                    <img src="images/client-2.png" class="mx-auto d-block">
+                </div>
+                <div class="col-sm-4 col-md-2 py-2 align-self-center">
+                    <img src="images/client-3.png" class="mx-auto d-block">
+                </div>
+                <div class="col-sm-4 col-md-2 py-2 align-self-center">
+                    <img src="images/client-4.png" class="mx-auto d-block">
+                </div>
+                <div class="col-sm-4 col-md-2 py-2 align-self-center">
+                    <img src="images/client-5.png" class="mx-auto d-block">
+                </div>
+                <div class="col-sm-4 col-md-2 py-2 align-self-center">
+                    <img src="images/client-6.png" class="mx-auto d-block">
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- contact -->
+    <!-- <div class="jumbotron jumbotron-fluid" id="contact" style="background-image: url(images/contact-bk.jpg);">
+        <div class="container my-5">
+            <div class="row justify-content-between">
+                <div class="col-md-6 text-white">
+                    <h2 class="font-weight-bold">Contact Us</h2>
+                    <p class="my-4">
+                        Te iisque labitur eos, nec sale argumentum scribentur,
+                        <br> augue disputando in vim. Erat fugit sit at, ius lorem.
+                    </p>
+                    <ul class="list-unstyled">
+                        <li>Email : company_email@com</li>
+                        <li>Phone : 361-688-5824</li>
+                        <li>Address : 4826 White Avenue, Corpus Christi, Texas</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <form>
+                    	<div class="row">
+	                        <div class="form-group col-md-6">
+	                            <label for="name">Your Name</label>
+	                            <input type="name" class="form-control" id="name">
+	                        </div>
+	                        <div class="form-group col-md-6">
+	                            <label for="Email">Your Email</label>
+	                            <input type="email" class="form-control" id="Email">
+	                        </div>
+	                    </div>
+	                    <div class="form-group">
+	                        <label for="message">Message</label>
+	                        <textarea class="form-control" id="message" rows="3"></textarea>
+	                    </div>
+                        <button type="submit" class="btn font-weight-bold atlas-cta atlas-cta-wide cta-green my-3">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> -->
+<center>
+    <div class="jumbotron jumbotron-fluid text-center" id="copyright">
+        <div class="col-md-8 text-white align-self-center my-2" style="font-size: 18px;">
+            Copyright © 2024 WCPD Information Management System. All rights reserved. Developed by PSU UC-IT OJT 2024.
+        </div>
+    </div>
+</center>
+
+
+
+<script src="js/aos.js"></script>
+    <script>
+      AOS.init({
+      });
+    </script>
 </body>
+
 </html>
