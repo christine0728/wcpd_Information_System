@@ -80,17 +80,9 @@
                     </div>
                     <div class="col-6">
                         <div class="card">
-<<<<<<< Updated upstream
-                            <div class="card-body">  
-                                <div style="margin-bottom: 1rem">
-                                    <b style="color: #48145B; font-size: large"> TOTAL CASES PER MONTH PER GENDER </b>
-                                </div>
-                                <div id="chart_div" style="width: 100%; height: 15rem;"></div> 
-=======
                             <div class="card-body">
                                 <div id="chart_div" style="width: 100%; height: 15rem;"></div>
 
->>>>>>> Stashed changes
                                 <button id="download-button" class="form-buttons" style="width: 13rem; margin-top: 1rem">Download Monthly Data&nbsp;&nbsp;<i class="fa-solid fa-download"></i></button>
                             </div>
                         </div>
@@ -98,13 +90,8 @@
 
                     <div class="col-6">
                         <div class="card">
-<<<<<<< Updated upstream
-                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
-                                <div style="margin-bottom: 1rem">
-=======
                             <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; ">
                                 <div>
->>>>>>> Stashed changes
                                     <b style="color: #48145B; font-size: large"> TOTAL NUMBER OF RECORDS PER RELATIONSHIP OF VICTIM TO SUSPECT PER GENDER </b>
                                 </div>
                                 <table id="compsTbl">
@@ -431,25 +418,8 @@ $(document).ready(function() {
             ['Female', {{ $femaleVictim }}]
         ]);
 
-<<<<<<< Updated upstream
-        var options = { 
-            is3D: true,  
-            pieSliceText: 'percentage', 
-            backgroundColor: 'transparent',  
-            chartArea: {
-                left: 10,
-                top: 10,
-                width: '100%',
-                height: '100%'
-            },
-            pieSliceTextStyle: {
-                fontSize: 15
-            },
-            fontSize: 15,
-=======
         var options = {
             is3D: true,
->>>>>>> Stashed changes
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('pie_chart'));
@@ -470,8 +440,8 @@ $(document).ready(function() {
 
         var options = {
             is3D: true,
-            pieSliceText: 'percentage', 
-            backgroundColor: 'transparent',  
+            pieSliceText: 'percentage',
+            backgroundColor: 'transparent',
             chartArea: {
                 left: 10,
                 top: 10,
