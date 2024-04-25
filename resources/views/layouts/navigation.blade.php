@@ -1,11 +1,11 @@
 <!-- Sidebar -->
-<style> 
+<style>
 .sideber{
     position: fixed;
 }
 
 .ico.fa-solid.fa-circle {
-    font-size: 0.7rem !important; 
+    font-size: 0.7rem !important;
 }
 </style>
 <div class="sidebar" style="position:fixed">
@@ -23,7 +23,7 @@
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             @if (Auth::guard('account')->user()->acc_type == 'superadmin')
-                <li class="nav-item"> 
+                <li class="nav-item">
                     <a href="{{ route('superadmin.dashboard') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
@@ -39,11 +39,11 @@
                         {{ __('Dashboard') }}
                     </p>
                 </a>
-            </li> 
+            </li>
             @endif
 
             @if (Auth::guard('account')->user()->acc_type == 'superadmin')
-                <li class="nav-item"> 
+                <li class="nav-item">
                     <a href="{{ route('superadmin.allrecords')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                         <i class="nav-icon fa-regular fa-folder-open"></i>
                         <p>
@@ -59,11 +59,11 @@
                         {{ __('All Records') }}
                     </p>
                 </a>
-            </li> 
-            @endif 
+            </li>
+            @endif
 
             @if (Auth::guard('account')->user()->acc_type == 'superadmin')
-                <li class="nav-item"> 
+                <li class="nav-item">
                     <a href="{{ route('superadmin.complaintreport')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                         <i class="nav-icon fa-solid fa-file-invoice"></i>
                         <p>
@@ -79,11 +79,11 @@
                         {{ __('Complaint Report Management') }}
                     </p>
                 </a>
-            </li> 
-            @endif 
+            </li>
+            @endif
 
             @if (Auth::guard('account')->user()->acc_type == 'superadmin')
-                <li class="nav-item"> 
+                <li class="nav-item">
                     <a href="{{ route('superadmin.offensesmanagement') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                         <i class="nav-icon fa-solid fa-gavel"></i>
                         <p>
@@ -99,11 +99,11 @@
                         {{ __('Update Types of Offenses') }}
                     </p>
                 </a>
-            </li> 
+            </li>
             @endif
 
             @if (Auth::guard('account')->user()->acc_type == 'superadmin')
-                <li class="nav-item"> 
+                <li class="nav-item">
                     <a href="{{ route('superadmin.victims_mngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                         <i class="nav-icon fa-regular fa-user"></i>
                         <p>
@@ -119,11 +119,11 @@
                         {{ __('Victims Management') }}
                     </p>
                 </a>
-            </li> 
+            </li>
             @endif
 
             @if (Auth::guard('account')->user()->acc_type == 'superadmin')
-                <li class="nav-item"> 
+                <li class="nav-item">
                     <a href="{{ route('superadmin.suspects_mngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                         <i class="nav-icon fa-solid fa-user"></i>
                         <p>
@@ -139,8 +139,8 @@
                         {{ __('Offenders Management') }}
                     </p>
                 </a>
-            </li> 
-            @endif 
+            </li>
+            @endif
 
             @if (Auth::guard('account')->user()->acc_type == 'superadmin')
                 <li class="nav-item">
@@ -159,12 +159,12 @@
                                 <p>Investigator Account Mngt.</p>
                             </a>
                         </li>
-    
+
                         <li class="nav-item">
                             <a href="{{ route('superadmin.superadmin_account_mngt', Auth::guard('account')->user()->id) }}"  class="nav-link {{ request()->is('filipiniana') ? 'text-primary' : 'text-dark' }}">
                                 <p>Super Admin Account Mngt.</p>
                             </a>
-                        </li> 
+                        </li>
                     </ul>
                 </li>
             @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
@@ -173,8 +173,8 @@
                         <i class="nav-icon fa-solid fa-circle-user"></i>
                         <p>
                             {{ __('Account Management') }}
-                        </p> 
-                        
+                        </p>
+
                         @if (Auth::guard('account')->user()->change_password_req == 'accepted')
                             &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-circle ico" style="color: green"></i>
                         @elseif (Auth::guard('account')->user()->change_password_req == 'denied')
@@ -183,16 +183,16 @@
                     </a>
 
                 </li>
-            @endif 
+            @endif
 
             @if (Auth::guard('account')->user()->acc_type == 'superadmin')
                 <li class="nav-item">
                     <a href="{{ route('superadmin.logs') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                         <i class="nav-icon fa-solid fa-rectangle-list"></i>
                         <p>
-                            {{ __('Logs') }} 
+                            {{ __('Logs') }}
                         </p>
-                    </a> 
+                    </a>
                 </li>
             @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
                 <li class="nav-item">
@@ -200,14 +200,14 @@
                         <i class="nav-icon fa-solid fa-rectangle-list"></i>
                         <p>
                             {{ __('Logs') }}
-                        </p>  
+                        </p>
                     </a>
 
                 </li>
-            @endif 
+            @endif
 
             @if (Auth::guard('account')->user()->acc_type == 'superadmin')
-            <li class="nav-item"> 
+            <li class="nav-item">
                 <a href="{{ route('superadmin.password_requests')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                     <i class="nav-icon fa-solid fa-unlock-keyhole"></i>
                     <p>
@@ -222,9 +222,9 @@
                     <a href="{{ route('superadmin.trash') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                         <i class="nav-icon fa-solid fa-trash-can"></i>
                         <p>
-                            {{ __('Trash') }} 
+                            {{ __('Trash') }}
                         </p>
-                    </a> 
+                    </a>
                 </li>
             @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
                 <li class="nav-item">
@@ -232,12 +232,12 @@
                         <i class="nav-icon fa-solid fa-trash-can"></i>
                         <p>
                             {{ __('Trash') }}
-                        </p>  
+                        </p>
                     </a>
 
                 </li>
-            @endif 
-        </ul> 
+            @endif
+        </ul>
     </nav>
     <!-- /.sidebar-menu -->
 </div>

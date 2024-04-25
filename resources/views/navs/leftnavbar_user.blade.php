@@ -13,10 +13,10 @@
         <ul class="sub-menu blank">
           <li><a class="link_name" href="#">Dashboard</a></li>
         </ul>
-      </li> 
+      </li>
       <li>
         <a href="{{ route('investigator.dashboard') }}">
-          <i class='bx bx-data'></i> 
+          <i class='bx bx-data'></i>
           <span class="link_name">All records</span>
         </a>
         {{-- <ul class="sub-menu blank">
@@ -26,7 +26,7 @@
 
       <li>
         <a href="{{ route('investigator.complaintreport') }}">
-          <i class='bx bx-file'></i> 
+          <i class='bx bx-file'></i>
           <span class="link_name">Complaint Report Management</span>
         </a>
         {{-- <ul class="sub-menu blank">
