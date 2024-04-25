@@ -79,11 +79,11 @@
                             <form action="filter-complaintreps" method="GET">
                                 <div class="date-filter">
                                     <label for="start_date">From:</label>&nbsp;&nbsp;
-                                    <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}">&nbsp;&nbsp;
+                                    <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}" required>&nbsp;&nbsp;
                                     <label for="end_date">To:</label>&nbsp;&nbsp;
-                                    <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}">&nbsp;&nbsp;
+                                    <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}" required>&nbsp;&nbsp;
                                     <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-                                    <a href="{{ route('investigator.complaintreport') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a>
+                                    <!-- <a href="{{ route('investigator.complaintreport') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a> -->
                                 </div>
                             </form>
                         </div>
@@ -148,16 +148,19 @@
                                             @else
                                                 {{ $comp->date_case_updated }}
                                             @endif
-
+                                            @if ($errors->has('status')) 
+                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_present_addr') }}</span>
+                                        @endif
                                             <form action="{{ route('investigator.change_case_status', $comp->id) }}" method="post">
                                                 @csrf
                                                 {{-- <div style="display: flex; align-items: center; margin-top: 0.5rem"> --}}
-                                                    <select class="form-control" name="status" style="padding: 0.2rem; margin-right: 0.5rem; width: 100%; margin-top: 0.5rem"> 
-                                                        <option>Update case:</option>
-                                                        <option value="SETTLED">SETTLED</option> 
-                                                        <option value="CONVICTED">CONVICTED</option>
-                                                        <option value="DISMISS">DISMISS</option>
-                                                    </select>
+                                                <select class="form-control" name="status" style="padding: 0.2rem; margin-right: 0.5rem; width: 100%; margin-top: 0.5rem" required> 
+                                                    <option value="" disabled selected>Select case status:</option>
+                                                    <option value="SETTLED">SETTLED</option> 
+                                                    <option value="CONVICTED">CONVICTED</option>
+                                                    <option value="DISMISS">DISMISS</option>
+                                                </select>
+
                                                     <button type="submit" class="form-buttons" style="width: 50%; margin-top: 0.3rem; float: right"> Update Case </button>                
                                                 {{-- </div>  --}}
                                             </form>
