@@ -10,6 +10,7 @@ use App\Models\Employee;
 use App\Models\Logs;
 use App\Models\Offense;
 use App\Models\Notification;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Notifications;
 use App\Models\Offender;
 use App\Models\Team;
@@ -389,16 +390,30 @@ class InvestigatorController extends Controller
 
     public function change_case_status(Request $request, $id)
     {
-        $now = Carbon::now();
-        $now->setTimezone('Asia/Manila');
-        ComplaintReport::where('id', '=', $id)
-            ->update([
+        
+        $validator = Validator::make($request->all(), [
+            'status' => ['required'], 
+        ], [
+            'status.required' => 'The status field is required.',
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        } else{
+            $now = Carbon::now();
+            $now->setTimezone('Asia/Manila');
+            
+            ComplaintReport::where('id', $id)->update([
                 'case_update' => $request->input('status'),
                 'date_case_updated' => $now,
             ]);
-        return redirect()->back()->with('message', 'Account"s team has been added successfully!');
-    }
-
+            
+            return redirect()->back()->with('message', 'Case status has been updated successfully!');
+       
+        }
+        
+      }
+    
     public function change_password()
     {
         $id = Auth::guard('account')->user()->id;
