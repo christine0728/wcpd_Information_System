@@ -27,9 +27,15 @@
       width: 100%;
     }
 
-        .alert {
-        /* border: 1px solid transparent; */
-        /* border-radius: 4px; */
+    .login-form {
+  flex: 1;
+  padding: 40px;
+  background-color: rgba(233, 217, 247, 0.8);
+  border-radius: 0 8px 8px 0;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+    .alert {
         padding:6px;
     }
 
@@ -50,7 +56,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      height: 510px;
+      height: 515px;
     }
 
     .login-left img {
@@ -97,16 +103,27 @@
     p{
       color:white;
     }
+
+    body {
+            background-color: #192440;
+            background-image: url(images/pnp.png);
+            background-size: cover;
+            background-position: center;
+            font-family: 'Poppins', sans-serif;
+            backdrop-filter: blur(7px);
+            -webkit-backdrop-filter: blur(7px);
+        }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="login-container">
-      <div class="login-left" style="background-color:#9947B6">
-        <b> <p style="font-size: 20px">Woman And Children Protection Desk</p></b>
-        <b> <p style="font-size: 30px">WCPD Information Management System</p></b>
-        <b><p style="margin-bottom: 0;font-size: 20px">Philippine National Police<br><b style="font-size:12px">Urdaneta City Police Station</b></p></b>
-      </div>
+    <div class="login-left" style="background-color:#9947B6">
+    <b><p style="font-size: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5)">Woman And Children Protection Desk</p></b>
+    <b><p style="font-size: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5)">WCPD Information Management System</p></b>
+    <b><p style="margin-bottom: 0; font-size: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5)">Philippine National Police<br><b style="font-size:12px">Urdaneta City Police Station</b></p></b>
+</div>
+
       <div class="login-form" style="background-color:#E7D9F7">
         <center><img src="{{ asset('images/wcpd_logo.png') }}" alt="Login Image" height="100px" width="100px"></center><br>
 
@@ -118,13 +135,16 @@
             @endif
           @csrf
           <div class="mb-3">
-            <label for="email" class="form-label"><i class="fa fa-envelope"></i> Username</label>
+            <label for="email" class="form-label">
+                <i class="fa fa-envelope"></i> Username
+            </label>
             <input type="text" class="form-control" name="username" placeholder="Enter your username" required>
-            <div class="error-message">
-              @error('email')
-                {{ $message }}
-              @enderror
+            <div class="error-message" style="font-size: 14px; color: #dc3545; margin-top: 5px;">
+                @error('email')
+                    {{ $message }}
+                @enderror
             </div>
+<<<<<<< Updated upstream
           </div>
           <div class="mb-3">
             <label for="password" class="form-label"><i class="fa fa-lock"></i> Password</label>
@@ -142,17 +162,28 @@
         </div>
 
 
+=======
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">
+                <i class="fa fa-lock"></i> Password
+            </label>
+            <input type="password" class="form-control" name="password" placeholder="Enter your password" required>
+            <div class="error-message" style="font-size: 14px; color: #dc3545; margin-top: 5px;">
+                @error('password')
+                    {{ $message }}
+                @enderror
+            </div>
+        </div>
+>>>>>>> Stashed changes
           {!! NoCaptcha::renderJs() !!}
           {!! NoCaptcha::display() !!}
-
           @error('g-recaptcha-response')
               <p class="text-danger">{{ $message }}</p>
           @enderror
-
           <br>
           <button type="submit" class="btn btn-primary w-100" style="background-color:#9947B6"> Login&nbsp;<i class="fa fa-arrow-right"></i></button>
         </form>
-
         <div id="flash-message" class="mt-3" style="display: none;"></div>
       </div>
     </div>
