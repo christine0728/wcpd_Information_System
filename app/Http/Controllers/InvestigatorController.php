@@ -421,30 +421,58 @@ class InvestigatorController extends Controller
             ->get();
         return view('investigator.investigator_changepassword', ['invs'=>$invs]);
     }
-
     public function changing_password(Request $request)
     { 
-        $id = Auth::guard('account')->user()->id;
-        $username = $request->input('username');
-        $invs = Account::where('id', '=', $id)
-            ->first();
-        $check = $request->all();
+        // Validate the request data
+        $validator = Validator::make($request->all(), [
+            'username' => 'required',
+            'curr_password' => 'required',
+            'new_password' => [
+                'required',
+                'string',
+                'min:8',
+                'max:12',
+                'regex:/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+\\\|\[\]{};:\'",.<>?]).+$/'
 
-        // with('error', 'Admin account logged in successfully!');
-        if (Auth::guard('account')->attempt(['username' => $check['username'], 'password' => $check['curr_password']])){
-            if(Auth::guard('account')->check()){
-                // dd('goods');
-                Account::where('id', $id)
-                ->update([
-                    'password' => Hash::make($request->new_password),
-                    'change_password_req' => 'done', 
-                ]);
-                // dd('napalitan');
-                return redirect()->route('investigator.accountmngt')->with('error', 'Password changed successfully!');;
-            }
+            ],
+        ], [
+            'new_password.regex' => 'The new password must contain at least one letter and at least one number.',
+        ]);
+    
+        // Additional custom validation message if there are no letters or no numbers
+        $validator->sometimes('new_password', 'regex:/[a-zA-Z]/', function ($input) {
+            return !preg_match('/[a-zA-Z]/', $input->new_password);
+        }, function ($validator) {
+            $validator->errors()->add('new_password', 'The new password must contain at least one letter.');
+        });
+    
+        $validator->sometimes('new_password', 'regex:/\d/', function ($input) {
+            return !preg_match('/\d/', $input->new_password);
+        }, function ($validator) {
+            $validator->errors()->add('new_password', 'The new password must contain at least one number.');
+        });
+    
+        // Check if the validation fails
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
         }
-        else{
-            return redirect()->back()->with('error', 'Username or current password you entered is incorrect.');
+    
+        // Retrieve user id
+        $id = Auth::guard('account')->user()->id;
+    
+        // Check if the provided username and current password are correct
+        if (Auth::guard('account')->attempt(['username' => $request->input('username'), 'password' => $request->input('curr_password')])) {
+            // Update the user's password and set change_password_req to 'done'
+            Account::where('id', $id)->update([
+                'password' => Hash::make($request->input('new_password')),
+                'change_password_req' => 'done', 
+            ]);
+    
+            // Redirect with success message
+            return redirect()->route('investigator.accountmngt')->with('success', 'Password changed successfully!');
+        } else {
+            // Redirect back with error message if username or current password is incorrect
+            return redirect()->back()->with('error', 'Username or current password you entered is incorrect.')->withInput();
         }
     }
 
