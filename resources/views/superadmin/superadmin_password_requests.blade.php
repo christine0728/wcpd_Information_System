@@ -80,15 +80,15 @@
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2"> 
-                         <div class="col-6">
+                        <div class="col-6">
                             <h1 class="m-0" style="font-weight: bold;">&nbsp;{{ __('Password Requests') }}</h1>
-                        </div> 
+                        </div>  
                     </div>
                 </div>
             </div>
   
 
-            <div class="content" style="margin-top: -1rem; ">
+            <div class="content" style="margin-top: -0.5rem; ">
                 <div class="container-fluid" >   
                     <div class=" col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: -1.5rem; margin-bottom: 2rem">
                         {{-- <div class="card-body p-1">  --}}

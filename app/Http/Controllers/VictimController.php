@@ -141,7 +141,7 @@ class VictimController extends Controller
             return redirect()->route('investigator.victim_form', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
         }
         elseif ($acc_type == 'superadmin'){ 
-            return redirect()->route('superadmin.victim_form', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
+            return redirect()->route('superadmin.edit_complaintreport', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
         }  
     }
 

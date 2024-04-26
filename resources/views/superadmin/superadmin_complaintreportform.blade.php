@@ -170,8 +170,8 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Offenses Committed: (press CTRL to select multiple offenses) </label>
-                                        <select class="form-control" name="offenses[]" multiple> 
-                                            <option value="">Select:</option>
+                                        <select size="10" class="form-control" name="offenses[]" multiple> 
+                                            {{-- <option value="">Select:</option> --}}
                                             @foreach ($offenses as $offense) 
                                             <option value="{{ $offense->offense_name }}">{{ $offense->offense_name }}</option>
                                             @endforeach 
@@ -286,12 +286,12 @@
 
 
                         <div class="col-12 form-navigation">
-                            <a class="link-buttons" href=" " style="float: left;">Cancel <i class="fa-solid fa-xmark icons"></i> </a> 
+                            {{-- <a class="link-buttons" href="#" onclick="window.history.back();" style="float: left;">Cancel <i class="fa-solid fa-xmark icons"></i> </a>  --}}
                             {{-- <a class="link-buttons" href=" " style="float: right;">Next</a>  --}}
 
                            {{-- <button type="button" class="next form-buttons" style="float: right; width: 5rem">Next <i class="fa-solid fa-arrow-right icons"></i></button>  --}}
                            <button type="submit" class="form-buttons" style="float: right;">Submit <i class="fa-solid fa-check icons"></i></button>
-                           <button type="button" class="previous form-buttons" style="float: right; margin-right: 0.5rem; width: 5rem"><i class="fa-solid fa-arrow-left icons"></i> Back</button> 
+                           <button type="button" href="#" onclick="window.history.back();" class="previous form-buttons" style="float: right; margin-right: 0.5rem; width: 5rem"><i class="fa-solid fa-arrow-left icons"></i> Back</button> 
                         </div>
                     </div>
                 </form>

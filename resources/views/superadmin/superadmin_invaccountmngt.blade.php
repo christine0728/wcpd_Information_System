@@ -127,7 +127,7 @@
             <div class="content" style="margin-top: -2rem">
                 <div class="container-fluid">
                     <div class="col-12" style="margin-bottom: 1rem">
-                        <a class="link-buttons" href="{{ route('superadmin.add_investigator_acc') }}" style="float: left; background-color: #48145B" target="_blank" >Add Investigator&nbsp;&nbsp;<i class="fa-solid fa-plus"></i> </a> 
+                        <a class="link-buttons" href="{{ route('superadmin.add_investigator_acc') }}" style="float: left; background-color: #48145B" >Add Investigator&nbsp;&nbsp;<i class="fa-solid fa-plus"></i> </a> 
                     </div> 
 
                     <div class="tab">

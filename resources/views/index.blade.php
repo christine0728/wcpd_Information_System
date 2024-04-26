@@ -40,7 +40,7 @@
                Woman And Children Protection Desk
                 <br>Urdaneta City Police Station Urdaneta City
             </p>
-            <a href="/login" target="_blank" data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="btn my-4 font-weight-bold atlas-cta cta-purple">Login</a>
+            <a href="/login" data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="btn my-4 font-weight-bold atlas-cta cta-purple">Login</a>
         </div>
     </div>
 

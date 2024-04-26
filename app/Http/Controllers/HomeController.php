@@ -94,7 +94,7 @@ class HomeController extends Controller
     public function logout()
     {
         Auth::guard('account')->logout();
-        return redirect()->route('login_form')->with('success', 'Account logged out successfully');
+        return redirect()->route('index')->with('success', 'Account logged out successfully');
     }
 
     public function inactive_screen(Request $request)

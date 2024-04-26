@@ -284,7 +284,7 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Civil Status: </label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth" value="{{ $vic->victim_civil_status }}" readonly>  
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_civil_status" value="{{ $vic->victim_civil_status }}" readonly>  
                                 </div> 
                             </div> 
                             <div class="col-4">
@@ -415,7 +415,7 @@
                             <div class="col-4" >
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Civil Status: </label>
-                                    <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_date_birth"value="{{ $off->offender_civil_status }}" readonly>
+                                    <input type="TEXT" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_date_birth"value="{{ $off->offender_civil_status }}" readonly>
                                 </div> 
                             </div> 
                             <div class="col-4">
