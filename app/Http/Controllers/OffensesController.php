@@ -7,6 +7,7 @@ use App\Models\Offense;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class OffensesController extends Controller
 {
@@ -16,12 +17,28 @@ class OffensesController extends Controller
         $now = Carbon::now();
         $now->setTimezone('Asia/Manila');
         $name = $request->input('offense_name');
-        $desc = $request->input('description');
+        $desc = $request->input('description'); 
+
+        $validator = Validator::make($request->all(), [ 
+            'offense_name' => ['required', 'regex:/^[a-zA-Z\s.]+$/'],   
+            'description' => ['required', 'regex:/^[a-zA-Z\s.]+$/'], 
+        ], [ 
+            'offense_name.required' => 'This field is required.',
+            'offense_name.regex' => 'This field must contain only letters and periods.',
+            'description.required' => 'This field is required.',
+            'description.regex' => 'This field must contain only letters and periods.'
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect()->back()->with('delete', 'Inputs are either empty or invalid.'); 
+        }
+ 
         $offenses = new Offense([
             'offense_name' => $name,
             'description' => $desc,
             'not_delete' => false,
         ]);
+        
         $offenses->save();
         return redirect()->back()->with('success', 'Offense has been added successfully!');
     }

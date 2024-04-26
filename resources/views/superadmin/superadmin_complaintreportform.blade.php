@@ -140,7 +140,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Time/Day/Month/Year of Commission:</label>
-                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="datetime_commission" value="{{ old('datetime_commission') }}">
+                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="datetime_commission" value="{{ old('datetime_commission') }}" max="{{ date('Y-m-d') }}">
                                         @if ($errors->has('datetime_commission')) 
                                             <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('datetime_commission') }}</span>
                                         @endif 

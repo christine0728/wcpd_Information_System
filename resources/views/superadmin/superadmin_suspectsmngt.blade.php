@@ -61,9 +61,13 @@
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2"> 
-                         <div class="col-6">
+                        <div class="col-6">
                             <h1 class="m-0" style="font-weight: bold">&nbsp;{{ __('Offenders Management') }}</h1>
                         </div> 
+
+                        {{-- <div class="col-12">
+                            &nbsp;&nbsp;<a class="link-buttons" href="#" onclick="window.history.back();" style="background-color: #48145B; margin-right: 0.1rem" ><i class="fa-solid fa-arrow-left icons"></i>&nbsp;&nbsp;Go Back</a>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -79,11 +83,11 @@
                             <form action="filter-offendersmngt" method="GET">
                             <div class="date-filter">
                                 <label for="start_date">From:</label>&nbsp;&nbsp;
-                                <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}">&nbsp;&nbsp;
+                                <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}" max="{{ date('Y-m-d') }}" required>&nbsp;&nbsp;
                                 <label for="end_date">To:</label>&nbsp;&nbsp;
-                                <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}">&nbsp;&nbsp;
+                                <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}" max="{{ date('Y-m-d') }}" required>&nbsp;&nbsp;
                                 <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-                                <a href="{{ route('superadmin.suspects_mngt') }}" ><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a>
+                                {{-- <a href="{{ route('superadmin.suspects_mngt') }}" ><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a> --}}
                             </div>
                             </form>
                         </div>
@@ -93,16 +97,13 @@
                         <div class="card-body p-1">
                             <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                                 <thead>
-                                    <tr> 
-                                        {{-- <th>View</th> --}}
+                                    <tr>  
                                         <th>Image</th>
                                         <th>Fullname</th> 
                                         <th>Age</th>
-                                        <th>Previous Criminal Record/s</th>
-                                        {{-- <th>Last Known Address</th> --}}
+                                        <th>Previous Criminal Record/s</th> 
                                         <th>Relationship to Victim</th>
-                                        <th>Date Reported</th>
-                                        {{-- <th>Offenses</th> --}}
+                                        <th>Date Reported</th> 
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -125,9 +126,9 @@
                                         {{-- <td>{{ $comp->offenses }}</td>   --}}
                                         <td>
                                         <center> 
-                                            <a class="view-btn" href="{{ route('superadmin.view_complaintreport', $comp->compid) }}" target="_blank" style="margin-bottom: 0.5rem">&nbsp;&nbsp;&nbsp;View Case<i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
+                                            <a class="view-btn" href="{{ route('superadmin.view_complaintreport', $comp->compid) }}"  style="margin-bottom: 0.5rem">&nbsp;&nbsp;&nbsp;View Case<i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
                                                 
-                                            <br><a class="view-btn" href="{{ route('superadmin.offender_profile', $comp->oid) }}" target="_blank">&nbsp;&nbsp;&nbsp;View Profile<i class="fa-regular fa-user" style="font-size: large; padding: 0.5rem"></i></a> 
+                                            <br><a class="view-btn" href="{{ route('superadmin.offender_profile', $comp->oid) }}"  >&nbsp;&nbsp;&nbsp;View Profile<i class="fa-regular fa-user" style="font-size: large; padding: 0.5rem"></i></a> 
 
                                             {{-- <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', $comp->id) }}">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a>   --}}
                                         </center>

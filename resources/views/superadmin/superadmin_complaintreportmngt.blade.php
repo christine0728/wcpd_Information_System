@@ -100,11 +100,11 @@
                             <form action="filter-compsmngt" method="GET">
                                 <div class="date-filter">
                                     <label for="start_date">From:</label>&nbsp;&nbsp;
-                                    <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}">&nbsp;&nbsp;
+                                    <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}" max="{{ date('Y-m-d') }}" required>&nbsp;&nbsp;
                                     <label for="end_date">To:</label>&nbsp;&nbsp;
-                                    <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}">&nbsp;&nbsp;
+                                    <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}" max="{{ date('Y-m-d') }}" required>&nbsp;&nbsp;
                                     <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-                                    <a href="{{ route('superadmin.complaintreport') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a>
+                                    {{-- <a href="{{ route('superadmin.complaintreport') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a> --}}
                                 </div>
                             </form>
                         </div>
@@ -132,34 +132,15 @@
                             <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                                 <thead>
                                     <tr> 
-                                        <th style="display: none">id</th>
-                                        {{-- <th>View</th> --}}
-                                        {{-- <th><center>Complaint Report<br>Author</center></th> --}}
-                                        <th><center>CASE DETAILS</center></th>
-                                        {{-- <th><center>PEOPLE INVOLVED</center></th> --}}
-                                        {{-- <th>Victim's Fullname</th>
-                                        <th>Victim's Sex</th>
-                                        <th>Victim's Age</th> 
-                                        <th>Offender's Fullname</th>
-                                        <th>Offender's Sex</th>
-                                        <th>Offender's Age</th>
-                                        <th>Relationship to Victim</th>
-                                        <th>Motive/Cause</th> --}}
-                                        <th><center>CASE DISPOSITION</center></th>
-                                        {{-- <th>Suspect Disposition</th>
-                                        <th>Case Update</th> --}}
-                                        {{-- <th>Date of Case Updated</th> --}}
+                                        <th style="display: none">id</th> 
+                                        <th><center>CASE DETAILS</center></th> 
+                                        <th><center>CASE DISPOSITION</center></th> 
                                         <th><center>ACTION</center></th>
                                     </tr>
                                 </thead>
                                 <tbody> 
                                     @foreach ($comps as $comp)  
-                                    <tr>  
-                                        {{-- <td style="vertical-align: top;">
-                                            <center>
-                                                <a class="view-btn" href="{{ route('investigator.view_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
-                                            </center>
-                                        </td> --}}
+                                    <tr>   
                                         <td style="display: none">{{ $comp->id }}</td>
                                         <td>
                                             <b>Investigation/Case No.:</b> {{ $comp->inv_case_no }}
@@ -182,18 +163,18 @@
 
                                             <form action="{{ route('superadmin.change_case_status', $comp->id) }}" method="post">
                                                 @csrf 
-                                                    <select class="form-control" name="status" style="padding: 0.2rem; margin-right: 0.5rem; width: 100%; margin-top: 0.5rem"> 
-                                                        <option>Update case:</option>
-                                                        <option value="SETTLED">SETTLED</option> 
-                                                        <option value="CONVICTED">CONVICTED</option>
-                                                        <option value="DISMISS">DISMISS</option>
-                                                    </select>
-                                                    <button type="submit" class="form-buttons" style="width: 50%; margin-top: 0.3rem; float: right"> Update Case </button>   
+                                                <select class="form-control" name="status" style="padding: 0.2rem; margin-right: 0.5rem; width: 100%; margin-top: 0.5rem" required> 
+                                                    <option value="">Update case:</option>
+                                                    <option value="SETTLED">SETTLED</option> 
+                                                    <option value="CONVICTED">CONVICTED</option>
+                                                    <option value="DISMISS">DISMISS</option>
+                                                </select>
+                                                <button type="submit" class="form-buttons" style="width: 50%; margin-top: 0.3rem; float: right"> Update Case </button>   
                                             </form>
                                         </td> 
                                         <td style="vertical-align: top;">
                                         <center>  
-                                            <a class="view-btn" href="{{ route('superadmin.view_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
+                                            <a class="view-btn" href="{{ route('superadmin.view_complaintreport', $comp->id) }}" >&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
                                             <br><a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('superadmin.edit_complaintreport', $comp->id) }}" style="margin-top: 0.3rem">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
                                             
                                             <br><a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href="{{ route('superadmin.delete_form', $comp->id) }}" style="margin-top: 0.3rem">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a>

@@ -14,7 +14,7 @@
   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js" integrity="sha512-eyHL1atYNycXNXZMDndxrDhNAegH2BDWt1TmkXJPoGf1WLlNYt08CSjkqF5lnCRmdm3IrkHid8s2jOUY4NIZVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> 
 
-    <title>Investigator | Edit Complaint Report</title>
+    <title>Superadmin | Edit Complaint Report</title>
     <style>
         body {
             background-color: #D9D9D9;
@@ -117,7 +117,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Time/Day/Month/Year of Commission:</label>
-                                    <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="datetime_commission" value="{{ $comp->date_reported }}" readonly>
+                                    <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="datetime_commission" value="{{ $comp->date_reported }}" >
                                 </div> 
                             </div>
                             <div class="col-6">
@@ -132,7 +132,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Place of Commission: </label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" value="{{ $comp->place_of_commission }}" readonly>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" value="{{ $comp->place_of_commission }}" >
                                 </div> 
                             </div> 
                         </div>
@@ -141,8 +141,9 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Offenses Committed: </label>
+                                    <input type="hidden" name="offenses" value="max="{{ date('Y-m-d') }}>
                                     <select class="form-control" name="offenses[]" multiple>  
-                                        <option value="{{ $comp->offenses }}">Selected: {{ $comp->offenses }}</option>
+                                        <option value="{{ $comp->offenses }}" style="font-weight: bold">Selected: {{ $comp->offenses }}</option>
                                         @foreach ($offenses as $offense) 
                                             <option value="{{ $offense->offense_name }}">{{ $offense->offense_name }}</option>
                                         @endforeach 
@@ -201,15 +202,42 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Disposition: </label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim"value="{{ $comp->case_disposition }}" readonly> 
+                                    <label for="exampleInputEmail1">Disposition: </label> 
+
+                                    <select class="form-control" name="disposition" onchange="showfield(this.options[this.selectedIndex].value)">
+                                        <option value="{{ $comp->case_disposition }}">Select disposition of case</option>
+                                        <option value="settled_at_barangay">Settled at barangay</option>
+                                        <option value="settled_by_parties">Settled by parties</option>
+                                        <option value="under_police_investigation">Under police investigation</option>
+                                        <option value="before_prosecution_office">Before Prosecution Office</option>
+                                        <option value="filed_in_court">Filed in court</option>
+                                        <option value="dismissed">Dismissed</option>
+                                        <option value="referred_to_other_gov_agencies">Referred to other government agencies</option>
+                                        <option value="Others4">Others </option>
+                                    </select>
+                                    @if ($errors->has('disposition')) 
+                                        <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('disposition') }}</span>
+                                    @endif
+                                    <div id="div4" style="margin-top: 1rem"></div> 
                                 </div> 
                             </div>
 
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Suspect disposition: </label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim"value="{{ $comp->suspect_disposition }}" readonly> 
+                                    {{-- <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim" value="{{ $comp->suspect_disposition }}" readonly>  --}}
+
+                                    <select class="form-control" name="sus_disposition" onchange="showfield2(this.options[this.selectedIndex].value)">
+                                        <option value="{{ $comp->suspect_disposition }}">Select disposition of case</option>
+                                        <option value="arrested">Arrested</option>
+                                        <option value="at_large">At large</option>
+                                        <option value="detained">Detained</option> 
+                                        <option value="Others5">Others </option>
+                                    </select>
+                                    @if ($errors->has('sus_disposition')) 
+                                        <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('sus_disposition') }}</span>
+                                    @endif
+                                    <div id="div5" style="margin-top: 1rem"></div> 
                                 </div> 
                             </div> 
                         </div>
@@ -231,9 +259,9 @@
 
                         <button type="submit" class="form-buttons" style="float: right;">Submit Update <i class="fa-solid fa-check icons"></i></button> 
 
-                        <a class="link-buttons" href="{{ route('superadmin.offender_form', [$comp->id]) }}" style="float: right; background-color: #48145B; margin-right: 0.5rem">Add an Offender<i class="fa-solid fa-xmark icons"></i> </a>
+                        <a class="link-buttons" href="{{ route('superadmin.offender_form', [$comp->id]) }}" style="float: right; background-color: #48145B; margin-right: 0.5rem">Add an Offender&nbsp;&nbsp;<i class="fa-solid fa-plus"></i></a>
 
-                        <a class="link-buttons" href="{{ route('superadmin.victim_form', [$comp->id]) }}" style="float: right; background-color: #48145B; margin-right: 0.5rem">Add a Victim<i class="fa-solid fa-xmark icons"></i> </a> 
+                        <a class="link-buttons" href="{{ route('superadmin.victim_form', [$comp->id]) }}" style="float: right; background-color: #48145B; margin-right: 0.5rem">Add a Victim&nbsp;&nbsp;<i class="fa-solid fa-plus"></i></a> 
                     </div>
                 </div> 
                 </form>

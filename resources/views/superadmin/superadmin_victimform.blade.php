@@ -132,39 +132,7 @@
             <div class="col-12">
                 <form action="{{ route('superadmin.insert_victim', [$comp_id]) }}" class="employee-form" method="post" enctype="multipart/form-data">
                     @csrf
-                    <div class="row">
-                        {{-- <div class="form-section">  
-                            <div class="header" >  
-                                <p style="font-size: medium;">Section A: <b style="font-size: medium; color: black">Offense Data</b></p>
-                            </div> 
-                            <hr style="margin-top: -1rem">
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">6. Time/Day/Month/Year of Commission:</label>
-                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="datetime_commission">
-                                    </div> 
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">7. Place of Commission: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" oninput="toUpper(this)">
-                                    </div> 
-                                </div> 
-                            </div>
-
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">8. Offenses Committed: (press CTRL to select multiple offenses)</label>
-                                        <select class="form-control" name="offenses[]" multiple>  
-                                        </select>
-                                    </div> 
-                                </div>
-                            </div>
-                        </div> --}}
-
+                    <div class="row">  
                         <div class="form-section">
                             <div class="header">  
                                 <p style="font-size: medium;"><b style="font-size: medium;">Victim's Data</b></p>
@@ -174,12 +142,7 @@
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Family name:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_familyname" oninput="toUpper(this)" value="{{ old('vic_familyname') }}">
-
-                                        {{-- @error('vic_familyname')
-                                            <span class="text-danger" style="color: black">{{ $message }}</span>
-                                        @enderror --}}
-
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_familyname" oninput="toUpper(this)" value="{{ old('vic_familyname') }}"> 
                                         @if ($errors->has('vic_familyname')) 
                                             <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_familyname') }}</span>
                                         @endif

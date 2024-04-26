@@ -63,9 +63,13 @@
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2"> 
-                         <div class="col-6">
+                        <div class="col-6">
                             <h1 class="m-0" style="font-weight: bold;">&nbsp;{{ __('Edit Investigator Account') }}</h1>
-                        </div> 
+                        </div>
+                        
+                        <div class="col-12">
+                            &nbsp;&nbsp;<a class="link-buttons" href="#" onclick="window.history.back();" style="background-color: #48145B; margin-right: 0.1rem" ><i class="fa-solid fa-arrow-left icons"></i>&nbsp;&nbsp;Go Back</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -113,35 +117,18 @@
                                                             @elseif ($inv->team == 'team_b')
                                                                 <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="TEAM B">
                                                             @endif  
-                                                        </div>
-        
-                                                        {{-- <form action="{{ route('superadmin.change_team', $inv->id) }}" method="post">
-                                                            @csrf
-                                                            <div style="display: flex; align-items: flex-end;">
-                                                                <label for="teamSelect" class="mr-2">Select team:</label>
-                                                                <select class="form-control" id="teamSelect" name="team" style="border-radius: 0.3125rem; border: 2.5px solid #48145B; background: #FFF; width: 10rem; font-size: medium; margin-bottom: 0.5rem; margin-right: 2rem;">
-                                                                    <option>Select team:</option>
-                                                                    <option value="team_a">Team A</option>
-                                                                    <option value="team_b">Team B</option> 
-                                                                </select>
-                                                                <button type="submit" class="btn btn-primary">Change team</button>                
-                                                            </div> 
-                                                        </form> --}}
+                                                        </div> 
                                                     </div>
 
-                                                    <div class="col-12">
-                                                        {{-- <form action="{{ route('superadmin.change_team', $inv->id) }}" method="post">
-                                                            @csrf --}}
-                                                            <div style="display: flex; align-items: flex-end;">
-                                                                <label for="teamSelect" class="mr-2">Change Team:</label>
-                                                                <select class="form-control" id="teamSelect" name="team" style="border-radius: 0.3125rem; border: 2.5px solid #48145B; background: #FFF; width: 75%; font-size: medium; margin-right: 0.5rem;">
-                                                                    <option value="{{ $inv->team }}">Select here:</option>
-                                                                    <option value="team_a">TEAM A</option>
-                                                                    <option value="team_b">TEAM B</option> 
-                                                                </select>
-                                                                {{-- <button type="submit" class="form-buttons" style="width: 10rem">Change team</button>                 --}}
-                                                            </div> 
-                                                        {{-- </form> --}}
+                                                    <div class="col-12"> 
+                                                        <div style="display: flex; align-items: flex-end;">
+                                                            <label for="teamSelect" class="mr-2">Change Team:</label>
+                                                            <select class="form-control" id="teamSelect" name="team" style="border-radius: 0.3125rem; border: 2.5px solid #48145B; background: #FFF; width: 75%; font-size: medium; margin-right: 0.5rem;" required>
+                                                                <option value="">Select here:</option>
+                                                                <option value="team_a">TEAM A</option>
+                                                                <option value="team_b">TEAM B</option> 
+                                                            </select> 
+                                                        </div>  
                                                     </div>
                                                 </div> 
                                             </div> 

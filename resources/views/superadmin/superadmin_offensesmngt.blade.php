@@ -22,7 +22,7 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <link rel="icon" href="{{ url('images/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=24">
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=26">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
@@ -82,6 +82,13 @@
                     </div> 
                     
                     <div class="card col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: 1rem; margin-bottom: 5rem">
+
+                        @if(Session::has('delete')) 
+                            <div class="alert delete" role="alert">
+                                <b>{{ session::get('delete') }}</b>
+                            </div>
+                        @endif
+
                         <div class="card-body p-1">
                             <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                                 <thead>
@@ -100,6 +107,7 @@
                                         <td>
                                         <center> 
                                             <a  class="edit-btn" data-toggle="modal" data-id="{{ $offense->id }}" data-offense="{{ $offense->offense_name }}" data-desc="{{ $offense->description }}" data-target="#modalEdit">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
+
                                             <a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href="{{ route('superadmin.delete_offense', $offense->id) }}">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a>
                                         </center>
                                         </td>
@@ -159,13 +167,13 @@
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Offense Name: </label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="offense_name" oninput="toUpper(this)">
+                                <label for="offenseNameInput">Offense Name:</label>
+                                <input type="text" class="form-control" id="offenseNameInput" name="offense_name" oninput="toUpper(this)" required>
                             </div>
-
+                    
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Description: </label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="description" oninput="toUpper(this)">
+                                <label for="descriptionInput">Description:</label>
+                                <input type="text" class="form-control" id="descriptionInput" name="description" oninput="toUpper(this)" required>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -223,43 +231,12 @@
           });
       });
 
-    function confirmDelete(id) {
-        Swal.fire({
-            title: 'Are you sure to delete this book?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-            $.ajax({
-                type: 'POST',
-                url: '/admin/activity_destroy/' + id, 
-                data: {
-                _token: '{{ csrf_token() }}',
-                _method: 'DELETE'
-                },
-                success: function (response) {
-                Swal.fire(
-                    'Deleted!',
-                    'The record has been deleted.',
-                    'success'
-                ).then(function () {
-                    location.reload();
-                });
-                },
-                error: function (error) {
-                    console.log(error);
-                Swal.fire(
-                    'Error!',
-                    'An error occurred while deleting the record.',
-                    'error'
-                );
-                }
-            });
-            }
-        });
-    } 
-
+      document.getElementById('modalForm').addEventListener('submit', function(event) {
+        var form = event.target;
+        if (!form.checkValidity()) {
+            event.preventDefault(); // Prevent form submission if validation fails
+            event.stopPropagation();
+        }
+        form.classList.add('was-validated'); // Add Bootstrap class for validation styling
+    });
 </script>

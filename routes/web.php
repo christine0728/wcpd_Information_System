@@ -171,6 +171,7 @@ Route::prefix('superadmin')->middleware('account')->group(function(){
     Route::get('/filter-logs', [SuperAdminController::class, 'filter_logs'])->name('superadmin.filter_logs');
 
     Route::get('/trash', [SuperAdminController::class, 'trash'])->name('superadmin.trash'); 
+    Route::get('/filter-trash', [SuperAdminController::class, 'filter_trash'])->name('superadmin.filter_trash');
     Route::get('/restore_form/{comp_id}', [ComplaintReportController::class, 'restore_form'])->name('investigator.restore_form');
     Route::get('/permanent_del/{comp_id}', [ComplaintReportController::class, 'permanent_del'])->name('investigator.permanent_del');
 });

@@ -50,11 +50,11 @@
                             <form action="filter-allrecords" method="GET">
                             <div class="date-filter">
                                 <label for="start_date">From:</label>&nbsp;&nbsp;
-                                <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}">&nbsp;&nbsp;
+                                <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}" max="{{ date('Y-m-d') }}" required>&nbsp;&nbsp;
                                 <label for="end_date">To:</label>&nbsp;&nbsp;
-                                <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}">&nbsp;&nbsp;
+                                <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}" max="{{ date('Y-m-d') }}" required>&nbsp;&nbsp;
                                 <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-                                <a href="{{ route('superadmin.allrecords') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a>
+                                {{-- <a href="{{ route('superadmin.allrecords') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a> --}}
                             </div>
                             </form>
                         </div>
@@ -127,104 +127,17 @@
 </script>
 @endif
 
-<script>
-    function confirmDelete(id) {
-        Swal.fire({
-            title: 'Are you sure to delete this book?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-            $.ajax({
-                type: 'POST',
-                url: '/admin/activity_destroy/' + id,
-                data: {
-                _token: '{{ csrf_token() }}',
-                _method: 'DELETE'
-                },
-                success: function (response) {
-                Swal.fire(
-                    'Deleted!',
-                    'The record has been deleted.',
-                    'success'
-                ).then(function () {
-                    location.reload();
-                });
-                },
-                error: function (error) {
-                    console.log(error);
-                Swal.fire(
-                    'Error!',
-                    'An error occurred while deleting the record.',
-                    'error'
-                );
-                }
-            });
-            }
-        });
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const editButtons = document.querySelectorAll('.btn-edit');
-
-        editButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                const modal = document.getElementById('modalEdit');
-                const editId = this.getAttribute('data-id');
-                const editactivity_title = this.getAttribute('data-activity_title');
-                const editstatus = this.getAttribute('data-status');
-
-                document.getElementById('edit_id').value = editId;
-                document.getElementById('edit_activity_title').value = editactivity_title;
-                document.getElementById('edit_status').value = editstatus;
-
-                document.getElementById('edit_id').value = editId;
-
-                $(modal).modal('show');
-            });
-        });
-    });
-
+<script> 
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    var yyyy = today.getFullYear();
+    var currentDate = yyyy + '-' + mm + '-' + dd;
+    document.getElementById('end_date').value = currentDate;
 </script>
+ 
 
-<!-- Edit Organizational Structure Modal -->
-{{-- <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalAddLabel">Update Records</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="{{ route('update_activity') }}" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <input type="hidden" id="edit_id" name="edit_id">
-                    </div>
-                    <div class="form-group">
-                        <label for="barcode">Activity title:</label>
-                        <input type="text" class="form-control" id="edit_activity_title" name="edit_activity_title" required placeholder="Enter the activity_title">
-                    </div>
-                    <div class="form-group">
-                        <label for="barcode">Status:</label>
-                        <input type="text" class="form-control" id="edit_status" name="edit_status" required placeholder="Enter the status">
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save Changes</button>
-            </div>
-            </form>
-        </div>
-    </div>
-</div> --}}
-
-<script>
+<script>  
     var myInput1 = document.getElementById("myInput1");
 
     var storedValue1 = localStorage.getItem("myInputValue1");
