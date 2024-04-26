@@ -17,7 +17,7 @@ class Account
     public function handle(Request $request, Closure $next): Response
     {
         if (!Auth::guard('account')->check()){
-            return redirect()->route('login_form')->with('error', 'Account logged out. Login first.');
+            return redirect()->route('index')->with('error', 'Account logged out. Login first.');
         }
         return $next($request);
     }

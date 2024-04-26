@@ -8,6 +8,7 @@ use App\Models\Logs;
 use App\Models\Offender;
 use App\Models\Offense;
 use App\Models\Victim;
+use App\Rules\UniqueInvCaseNo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -197,12 +198,10 @@ class ComplaintReportController extends Controller
         }
         else {
             $sus_dispo = $request->input('sus_disposition');
-        }
- 
-
+        } 
         $validator = Validator::make($request->all(), [
             'datetime_commission' => 'required',
-            'inv_case_no' => ['required', 'regex:/^[a-zA-Z0-9\-]+$/'],
+            'inv_case_no' => ['required', 'regex:/^[a-zA-Z0-9\-]+$/', new UniqueInvCaseNo],
             'place_commission' => ['required', 'regex:/^[a-zA-Z0-9\s\-_.,#]+$/'], 
             'offenses' => 'required', 
             'evi_motive' => 'required', 
@@ -233,17 +232,7 @@ class ComplaintReportController extends Controller
         $offenses = $request->input('offenses');
 
         $serializedoffense = implode(', ', $offenses);
-
-        // $rules=[
-        //     'datetime_commission' => 'required', 
-        // ];
-
-        // $customMessages=[
-        //     'required' => 'The :attribute field is empty.', 
-        // ];
-
-        // $this->validate($request, $rules, $customMessages);
-
+  
         $comp = ComplaintReport::create([
             'complaint_report_author' => $currentUserId,
             'date_reported' => $request->input('datetime_commission'),

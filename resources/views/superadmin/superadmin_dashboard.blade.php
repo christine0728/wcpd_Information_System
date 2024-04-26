@@ -115,41 +115,7 @@
 
                             </div>
                         </div>
-<<<<<<< Updated upstream
-                    </div>
-
-                    {{-- <div class="col-6">
-                        <div class="card">
-                            <div class="card-body" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; ">
-                                <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
-                                    <thead>
-                                        <tr>
-                                            <th>Case</th>
-                                            @foreach($comps as $comp)
-                                                <th>{{ $comp->comp_month }}</th>
-                                            @endforeach
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($comps as $comp)
-                                            <tr>
-                                                <td>
-                                                    {{ $comp->offense }}
-                                                </td>
-                                                @foreach($comps as $comp)
-                                                <td>Male: {{ $comp->male_total_comps }}
-                                                    <br>Female: {{ $comp->female_total_comps }}</td>
-                                                @endforeach
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div> --}}
-=======
                     </div> 
->>>>>>> Stashed changes
 
                     <div class="col-6">
                         <div class="card">
@@ -202,45 +168,9 @@
                                 <div id="chart_div1" ></div>
                             </div>
                         </div>
-<<<<<<< Updated upstream
-                    </div>
-
-
-                    {{-- <div class="col-6">
-                        <div class="card">
-                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; ">
-                                <div>
-                                    <b style="color: #48145B; font-size: large"> TOTAL NUMBER OF RECORDS PER RELATIONSHIP OF VICTIM TO SUSPECT PER GENDER </b>
-                                </div>
-                                <table id="compsTbl">
-                                    <thead>
-                                        <tr>
-                                            <th>RELATIONSHIP </th>
-                                            <th>Male Count</th>
-                                            <th>Female Count</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($relationshipCounts as $item)
-                                            <tr>
-                                                <td>{{ $item->offender_relationship_victim }}</td>
-                                                <td>{{ $item->male_count }}</td>
-                                                <td>{{ $item->female_count }}</td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-
-                            </div>
-                        </div>
-                    </div> --}}
-
-                    <div class="card-footer clearfix">
-=======
                     </div> 
                    
                     <div class="card-footer clearfix"> 
->>>>>>> Stashed changes
                     </div>
                 </div>
             </div>
@@ -289,14 +219,9 @@ $(document).ready(function() {
 
         var chart = new google.charts.Bar(document.getElementById('chart_div'));
 
-<<<<<<< Updated upstream
         chart.draw(data, google.charts.Bar.convertOptions(options));
 
         // Function to download chart data as CSV
-=======
-        chart.draw(data, google.charts.Bar.convertOptions(options)); 
-         
->>>>>>> Stashed changes
         function downloadCSV() {
             var csvContent = google.visualization.dataTableToCsv(data);
             var encodedUri = encodeURI('data:text/csv;charset=utf-8,' + csvContent);
@@ -388,7 +313,6 @@ $(document).ready(function() {
 
         var chart_male = new google.visualization.PieChart(document.getElementById('pie-chart_male'));
         chart_male.draw(data_male, options_male);
-<<<<<<< Updated upstream
     }
 </script>
 {{-- <script>
@@ -419,10 +343,6 @@ $(document).ready(function() {
     setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
 
 </script> --}}
-=======
-    }  
-</script> 
->>>>>>> Stashed changes
 <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
