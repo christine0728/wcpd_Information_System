@@ -128,13 +128,19 @@
           </div>
           <div class="mb-3">
             <label for="password" class="form-label"><i class="fa fa-lock"></i> Password</label>
-            <input type="password" class="form-control" name="password" placeholder="Enter your password" required>
-            <div class="error-message">
-              @error('password')
-                {{ $message }}
-              @enderror
+            <div class="input-group">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                    <i class="fas fa-eye"></i>
+                </button>
             </div>
-          </div>
+            <div class="error-message">
+                @error('password')
+                    {{ $message }}
+                @enderror
+            </div>
+        </div>
+
 
           {!! NoCaptcha::renderJs() !!}
           {!! NoCaptcha::display() !!}
@@ -177,3 +183,16 @@
   </script>
 </body>
 </html>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const togglePassword = document.querySelector('#togglePassword');
+        const passwordInput = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+
+            this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+        });
+    });
+</script>
