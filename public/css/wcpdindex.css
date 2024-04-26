@@ -77,54 +77,6 @@ button {
     max-width: 80px;
 }
 
-/********** feature (skew background) **********/
-.feature img {
-    width: 100%;
-    max-width: 480px;
-}
-
-#feature-first {
-    background: linear-gradient(168deg, #ffffff 55%, #00FFAD 0);
-}
-
-#feature-last {
-    background: #00FFAD;
-}
-
-/********** price table **********/
-#price-table {
-    padding-top: 4rem !important;
-    padding-bottom: 4rem !important;
-}
-
-#price-table__premium {
-    background: #192440;
-    color: #ffffff;
-}
-
-#price-table ul li {
-    padding: 5px 0;
-}
-
-/********** contact **********/
-#contact {
-    background-size: cover;
-}
-
-#contact ul li {
-    padding: 3px 0;
-}
-
-#contact form {
-    color: #00FFAD;
-}
-
-#contact form input,
-#contact form textarea {
-    background: transparent;
-    border: 1px solid #00FFAD;
-    color: #ffffff;
-}
 
 /********** copyright **********/
 #copyright {
@@ -162,7 +114,7 @@ button {
 }
 
 .btn.cta-purple {
-    background-color: #bf72db;
+    background-color: #cd8ae5;
     color: black;
 }
 
@@ -188,3 +140,8 @@ button {
   .animated {
     animation: slideIn 1s ease-in-out;
   }
+
+  .custom-paragraph {
+    font-size: 24px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
