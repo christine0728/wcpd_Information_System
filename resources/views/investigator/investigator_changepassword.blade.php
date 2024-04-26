@@ -88,14 +88,40 @@
                                     </div>
     
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Current password: </label>
-                                        <input type="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="curr_password" oninput="toUpper(this)">
+                                        <label for="curr_password">Current password:</label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" id="curr_password" name="curr_password">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button" id="toggleCurrPassword">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
     
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">New password: </label>
-                                        <input type="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="new_password" oninput="toUpper(this)">
-                                    </div> 
+                                        <label for="new_password">New password:</label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" id="new_password" name="new_password">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                                                        <!-- Display validation errors -->
+                                        @if ($errors->any())
+                                            <div class="alert alert-danger">
+                                                <ul>
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif
+                                    </div>
                                     
                                 </div> 
                                 <div class="col-12">
@@ -217,4 +243,30 @@
     
     setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
 
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleCurrPassword = document.querySelector('#toggleCurrPassword');
+        const currPasswordInput = document.querySelector('#curr_password');
+
+        toggleCurrPassword.addEventListener('click', function() {
+            const type = currPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            currPasswordInput.setAttribute('type', type);
+
+            this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const togglePassword = document.querySelector('#togglePassword');
+        const passwordInput = document.querySelector('#new_password');
+
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+
+            this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+        });
+    });
 </script>
