@@ -64,26 +64,27 @@
                          <div class="col-6">
                             <h1 class="m-0" style="font-weight: bold">&nbsp;{{ __('Victims Management') }}</h1>
                         </div> 
+
+                        {{-- <div class="col-12">
+                            &nbsp;&nbsp;<a class="link-buttons" href="#" onclick="window.history.back();" style="background-color: #48145B; margin-right: 0.1rem" ><i class="fa-solid fa-arrow-left icons"></i>&nbsp;&nbsp;Go Back</a>
+                        </div> --}}
                     </div>
                 </div>
             </div>
  
             <div class="content" style="margin-top: -2rem">
-                <div class="container-fluid">
-                    {{-- <div class="col-12">
-                        <a class="link-buttons" href="{{ route('investigator.complaintreport_form') }}" style="float: left;" target="_blank">Add a Complaint Report&nbsp;&nbsp;<i class="fa-solid fa-plus"></i> </a> 
-                    </div> --}} 
+                <div class="container-fluid"> 
                     
                     <div class="col-12">
                         <div class="filter">
                             <form action="filter-victimsmngt" method="GET">
                                 <div class="date-filter">
                                     <label for="start_date">From:</label>&nbsp;&nbsp;
-                                    <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}">&nbsp;&nbsp;
+                                    <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}" max="{{ date('Y-m-d') }}" required>&nbsp;&nbsp;
                                     <label for="end_date">To:</label>&nbsp;&nbsp;
-                                    <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $start_date ?? old('start_date') }}">&nbsp;&nbsp;
+                                    <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $start_date ?? old('start_date') }}" max="{{ date('Y-m-d') }}" required>&nbsp;&nbsp;
                                     <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-                                    <a href="{{ route('superadmin.victims_mngt') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a>
+                                    {{-- <a href="{{ route('superadmin.victims_mngt') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a> --}}
                                 </div>
                             </form>
                         </div>
@@ -110,25 +111,15 @@
                                         <th>Image</th>
                                         <th>Fullname</th>
                                         <th>Sex</th>
-                                        <th>Age</th>
-                                        {{-- <th>Civil Status</th> --}}
-                                        <th>Present Address</th>
-                                        {{-- <th>Guardian Name</th>
-                                        <th>Contact Person</th>  --}}
-                                        <th>Date Reported</th>
-                                        {{-- <th>Offenses</th> 
-                                        <th>Case Updated</th> --}}
+                                        <th>Age</th> 
+                                        <th>Present Address</th> 
+                                        <th>Date Reported</th> 
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody> 
                                     @foreach ($comps as $comp)  
-                                    <tr>  
-                                        {{-- <td>
-                                            <center>
-                                                <a class="view-btn" href="{{ route('investigator.view_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
-                                            </center>
-                                        </td> --}}  
+                                    <tr>   
                                         <td style="display: none">{{$comp->vid}}</td>
                                         <td> 
                                             @if($comp->victim_image)
@@ -139,23 +130,12 @@
                                         </td>
                                         <td>{{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}</td>
                                         <td>{{ $comp->victim_sex }}</td> 
-                                        <td>{{ $comp->victim_age }}</td>
-                                        {{-- <td>{{ $comp->victim_civil_status }}</td> --}}
-                                        <td>{{ $comp->victim_present_address }}</td>
-                                        {{-- <td>{{ $comp->victim_parents_guardian_name }}</td>
-                                        <td>{{ $comp->victim_contactperson_addr_con_num }}</td> --}}
-                                        <td>{{ $comp->date_reported }}</td>
-                                        {{-- <td>{{ $comp->offenses }}</td> 
-                                        <td> 
-                                            @if ($comp->case_update == null) 
-                                                Case not updated yet.
-                                            @else
-                                                {{ $comp->case_update }}
-                                            @endif
-                                        </td>  --}}
+                                        <td>{{ $comp->victim_age }}</td> 
+                                        <td>{{ $comp->victim_present_address }}</td> 
+                                        <td>{{ $comp->date_reported }}</td> 
                                         <td>
                                         <center> 
-                                            <a class="view-btn" href="{{ route('superadmin.view_complaintreport', $comp->compid) }}" target="_blank" style="margin-bottom: 0.5rem">&nbsp;&nbsp;&nbsp;View Case<i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem;"></i></a>
+                                            <a class="view-btn" href="{{ route('superadmin.view_complaintreport', $comp->compid) }}" style="margin-bottom: 0.5rem">&nbsp;&nbsp;&nbsp;View Case<i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem;"></i></a>
                                                 
                                             <br><a class="view-btn" href="{{ route('superadmin.victim_profile', $comp->vid) }}">&nbsp;&nbsp;&nbsp;View Profile<i class="fa-regular fa-user" style="font-size: large; padding: 0.5rem"></i></a> 
 

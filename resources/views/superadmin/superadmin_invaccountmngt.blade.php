@@ -188,8 +188,8 @@
                                         <td> 
                                             <form action="{{ route('superadmin.change_status', $inv->id) }}" method="post">
                                                 @csrf
-                                                <select class="form-control" name="status" style="border-radius: 0.3125rem; border: 2.5px solid #48145B; background: #FFF; width: 8rem; padding: 0.4rem; font-size: medium; margin-bottom: 1rem">
-                                                    <option>Select status:</option>
+                                                <select class="form-control" name="status" style="border-radius: 0.3125rem; border: 2.5px solid #48145B; background: #FFF; width: 8rem; padding: 0.4rem; font-size: medium; margin-bottom: 0.5rem" required>
+                                                    <option value="">Select status:</option>
                                                     <option value="active">ACTIVE</option>
                                                     <option value="inactive">INACTIVE</option> 
                                                 </select>
@@ -267,8 +267,8 @@
                                         <td> 
                                             <form action="{{ route('superadmin.change_status', $inact->id) }}" method="post">
                                                 @csrf
-                                                <select class="form-control" name="status" style="border-radius: 0.3125rem; border: 2.5px solid #48145B; background: #FFF; width: 8rem; padding: 0.4rem; font-size: medium; margin-bottom: 1rem">
-                                                    <option>Select status:</option>
+                                                <select class="form-control" name="status" style="border-radius: 0.3125rem; border: 2.5px solid #48145B; background: #FFF; width: 8rem; padding: 0.4rem; font-size: medium; margin-bottom: 0.5rem" required>
+                                                    <option value="">Select status:</option>
                                                     <option value="active">ACTIVE</option>
                                                     <option value="inactive">INACTIVE</option> 
                                                 </select>

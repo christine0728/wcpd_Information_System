@@ -344,13 +344,23 @@ class ComplaintReportController extends Controller
 
         $now = Carbon::now();
         $now->setTimezone('Asia/Manila');
-
-        $serializedoffense = implode(', ', $offenses);
+        $offenses = $request->input('offenses');
+        $inp_offenses = '';
+   
+        if ($offenses !== null) {
+            if (is_array($offenses)) {
+                // If $offenses is an array, serialize it into a string
+                $inp_offenses = implode(', ', $offenses);
+            } else {
+                // If $offenses is not an array, directly assign its value
+                $inp_offenses = $offenses;
+            }
+        }
 
         ComplaintReport::where('id', $compid)
             ->update([
                 'inv_case_no' => $request->input('inv_case_no'),
-                'offenses' => $serializedoffense, 
+                'offenses' => $inp_offenses, 
                 'evidence_motive_cause' => $request->input('evi_motive'),
                 'evidence_influence_of' => $request->input('influences'), 
                 'updated_at' => $now,

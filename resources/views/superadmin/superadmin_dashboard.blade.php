@@ -73,7 +73,7 @@
                                 <label for="end_date">To:</label>&nbsp;&nbsp;
                                 <input type="month" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}">&nbsp;&nbsp;
                                 <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-                                <a href="{{ route('superadmin.allrecords') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a>
+                                {{-- <a href="{{ route('superadmin.allrecords') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a> --}}
                             </div>
                             </form>
                         </div>
@@ -115,6 +115,7 @@
 
                             </div>
                         </div>
+<<<<<<< Updated upstream
                     </div>
 
                     {{-- <div class="col-6">
@@ -146,6 +147,9 @@
                             </div>
                         </div>
                     </div> --}}
+=======
+                    </div> 
+>>>>>>> Stashed changes
 
                     <div class="col-6">
                         <div class="card">
@@ -198,6 +202,7 @@
                                 <div id="chart_div1" ></div>
                             </div>
                         </div>
+<<<<<<< Updated upstream
                     </div>
 
 
@@ -231,6 +236,11 @@
                     </div> --}}
 
                     <div class="card-footer clearfix">
+=======
+                    </div> 
+                   
+                    <div class="card-footer clearfix"> 
+>>>>>>> Stashed changes
                     </div>
                 </div>
             </div>
@@ -273,19 +283,20 @@ $(document).ready(function() {
             @endforeach
         ]);
 
-        var options = {
-            // chart: {
-            //     title: 'Total Cases per Month per Gender',
-            //     subtitle: 'Grouped by Month and Gender',
-            // },
-            bars: 'vertical' // Ensuring vertical bars
+        var options = { 
+            bars: 'vertical'  
         };
 
         var chart = new google.charts.Bar(document.getElementById('chart_div'));
 
+<<<<<<< Updated upstream
         chart.draw(data, google.charts.Bar.convertOptions(options));
 
         // Function to download chart data as CSV
+=======
+        chart.draw(data, google.charts.Bar.convertOptions(options)); 
+         
+>>>>>>> Stashed changes
         function downloadCSV() {
             var csvContent = google.visualization.dataTableToCsv(data);
             var encodedUri = encodeURI('data:text/csv;charset=utf-8,' + csvContent);
@@ -377,6 +388,7 @@ $(document).ready(function() {
 
         var chart_male = new google.visualization.PieChart(document.getElementById('pie-chart_male'));
         chart_male.draw(data_male, options_male);
+<<<<<<< Updated upstream
     }
 </script>
 {{-- <script>
@@ -407,6 +419,10 @@ $(document).ready(function() {
     setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
 
 </script> --}}
+=======
+    }  
+</script> 
+>>>>>>> Stashed changes
 <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);

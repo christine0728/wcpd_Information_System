@@ -113,20 +113,7 @@
                                                             @elseif ($inv->team == 'team_b')
                                                                 <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="TEAM B">
                                                             @endif  
-                                                        </div>
-        
-                                                        {{-- <form action="{{ route('superadmin.change_team', $inv->id) }}" method="post">
-                                                            @csrf
-                                                            <div style="display: flex; align-items: flex-end;">
-                                                                <label for="teamSelect" class="mr-2">Select team:</label>
-                                                                <select class="form-control" id="teamSelect" name="team" style="border-radius: 0.3125rem; border: 2.5px solid #48145B; background: #FFF; width: 10rem; font-size: medium; margin-bottom: 0.5rem; margin-right: 2rem;">
-                                                                    <option>Select team:</option>
-                                                                    <option value="team_a">Team A</option>
-                                                                    <option value="team_b">Team B</option> 
-                                                                </select>
-                                                                <button type="submit" class="btn btn-primary">Change team</button>                
-                                                            </div> 
-                                                        </form> --}}
+                                                        </div> 
                                                     </div>
 
                                                     <div class="col-12">
@@ -145,8 +132,11 @@
                                                     </div>
                                                 </div> 
                                             </div> 
-                                            <div class="col-12">
-                                                <button type="submit" class="form-buttons" style="width: 100%">Submit</button>
+                                            <div class="col-6">
+                                                <a class="link-buttons" href="#" onclick="window.history.back();" style="background-color: #48145B; margin-right: 0.1rem; width: 70%" ><i class="fa-solid fa-arrow-left icons"></i>&nbsp;&nbsp;Go Back</a>
+                                            </div>
+                                            <div class="col-6">
+                                                <button type="submit" class="form-buttons" style="width: 70%; float: right">Submit&nbsp;&nbsp;<i class="fa-solid fa-check icons"></i></button>
                                             </div>
                                         </form>
                                     @endforeach
