@@ -141,15 +141,21 @@
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Offenses Committed: </label>
-                                    <select class="form-control" name="offenses[]" multiple>  
-                                        <option value="{{ $comp->offenses }}">Selected: {{ $comp->offenses }}</option>
-                                        @foreach ($offenses as $offense) 
-                                            <option value="{{ $offense->offense_name }}">{{ $offense->offense_name }}</option>
-                                        @endforeach 
-                                    </select>
-                                </div> 
+                            <div class="form-group">
+                            {{ $comp->offenses }}
+                                <label for="exampleInputEmail1">Offenses Committed: </label>
+                                <select class="form-control" name="offenses[]" multiple>  
+                                    @foreach ($offenses as $offense) 
+                                        <?php
+                                        // Split $comp->offenses into individual offenses
+                                        $selectedOffenses = explode(', ', $comp->offenses);
+                                        ?>
+                                        <option value="{{ $offense->offense_name }}" {{ in_array($offense->offense_name, $selectedOffenses) ? 'selected' : '' }}>{{ $offense->offense_name }}</option>
+                                    @endforeach 
+                                </select>
+
+
+
                             </div>
                         </div>
                     </div>
