@@ -234,11 +234,10 @@
                         {{-- <a class="link-buttons" href=" " style="float: right;">Next</a>  --}} 
 
                         <button type="submit" class="form-buttons" style="float: right;">Submit Update <i class="fa-solid fa-check icons"></i></button> 
+                        <a class="link-buttons" href="{{ route('investigator.offender_form', [$comp->id]) }}" style="float: right; background-color: #48145B; margin-right: 0.5rem">Add an Offender&nbsp;<i class="fas fa-user-plus icons"></i> </a>
 
-                        <a class="link-buttons" href="{{ route('investigator.offender_form', [$comp->id]) }}" style="float: right; background-color: #48145B; margin-right: 0.5rem">Add an Offender&nbsp;<i class="fa-solid fa-xmark icons"></i> </a>
-
-                        <a class="link-buttons" href="{{ route('investigator.victim_form', [$comp->id]) }}" style="float: right; background-color: #48145B; margin-right: 0.5rem">Add a Victim&nbsp;<i class="fa-solid fa-xmark icons"></i> </a> 
-                    </div>
+                        <a class="link-buttons" href="{{ route('investigator.victim_form', [$comp->id]) }}" style="float: right; background-color: #48145B; margin-right: 0.5rem">Add a Victim&nbsp;<i class="fas fa-user-plus icons"></i> </a>
+                </div>
                 </div> 
                 </form>
             </div> 
