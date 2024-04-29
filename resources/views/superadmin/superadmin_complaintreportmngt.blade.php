@@ -118,6 +118,12 @@
                                 </div>
                             @endif
 
+                            @if(Session::has('success')) 
+                                <div class="alert success" role="alert">
+                                    <b>{{ session::get('success') }}</b>
+                                </div>
+                            @endif
+
                             @if(Session::has('updated')) 
                                 <div class="alert updated" role="alert">
                                     <b>{{ session::get('updated') }}</b>

@@ -501,6 +501,7 @@
 
                            {{-- <button type="button" class="next form-buttons" style="float: right; width: 5rem">Next <i class="fa-solid fa-arrow-right icons"></i></button>  --}}
                            {{-- <button type="submit" class="form-buttons" style="float: right; " formaction="{{ route('superadmin.offender_form', [$comp_id]) }}">Next (Add Offender) <i class="fa-solid fa-check icons"></i></button> --}}
+                           <input type="hidden" name="adding" value="adding">
                            <button type="submit" class="form-buttons" style="float: right;">Add Offender <i class="fa-solid fa-check icons"></i></button>
                            <a class="link-buttons" href="{{ route('investigator.complaintreport') }}" style="float: left; background-color: #48145B; margin-right: 0.5rem">Back <i class="fa-solid fa-xmark"></i> </a>
  

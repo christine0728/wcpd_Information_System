@@ -90,51 +90,56 @@
 
             <div class="content" style="margin-top: -0.5rem; ">
                 <div class="container-fluid" >   
-                    <div class=" col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: -1.5rem; margin-bottom: 2rem">
-                        {{-- <div class="card-body p-1">  --}}
-                            @foreach($notifications as $notification)
-                                @if ($notification->status == 'unread')
-                                    <a href="{{ route('superadmin.inv_changepass_req', [$notification->nid, $notification->iid]) }}" ><div class="card notif" style="margin: 1rem; ">   
-                                        <div class="card-body row" > 
-                                            {{-- <div class="col-2" style="padding: 0rem"> 
-                                                <div class="col-12" style="border-radius: 5rem; background-color: white; width: 18%"> 
+                    <div class="col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: -1.5rem; margin-bottom: 2rem"> 
+                        <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
+                            <thead>
+                                <th style="display: none">id</th>
+                                <th>Password Requests</th>
+                            </thead>
+                            <tbody>
+                                @foreach($notifications as $notification) 
+                                    <tr>
+                                        <td style="display: none">{{ $notification->id }}</td>
+                                        <td>
+                                            @if ($notification->status == 'unread')
+                                            <a href="{{ route('superadmin.inv_changepass_req', [$notification->nid, $notification->iid]) }}" >
+                                                <div class="card notif" style="margin: 1rem; ">   
+                                                    <div class="card-body row" >  
+                                                        <div class="col-6" style="padding: 0rem"> 
+                                                            <b>{{ $notification->firstname }} {{ $notification->lastname }}</b> {{ $notification->description }}   
+                                                            <br><span style="font-size: 0.9rem; font-style: italic">{{ $notification->created_at->diffForHumans() }}</span>
+                                                        </div>
+                                                        <div class="col-6" style="padding: 0rem; margin-top: 0.3rem">  
+                                                            @if ($notification->status == 'unread')
+                                                                <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="Unread" style="background-color: lightgrey; font-weight: bold; color: black; width: 5rem; border: none; font-size: medium; float: right" readonly>
+                                                            @elseif ($notification->description == 'read')
+                                                                <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="INACTIVE" style="background-color: lightblue; font-weight: bold; color: black; width: 5.5rem; border: none; font-size: medium; float: right" readonly>
+                                                            @endif
+                                                        </div>   
+                                                    </div>  
                                                 </div>
-                                            </div> --}}
-                                            <div class="col-6" style="padding: 0rem"> 
-                                                <b>{{ $notification->firstname }} {{ $notification->lastname }}</b> {{ $notification->description }}   
-                                                <br><span style="font-size: 0.9rem; font-style: italic">{{ $notification->created_at->diffForHumans() }}</span>
-                                            </div>
-                                            <div class="col-6" style="padding: 0rem; margin-top: 0.3rem"> 
-                                                {{-- {{ $notification->created_at->diffForHumans() }}  --}}
-                                                @if ($notification->status == 'unread')
-                                                    <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="Unread" style="background-color: lightgrey; font-weight: bold; color: black; width: 5rem; border: none; font-size: medium; float: right" readonly>
-                                                @elseif ($notification->description == 'read')
-                                                    <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="INACTIVE" style="background-color: lightblue; font-weight: bold; color: black; width: 5.5rem; border: none; font-size: medium; float: right" readonly>
-                                                @endif
-                                            </div> 
-                                            {{-- <div class="col-12">
-                                                <a href="#" class="card-link">Card link</a>
-                                                <a href="#" class="card-link">Another link</a>
-                                            </div> --}}
-
-                                        </div>  
-                                    </div></a>
-                                @else
-                                    <a href="{{ route('superadmin.inv_changepass_req', [$notification->nid, $notification->iid]) }}" class="notif"><div class="card" style="margin: 1rem; " >   
-                                        <div class="card-body row" >  
-                                            <div class="col-6" style="padding: 0rem"> 
-                                                <b>{{ $notification->firstname }} {{ $notification->lastname }}</b> {{ $notification->description }}   
-                                                <br><span style="font-size: 0.9rem; font-style: italic">{{ $notification->created_at->diffForHumans() }}</span>
-                                            </div>
-                                            <div class="col-6" style="padding: 0rem; margin-top: 0.3rem">  
-                                                <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="Read" style="background-color:#b5e8ff; font-weight: bold; color: black; width: 4rem; border: none; font-size: medium; float: right" readonly> 
-                                            </div>  
-
-                                        </div>  
-                                    </div></a>
-                                @endif
-                            @endforeach
-                        {{-- </div> --}}
+                                            </a>
+                                        @else
+                                            <a href="{{ route('superadmin.inv_changepass_req', [$notification->nid, $notification->iid]) }}" class="notif">
+                                                <div class="card" style="margin: 1rem; " >   
+                                                    <div class="card-body row" >  
+                                                        <div class="col-6" style="padding: 0rem"> 
+                                                            <b>{{ $notification->firstname }} {{ $notification->lastname }}</b> {{ $notification->description }}   
+                                                            <br><span style="font-size: 0.9rem; font-style: italic">{{ $notification->created_at->diffForHumans() }}</span>
+                                                        </div>
+                                                        <div class="col-6" style="padding: 0rem; margin-top: 0.3rem">  
+                                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="Read" style="background-color:#b5e8ff; font-weight: bold; color: black; width: 4rem; border: none; font-size: medium; float: right" readonly> 
+                                                        </div>   
+                                                    </div>  
+                                                </div>
+                                            </a>
+                                        @endif
+                                        </td> 
+                                    </tr>
+                                @endforeach
+                            </tbody> 
+                        </table>
+                        
                         <div class="card-footer clearfix"> 
                         </div>
                     </div>
@@ -150,32 +155,4 @@
       event.preventDefault();
       alert('Notification is already read.');
     }
-  </script>
-{{-- <script>
-    let inactiveTime = 0;
-    const logoutTime = 5 * 60 * 1000;
-    // 5 * 60 * 1000; // 5 minutes in milliseconds
-    
-    function resetInactiveTime() {
-        inactiveTime = 0;
-    }
-    
-    function handleUserActivity() {
-        resetInactiveTime();
-    }
-    
-    document.addEventListener('mousemove', handleUserActivity);
-    document.addEventListener('keydown', handleUserActivity);
-    
-    function checkInactiveTime() {
-        inactiveTime += 1000; 
-        if (inactiveTime >= logoutTime) { 
-            window.location.href = "/inactive_screen"; 
-        } else { 
-            setTimeout(checkInactiveTime, 1000); 
-        }
-    }
-    
-    setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
-
-</script> --}}
+</script> 

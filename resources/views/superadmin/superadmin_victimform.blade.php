@@ -584,6 +584,7 @@
 
                            {{-- <a class="link-buttons" href="{{ route('superadmin.offender_form', [$comp_id]) }}" style="float: right; background-color: #48145B">Next (Add Offender) <i class="fa-solid fa-xmark"></i> </a> --}}
 
+                           <input type="hidden" name="adding" value="adding">
                            <button type="submit" class="form-buttons" style="float: right; margin-right: 0.5rem">Add Victim <i class="fa-solid fa-check icons"></i></button>
 
                            

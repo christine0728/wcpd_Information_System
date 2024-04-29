@@ -39,11 +39,13 @@ Route::get('/inactive_screen1', [HomeController::class, 'inactive_screen1'])->na
 
 Route::prefix('investigator')->middleware('account')->group(function(){
     Route::get('/dashboard', [InvestigatorController::class, 'dashboard'])->name('investigator.dashboard');
+    Route::get('/filter-dashboard', [InvestigatorController::class, 'filter_dashboard'])->name('superadmin.filter_dashboard');
 
     Route::get('/complaintreportmanagement', [InvestigatorController::class, 'complaintreportmngt'])->name('investigator.complaintreport');
     Route::get('/complaintreport_form', [InvestigatorController::class, 'complaintreport_form'])->name('investigator.complaintreport_form'); 
     
     Route::post('/add_complaint', [ComplaintReportController::class, 'add_complaint1'])->name('investigator.add_complaint');
+    Route::get('/adding_complaintreport/{comp_id}', [ComplaintReportController::class, 'adding_complaintreport'])->name('investigator.adding_complaintreport');
     Route::get('/view_complaintreport/{comp_id}', [ComplaintReportController::class, 'view_complaintreport'])->name('investigator.view_complaintreport');
     Route::get('/complaintreport_form/{comp_id}', [ComplaintReportController::class, 'edit_complaintreport'])->name('investigator.edit_complaintreport');
     Route::post('/update_form/{comp_id}', [ComplaintReportController::class, 'update_form'])->name('investigator.update_form');
@@ -137,6 +139,7 @@ Route::prefix('superadmin')->middleware('account')->group(function(){
     Route::get('/complaintreportmanagement', [SuperAdminController::class, 'complaintreportmngt'])->name('superadmin.complaintreport');
     Route::get('/complaintreport_form', [SuperAdminController::class, 'complaintreport_form'])->name('superadmin.complaintreport_form'); 
     Route::post('/add_complaint', [ComplaintReportController::class, 'add_complaint1'])->name('superadmin.add_complaint');
+    Route::get('/adding_complaintreport/{comp_id}', [ComplaintReportController::class, 'adding_complaintreport'])->name('superadmin.adding_complaintreport');
     Route::get('/view_complaintreport/{comp_id}', [ComplaintReportController::class, 'view_complaintreport'])->name('superadmin.view_complaintreport');
     Route::get('/readonly_complaintreport/{comp_id}', [ComplaintReportController::class, 'readonly_complaintreport'])->name('superadmin.readonly_complaintreport');
     Route::get('/complaintreport_form/{comp_id}', [ComplaintReportController::class, 'edit_complaintreport'])->name('superadmin.edit_complaintreport');

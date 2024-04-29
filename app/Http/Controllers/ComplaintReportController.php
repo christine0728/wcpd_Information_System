@@ -265,11 +265,33 @@ class ComplaintReportController extends Controller
         
         $comp_id = $comp->id;
         if ($acc_type == 'investigator'){
-            return redirect()->route('investigator.victim_form', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!');
+            return redirect()->route('investigator.adding_complaintreport', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!');
         }
         elseif ($acc_type == 'superadmin'){ 
-            return redirect()->route('superadmin.victim_form', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
+            return redirect()->route('superadmin.adding_complaintreport', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
         }   
+    }
+
+    public function adding_complaintreport($comp_id){
+        $acc_type = Auth::guard('account')->user()->acc_type;
+
+        $comps = ComplaintReport::select('*')
+            ->where('id', $comp_id)
+            ->get(); 
+
+        $offenses = Offense::select('*') 
+            ->where('not_delete', '=', false)
+            ->get();
+        
+        $vics = Victim::where('comp_report_id', '=', $comp_id)->get();
+        $offs = Offender::where('comp_report_id', '=', $comp_id)->get();
+
+        if ($acc_type == 'investigator'){
+            return view('investigator.investigator_adding_complaint', ['comps' => $comps, 'comp_id'=>$comp_id, 'offenses'=>$offenses, 'vics'=>$vics, 'offs'=>$offs])->with('success', 'Complant Report Form added successfully!');
+        }
+        elseif ($acc_type == 'superadmin'){ 
+            return view('superadmin.superadmin_adding_complaint', ['comps' => $comps, 'comp_id'=>$comp_id, 'offenses'=>$offenses, 'vics'=>$vics, 'offs'=>$offs])->with('success', 'Complant Report Form updated successfully!');; 
+        } 
     }
 
     public function view_complaintreport($comp_id){

@@ -337,6 +337,7 @@
                         <div class="col-12 ">   
                            <a class="link-buttons" href="{{ route('superadmin.complaintreport') }}" style="float: left; background-color: #48145B; margin-right: 0.5rem">Cancel&nbsp;<i class="fa-solid fa-xmark icons"></i> </a> 
 
+                           <input type="hidden" name="adding" value="adding">
                            <button type="submit" class="form-buttons" style="float: right;">Add Offender <i class="fa-solid fa-check icons"></i></button>
 
                            <a class="link-buttons" href="{{ route('superadmin.view_complaintreport', [$comp_id]) }}" style="float: right; background-color: #48145B; margin-right: 0.5rem">Back <i class="fa-solid fa-xmark icons"></i> </a>  

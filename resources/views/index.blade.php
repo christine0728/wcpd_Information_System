@@ -35,7 +35,7 @@
     <span style="font-size: 18px; font-weight: bold;">Philippine National Police</span><br>
     <span style="font-size: 16px; font-weight: bold;">Urdaneta City Police Station Urdaneta City</span>
 </p><br>
-<a href="/login" target="_blank" data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="btn my-4 font-weight-bold atlas-cta cta-purple" style="box-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Login</a>
+<a href="/login" data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="btn my-4 font-weight-bold atlas-cta cta-purple" style="box-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Login</a>
 </div>
 </div>
 <div class="container my-5 py-2" style="color:white" >

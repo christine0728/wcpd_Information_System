@@ -144,8 +144,8 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">6. Time/Day/Month/Year of Commission:</label>
-                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="datetime_commission" value="{{ old('datetime_commission') }}">
+                                        <label for="exampleInputEmail1">6. Day/Month/Year of Commission:</label>
+                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="datetime_commission" value="{{ old('datetime_commission') }}" max="{{ date('Y-m-d') }}">
                                         @if ($errors->has('datetime_commission')) 
                                             <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('datetime_commission') }}</span>
                                         @endif 
@@ -297,7 +297,7 @@
                             {{-- <a class="link-buttons" href=" " style="float: right;">Next</a>  --}}
 
                            {{-- <button type="button" class="next form-buttons" style="float: right; width: 5rem">Next <i class="fa-solid fa-arrow-right icons"></i></button>  --}}
-                           <button type="submit" class="form-buttons" style="float: right;">Submit <i class="fa-solid fa-check icons"></i></button>
+                           <button type="submit" class="form-buttons" style="float: right;">Save <i class="fa-solid fa-check icons"></i></button>
                            <a href="/investigator/complaintreportmanagement">
                            <button type="button" class="previous form-buttons" style="float: right; margin-right: 0.5rem; width: 5rem"><i class="fa-solid fa-arrow-left icons"></i> Back</button> 
                             </a>
