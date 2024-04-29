@@ -8,6 +8,6 @@
 </head>
 <body>
     <h1>Screen Inactive. Please login again...</h1>
-    <br><a href="/login">Login</a>
+    <br><a href="/">Login</a>
 </body>
 </html>

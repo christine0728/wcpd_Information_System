@@ -138,7 +138,7 @@ class VictimController extends Controller
  
 
         if ($acc_type == 'investigator'){
-            return redirect()->route('investigator.victim_form', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
+            return redirect()->route('investigator.edit_complaintreport', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
         }
         elseif ($acc_type == 'superadmin'){ 
             return redirect()->route('superadmin.edit_complaintreport', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
@@ -173,8 +173,8 @@ class VictimController extends Controller
         $now = Carbon::now();
         $now->setTimezone('Asia/Manila');
  
-        if ($request->hasFile('image')) {
-            $vic_file = $request->file('image');
+        if ($request->hasFile('vic_image')) {
+            $vic_file = $request->file('vic_image');
             $vic_extension = $vic_file->getClientOriginalExtension();
             $vic_filename = time() . '.' . $vic_extension;
             $vic_file->move('images/victims/', $vic_filename);
@@ -260,10 +260,10 @@ class VictimController extends Controller
         ]);
 
         if ($acc_type == 'investigator'){
-            return redirect()->route('investigator.victim_profile', ['vid'=>$vid])->with('success', 'Complaint Report Form added successfully!');  
+            return redirect()->route('investigator.victim_profile', ['vid'=>$vid])->with('success', 'Complaint Report Form updated successfully!');  
         }
         elseif ($acc_type == 'superadmin'){ 
-            return redirect()->route('superadmin.victim_profile', ['vid'=>$vid])->with('success', 'Complaint Report Form added successfully!'); 
+            return redirect()->route('superadmin.victim_profile', ['vid'=>$vid])->with('success', 'Complaint Report Form updated successfully!'); 
         }
 
         // return redirect()->route('superadmin.victim_profile', ['vid'=>$vid])->with('success', 'Complaint Report Form added successfully!'); 

@@ -494,95 +494,7 @@
                             </div>
                         </div>
 
-                        {{-- EVIDENCE DATA --}}
-                        {{-- <div class="form-section">
-                            <div class="header">  
-                                <p style="font-size: medium;">Section D: <b style="font-size: medium;">Evidence Data</b></p>
-                            </div> 
-                            <hr style="margin-top: -1rem">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">34. Motive/Cause: </label>
-                                        <select class="form-control" name="evi_motive">
-                                            <option>Select motive/cause</option>
-                                            <option value="sex_lust">Sex/Lust</option>
-                                            <option value="passion_jealousy">Passion/Jealousy</option>
-                                            <option value="misunderstanding">Misunderstanding</option>
-                                            <option value="revenge">Revenge</option>
-                                            <option value="family_trouble">Family trouble</option>
-                                            <option value="poverty">Poverty</option>
-                                        </select>
-                                    </div> 
-                                </div>
-
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">35. Suspect under the influence of: </label>
-                                        <select class="form-control" name="influences" onchange="showfield(this.options[this.selectedIndex].value)">
-                                            <option>Select influence</option>
-                                            <option value="drugs">Drugs</option>
-                                            <option value="alcohol">Alcohol</option>
-                                            <option value="both">Both</option>
-                                            <option value="none">None</option>
-                                            <option value="Others3">Others </option>
-                                        </select>
-                                        <div id="div3" style="margin-top: 1rem"></div>
-                                    </div> 
-                                </div>
-                            </div>
-                        </div> --}}
-
-                        {{-- CASE DISPOSITION --}}
-                        {{-- <div class="form-section">
-                            <div class="f">  
-                                <p style="font-size: medium;">Section F: <b style="font-size: medium;">Case Disposition</b></p>
-                            </div> 
-                            <hr style="margin-top: -1rem">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">47. Disposition: </label>
-                                        <select class="form-control" name="disposition" onchange="showfield(this.options[this.selectedIndex].value)">
-                                            <option>Select disposition of case</option>
-                                            <option value="settled_at_barangay">Settled at barangay</option>
-                                            <option value="settled_by_parties">Settled by parties</option>
-                                            <option value="under_police_investigation">Under police investigation</option>
-                                            <option value="before_prosecution_office">Before Prosecution Office</option>
-                                            <option value="filed_in_court">Filed in court</option>
-                                            <option value="dismissed">Dismissed</option>
-                                            <option value="referred_to_other_gov_agencies">Referred to other government agencies</option>
-                                            <option value="Others4">Others </option>
-                                        </select>
-                                        <div id="div4" style="margin-top: 1rem"></div>
-                                    </div> 
-                                </div>
-
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">48. Suspect disposition: </label>
-                                        <select class="form-control" name="sus_disposition" onchange="showfield2(this.options[this.selectedIndex].value)">
-                                            <option>Select disposition of case</option>
-                                            <option value="arrested">Arrested</option>
-                                            <option value="at_large">At large</option>
-                                            <option value="detained">Detained</option> 
-                                            <option value="Others5">Others </option>
-                                        </select>
-                                        <div id="div5" style="margin-top: 1rem"></div>
-                                    </div> 
-                                </div> 
-                            </div>
-
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Investigator on case:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="investigator" oninput="toUpper(this)">
-                                    </div>
-                                </div> 
-                            </div>
-                        </div>  --}}
-
+                        
 
                         <div class="col-12 ">  
                             {{-- <a class="link-buttons" href=" " style="float: right;">Next</a>  --}}
@@ -590,7 +502,7 @@
                            {{-- <button type="button" class="next form-buttons" style="float: right; width: 5rem">Next <i class="fa-solid fa-arrow-right icons"></i></button>  --}}
                            {{-- <button type="submit" class="form-buttons" style="float: right; " formaction="{{ route('superadmin.offender_form', [$comp_id]) }}">Next (Add Offender) <i class="fa-solid fa-check icons"></i></button> --}}
                            <button type="submit" class="form-buttons" style="float: right;">Add Offender <i class="fa-solid fa-check icons"></i></button>
-                           <a class="link-buttons" href="{{ route('investigator.complaintreport') }}" style="float: right; background-color: #48145B; margin-right: 0.5rem">Back <i class="fa-solid fa-xmark"></i> </a>
+                           <a class="link-buttons" href="{{ route('investigator.complaintreport') }}" style="float: left; background-color: #48145B; margin-right: 0.5rem">Back <i class="fa-solid fa-xmark"></i> </a>
  
                            {{-- <button type="button" class="previous form-buttons" style="float: right; margin-right: 0.5rem; width: 5rem"><i class="fa-solid fa-arrow-left icons"></i> Back</button>  --}}
                         </div>

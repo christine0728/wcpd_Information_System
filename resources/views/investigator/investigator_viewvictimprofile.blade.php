@@ -18,7 +18,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Victim's Profile</title>
+        <title>Investigator | View Victim's Profile</title>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <link rel="icon" href="{{ url('images/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
@@ -54,8 +54,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2"> 
                          <div class="col-6">
-                            <h1 class="m-0" style="font-weight: bold">{{ __("Victim's Profile") }}</h1>
+                            <h1 class="m-0" style="font-weight: bold">&nbsp;{{ __("Victim's Profile") }}</h1>
                         </div> 
+
+                        <div class="col-12">
+                            &nbsp;&nbsp;<a class="link-buttons" href="#"  onclick="window.history.back();" style="background-color: #48145B; margin-right: 0.1rem" ><i class="fa-solid fa-arrow-left icons"></i>&nbsp;&nbsp;Go Back</a>
+                        </div>
                     </div>
                 </div>
             </div> 
@@ -65,6 +69,14 @@
                     <div class="card col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-bottom: 5rem; padding: 1rem 2rem 1rem 2rem;">
                         @foreach ($comps as $comp) 
                             <div class="row mb-4">
+                                <div class="col-md-3 text-center">
+                                    @if($comp->victim_image)
+                                        <img src="{{ asset('images/victims/' . $comp->victim_image) }}" alt="{{ $comp->vic_firstname }}" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
+                                    @else
+                                        <p>No Image</p>
+                                    @endif
+                                </div>
+                                
                                 <div class="col-md-9">  
                                     <div class="row" style="margin-top: -1.5rem">
                                         <div class="col-4">
@@ -123,17 +135,7 @@
                                         </div>
                                     </div> 
                                 </div>
-                                <div class="col-md-3 text-center">
-                                @if($comp->victim_image != 'no image')
-
-                                <img src="{{ asset('images/victims/' . $comp->victim_image) }}" alt="{{ $comp->vic_firstname }}" id="previewImage" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
-                                    @else
-                                    <img src="{{ asset('images/default.png') }}" alt="{{ $comp->vic_firstname }}" id="previewImage" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
-
-                                    <p>No Image</p>
-                                @endif
-              
-                                </div> 
+                                 
                             </div> 
                             <div class="row" style="margin-top: -3rem">
                                 <div class="col-4">
@@ -198,10 +200,11 @@
                                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_contactperson" value="{{ $comp->victim_contactperson_addr_con_num }}" readonly>
                                     </div> 
                                 </div> 
-                                <div class="col-12">
-                                    <a class="link-buttons" href="{{ route('investigator.edit_victim', $comp->id) }}" style="background-color: #48145B">Edit Profile&nbsp;&nbsp;<i class="fa fa-edit"></i></a>
-                                </div>
                             </div> 
+
+                            <div class="col-12">
+                                <a class="link-buttons" href="{{ route('investigator.edit_victim', $comp->id) }}" style="background-color: #48145B">Edit Profile&nbsp;&nbsp;<i class="fa fa-edit"></i></a>
+                            </div>
                         @endforeach 
                     </div>
                 </div>

@@ -29,24 +29,6 @@
 </header>
 <h1 data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="display-3 text-white font-weight-bold my-5 animated" style="font-size: 50px; text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5); letter-spacing: 2px; line-height: 1.2;">
     WCPD Information Management System<br>
-<<<<<<< Updated upstream
-</h1>
-
-            <p data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="lead text-white my-4">
-               Woman And Children Protection Desk
-                <br>Urdaneta City Police Station Urdaneta City
-            </p>
-            <a href="/login" data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="btn my-4 font-weight-bold atlas-cta cta-purple">Login</a>
-        </div>
-    </div>
-
-    <!-- three-blcok -->
-    <div class="container my-5 py-2" style="color:white" >
-        <h2 class="text-center font-weight-bold my-5">"WCPD: Safeguarding Rights and Dignity"</h2>
-        <div class="row">
-            <div data-aos="fade-up" data-aos-delay="0" data-aos-duration="1000" data-aos-once="true"
-                class="col-md-4 text-center">
-=======
 </h1><br>
 <p data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="lead text-white my-4 custom-paragraph" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
     <span style="font-size: 24px; font-weight: bold;">Woman And Children Protection Desk</span><br>
@@ -62,7 +44,6 @@
 </h2>
     <div class="row">
             <div data-aos="fade-up" data-aos-delay="0" data-aos-duration="1000" data-aos-once="true" class="col-md-4 text-center">
->>>>>>> Stashed changes
                 <i class="fa fa-balance-scale fa-5x" aria-hidden="true"></i>
                 <h4 style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Legal Aid</h4>
                 <p style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Providing legal assistance and representation for women and children in need.</p>
@@ -88,6 +69,23 @@
     <script>
       AOS.init({
       });
+    </script>
+
+    <script>
+    //     window.onload = function() {
+    //     if (window.history && window.history.pushState) {
+    //         window.history.pushState('forward', null, './#');
+    //         $(window).on('popstate', function() {
+    //             if (window.location.hash === '#') {
+    //                 window.history.pushState('forward', null, './#');
+    //                 // Here you can redirect the user to the index page again if needed
+    //                 window.location.replace("/");
+    //             }
+    //         });
+    //     }
+    // }
+
+    history.replaceState(null, document.title, "/");
     </script>
 </body>
 </html>

@@ -14,12 +14,14 @@ use App\Models\SuperAdmin;
 use App\Models\Team;
 use App\Models\Victim;
 use App\Notifications\MyNotification;
+use App\Rules\UniqueUsernameAdmin;
 use Carbon\Carbon; 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth; 
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class SuperAdminController extends Controller
 {
@@ -50,6 +52,24 @@ class SuperAdminController extends Controller
     }
 
     public function add_investigator(Request $request){  
+         
+        $validator = Validator::make($request->all(), [
+            'firstname' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
+            'lastname' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
+            'username' => ['required', 'regex:/^[a-zA-Z0-9_]{8,12}$/
+            ', new UniqueUsernameAdmin],   
+        ], [
+            'firstname.required' => 'This field is required.',
+            'firstname.regex' => 'This field must contain letters only.',
+            'lastname.required' => 'This field is required.',
+            'lastname.regex' => 'This field must contain letters only.',
+            'username.regex' => 'This field must contain at least 8 to 12 characters.'
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         $user = Account::create([
             'firstname' => $request->input('firstname'),
             'lastname' => $request->input('lastname'),
@@ -84,7 +104,7 @@ class SuperAdminController extends Controller
             'offenses',
             'offender_sex'
         )
-        ->groupBy('month', 'offenses', 'offender_sex')
+        ->groupBy('month', 'offenses', 'offenders.offender_sex')
         ->orderBy('month')
         ->get();
      
@@ -149,8 +169,20 @@ class SuperAdminController extends Controller
         ->limit(5)
         ->get();
    
-        $relationshipCounts = DB::table('complaint_reports')
-        ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.complaint_report_author')
+        // $relationshipCounts = DB::table('complaint_reports')
+        // ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.complaint_report_author')
+        // ->select(
+        //     'offender_relationship_victim',
+        //     DB::raw('SUM(CASE WHEN offender_sex = "MALE" THEN 1 ELSE 0 END) AS male_count'),
+        //     DB::raw('SUM(CASE WHEN offender_sex = "FEMALE" THEN 1 ELSE 0 END) AS female_count')
+        // )
+        // ->groupBy('offenders.offender_relationship_victim')
+        // ->get(); 
+
+        $relationshipCounts = DB::table('offenders')
+        // ->join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
+        // ->leftJoin('victims', 'victims.comp_report_id', '=', 'complaint_reports.complaint_report_author')
+        // ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.complaint_report_author')
         ->select(
             'offender_relationship_victim',
             DB::raw('SUM(CASE WHEN offender_sex = "MALE" THEN 1 ELSE 0 END) AS male_count'),
@@ -171,15 +203,18 @@ class SuperAdminController extends Controller
         $end_date = date('Y-m-d', strtotime($request->input('end_date')));
 
         $crimeData = DB::table('complaint_reports')
+        ->join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
+        ->leftJoin('victims', 'victims.comp_report_id', '=', 'complaint_reports.complaint_report_author')
+        ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.complaint_report_author')
         ->select(
             DB::raw('MONTH(date_reported) as month'),
             DB::raw('COUNT(*) as total_cases'),
             'offenses',
-            'offender_sex'
+            'offenders.offender_sex'
         )
-        ->whereDate('created_at', '>=', $start_date)
-        ->whereDate('created_at', '<=', $end_date)
-        ->groupBy('month', 'offenses', 'offender_sex')
+        ->whereDate('complaint_reports.created_at', '>=', $start_date)
+        ->whereDate('complaint_reports.created_at', '<=', $end_date)
+        ->groupBy('month', 'offenses', 'offenders.offender_sex')
         ->orderBy('month')
         ->get();
     
@@ -195,9 +230,7 @@ class SuperAdminController extends Controller
         ->groupBy('comp_month')
         ->orderBy(DB::raw('MONTH(cr.date_reported)'))
         ->get();
-    
-        
-
+     
         $comps11 = ComplaintReport::join('victims', function ($join) {
             $join->on('victims.comp_report_id', '=', 'complaint_reports.id')
                     ->where('victims.victim_sex', '=', 'FEMALE');
@@ -245,6 +278,9 @@ class SuperAdminController extends Controller
         ->get();
    
         $relationshipCounts = DB::table('complaint_reports')
+        ->join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
+        ->leftJoin('victims', 'victims.comp_report_id', '=', 'complaint_reports.complaint_report_author')
+        ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.complaint_report_author')
         ->select(
             'offender_relationship_victim',
             DB::raw('SUM(CASE WHEN offender_sex = "MALE" THEN 1 ELSE 0 END) AS male_count'),
@@ -329,26 +365,58 @@ class SuperAdminController extends Controller
 
     public function changing_password(Request $request)
     { 
-        $id = Auth::guard('account')->user()->id;
-        $username = $request->input('username');
-        $invs = Account::where('id', '=', $id)
-            ->first();
-        $check = $request->all();
+        // $id = Auth::guard('account')->user()->id;
+        // $username = $request->input('username');
+        // $invs = Account::where('id', '=', $id)
+        //     ->first();
+        // $check = $request->all();
 
-        // with('error', 'Admin account logged in successfully!');
-        if (Auth::guard('account')->attempt(['username' => $check['username'], 'password' => $check['curr_password']])){
-            if(Auth::guard('account')->check()){
-                // dd('goods');
-                Account::where('id', $id)
-                ->update([
-                    'password' => Hash::make($request->new_password),
-                ]);
-                // dd('napalitan');
-                return redirect()->back()->with('updated', "Password changed successfully!");
-            }
+        // // with('error', 'Admin account logged in successfully!');
+        // if (Auth::guard('account')->attempt(['username' => $check['username'], 'password' => $check['curr_password']])){
+        //     if(Auth::guard('account')->check()){
+        //         // dd('goods');
+        //         Account::where('id', $id)
+        //         ->update([
+        //             'password' => Hash::make($request->new_password),
+        //         ]);
+        //         // dd('napalitan');
+        //         return redirect()->back()->with('updated', "Password changed successfully!");
+        //     }
+        // }
+        // else{
+        //     return redirect()->back()->with('delete', 'The username or current password you entered is incorrect.');
+        // }
+
+        $validator = Validator::make($request->all(), [
+            'username' => 'required',
+            'curr_password' => 'required',
+            'new_password' => [
+                'required',
+                'string',
+                'min:8',
+                'max:12',
+                'regex:/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/' 
+            ],
+        ], [
+            'new_password.max' => 'The new password must not exceed 12 characters in length.',
+            'new_password.regex' => 'The new password must contain at least 8 letters, at least one number, and at least one special character.'
+        ]); 
+     
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
         }
-        else{
-            return redirect()->back()->with('delete', 'The username or current password you entered is incorrect.');
+     
+        $id = Auth::guard('account')->user()->id;
+     
+        if (Auth::guard('account')->attempt(['username' => $request->input('username'), 'password' => $request->input('curr_password')])) { 
+            Account::where('id', $id)->update([
+                'password' => Hash::make($request->input('new_password')),
+                'change_password_req' => 'done', 
+            ]);
+     
+            return redirect()->route('superadmin.superadmin_account_mngt', ['id'=>$id])->with('success', "Password changed successfully!");
+        } else { 
+            return redirect()->back()->with('error', 'Username or current password you entered is incorrect.')->withInput();
         }
     }
 
@@ -524,8 +592,8 @@ class SuperAdminController extends Controller
         $comps = Victim::join('complaint_reports', 'complaint_reports.id', '=', 'victims.comp_report_id')
             ->select('complaint_reports.id as compid', 'victims.id as vid', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'victims.victim_image', 'victims.victim_present_address', 'complaint_reports.date_reported')
             ->where('complaint_reports.status', 'notdeleted')
-            ->whereDate('complaint_reports.created_at', '>=', $start_date)
-            ->whereDate('complaint_reports.created_at', '<=', $end_date)
+            ->whereDate('complaint_reports.date_reported', '>=', $start_date)
+            ->whereDate('complaint_reports.date_reported', '<=', $end_date)
             ->orderBy('victims.id', 'DESC') 
             ->get();
 
@@ -715,9 +783,9 @@ class SuperAdminController extends Controller
         ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.complaint_report_author')
         ->select('accounts.id as accountid', 'accounts.username', 'accounts.team', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'offenders.offender_firstname', 'offenders.offender_family_name', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age', 'offenders.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')
         ->where('complaint_reports.status', 'deleted')
-        ->whereDate('logs.created_at', '>=', $start_date)
-        ->whereDate('logs.created_at', '<=', $end_date)
-        ->where('accounts.team', $team)
+        ->whereDate('complaint_reports.created_at', '>=', $start_date)
+        ->whereDate('complaint_reports.created_at', '<=', $end_date)
+        // ->where('accounts.team', $team)
         ->orderBy('complaint_reports.id', 'DESC') 
         ->get();
 

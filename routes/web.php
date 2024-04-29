@@ -45,7 +45,7 @@ Route::prefix('investigator')->middleware('account')->group(function(){
     
     Route::post('/add_complaint', [ComplaintReportController::class, 'add_complaint1'])->name('investigator.add_complaint');
     Route::get('/view_complaintreport/{comp_id}', [ComplaintReportController::class, 'view_complaintreport'])->name('investigator.view_complaintreport');
-    Route::get('/edit_complaintreport/{comp_id}', [ComplaintReportController::class, 'edit_complaintreport'])->name('investigator.edit_complaintreport');
+    Route::get('/complaintreport_form/{comp_id}', [ComplaintReportController::class, 'edit_complaintreport'])->name('investigator.edit_complaintreport');
     Route::post('/update_form/{comp_id}', [ComplaintReportController::class, 'update_form'])->name('investigator.update_form');
     Route::get('/delete_form/{comp_id}', [ComplaintReportController::class, 'delete_form'])->name('investigator.delete_form');
 
@@ -92,7 +92,7 @@ Route::prefix('investigator')->middleware('account')->group(function(){
     Route::get('/filter-logs-inv', [InvestigatorController::class, 'filter_logs'])->name('investigator.filter_logs');
 
     Route::get('/trash', [InvestigatorController::class, 'trash'])->name('investigator.trash');
-    Route::get('/filter-allrecords', [InvestigatorController::class, 'filter_allrecords'])->name('investigator.filter_allrecords');
+    Route::get('/filter-trash', [SuperAdminController::class, 'filter_trash'])->name('superadmin.filter_trash');
     Route::get('/restore_form/{comp_id}', [ComplaintReportController::class, 'restore_form'])->name('investigator.restore_form');
     Route::get('/permanent_del/{comp_id}', [ComplaintReportController::class, 'permanent_del'])->name('investigator.permanent_del');
 
@@ -139,7 +139,7 @@ Route::prefix('superadmin')->middleware('account')->group(function(){
     Route::post('/add_complaint', [ComplaintReportController::class, 'add_complaint1'])->name('superadmin.add_complaint');
     Route::get('/view_complaintreport/{comp_id}', [ComplaintReportController::class, 'view_complaintreport'])->name('superadmin.view_complaintreport');
     Route::get('/readonly_complaintreport/{comp_id}', [ComplaintReportController::class, 'readonly_complaintreport'])->name('superadmin.readonly_complaintreport');
-    Route::get('/edit_complaintreport/{comp_id}', [ComplaintReportController::class, 'edit_complaintreport'])->name('superadmin.edit_complaintreport');
+    Route::get('/complaintreport_form/{comp_id}', [ComplaintReportController::class, 'edit_complaintreport'])->name('superadmin.edit_complaintreport');
     Route::post('/update_form/{comp_id}', [ComplaintReportController::class, 'update_form'])->name('superadmin.update_form');
     Route::get('/delete_form/{comp_id}', [ComplaintReportController::class, 'delete_form'])->name('superadmin.delete_form');
     Route::get('/complaintreport_pdf/{comp_id}', [PDFController::class, 'complaint_pdf'])->name('superadmin.complaint_pdf');

@@ -50,9 +50,9 @@
                             <form action="filter-allrecords" method="GET">
                             <div class="date-filter">
                                 <label for="start_date">From:</label>&nbsp;&nbsp;
-                                <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}" required>&nbsp;&nbsp;
+                                <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}" max="{{ date('Y-m-d') }}" required>&nbsp;&nbsp;
                                 <label for="end_date">To:</label>&nbsp;&nbsp;
-                                <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}" required>&nbsp;&nbsp;
+                                <input type="date" class="form-control" name="end_date" id="end_date" max="{{ date('Y-m-d') }}" value="{{ $end_date ?? old('end_date') }}" required>&nbsp;&nbsp;
                                 <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
 
                             </div>

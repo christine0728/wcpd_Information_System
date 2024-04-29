@@ -75,7 +75,7 @@
             </div>
   
 
-            <div class="content" style="margin-top: -1rem; ">
+            <div class="content" style="margin-top: -2rem;">
                 <div class="container-fluid" >   
                     <div class="card col-5 shadow p-3 mb-5 bg-white rounded" style="overflow-x:auto; background-color: white; border-radius: 0.5rem;  margin-left: 25%;"> 
                         @if(Session::has('error')) 
@@ -90,14 +90,22 @@
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Firstname: </label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="firstname" >
+                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="firstname" required>
+
+                                                @if ($errors->has('firstname')) 
+                                                    <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('firstname') }}</span>
+                                                @endif
                                             </div>
                                         </div>
 
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Lastname: </label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="lastname" >
+                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="lastname" required>
+
+                                                @if ($errors->has('lastname')) 
+                                                    <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('lastname') }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -106,21 +114,30 @@
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Username: </label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" >
+                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" required>
+
+                                                @if ($errors->has('username')) 
+                                                    <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('username') }}</span>
+                                                @endif
                                             </div>
                                         </div>
         
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Password: </label>
-                                                <input type="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="password">
+                                                <label for="password" class="form-label">Password</label>
+                                                <div class="input-group">
+                                                    <input type="password" class="form-control" id="password" name="password" required>
+                                                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                </div>
                                             </div> 
                                         </div>
                                     </div>
      
                                     <div class="form-group" style="margin-top: -1rem">
                                         <label for="exampleInputEmail1">Team: </label>
-                                        <select class="form-control" name="team">
+                                        <select class="form-control" name="team" required>
                                             <option>Select team:</option>
                                             <option value="team_a">Team A</option>
                                             <option value="team_b">Team B</option>
@@ -151,74 +168,18 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 <script>
-    $(document).ready(function() {
-          $('#compsTbl').DataTable({
-            "order": [[0, "desc"]]
-          });
-      });
+    document.addEventListener('DOMContentLoaded', function() {
+        const togglePassword = document.querySelector('#togglePassword');
+        const passwordInput = document.querySelector('#password');
 
-    function confirmDelete(id) {
-        Swal.fire({
-            title: 'Are you sure to delete this book?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-            $.ajax({
-                type: 'POST',
-                url: '/admin/activity_destroy/' + id, 
-                data: {
-                _token: '{{ csrf_token() }}',
-                _method: 'DELETE'
-                },
-                success: function (response) {
-                Swal.fire(
-                    'Deleted!',
-                    'The record has been deleted.',
-                    'success'
-                ).then(function () {
-                    location.reload();
-                });
-                },
-                error: function (error) {
-                    console.log(error);
-                Swal.fire(
-                    'Error!',
-                    'An error occurred while deleting the record.',
-                    'error'
-                );
-                }
-            });
-            }
-        });
-    }
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const editButtons = document.querySelectorAll('.btn-edit');
-
-        editButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                const modal = document.getElementById('modalEdit');
-                const editId = this.getAttribute('data-id');
-                const editactivity_title = this.getAttribute('data-activity_title');
-                const editstatus = this.getAttribute('data-status'); 
-
-                document.getElementById('edit_id').value = editId;
-                document.getElementById('edit_activity_title').value = editactivity_title;
-                document.getElementById('edit_status').value = editstatus; 
-
-                document.getElementById('edit_id').value = editId;
-
-                $(modal).modal('show');
-            });
+            this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
         });
     });
-
-
-</script> 
+</script>
 <script>
     let inactiveTime = 0;
     const logoutTime = 2 * 60 * 1000;

@@ -17,6 +17,11 @@ use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
+
     public function login_view()
     {
         return view('login_view');
@@ -91,9 +96,11 @@ class HomeController extends Controller
         }
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::guard('account')->logout();
+        $request->session()->flush(); 
+        $request->session()->regenerate(); 
         return redirect()->route('index')->with('success', 'Account logged out successfully');
     }
 

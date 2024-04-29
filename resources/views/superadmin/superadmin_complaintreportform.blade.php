@@ -139,7 +139,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Time/Day/Month/Year of Commission:</label>
+                                        <label for="exampleInputEmail1">Day/Month/Year of Commission:</label>
                                         <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="datetime_commission" value="{{ old('datetime_commission') }}" max="{{ date('Y-m-d') }}">
                                         @if ($errors->has('datetime_commission')) 
                                             <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('datetime_commission') }}</span>
@@ -170,7 +170,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Offenses Committed: (press CTRL to select multiple offenses) </label>
-                                        <select size="10" class="form-control" name="offenses[]" multiple> 
+                                        <select size="10" class="form-control" name="offenses[]" multiple value="{{ old('offenses[]') }}"> 
                                             {{-- <option value="">Select:</option> --}}
                                             @foreach ($offenses as $offense) 
                                             <option value="{{ $offense->offense_name }}">{{ $offense->offense_name }}</option>
@@ -190,7 +190,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Motive/Cause: </label>
-                                        <select class="form-control" name="evi_motive" >
+                                        <select class="form-control" name="evi_motive" value="{{ old('evi_motive') }}">
                                             <option value="">Select motive/cause</option>
                                             <option value="sex_lust">Sex/Lust</option>
                                             <option value="passion_jealousy">Passion/Jealousy</option>
@@ -208,7 +208,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Suspect under the influence of: </label>
-                                        <select class="form-control" name="influences" onchange="showfield(this.options[this.selectedIndex].value)">
+                                        <select class="form-control" name="influences" onchange="showfield(this.options[this.selectedIndex].value)" value="{{ old('influences') }}">
                                             <option value="">Select influence</option>
                                             <option value="drugs">Drugs</option>
                                             <option value="alcohol">Alcohol</option>
@@ -235,7 +235,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Disposition: </label>
-                                        <select class="form-control" name="disposition" onchange="showfield(this.options[this.selectedIndex].value)">
+                                        <select class="form-control" name="disposition" onchange="showfield(this.options[this.selectedIndex].value)" value="{{ old('disposition') }}">
                                             <option value="">Select disposition of case</option>
                                             <option value="settled_at_barangay">Settled at barangay</option>
                                             <option value="settled_by_parties">Settled by parties</option>
@@ -256,7 +256,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Suspect disposition: </label>
-                                        <select class="form-control" name="sus_disposition" onchange="showfield2(this.options[this.selectedIndex].value)">
+                                        <select class="form-control" name="sus_disposition" onchange="showfield2(this.options[this.selectedIndex].value)" value="{{ old('sus_disposition') }}">
                                             <option value="">Select disposition of case</option>
                                             <option value="arrested">Arrested</option>
                                             <option value="at_large">At large</option>

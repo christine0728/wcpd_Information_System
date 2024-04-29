@@ -18,7 +18,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Offender's Profile</title>
+        <title>Superadmin | Offender's Profile</title>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <link rel="icon" href="{{ url('images/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">

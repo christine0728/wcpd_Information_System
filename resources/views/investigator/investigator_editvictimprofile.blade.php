@@ -15,287 +15,295 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Investigator | Edit Victim's Profile</title>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-        <link rel="icon" href="{{ url('images/favicon.ico') }}">
-        <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=24">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investigator | Edit Victim's Profile</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="icon" href="{{ url('images/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=24">
 
-        <script src="https://kit.fontawesome.com/7528702e77.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/7528702e77.js" crossorigin="anonymous"></script>
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-        <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.min.js"></script>
 
-        <style> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-            @media only screen and (max-width: 768px) {
-                /* For mobile phones: */
-                [class*="col-"] {
-                width: 100%;
-                }
-                
-                div{
-                    display: none !important;
-                }
+    <style> 
+
+        @media only screen and (max-width: 768px) {
+            /* For mobile phones: */
+            [class*="col-"] {
+            width: 100%;
             }
-        </style>
-                        <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        function previewImage(event) {
-                            var reader = new FileReader();
-                            reader.onload = function() {
-                                var output = document.getElementById('previewImage');
-                                if (output) {
-                                    output.src = reader.result;
-                                } else {
-                                    console.error("Image preview element not found.");
-                                }
-                            }
-                            reader.readAsDataURL(event.target.files[0]);
-                        }
+            
+            div{
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    @extends('layouts.app')
 
-                        // Attach event listener to the file input
-                        var fileInput = document.getElementById('image');
-                        if (fileInput) {
-                            fileInput.addEventListener('change', previewImage);
-                        } else {
-                            console.error("File input element not found.");
-                        }
-                    });
-                </script>
-    </head>
-    <body>
-        @extends('layouts.app')
+    @section('content')
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2"> 
+                    <div class="col-6">
+                        <h1 class="m-0" style="font-weight: bold">&nbsp;{{ __("Edit Victim's Profile") }}</h1> 
+                    </div> 
 
-        @section('content')
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2"> 
-                         <div class="col-6">
-                            <h1 class="m-0" style="font-weight: bold">&nbsp;{{ __("Edit Victim's Profile") }}</h1>
-                        </div> 
+                    <div class="col-12">
+                        &nbsp;&nbsp;<a class="link-buttons" href="#" onclick="window.history.back();" style="background-color: #48145B; margin-right: 0.1rem" ><i class="fa-solid fa-arrow-left icons"></i>&nbsp;&nbsp;Go Back</a>
                     </div>
                 </div>
-            </div> 
+            </div>
+        </div> 
 
-            <div class="content" style="margin-top: -2rem;">
-                <div class="container-fluid" style="margin-top: 1rem">  
-                    <div class="card col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-bottom: 5rem; padding: 1rem 2rem 1rem 2rem;">
-                        <form action="{{ route('investigator.update_victim', [$vid]) }}" enctype="multipart/form-data" method="POST">
-                        @csrf
-                        @foreach ($comps as $comp) 
-                        <input type="hidden" name="vic_image_inp" value="{{ $comp->victim_image }}">
+        <div class="content" style="margin-top: -2rem;">
+            <div class="container-fluid" style="margin-top: 1rem">  
+                <div class="card col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-bottom: 5rem; padding: 1rem 2rem 1rem 2rem;">
+                    <form action="{{ route('investigator.update_victim', [$vid]) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @foreach ($comps as $comp) 
+                        <div class="row mb-4">
+                            <div class="col-md-3 text-center">
+                                @if($comp->victim_image)
+                                    <img src="{{ asset('images/victims/' . $comp->victim_image) }}" alt="{{ $comp->vic_firstname }}" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
 
-                            <div class="row mb-4"> 
-                                <div class="col-md-9">  
-                                    <div class="row" style="margin-top: -1.5rem">
-                                        <div class="col-4">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Family name:</label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_familyname" oninput="toUpper(this)"  
-                                                value="{{ $comp->victim_family_name }}">
+                                    <input type="hidden" name="vic_image_inp" value="{{ $comp->victim_image }}">
 
-                                                @if ($errors->has('vic_familyname')) 
-                                                    <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_familyname') }}</span>
-                                                @endif
-                                            </div> 
-                                        </div>
-                                        <div class="col-4">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">First name:</label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_firstname" oninput="toUpper(this)" value="{{ $comp->victim_firstname }}">
+                                    <span style="font-size: small">Uploaded Image last: {{ \Carbon\Carbon::parse($comp->created_at)->format('Y-m-d, g:i a') }}</span>
+                                @else
+                                    <p>No Image</p>
+                                @endif 
 
-                                                @if ($errors->has('vic_firstname')) 
-                                                    <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_firstname') }}</span>
-                                                @endif
-                                            </div> 
-                                        </div> 
-                                        <div class="col-4">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Middle name:</label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_middlename" oninput="toUpper(this)"   value="{{ $comp->victim_middlename }}">
-
-                                                @if ($errors->has('vic_middlename')) 
-                                                    <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_middlename') }}</span>
-                                                @endif
-                                            </div> 
-                                        </div>
-                                    </div>
-
-                                    <div class="row" style="margin-top: -1.5rem">
-                                        <div class="col-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Aliases: </label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_aliases" oninput="toUpper(this)"   value="{{ $comp->victim_aliases }}">
-
-                                                @if ($errors->has('vic_aliases')) 
-                                                    <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_aliases') }}</span>
-                                                @endif
-                                            </div> 
-                                        </div>
-                                        <div class="col-3" >
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Sex: </label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_sex" value="{{ $comp->victim_sex }}" readonly >
-                                            </div> 
-                                        </div>
-                                        <div class="col-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Age: </label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_age" oninput="toUpper(this)" value="{{ $comp->victim_age }}" readonly >
-                                            </div> 
-                                        </div>
-                                        <div class="col-3" >
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Date of birth: </label>
-                                                <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth"   value="{{ $comp->victim_date_of_birth }}">
-
-                                                @if ($errors->has('vic_date_birth')) 
-                                                    <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_date_birth') }}</span>
-                                                @endif
-                                            </div> 
-                                        </div> 
-                                    </div> 
-
-                                    <div class="row">
-                                        <div class="col-12" style="margin-top: -1.5rem">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Place of birth: </label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_place_birth"  value="{{ $comp->victim_place_of_birth }}">
-
-                                                @if ($errors->has('vic_place_birth')) 
-                                                    <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_place_birth') }}</span>
-                                                @endif
-                                            </div> 
-                                        </div>
-                                    </div> 
-                                </div>
-                                <div class="col-md-3 text-center">
-                                @if($comp->victim_image != 'no image')
-                                    <img src="{{ asset('images/victims/' . $comp->victim_image) }}" alt="{{ $comp->vic_firstname }}" id="previewImage" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
-                                    <input type="file" name="image" id="image" accept="image/*">
-                                    @else
-                                    <img src="{{ asset('images/default.png') }}" alt="{{ $comp->vic_firstname }}" id="previewImage" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
-                                        <p>No Image</p>
-                                        <input type="file" name="image" id="image" accept="image/*">
-                                    @endif
-
-
-                                </div>
-                            </div> 
-                            <div class="row" style="margin-top: -3rem">
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Highest Educational Attainment: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_educ_attainment" value="{{ $comp->victim_highest_educ_attainment }}" >
-
-                                        @if ($errors->has('vic_educ_attainment')) 
-                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_educ_attainment') }}</span>
-                                        @endif 
-                                    </div> 
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Civil Status: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_civil_stat" value="{{ $comp->victim_civil_status }}" readonly >  
-                                    </div> 
-                                </div> 
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Citizenship: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_citizenship"  value="{{ $comp->victim_nationality }}">
-
-                                        @if ($errors->has('vic_citizenship')) 
-                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_citizenship') }}</span>
-                                        @endif
-                                    </div> 
-                                </div> 
                             </div>
                             
-                            <div class="row" style="margin-top: -1rem">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Present Address: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_present_addr" value="{{ $comp->victim_present_address }}">
+                            <div class="col-md-9">  
+                                <div class="row" style="margin-top: -1.5rem">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Family name:</label>
+                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_familyname" oninput="toUpper(this)" value="{{ $comp->victim_family_name }}"  >
 
-                                        @if ($errors->has('vic_present_addr')) 
-                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_present_addr') }}</span>
-                                        @endif
-                                    </div> 
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Provincial Address: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_prov_addr"  value="{{ $comp->victim_provincial_address }}">
+                                            @if ($errors->has('vic_familyname')) 
+                                                <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_familyname') }}</span>
+                                            @endif
+                                        </div> 
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">First name:</label>
+                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_firstname" oninput="toUpper(this)" value="{{ $comp->victim_firstname }}"  >
 
-                                        @if ($errors->has('vic_prov_addr')) 
-                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_prov_addr') }}</span>
-                                        @endif
+                                            @if ($errors->has('vic_firstname')) 
+                                                <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_firstname') }}</span>
+                                            @endif
+                                        </div> 
                                     </div> 
-                                </div>
-                            </div> 
-                            <div class="row" style="margin-top: -1rem">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Parents/Guardian Name: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_parentsname"  value="{{ $comp->victim_parents_guardian_name }}">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Middle name:</label>
+                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_middlename" oninput="toUpper(this)" value="{{ $comp->victim_middlename }}"  >
 
-                                        @if ($errors->has('vic_parentsname')) 
-                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_parentsname') }}</span>
-                                        @endif
-                                    </div> 
+                                            @if ($errors->has('vic_middlename')) 
+                                                <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_middlename') }}</span>
+                                            @endif
+                                        </div> 
+                                    </div>
                                 </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Employment Information - Occupation: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_occupation"  value="{{ $comp->victim_employment_info_occupation }}">
 
-                                        @if ($errors->has('vic_occupation')) 
-                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_occupation') }}</span>
-                                        @endif
+                                <div class="row" style="margin-top: -1.5rem">
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Aliases: </label>
+                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_aliases" oninput="toUpper(this)" value="{{ $comp->victim_aliases }}"  >
+
+                                            @if ($errors->has('vic_aliases')) 
+                                                <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_aliases') }}</span>
+                                            @endif
+                                        </div> 
+                                    </div>
+                                    <div class="col-3" >
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">10. Sex: </label>
+                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_sex" value="{{ $comp->victim_sex }}"  >
+
+                                            @if ($errors->has('vic_gender')) 
+                                                <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_gender') }}</span>
+                                            @endif
+                                        </div> 
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Age: </label>
+                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_age" oninput="toUpper(this)" value="{{ $comp->victim_age }}" readonly>
+                                        </div> 
+                                    </div>
+                                    <div class="col-3" >
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Date of birth: </label>
+                                            <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth" value="{{ $comp->victim_date_of_birth }}"  >
+
+                                            @if ($errors->has('vic_date_birth')) 
+                                                <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_date_birth') }}</span>
+                                            @endif
+                                        </div> 
                                     </div> 
-                                </div>
+                                </div> 
+
+                                <div class="row">
+                                    <div class="col-12" style="margin-top: -1.5rem">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Place of birth: </label>
+                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_place_birth" value="{{ $comp->victim_place_of_birth }}"  >
+
+                                            @if ($errors->has('vic_place_birth')) 
+                                                <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_place_birth') }}</span>
+                                            @endif
+                                        </div> 
+                                    </div>
+                                </div> 
                             </div>
-    
-                            <div class="row" style="margin-top: -1rem"> 
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Identifying Documents Presented: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="docs_presented"  value="{{ $comp->victim_docs_presented }}">
+                                
+                        </div> 
+                        <div class="row" style="margin-top: -3rem">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Highest Educational Attainment: </label>
+                                    {{-- <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_educ_attainment" value="{{ $comp->victim_highest_educ_attainment }}"  >  --}}
 
-                                        @if ($errors->has('docs_presented')) 
-                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('docs_presented') }}</span>
-                                        @endif
-                                    </div> 
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Contact Person, Address, and Contact Number:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_contactperson" value="{{  $comp->victim_contactperson_addr_con_num }}">
+                                    <select class="form-control" name="vic_educ_attainment" onchange="showfield(this.options[this.selectedIndex].value)" value="{{ old('vic_educ_attainment') }}">
+                                        <option value="{{ $comp->victim_highest_educ_attainment }}">Select highest educational attainment</option>
+                                        <option value="ELEMENTARY">Elementary</option>
+                                        <option value="HS GRADUATE">HS Graduate</option>
+                                        <option value="COLLEGE GRAD">College Graduate</option>
+                                        <option value="POST GRADUATE">Post Graduate</option>
+                                        <option value="Others">Others  </option> 
+                                    </select>
+                                    @if ($errors->has('vic_educ_attainment')) 
+                                        <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_educ_attainment') }}</span>
+                                    @endif
+                                    <div id="div1" style="margin-top: 1rem"></div>
+                                </div> 
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Civil Status: </label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_civil_stat" value="{{ $comp->victim_civil_status }}"  >  
 
-                                        @if ($errors->has('vic_contactperson')) 
-                                            <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_contactperson') }}</span>
-                                        @endif
-                                    </div> 
+                                    @if ($errors->has('vic_civil_stat')) 
+                                        <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_civil_stat') }}</span>
+                                    @endif
+                                </div> 
+                            </div> 
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Citizenship: </label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_citizenship" value="{{ $comp->victim_nationality }}"  >
+
+                                    @if ($errors->has('vic_citizenship')) 
+                                        <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_citizenship') }}</span>
+                                    @endif
+                                </div> 
+                            </div> 
+                        </div>
+                        
+                        <div class="row" style="margin-top: -1rem">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Present Address: </label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_present_addr" value="{{ $comp->victim_present_address }}"  >
+
+                                    @if ($errors->has('vic_present_addr')) 
+                                        <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_present_addr') }}</span>
+                                    @endif
+                                </div> 
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Provincial Address: </label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_prov_addr" value="{{ $comp->victim_provincial_address }}"  >
+
+                                    @if ($errors->has('vic_prov_addr')) 
+                                        <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_prov_addr') }}</span>
+                                    @endif
+                                </div> 
+                            </div>
+                        </div> 
+                        <div class="row" style="margin-top: -1rem">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Parents/Guardian Name: </label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_parentsname" value="{{ $comp->victim_parents_guardian_name }}"  >
+
+                                    @if ($errors->has('vic_parentsname')) 
+                                        <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_parentsname') }}</span>
+                                    @endif
+                                </div> 
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Employment Information - Occupation: </label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_occupation" value="{{ $comp->victim_employment_info_occupation }}"  >
+
+                                    @if ($errors->has('vic_occupation')) 
+                                        <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_occupation') }}</span>
+                                    @endif
+                                </div> 
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top: -1rem"> 
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Identifying Documents Presented: </label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="docs_presented" value="{{ $comp->victim_docs_presented }}"  >
+
+                                    @if ($errors->has('docs_presented')) 
+                                        <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('docs_presented') }}</span>
+                                    @endif
+                                </div> 
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Contact Person, Address, and Contact Number:</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_contactperson" value="{{ $comp->victim_contactperson_addr_con_num }}"  >
+
+                                    @if ($errors->has('vic_contactperson')) 
+                                        <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_contactperson') }}</span>
+                                    @endif
                                 </div> 
                             </div> 
 
-                            <div class="col-12">
-                                <button type="submit" class="form-buttons" style="width: 9rem">Save Changes</button>
+                            <div class="col-4" style="margin-top: -1rem">
+                                <div class="form-group">
+                                    <label for="image">Update Victim's Image:</label>
+                                    <input type="file" class="form-control" id="file" name="vic_image" accept="image/*" onchange="previewImage(this)">
+                                </div>
+
+                                <div id="imagePreview"></div>
                             </div>
-                        @endforeach 
-                    </form>
-                    </div>
+                        </div> 
+
+                        <div class="col-12">
+                            <button type="submit" class="form-buttons" style="width: 9rem">Save Changes</button>
+                        </div>
+                    @endforeach 
+                </form>
                 </div>
-            </div>   
-        @endsection
-    </body>
+            </div>
+        </div>   
+    @endsection
+</body>
 </html>
 
 @if(session('updatemessage'))
@@ -376,4 +384,20 @@
         });
     });
 
+    function previewImage(input) {
+            var previewContainer = document.getElementById('imagePreview');
+            var file = input.files[0];
+
+            if (file) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    previewContainer.innerHTML = '<img src="' + e.target.result + '" class="img-thumbnail" style="max-width:50%; max-height:50%;">';
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                previewContainer.innerHTML = '';
+            }
+        }
 </script>

@@ -69,21 +69,17 @@
             </div>
  
             <div class="content" style="margin-top: -1.5rem">
-                <div class="container-fluid">
-                    {{-- <div class="col-12">
-                        <a class="link-buttons" href="{{ route('investigator.complaintreport_form') }}" style="float: left;" target="_blank">Add a Complaint Report&nbsp;&nbsp;<i class="fa-solid fa-plus"></i> </a> 
-                    </div> --}} 
-                    
+                <div class="container-fluid">  
                     <div class="col-12">
                         <div class="filter">
                             <form action="filter-offendersmngt" method="GET">
                                 <div class="date-filter">
                                     <label for="start_date">From:</label>&nbsp;&nbsp;
-                                    <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}">&nbsp;&nbsp;
+                                    <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}" max="{{ date('Y-m-d') }}" required>&nbsp;&nbsp;
                                     <label for="end_date">To:</label>&nbsp;&nbsp;
-                                    <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}">&nbsp;&nbsp;
+                                    <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}" max="{{ date('Y-m-d') }}" required>&nbsp;&nbsp;
                                     <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-                                    <a href="{{ route('investigator.suspects_mngt') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a>
+                                    {{-- <a href="{{ route('investigator.suspects_mngt') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a> --}}
                                 </div>
                             </form>
                         </div>
@@ -124,11 +120,12 @@
                                         <td style="vertical-align: top;">{{ $comp->date_reported }}</td>
                                         {{-- <td>{{ $comp->offenses }}</td>   --}}
                                         <td style="vertical-align: top;"> 
-                                            <a class="view-btn" href="{{ route('investigator.view_complaintreport', $comp->compid) }}" target="_blank">&nbsp;&nbsp;&nbsp;View Case<i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
+                                            <center>
+                                                <a class="view-btn" href="{{ route('investigator.view_complaintreport', $comp->compid) }}" >&nbsp;&nbsp;&nbsp;View Case<i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
                                                 
-                                            <a class="view-btn" href="{{ route('investigator.offender_profile', $comp->oid) }}" target="_blank">&nbsp;&nbsp;&nbsp;View Profile<i class="fa-regular fa-user" style="font-size: large; padding: 0.5rem"></i></a> 
+                                                <br><a class="view-btn" href="{{ route('investigator.offender_profile', $comp->oid) }}" style="margin-top: 0.5rem">&nbsp;&nbsp;&nbsp;View Profile<i class="fa-regular fa-user" style="font-size: large; padding: 0.5rem"></i></a> 
 
-                                            {{-- <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', $comp->id) }}">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a>   --}} 
+                                            </center> 
                                         </td>
                                     </tr> 
                                     @endforeach 
@@ -257,30 +254,30 @@
 </div>
 
 <script>
-    let inactiveTime = 0;
-    const logoutTime = 2 * 60 * 1000;
-    // 5 * 60 * 1000; // 5 minutes in milliseconds
+    // let inactiveTime = 0;
+    // const logoutTime = 2 * 60 * 1000;
+    // // 5 * 60 * 1000; // 5 minutes in milliseconds
     
-    function resetInactiveTime() {
-        inactiveTime = 0;
-    }
+    // function resetInactiveTime() {
+    //     inactiveTime = 0;
+    // }
     
-    function handleUserActivity() {
-        resetInactiveTime();
-    }
+    // function handleUserActivity() {
+    //     resetInactiveTime();
+    // }
     
-    document.addEventListener('mousemove', handleUserActivity);
-    document.addEventListener('keydown', handleUserActivity);
+    // document.addEventListener('mousemove', handleUserActivity);
+    // document.addEventListener('keydown', handleUserActivity);
     
-    function checkInactiveTime() {
-        inactiveTime += 1000; 
-        if (inactiveTime >= logoutTime) { 
-            window.location.href = "/inactive_screen"; 
-        } else { 
-            setTimeout(checkInactiveTime, 1000); 
-        }
-    }
+    // function checkInactiveTime() {
+    //     inactiveTime += 1000; 
+    //     if (inactiveTime >= logoutTime) { 
+    //         window.location.href = "/inactive_screen"; 
+    //     } else { 
+    //         setTimeout(checkInactiveTime, 1000); 
+    //     }
+    // }
     
-    setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
+    // setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
 
 </script>

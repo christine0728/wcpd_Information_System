@@ -79,9 +79,9 @@
                             <form action="filter-complaintreps" method="GET">
                                 <div class="date-filter">
                                     <label for="start_date">From:</label>&nbsp;&nbsp;
-                                    <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}" required>&nbsp;&nbsp;
+                                    <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}" max="{{ date('Y-m-d') }}" required>&nbsp;&nbsp;
                                     <label for="end_date">To:</label>&nbsp;&nbsp;
-                                    <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}" required>&nbsp;&nbsp;
+                                    <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}" max="{{ date('Y-m-d') }}" required>&nbsp;&nbsp;
                                     <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
                                     <!-- <a href="{{ route('investigator.complaintreport') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a> -->
                                 </div>
@@ -94,48 +94,22 @@
                             <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                                 <thead>
                                     <tr> 
-                                        <th style="display: none">id</th>
-                                        {{-- <th>View</th> --}}
-                                        {{-- <th><center>Complaint Report<br>Author</center></th> --}}
-                                        <th><center>CASE DETAILS</center></th>
-                                        {{-- <th><center>PEOPLE INVOLVED</center></th> --}}
-                                        {{-- <th>Victim's Fullname</th>
-                                        <th>Victim's Sex</th>
-                                        <th>Victim's Age</th> 
-                                        <th>Offender's Fullname</th>
-                                        <th>Offender's Sex</th>
-                                        <th>Offender's Age</th>
-                                        <th>Relationship to Victim</th>
-                                        <th>Motive/Cause</th> --}}
-                                        <th><center>CASE DISPOSITION</center></th>
-                                        {{-- <th>Suspect Disposition</th>
-                                        <th>Case Update</th> --}}
-                                        {{-- <th>Date of Case Updated</th> --}}
+                                        <th style="display: none">id</th> 
+                                        <th><center>CASE DETAILS</center></th> 
+                                        <th><center>CASE DISPOSITION</center></th> 
                                         <th><center>ACTION</center></th>
                                     </tr>
                                 </thead>
                                 <tbody> 
                                     @foreach ($comps as $comp)  
-                                    <tr>  
-                                        {{-- <td style="vertical-align: top;">
-                                            <center>
-                                                <a class="view-btn" href="{{ route('investigator.view_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
-                                            </center>
-                                        </td> --}}
+                                    <tr>   
                                         <td style="display: none">{{ $comp->id }}</td>
                                         <td>
                                             <b>Investigation/Case No.:</b> {{ $comp->inv_case_no }}
                                             <br><br><b>Date Reported:</b> {{ $comp->date_reported }}
                                             <br><br><b>Place of Commission:</b><br>{{ $comp->place_of_commission }}
                                             <br><br><b>Offenses Committed:</b><br>{{ $comp->offenses }}
-                                        </td>
-                                        {{-- <td style="vertical-align: top;">
-                                            <b>Victim Overview</b>
-                                            <br>Fullname: {{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}
-
-                                            <br><br><b>Offender Overview</b>
-                                            <br>Fullname: {{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}
-                                        </td> --}}
+                                        </td> 
                                         <td style="vertical-align: top; width: 14rem">  
                                             @if ($comp->case_update == 'not update yet') 
                                                 Current: {{ $comp->case_disposition }}
@@ -164,26 +138,10 @@
                                                     <button type="submit" class="form-buttons" style="width: 50%; margin-top: 0.3rem; float: right"> Update Case </button>                
                                                 {{-- </div>  --}}
                                             </form>
-                                        </td>
-                                        {{-- <td>{{ $comp->suspect_disposition }}</td>
-                                        <td> 
-                                            @if ($comp->case_update == null) 
-                                                Case not updated yet.
-                                            @else
-                                                {{ $comp->case_update }}
-                                            @endif
-                                        </td> --}}
-                                        {{-- <td>
-                                            @if ($comp->case_update == null) 
-                                                Case not updated yet.
-                                            @else
-                                                {{ $comp->date_case_updated }}
-                                            @endif
-                                        </td> --}}
+                                        </td> 
                                         <td style="vertical-align: top;">
-                                        <center> 
-                                            {{-- <a class="case-btn" href=" ">&nbsp;&nbsp;&nbsp;Update Case <i class="fa-regular fa-file" style="font-size: large; padding: 0.5rem"></i></a>   --}} 
-                                            <a class="view-btn" href="{{ route('investigator.view_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
+                                        <center>  
+                                            <a class="view-btn" href="{{ route('investigator.view_complaintreport', $comp->id) }}">&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
                                             <br><a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', $comp->id) }}" style="margin-top: 0.3rem;">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
                                             
                                             <br><a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href="{{ route('investigator.delete_form', $comp->id) }}" style="margin-top: 0.3rem">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a>
