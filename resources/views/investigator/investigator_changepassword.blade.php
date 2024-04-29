@@ -18,7 +18,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>SuperAdmin | Change Password</title>
+        <title>Investigator | Change Password</title>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <link rel="icon" href="{{ url('images/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
@@ -73,7 +73,7 @@
 
             <div class="content" style="margin-top: -1rem; ">
                 <div class="container-fluid" >   
-                    <div class="card col-5 shadow p-3 mb-5 bg-white rounded" style="overflow-x:auto; background-color: white; border-radius: 0.5rem;  margin-left: 25%;"> 
+                    <div class="card col-5 shadow p-3 mb-5 bg-white rounded" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-left: 25%;"> 
                         @if(Session::has('error')) 
                             <b style="color: red">{{ session::get('error') }}</b> 
                         @endif
@@ -84,13 +84,13 @@
                                 <div class="card-body p-1">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Username: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" oninput="toUpper(this)">
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" oninput="toUpper(this)" value="{{ old('username') }}">
                                     </div>
     
                                     <div class="form-group">
                                         <label for="curr_password">Current password:</label>
                                         <div class="input-group">
-                                            <input type="password" class="form-control" id="curr_password" name="curr_password">
+                                            <input type="password" class="form-control" id="curr_password" name="curr_password" value="{{ old('curr_password') }}">
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-secondary" type="button" id="toggleCurrPassword">
                                                     <i class="fas fa-eye"></i>
@@ -102,16 +102,14 @@
                                     <div class="form-group">
                                         <label for="new_password">New password:</label>
                                         <div class="input-group">
-                                            <input type="password" class="form-control" id="new_password" name="new_password">
+                                            <input type="password" class="form-control" id="new_password" name="new_password" value="{{ old('new_password') }}">
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                                     <i class="fas fa-eye"></i>
                                                 </button>
                                             </div>
                                         </div>
-                                    </div>
-
-                                                                        <!-- Display validation errors -->
+                                    </div> 
                                         @if ($errors->any())
                                             <div class="alert alert-danger">
                                                 <ul>
@@ -145,103 +143,33 @@
     });
 </script>
 @endif
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
 <script>
-    $(document).ready(function() {
-          $('#compsTbl').DataTable({
-            "order": [[0, "desc"]]
-          });
-      });
-
-    function confirmDelete(id) {
-        Swal.fire({
-            title: 'Are you sure to delete this book?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-            $.ajax({
-                type: 'POST',
-                url: '/admin/activity_destroy/' + id, 
-                data: {
-                _token: '{{ csrf_token() }}',
-                _method: 'DELETE'
-                },
-                success: function (response) {
-                Swal.fire(
-                    'Deleted!',
-                    'The record has been deleted.',
-                    'success'
-                ).then(function () {
-                    location.reload();
-                });
-                },
-                error: function (error) {
-                    console.log(error);
-                Swal.fire(
-                    'Error!',
-                    'An error occurred while deleting the record.',
-                    'error'
-                );
-                }
-            });
-            }
-        });
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const editButtons = document.querySelectorAll('.btn-edit');
-
-        editButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                const modal = document.getElementById('modalEdit');
-                const editId = this.getAttribute('data-id');
-                const editactivity_title = this.getAttribute('data-activity_title');
-                const editstatus = this.getAttribute('data-status'); 
-
-                document.getElementById('edit_id').value = editId;
-                document.getElementById('edit_activity_title').value = editactivity_title;
-                document.getElementById('edit_status').value = editstatus; 
-
-                document.getElementById('edit_id').value = editId;
-
-                $(modal).modal('show');
-            });
-        });
-    });
-
-
-</script> 
-<script>
-    let inactiveTime = 0;
-    const logoutTime = 2 * 60 * 1000;
-    // 5 * 60 * 1000; // 5 minutes in milliseconds
+    // let inactiveTime = 0;
+    // const logoutTime = 2 * 60 * 1000;
+    // // 5 * 60 * 1000; // 5 minutes in milliseconds
     
-    function resetInactiveTime() {
-        inactiveTime = 0;
-    }
+    // function resetInactiveTime() {
+    //     inactiveTime = 0;
+    // }
     
-    function handleUserActivity() {
-        resetInactiveTime();
-    }
+    // function handleUserActivity() {
+    //     resetInactiveTime();
+    // }
     
-    document.addEventListener('mousemove', handleUserActivity);
-    document.addEventListener('keydown', handleUserActivity);
+    // document.addEventLisstener('mousemove', handleUserActivity);
+    // document.addEventListener('keydown', handleUserActivity);
     
-    function checkInactiveTime() {
-        inactiveTime += 1000; 
-        if (inactiveTime >= logoutTime) { 
-            window.location.href = "/inactive_screen"; 
-        } else { 
-            setTimeout(checkInactiveTime, 1000); 
-        }
-    }
+    // function checkInactiveTime() {
+    //     inactiveTime += 1000; 
+    //     if (inactiveTime >= logoutTime) { 
+    //         window.location.href = "/inactive_screen"; 
+    //     } else { 
+    //         setTimeout(checkInactiveTime, 1000); 
+    //     }
+    // }
     
-    setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
+    // setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
 
 </script>
 <script>

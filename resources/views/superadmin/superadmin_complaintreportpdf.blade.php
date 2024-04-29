@@ -178,7 +178,7 @@
                 <tr>
                     <td rowspan="2" colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem; vertical-align: top;"> 
                         @if($vic->victim_image)
-                        <img src="{{ asset('images/victims/' . $vic->victim_image) }}" alt="{{ $vic->victim_firstname }}" class="img-thumbnail" style="max-width: 180px; max-height: 180px;">
+                        <center><img src="{{ asset('images/victims/' . $vic->victim_image) }}" alt="{{ $vic->victim_firstname }}" class="img-thumbnail" style="max-width: 80%; max-height: 80%;"></center>
                         @else
                         No Image
                         @endif
@@ -253,7 +253,7 @@
             <tr>
                 <td rowspan="2" colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem; vertical-align: top;"> 
                     @if($off->offender_image)
-                    <img src="{{ asset('images/offenders/' . $off->offender_image) }}" alt="{{ $off->offender_firstname }}" class="img-thumbnail" style="max-width: 150px; max-height: 150px;">
+                    <center><img src="{{ asset('images/offenders/' . $off->offender_image) }}" alt="{{ $off->offender_firstname }}" class="img-thumbnail" style="max-width: 80%; max-height: 80%;"></center>
                     @else
                     No Image
                     @endif

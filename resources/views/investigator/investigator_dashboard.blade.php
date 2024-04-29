@@ -7,10 +7,10 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <link rel="icon" href="{{ url('images/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=24"> 
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=24">
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/7528702e77.js" crossorigin="anonymous"></script>
         <style>
             .filter {
@@ -33,7 +33,7 @@
                 [class*="col-"] {
                 width: 100%;
                 }
-                
+
                 div{
                     display: none !important;
                 }
@@ -45,42 +45,42 @@
             }
         </style>
     </head>
-    <body>  
+    <body>
     @extends('layouts.app')
 
     @section('content')
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
-                <div class="row mb-2"> 
+                <div class="row mb-2">
                         <div class="col-6">
                         <h1 class="m-0" style="font-weight: bold;">&nbsp;{{ __('Dashboard') }}</h1>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
 
 
         <div class="content" style="margin-top: 1rem; ">
-            <div class="container-fluid" >   
+            <div class="container-fluid" >
                 <div class="row col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: -1.5rem; margin-bottom: 2rem; padding: 1rem">
                     <div class="col-12">
                         <div class="filter">
-                            <form action="filter-allrecords" method="GET">
+                            <form action="filter-dashboard" method="GET">
                             <div class="date-filter">
                                 <label for="start_date">From:</label>&nbsp;&nbsp;
-                                <input type="date" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}">&nbsp;&nbsp;
+                                <input type="month" name="start_date" class="form-control" id="start_date" value="{{ $start_date ?? old('start_date') }}" max="{{ date('Y-m-d') }}" required>&nbsp;&nbsp;
                                 <label for="end_date">To:</label>&nbsp;&nbsp;
-                                <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}">&nbsp;&nbsp;
+                                <input type="month" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}" max="{{ date('Y-m-d') }}" required>&nbsp;&nbsp;
                                 <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-                                <a href="{{ route('superadmin.allrecords') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a>
+                                {{-- <a href="{{ route('superadmin.allrecords') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a> --}}
                             </div>
                             </form>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="card">
-                            <div class="card-body">  
+                            <div class="card-body">
                                 <div id="chart_div" style="width: 100%; height: 15rem;"></div>
 
                                 <button id="download-button" class="form-buttons" style="width: 13rem; margin-top: 1rem">Download Monthly Data&nbsp;&nbsp;<i class="fa-solid fa-download"></i></button>
@@ -90,7 +90,7 @@
 
                     <div class="col-6">
                         <div class="card">
-                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; ">
                                 <div>
                                     <b style="color: #48145B; font-size: large"> TOTAL NUMBER OF RECORDS PER RELATIONSHIP OF VICTIM TO SUSPECT PER GENDER </b>
                                 </div>
@@ -115,41 +115,11 @@
 
                             </div>
                         </div>
-                    </div>
-                        
-                    {{-- <div class="col-6">
-                        <div class="card">
-                            <div class="card-body" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; ">  
-                                <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
-                                    <thead> 
-                                        <tr> 
-                                            <th>Case</th>
-                                            @foreach($comps as $comp) 
-                                                <th>{{ $comp->comp_month }}</th> 
-                                            @endforeach
-                                        </tr>
-                                    </thead>
-                                    <tbody>  
-                                        @foreach($comps as $comp)
-                                            <tr>
-                                                <td>
-                                                    {{ $comp->offense }}
-                                                </td> 
-                                                @foreach($comps as $comp) 
-                                                <td>Male: {{ $comp->male_total_comps }} 
-                                                    <br>Female: {{ $comp->female_total_comps }}</td> 
-                                                @endforeach 
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table> 
-                            </div>
-                        </div>
-                    </div> --}}
+                    </div> 
 
                     <div class="col-6">
                         <div class="card">
-                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; ">
                                 <div>
                                     <b style="color: #48145B; font-size: large">TOTAL NUMBER OF CASES PER AGE RANGE IN FEMALE</b>
                                 </div>
@@ -160,7 +130,7 @@
 
                     <div class="col-6">
                         <div class="card">
-                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; ">
                                 <div>
                                     <b style="color: #48145B; font-size: large">TOTAL NUMBER OF CASES PER AGE RANGE IN MALE</b>
                                 </div>
@@ -171,7 +141,7 @@
 
                     <div class="col-6">
                         <div class="card">
-                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; ">
                                 <div>
                                     <b style="color: #48145B; font-size: large">TOTAL NUMBER OF VICTIMS PER GENDER</b>
                                 </div>
@@ -181,7 +151,7 @@
                     </div>
                     <div class="col-6">
                         <div class="card">
-                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; ">
                                 <div>
                                     <b style="color: #48145B; font-size: large"> TOTAL NUMBER OF OFFENDERS PER GENDER</b>
                                 </div>
@@ -191,53 +161,23 @@
                     </div>
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; ">
                                 <div>
                                     <b style="color: #48145B; font-size: large">TOP FIVE PLACES WITH MOST NUMBER OF CASE</b>
                                 </div>
                                 <div id="chart_div1" ></div>
                             </div>
                         </div>
-                    </div>
-
-
-                    {{-- <div class="col-6">
-                        <div class="card">
-                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; "> 
-                                <div>
-                                    <b style="color: #48145B; font-size: large"> TOTAL NUMBER OF RECORDS PER RELATIONSHIP OF VICTIM TO SUSPECT PER GENDER </b>
-                                </div>
-                                <table id="compsTbl">
-                                    <thead>
-                                        <tr>
-                                            <th>RELATIONSHIP </th>
-                                            <th>Male Count</th>
-                                            <th>Female Count</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($relationshipCounts as $item)
-                                            <tr>
-                                                <td>{{ $item->offender_relationship_victim }}</td>
-                                                <td>{{ $item->male_count }}</td>
-                                                <td>{{ $item->female_count }}</td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-
-                            </div>
-                        </div>
-                    </div> --}}
+                    </div> 
                    
                     <div class="card-footer clearfix"> 
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     @endsection
     </body>
-</html> 
+</html>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
@@ -246,9 +186,9 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script> 
+<script>
 
 $(document).ready(function() {
           $('#compsTbl').DataTable({
@@ -256,48 +196,34 @@ $(document).ready(function() {
           });
       });
 
-  
-</script>
 
-<script type="text/javascript">
-     google.charts.load('current', {'packages':['bar']});
+</script>
+<script>
+    google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
-            ['Month', 'Male', 'Female'], 
+            ['Month', 'Male', 'Female'],
             @foreach($comps as $comp)
-                ['{{ $comp->comp_month }}', 
-                {{ $comp->male_total_comps ?? 0 }}, 
+                ['{{ $comp->comp_month }}',
+                {{ $comp->male_total_comps ?? 0 }},
                 {{ $comp->female_total_comps ?? 0 }}
                 ],
             @endforeach
         ]);
 
-        var options = {
-            chart: {
-                title: 'Total Cases per Month',
-                subtitle: 'Grouped by Month and Gender',
-            },
-            bars: 'vertical' // Ensuring vertical bars
+        var options = { 
+            bars: 'vertical'  
         };
 
         var chart = new google.charts.Bar(document.getElementById('chart_div'));
 
-        chart.draw(data, google.charts.Bar.convertOptions(options)); 
-        
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+
         // Function to download chart data as CSV
         function downloadCSV() {
-            var csvContent = 'Month,Male,Female\n'; // Header line
-            for (var i = 0; i < data.getNumberOfRows(); i++) {
-                for (var j = 0; j < data.getNumberOfColumns(); j++) {
-                    csvContent += data.getFormattedValue(i, j);
-                    if (j < data.getNumberOfColumns() - 1) { 
-                        csvContent += ',';
-                    }
-                }
-                csvContent += '\n';
-            }
+            var csvContent = google.visualization.dataTableToCsv(data);
             var encodedUri = encodeURI('data:text/csv;charset=utf-8,' + csvContent);
             var link = document.createElement('a');
             link.setAttribute('href', encodedUri);
@@ -312,6 +238,7 @@ $(document).ready(function() {
         });
     }
 </script>
+
 <script type="text/javascript">
     google.charts.load('current', {'packages': ['corechart']});
     google.charts.setOnLoadCallback(drawChart3);
@@ -319,7 +246,7 @@ $(document).ready(function() {
     function drawChart3() {
         var data3 = new google.visualization.DataTable();
         data3.addColumn('string', 'Age Range');
-        data3.addColumn('number', 'Total Complaints'); 
+        data3.addColumn('number', 'Total Complaints');
 
         var rawData = {!! json_encode($comps11) !!}; // Ensure proper JSON encoding
 
@@ -336,17 +263,17 @@ $(document).ready(function() {
                 width: '100%',
                 height: '100%'
             },
-            fontSize: 20,
+            fontSize: 15,
             legend: {
                 position: 'left',
-                fontSize: 17,
+                fontSize: 15,
                 textStyle: {
-                    fontSize: 16
+                    fontSize: 15
                 }
             },
             pieSliceTextStyle: {
                 fontSize: 15
-            },  
+            },
         };
 
         var chart3 = new google.visualization.PieChart(document.getElementById('pie-chart_fem'));
@@ -354,9 +281,9 @@ $(document).ready(function() {
 
         var data_male = new google.visualization.DataTable();
         data_male.addColumn('string', 'Age Range');
-        data_male.addColumn('number', 'Total Complaints'); 
+        data_male.addColumn('number', 'Total Complaints');
 
-        var rawDatam = {!! json_encode($comps_male) !!}; 
+        var rawDatam = {!! json_encode($comps_male) !!};
 
         rawDatam.forEach(function(row) {
             data_male.addRow([row.age_range, row.total_comps]);
@@ -371,51 +298,82 @@ $(document).ready(function() {
                 width: '100%',
                 height: '100%'
             },
-            fontSize: 20,
+            fontSize: 15,
             legend: {
                 position: 'left',
-                fontSize: 17,
+                fontSize: 15,
                 textStyle: {
-                    fontSize: 16
+                    fontSize: 15
                 }
             },
             pieSliceTextStyle: {
                 fontSize: 15
-            }, 
+            },
         };
 
         var chart_male = new google.visualization.PieChart(document.getElementById('pie-chart_male'));
         chart_male.draw(data_male, options_male);
-    }  
+    }
 </script>
 {{-- <script>
     let inactiveTime = 0;
     const logoutTime = 5 * 60 * 1000;
     // 5 * 60 * 1000; // 5 minutes in milliseconds
-    
+
     function resetInactiveTime() {
         inactiveTime = 0;
     }
-    
+
     function handleUserActivity() {
         resetInactiveTime();
     }
-    
+
     document.addEventListener('mousemove', handleUserActivity);
     document.addEventListener('keydown', handleUserActivity);
-    
+
     function checkInactiveTime() {
-        inactiveTime += 1000; 
-        if (inactiveTime >= logoutTime) { 
-            window.location.href = "/inactive_screen"; 
-        } else { 
-            setTimeout(checkInactiveTime, 1000); 
+        inactiveTime += 1000;
+        if (inactiveTime >= logoutTime) {
+            window.location.href = "/inactive_screen";
+        } else {
+            setTimeout(checkInactiveTime, 1000);
         }
     }
-    
+
     setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
 
 </script> --}}
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Gender', 'Count'],
+            ['Male', {{ $maleVictim }}],
+            ['Female', {{ $femaleVictim }}]
+        ]);
+
+        var options = {
+            is3D: true,
+            pieSliceText: 'percentage',
+            backgroundColor: 'transparent',
+            chartArea: {
+                left: 10,
+                top: 10,
+                width: '100%',
+                height: '100%'
+            },
+            pieSliceTextStyle: {
+                fontSize: 15
+            },
+            fontSize: 15,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('pie_chart'));
+        chart.draw(data, options);
+    }
+</script>
 
 <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
@@ -428,8 +386,20 @@ $(document).ready(function() {
             ['Female', {{ $femaleOffenders }}]
         ]);
 
-        var options = { 
+        var options = {
             is3D: true,
+            pieSliceText: 'percentage',
+            backgroundColor: 'transparent',
+            chartArea: {
+                left: 10,
+                top: 10,
+                width: '100%',
+                height: '100%'
+            },
+            pieSliceTextStyle: {
+                fontSize: 15
+            },
+            fontSize: 15,
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('pie_chart5'));
@@ -445,7 +415,7 @@ $(document).ready(function() {
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Place');
         data.addColumn('number', 'Total Cases');
- 
+
         var topPlaces = {!! json_encode($topPlaces) !!};
         var rows = [];
         topPlaces.forEach(function(place) {
@@ -454,15 +424,15 @@ $(document).ready(function() {
 
         data.addRows(rows);
 
-        var options = { 
+        var options = {
             legend: { position: 'none' },
             chartArea: { width: '50%' },
             hAxis: {
                 title: 'Total Number Cases',
-                minValue: 0, 
+                minValue: 0,
             },
             vAxis: {
-                title: 'Place', 
+                title: 'Place',
             }
         };
 

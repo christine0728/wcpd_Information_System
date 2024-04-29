@@ -18,7 +18,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Offender's Profile</title>
+        <title>Investigator | Offender's Profile</title>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <link rel="icon" href="{{ url('images/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
@@ -44,8 +44,6 @@
                 }
             }
         </style>
-
-
     </head>
     <body>
         @extends('layouts.app')
@@ -55,9 +53,13 @@
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2"> 
-                         <div class="col-6">
+                        <div class="col-6">
                             <h1 class="m-0" style="font-weight: bold">&nbsp;{{ __("Offender's Profile") }}</h1>
                         </div> 
+
+                        <div class="col-12">
+                            &nbsp;&nbsp;<a class="link-buttons" href="#"  onclick="window.history.back();" style="background-color: #48145B; margin-right: 0.1rem" ><i class="fa-solid fa-arrow-left icons"></i>&nbsp;&nbsp;Go Back</a>
+                        </div>
                     </div>
                 </div>
             </div> 
@@ -66,8 +68,15 @@
                 <div class="container-fluid" style="margin-top: 1rem">  
                     <div class="card col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-bottom: 5rem; padding: 1rem 2rem 1rem 2rem;">
                         @foreach ($comps as $comp) 
-                            <div class="row mb-4"> 
-                                 
+                            <div class="row mb-4">
+                                <div class="col-md-3 text-center">
+                                    @if($comp->offender_image)
+                                        <img src="{{ asset('images/offenders/' . $comp->offender_image) }}" alt="{{ $comp->vic_firstname }}" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
+                                    @else
+                                        <p>No Image</p>
+                                    @endif
+                                </div>
+
                                 <div class="col-md-9">  
                                     <div class="row" style="margin-top: -1.5rem">
                                         <div class="col-4">
@@ -138,16 +147,6 @@
                                     </div> 
                                 </div>
                                  
-                                <div class="col-md-3 text-center">
-                                @if($comp->offender_image != 'no image')
-
-                                    <img src="{{ asset('images/offenders/' . $comp->offender_image) }}" alt="{{ $comp->vic_firstname }}" id="previewImage" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
-                                         @else
-                                         <img src="{{ asset('images/default.png') }}" alt="{{ $comp->vic_firstname }}" id="previewImage" class="img-thumbnail" style="max-width: 100%; max-height: 100%;">
-                               
-                                        <p>No Image</p>
-                                    @endif
-                                </div>
                             </div> 
                             <div class="row" style="margin-top: -3rem">
                                 <div class="col-6">
@@ -269,24 +268,4 @@
         });
     });
 
-    function previewImage(event) {
-        var reader = new FileReader();
-        reader.onload = function() {
-            var output = document.getElementById('previewImage');
-            if (output) {
-                output.src = reader.result;
-            } else {
-                console.error("Image preview element not found.");
-            }
-        }
-        reader.readAsDataURL(event.target.files[0]);
-    }
-
-    // Attach event listener to the file input
-    var fileInput = document.getElementById('image');
-    if (fileInput) {
-        fileInput.addEventListener('change', previewImage);
-    } else {
-        console.error("File input element not found.");
-    }
 </script>

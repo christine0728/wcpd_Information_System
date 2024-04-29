@@ -540,7 +540,7 @@
                         <a class="link-buttons" href="{{ route('superadmin.complaintreport') }}" style="float: left; background-color: #48145B">Cancel <i class="fa-solid fa-xmark icons"></i> </a> 
                         {{-- <a class="link-buttons" href=" " style="float: right;">Next</a>  --}} 
 
-                        <button type="submit" class="form-buttons" style="float: right;">Submit Update <i class="fa-solid fa-check icons"></i></button> 
+                        <button type="submit" class="form-buttons" style="float: right;">Submit Changes <i class="fa-solid fa-check icons"></i></button> 
 
                         <a class="link-buttons" href="{{ route('superadmin.offender_form', [$comp->id]) }}" style="float: right; background-color: #48145B; margin-right: 0.5rem">Add an Offender&nbsp;&nbsp;<i class="fa-solid fa-plus"></i></a>
 

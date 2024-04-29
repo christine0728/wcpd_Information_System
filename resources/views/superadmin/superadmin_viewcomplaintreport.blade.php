@@ -93,9 +93,11 @@
             </div> 
             
             <div class="col-12" style="margin-top: -1rem"> 
-                <a class="link-buttons" href="#" onclick="window.history.back();" style="background-color: #48145B; margin-right: 0.1rem" ><i class="fa-solid fa-arrow-left icons"></i>&nbsp;&nbsp;Go Back</a>
+                <a class="link-buttons" href="#" onclick="window.history.back();" style="background-color: #48145B; margin-right: 0.1rem" ><i class="fa-solid fa-arrow-left icons"></i>&nbsp;&nbsp;Back</a>
 
-                <a class="link-buttons" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('superadmin.edit_complaintreport', [$comp_id]) }}" style="background-color: darkgreen; margin-right: 0.1rem" target="_blank">Edit&nbsp;&nbsp;<i class="fa-solid fa-pen-to-square icons"></i> </a>
+                <a class="link-buttons" href="{{ route('superadmin.complaintreport') }}" style="background-color: #48145B; margin-right: 0.1rem"  >Complaint Report Mngt.&nbsp;&nbsp;<i class="fa-solid fa-pen-to-square icons"></i> </a>
+
+                <a class="link-buttons" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('superadmin.edit_complaintreport', [$comp_id]) }}" style="background-color: darkgreen; margin-right: 0.1rem"  >Edit&nbsp;&nbsp;<i class="fa-solid fa-pen-to-square icons"></i> </a>
 
                 <a class="link-buttons" onclick="return confirm('Are you sure you want to DELETE this record?')" href="{{ route('superadmin.delete_form', [$comp_id]) }}" style="background-color: darkred; margin-right: 0.1rem">Delete&nbsp;&nbsp;<i class="fa-solid fa-trash icons"></i> </a> 
 

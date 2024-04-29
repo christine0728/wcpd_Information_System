@@ -135,7 +135,7 @@ class OffenderController extends Controller
         ]);
 
         if ($acc_type == 'investigator'){
-            return redirect()->route('investigator.offender_form', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
+            return redirect()->route('investigator.edit_complaintreport', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
         }
         elseif ($acc_type == 'superadmin'){ 
             return redirect()->route('superadmin.edit_complaintreport', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
@@ -173,13 +173,12 @@ class OffenderController extends Controller
         $off_date_birth = $request->input('off_date_birth');
         $off_age = Carbon::parse($off_date_birth)->diffInYears(Carbon::now());
 
-        if ($request->hasFile('image')) {
-            $off_file = $request->file('image');
+        if ($request->hasFile('off_image')) {
+            $off_file = $request->file('off_image');
             $off_extension = $off_file->getClientOriginalExtension();
             $off_filename = time() . '.' . $off_extension;
             $off_file->move('images/offenders/', $off_filename);
-        } else {
-            
+        } else { 
             $off_filename = $request->input('off_image_inp');
         }
 

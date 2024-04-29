@@ -144,38 +144,23 @@
                     {{ $message }}
                 @enderror
             </div>
-<<<<<<< Updated upstream
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label"><i class="fa fa-lock"></i> Password</label>
-            <div class="input-group">
-                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
-                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                    <i class="fas fa-eye"></i>
-                </button>
-            </div>
-            <div class="error-message">
-                @error('password')
-                    {{ $message }}
-                @enderror
-            </div>
-        </div>
-
-
-=======
         </div>
         <div class="mb-3">
-            <label for="password" class="form-label">
-                <i class="fa fa-lock"></i> Password
-            </label>
-            <input type="password" class="form-control" name="password" placeholder="Enter your password" required>
-            <div class="error-message" style="font-size: 14px; color: #dc3545; margin-top: 5px;">
-                @error('password')
-                    {{ $message }}
-                @enderror
-            </div>
+          <label for="password" class="form-label">
+              <i class="fa fa-lock"></i> Password
+          </label>
+          <div class="input-group">
+            <input type="password" class="form-control" id="password" name="password" required>
+            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <div class="error-message" style="font-size: 14px; color: #dc3545; margin-top: 5px;">
+              @error('password')
+                  {{ $message }}
+              @enderror
+          </div>
         </div>
->>>>>>> Stashed changes
           {!! NoCaptcha::renderJs() !!}
           {!! NoCaptcha::display() !!}
           @error('g-recaptcha-response')
