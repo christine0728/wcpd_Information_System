@@ -158,6 +158,129 @@ class InvestigatorController extends Controller
         return view('investigator.investigator_dashboard',  ['relationshipCounts'=> $relationshipCounts,'topPlaces'=>$topPlaces, 'maleOffenders'=>$maleOffenders, 'femaleOffenders'=>$femaleOffenders, 'maleVictim'=>$maleVictim, 'femaleVictim'=>$femaleVictim, 'notifs'=>$notifs, 'comps'=>$comps, 'comps11'=>$comps11, 'comps_male'=>$comps_male, 'filter_year'=>$filter_year, 'filter_year1'=>$filter_year1]);
     }
 
+    public function filter_dashboard(Request $request)
+    {
+        $filter_year = null;
+        $filter_year1 = null; 
+
+        // $start_date = date('Y-m-d', strtotime($request->input('start_date')));
+        // $end_date = date('Y-m-d', strtotime($request->input('end_date')));
+
+        $start_month = date('m', strtotime($request->input('start_date')));
+        $end_month = date('m', strtotime($request->input('end_date'))); 
+
+        $crimeData = DB::table('complaint_reports')
+        ->join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
+        ->leftJoin('victims', 'victims.comp_report_id', '=', 'complaint_reports.complaint_report_author')
+        ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.complaint_report_author')
+        ->select(
+            DB::raw('MONTH(date_reported) as month'),
+            DB::raw('COUNT(*) as total_cases'),
+            'offenses',
+            'offenders.offender_sex'
+        )
+        ->whereRaw('MONTH(complaint_reports.date_reported) >= ?', [$start_month])
+        ->whereRaw('MONTH(complaint_reports.date_reported) <= ?', [$end_month]) 
+        ->groupBy('month', 'offenses', 'offenders.offender_sex')
+        ->orderBy('month')
+        ->get();
+    
+        $comps = DB::table('complaint_reports as cr')
+        ->join('victims as v', 'v.comp_report_id', '=', 'cr.id')
+        ->select(
+            DB::raw('DATE_FORMAT(cr.date_reported, "%b") AS comp_month'),
+            DB::raw('COUNT(cr.id) AS total_comps'),
+            DB::raw('SUM(CASE WHEN v.victim_sex = "MALE" THEN 1 ELSE 0 END) AS male_total_comps'),
+            DB::raw('SUM(CASE WHEN v.victim_sex = "FEMALE" THEN 1 ELSE 0 END) AS female_total_comps'),
+            DB::raw('GROUP_CONCAT(DISTINCT cr.offenses) AS offense')
+        )
+        ->whereRaw('MONTH(cr.date_reported) >= ?', [$start_month])
+        ->whereRaw('MONTH(cr.date_reported) <= ?', [$end_month]) 
+        ->groupBy('comp_month')
+        ->orderBy(DB::raw('MONTH(cr.date_reported)'))
+        ->get();
+     
+        $comps11 = ComplaintReport::join('victims', function ($join) {
+            $join->on('victims.comp_report_id', '=', 'complaint_reports.id')
+                    ->where('victims.victim_sex', '=', 'FEMALE');
+            })
+            ->select(
+                DB::raw('CASE 
+                    WHEN victims.victim_age BETWEEN 0 AND 17 THEN "0-17" 
+                    ELSE "18+"
+                END AS age_range'), 
+                DB::raw('COUNT(complaint_reports.id) AS total_comps')
+            ) 
+            ->whereRaw('MONTH(complaint_reports.date_reported) >= ?', [$start_month])
+            ->whereRaw('MONTH(complaint_reports.date_reported) <= ?', [$end_month]) 
+            ->groupBy('age_range')
+            ->get();
+
+        $comps_male = ComplaintReport::join('victims', function ($join) {
+            $join->on('victims.comp_report_id', '=', 'complaint_reports.id')
+                    ->where('victims.victim_sex', '=', 'MALE');
+            })
+            ->select(
+                DB::raw('CASE 
+                    WHEN victims.victim_age BETWEEN 0 AND 17 THEN "0-17" 
+                    ELSE "18+"
+                END AS age_range'), 
+                DB::raw('COUNT(complaint_reports.id) AS total_comps')
+            ) 
+            ->whereRaw('MONTH(complaint_reports.date_reported) >= ?', [$start_month])
+            ->whereRaw('MONTH(complaint_reports.date_reported) <= ?', [$end_month]) 
+            ->groupBy('age_range')
+            ->get();
+    
+
+        $notifs = Notifications::where('status', '=', 'unread')
+            ->count();
+        
+        $maleVictim = DB::table('victims')->where('victim_sex', 'MALE')
+        ->whereRaw('MONTH(victims.created_at) >= ?', [$start_month])
+        ->whereRaw('MONTH(victims.created_at) <= ?', [$end_month])
+        ->count();
+        
+        $femaleVictim = DB::table('victims')->where('victim_sex', 'FEMALE')
+        ->whereRaw('MONTH(victims.created_at) >= ?', [$start_month])
+        ->whereRaw('MONTH(victims.created_at) <= ?', [$end_month]) 
+        ->count();
+        $maleOffenders = DB::table('offenders')->where('offender_sex', 'MALE')
+        ->whereRaw('MONTH(offenders.created_at) >= ?', [$start_month])
+        ->whereRaw('MONTH(offenders.created_at) <= ?', [$end_month])
+        ->count();
+        $femaleOffenders = DB::table('offenders')->where('offender_sex', 'FEMALE')
+        ->whereRaw('MONTH(offenders.created_at) >= ?', [$start_month])
+        ->whereRaw('MONTH(offenders.created_at) <= ?', [$end_month]) 
+        ->count(); 
+
+
+        $topPlaces = DB::table('complaint_reports')
+        ->select('place_of_commission', DB::raw('COUNT(*) as total_cases'))
+        ->whereRaw('MONTH(complaint_reports.date_reported) >= ?', [$start_month])
+        ->whereRaw('MONTH(complaint_reports.date_reported) <= ?', [$end_month]) 
+        ->groupBy('place_of_commission')
+        ->orderByDesc('total_cases')
+        ->limit(5)
+        ->get();
+   
+        $relationshipCounts = DB::table('complaint_reports')
+        ->join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
+        ->leftJoin('victims', 'victims.comp_report_id', '=', 'complaint_reports.complaint_report_author')
+        ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.complaint_report_author')
+        ->select(
+            'offender_relationship_victim',
+            DB::raw('SUM(CASE WHEN offender_sex = "MALE" THEN 1 ELSE 0 END) AS male_count'),
+            DB::raw('SUM(CASE WHEN offender_sex = "FEMALE" THEN 1 ELSE 0 END) AS female_count')
+        )
+        ->whereRaw('MONTH(complaint_reports.date_reported) >= ?', [$start_month])
+        ->whereRaw('MONTH(complaint_reports.date_reported) <= ?', [$end_month]) 
+        ->groupBy('offender_relationship_victim')
+        ->get();
+ 
+        return view('investigator.investigator_dashboard', ['relationshipCounts'=> $relationshipCounts,'topPlaces'=>$topPlaces, 'maleOffenders'=>$maleOffenders, 'femaleOffenders'=>$femaleOffenders, 'maleVictim'=>$maleVictim, 'femaleVictim'=>$femaleVictim, 'notifs'=>$notifs, 'comps'=>$comps, 'comps11'=>$comps11, 'comps_male'=>$comps_male, 'filter_year'=>$filter_year, 'filter_year1'=>$filter_year1]);
+    }
+
     public function testing()
     {
         return view('investigator.testing');

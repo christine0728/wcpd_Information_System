@@ -136,11 +136,11 @@
                                                     </div>
                                                 </div> 
                                             </div> 
-                                            <div class="col-6">
+                                            {{-- <div class="col-6">
                                                 <a class="link-buttons" href="#" onclick="window.history.back();" style="background-color: #48145B; margin-right: 0.1rem; width: 70%" ><i class="fa-solid fa-arrow-left icons"></i>&nbsp;&nbsp;Go Back</a>
-                                            </div>
-                                            <div class="col-6">
-                                                <button type="submit" class="form-buttons" style="width: 70%; float: right">Submit&nbsp;&nbsp;<i class="fa-solid fa-check icons"></i></button>
+                                            </div> --}}
+                                            <div class="col-12">
+                                                <button type="submit" class="form-buttons" style="width: 100%; float: right">Submit&nbsp;&nbsp;<i class="fa-solid fa-check icons"></i></button>
                                             </div>
                                         </form>
                                     @endforeach

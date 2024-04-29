@@ -135,10 +135,24 @@ class OffenderController extends Controller
         ]);
 
         if ($acc_type == 'investigator'){
-            return redirect()->route('investigator.edit_complaintreport', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
+            // return redirect()->route('investigator.edit_complaintreport', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
+
+            if ($request->input('adding') == "adding"){
+                return redirect()->route('investigator.adding_complaintreport', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
+            }
+            else{
+                return redirect()->route('investigator.edit_complaintreport', ['comp_id'=>$comp_id])->with('updated', 'Complaint Report Form updated successfully!'); 
+            }
         }
         elseif ($acc_type == 'superadmin'){ 
-            return redirect()->route('superadmin.edit_complaintreport', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
+            // return redirect()->route('superadmin.edit_complaintreport', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
+
+            if ($request->input('adding') == "adding"){
+                return redirect()->route('superadmin.adding_complaintreport', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
+            }
+            else{
+                return redirect()->route('superadmin.edit_complaintreport', ['comp_id'=>$comp_id])->with('updated', 'Complaint Report Form updated successfully!'); 
+            }
         }   
     }
 
