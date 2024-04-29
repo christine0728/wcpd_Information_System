@@ -42,28 +42,27 @@
           </a>
           <i class='bx bxs-chevron-down arrow' ></i>
         </div>
-        <ul class="sub-menu">
+        <!-- <ul class="sub-menu">
           <li><a class="link_name" href="#">Update Types of Offenses</a></li>
           <li><a href="#">HTML & CSS</a></li>
           <li><a href="#">JavaScript</a></li>
           <li><a href="#">PHP & MySQL</a></li>
-        </ul>
+        </ul> -->
       </li>
       <li>
         <div class="iocn-link">
           <a href="#">
           <i class='bx bx-user'></i>
-
             <span class="link_name">Victim </span>
           </a>
           <i class='bx bxs-chevron-down arrow' ></i>
         </div>
-        <ul class="sub-menu">
+        <!-- <ul class="sub-menu">
           <li><a class="link_name" href="#">Victim </a></li>
           <li><a href="#">Web Design</a></li>
           <li><a href="#">Login Form</a></li>
           <li><a href="#">Card Design</a></li>
-        </ul>
+        </ul> -->
       </li>
       <li>
         <div class="iocn-link">
@@ -73,12 +72,12 @@
           </a>
           <i class='bx bxs-chevron-down arrow' ></i>
         </div>
-        <ul class="sub-menu">
+        <!-- <ul class="sub-menu">
           <li><a class="link_name" href="#">Suspects </a></li>
           <li><a href="#">Web Design</a></li>
           <li><a href="#">Login Form</a></li>
           <li><a href="#">Card Design</a></li>
-        </ul>
+        </ul> -->
       </li>
       <li>
         <a href="#">

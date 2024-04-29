@@ -45,7 +45,7 @@
             }
         </style>
     </head>
-    <body>
+    <body >
     @extends('layouts.app')
 
     @section('content')
@@ -53,9 +53,12 @@
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
-                        <div class="col-6">
-                        <h1 class="m-0" style="font-weight: bold;">&nbsp;{{ __('Dashboard') }}</h1>
-                    </div>
+
+                <h1 class="m-0" style="font-weight: bold; font-size: 28px;">
+    <i class="fas fa-tachometer-alt"></i>&nbsp;{{ __('Dashboard') }}
+</h1>
+
+
                 </div>
             </div>
         </div>
@@ -115,7 +118,7 @@
 
                             </div>
                         </div>
-                    </div> 
+                    </div>
 
                     <div class="col-6">
                         <div class="card">
@@ -168,9 +171,9 @@
                                 <div id="chart_div1" ></div>
                             </div>
                         </div>
-                    </div> 
-                   
-                    <div class="card-footer clearfix"> 
+                    </div>
+
+                    <div class="card-footer clearfix">
                     </div>
                 </div>
             </div>
@@ -213,8 +216,8 @@ $(document).ready(function() {
             @endforeach
         ]);
 
-        var options = { 
-            bars: 'vertical'  
+        var options = {
+            bars: 'vertical'
         };
 
         var chart = new google.charts.Bar(document.getElementById('chart_div'));

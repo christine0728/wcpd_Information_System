@@ -1,6 +1,6 @@
 <!-- Sidebar -->
-<style>
-.sideber{
+<!-- <style>
+.sidebar{
     position: fixed;
 }
 
@@ -8,19 +8,24 @@
     font-size: 0.7rem !important;
 }
 </style>
-<div class="sidebar" style="position:fixed">
-    <!-- Sidebar user panel (optional) -->
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex ">
+
+<div class="sidebar" style="position:fixed; background-color:pink; width: 250px">
+<img src="{{ asset('images/wcpd_logo.png') }}" alt="WCPD Logo" class="brand-image img-circle elevation-3 img-fluid" style="opacity: .8; max-width: 50px;">
+<span class="brand-text font-weight-light"><strong style="color: black; font-weight: bold;">WCPD</strong></span>
+
+<br>
+
+     <div class="user-panel mt-3 pb-3 mb-3 d-flex ">
         <div class="info">
-            <a class="d-block">
+            <a class="d-block" style="color:black; font-weight:bold; ">
                 <img src="{{ asset('images/default.png') }}" alt="Default Image" class="img-thumbnail" style="max-width: 50px; max-height: 50px;">
                 {{ Auth::guard('account')->user()->firstname }} {{ Auth::guard('account')->user()->lastname }}
             </a>
         </div>
-    </div>
+    </div> -->
 
     <!-- Sidebar Menu -->
-    <nav class="mt-2">
+    <!-- <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             @if (Auth::guard('account')->user()->acc_type == 'superadmin')
                 <li class="nav-item">
@@ -80,9 +85,9 @@
                     </p>
                 </a>
             </li>
-            @endif
+            @endif -->
 
-            @if (Auth::guard('account')->user()->acc_type == 'superadmin')
+            <!-- @if (Auth::guard('account')->user()->acc_type == 'superadmin')
                 <li class="nav-item">
                     <a href="{{ route('superadmin.offensesmanagement') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                         <i class="nav-icon fa-solid fa-gavel"></i>
@@ -105,7 +110,7 @@
             @if (Auth::guard('account')->user()->acc_type == 'superadmin')
                 <li class="nav-item">
                     <a href="{{ route('superadmin.victims_mngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                        <i class="nav-icon fa-regular fa-user"></i>
+                    <i class="nav-icon fa-solid fa-user"></i>
                         <p>
                             {{ __('Victims Management') }}
                         </p>
@@ -114,7 +119,7 @@
 
             @elseif (Auth::guard('account')->user()->acc_type == 'investigator' )<li class="nav-item">
                 <a href="{{ route('investigator.victims_mngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                    <i class="nav-icon fa-regular fa-user"></i>
+                <i class="fas fa-user"></i>
                     <p>
                         {{ __('Victims Management') }}
                     </p>
@@ -215,8 +220,8 @@
                     </p>
                 </a>
             </li>
-            @endif
-
+            @endif -->
+<!--
             @if (Auth::guard('account')->user()->acc_type == 'superadmin')
                 <li class="nav-item">
                     <a href="{{ route('superadmin.trash') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
@@ -231,14 +236,12 @@
                     <a href="{{ route('investigator.trash') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
                         <i class="nav-icon fa-solid fa-trash-can"></i>
                         <p>
-                            {{ __('Trash') }}
+                            {{ __('Trashs') }}
                         </p>
                     </a>
-
                 </li>
             @endif
         </ul>
     </nav>
-    <!-- /.sidebar-menu -->
 </div>
-<!-- /.sidebar -->
+ -->
