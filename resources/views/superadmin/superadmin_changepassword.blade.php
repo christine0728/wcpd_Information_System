@@ -73,11 +73,10 @@
                     </div>
                 </div>
             </div>
-  
-
+   
             <div class="content" style="margin-top: -2rem; margin-bottom: 2rem">
                 <div class="container-fluid" >   
-                    <div class="card col-5 shadow p-3 mb-5 bg-white rounded" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-left: 25%;"> 
+                    <div class="card col-5 shadow p-3 mb-5 bg-white rounded" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-right: 25%; margin-left: 25%"> 
                         @if(Session::has('error')) 
                             <b style="color: red">{{ session::get('error') }}</b> 
                         @endif

@@ -90,7 +90,7 @@
 
             <div class="content" style="margin-top: -0.5rem; ">
                 <div class="container-fluid" >   
-                    <div class="col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: -1.5rem; margin-bottom: 2rem"> 
+                    <div class="col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: -1.5rem; margin-bottom: 2rem; padding: 2rem"> 
                         <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                             <thead>
                                 <th style="display: none">id</th>
@@ -111,7 +111,7 @@
                                                         </div>
                                                         <div class="col-6" style="padding: 0rem; margin-top: 0.3rem">  
                                                             @if ($notification->status == 'unread')
-                                                                <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="Unread" style="background-color: lightgrey; font-weight: bold; color: black; width: 5rem; border: none; font-size: medium; float: right" readonly>
+                                                                <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="Unread" style="background-color: lightgrey; font-weight: bold; color: black; width: 5.5rem; border: none; font-size: medium; float: right" readonly>
                                                             @elseif ($notification->description == 'read')
                                                                 <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="INACTIVE" style="background-color: lightblue; font-weight: bold; color: black; width: 5.5rem; border: none; font-size: medium; float: right" readonly>
                                                             @endif
@@ -156,3 +156,32 @@
       alert('Notification is already read.');
     }
 </script> 
+
+<script>
+    let inactiveTime = 0;
+    const logoutTime = 5 * 60 * 1000;
+    // 5 * 60 * 1000; // 5 minutes in milliseconds
+    
+    function resetInactiveTime() {
+        inactiveTime = 0;
+    }
+    
+    function handleUserActivity() {
+        resetInactiveTime();
+    }
+    
+    document.addEventLisstener('mousemove', handleUserActivity);
+    document.addEventListener('keydown', handleUserActivity);
+    
+    function checkInactiveTime() {
+        inactiveTime += 1000; 
+        if (inactiveTime >= logoutTime) { 
+            window.location.href = "/inactive_screen"; 
+        } else { 
+            setTimeout(checkInactiveTime, 1000); 
+        }
+    }
+    
+    setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
+
+</script>

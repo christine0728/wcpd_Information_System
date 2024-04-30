@@ -553,8 +553,7 @@
         </div> 
     </div>
 
-    <script>  
-        
+    <script>   
         function showfield(name){
             if(name=='Others')document.getElementById('div1').innerHTML='Pls. specify: <input type="text" name="others" class="form-control" />';
             else document.getElementById('div1').innerHTML='';
@@ -566,9 +565,7 @@
             else document.getElementById('div3').innerHTML='';
 
             if(name=='Others4')document.getElementById('div4').innerHTML='Pls. specify: <input type="text" name="others4" class="form-control" />';
-            else document.getElementById('div4').innerHTML=''; 
-
-
+            else document.getElementById('div4').innerHTML='';  
         }
 
         function showfield2(name){   
@@ -591,7 +588,7 @@
 
     <script>
         let inactiveTime = 0;
-        const logoutTime = 2 * 60 * 1000;
+        const logoutTime = 5 * 60 * 1000;
         // 5 * 60 * 1000; // 5 minutes in milliseconds
         
         function resetInactiveTime() {

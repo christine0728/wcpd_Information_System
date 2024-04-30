@@ -182,7 +182,7 @@
 </script>
 <script>
     let inactiveTime = 0;
-    const logoutTime = 2 * 60 * 1000;
+    const logoutTime = 5 * 60 * 1000;
     // 5 * 60 * 1000; // 5 minutes in milliseconds
     
     function resetInactiveTime() {

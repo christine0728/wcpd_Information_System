@@ -94,11 +94,11 @@
                                 <thead>
                                     <tr>  
                                         <th style="display: none"></th>
-                                        <th>Author Type</th>
-                                        <th>Fullname</th>  
-                                        <th>Action</th> 
-                                        <th>Details</th> 
-                                        <th>Created At</th>
+                                        <th style="text-align: center">Author Type</th>
+                                        <th style="text-align: center">Fullname</th>  
+                                        <th style="text-align: center">Action</th> 
+                                        <th style="text-align: center">Details</th> 
+                                        <th style="text-align: center">Created At</th>
                                     </tr>
                                 </thead>
                                 <tbody>   
@@ -109,15 +109,15 @@
                                         <td>{{ $log->firstname }} {{ $log->lastname }}</td>    
                                         <td><center>
                                         @if ($log->action == 'Add')
-                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="ADD" style="background-color: palegreen; font-weight: bold; color: darkgreen; width: 3.5rem; border: none; font-size: medium" readonly>
+                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="ADD" style="background-color: palegreen; font-weight: bold; color: darkgreen; width: 4rem; border: none; font-size: medium" readonly>
                                         @elseif ($log->action == 'Edit')
-                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="EDIT" style="background-color: #fff3cd; font-weight: bold; color: #856404;; width: 3.5rem; border: none; font-size: medium" readonly>
+                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="EDIT" style="background-color: #fff3cd; font-weight: bold; color: #856404;; width: 4rem; border: none; font-size: medium" readonly>
                                         @elseif ($log->action == 'Delete')
                                             <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="DELETE" style="background-color: pink; font-weight: bold; color: darkred; width: 5rem; border: none; font-size: medium" readonly>
                                         @elseif ($log->action == 'Restore')
-                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="RESTORE" style="background-color: #b5e8ff; font-weight: bold; color: rgb(0, 0, 78); width: 5.5rem; border: none; font-size: medium" readonly>
+                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="RESTORE" style="background-color: #b5e8ff; font-weight: bold; color: rgb(0, 0, 78); width: 6rem; border: none; font-size: medium" readonly>
                                         @elseif ($log->action == 'Update')
-                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="UPDATE" style="background-color: #b5e8ff; font-weight: bold; color: rgb(0, 0, 78); width: 5.1rem; border: none; font-size: medium" readonly>
+                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="UPDATE" style="background-color: #b5e8ff; font-weight: bold; color: rgb(0, 0, 78); width: 5.5rem; border: none; font-size: medium" readonly>
                                         @endif</center>
                                         </td>  
                                         <td>{{ $log->details }}</td>
@@ -150,69 +150,37 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 <script>
     $(document).ready(function() {
-          $('#compsTbl').DataTable({
-            "order": [[0, "desc"]]
-          });
-      });
-
-    function confirmDelete(id) {
-        Swal.fire({
-            title: 'Are you sure to delete this book?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-            $.ajax({
-                type: 'POST',
-                url: '/admin/activity_destroy/' + id, 
-                data: {
-                _token: '{{ csrf_token() }}',
-                _method: 'DELETE'
-                },
-                success: function (response) {
-                Swal.fire(
-                    'Deleted!',
-                    'The record has been deleted.',
-                    'success'
-                ).then(function () {
-                    location.reload();
-                });
-                },
-                error: function (error) {
-                    console.log(error);
-                Swal.fire(
-                    'Error!',
-                    'An error occurred while deleting the record.',
-                    'error'
-                );
-                }
-            });
-            }
+        $('#compsTbl').DataTable({
+        "order": [[0, "desc"]]
         });
+    }); 
+</script>
+
+<script>
+    let inactiveTime = 0;
+    const logoutTime = 5 * 60 * 1000;
+    // 5 * 60 * 1000; // 5 minutes in milliseconds
+    
+    function resetInactiveTime() {
+        inactiveTime = 0;
     }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const editButtons = document.querySelectorAll('.btn-edit');
-
-        editButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                const modal = document.getElementById('modalEdit');
-                const editId = this.getAttribute('data-id');
-                const editactivity_title = this.getAttribute('data-activity_title');
-                const editstatus = this.getAttribute('data-status'); 
-
-                document.getElementById('edit_id').value = editId;
-                document.getElementById('edit_activity_title').value = editactivity_title;
-                document.getElementById('edit_status').value = editstatus; 
-
-                document.getElementById('edit_id').value = editId;
-
-                $(modal).modal('show');
-            });
-        });
-    });
+    
+    function handleUserActivity() {
+        resetInactiveTime();
+    }
+    
+    document.addEventLisstener('mousemove', handleUserActivity);
+    document.addEventListener('keydown', handleUserActivity);
+    
+    function checkInactiveTime() {
+        inactiveTime += 1000; 
+        if (inactiveTime >= logoutTime) { 
+            window.location.href = "/inactive_screen"; 
+        } else { 
+            setTimeout(checkInactiveTime, 1000); 
+        }
+    }
+    
+    setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
 
 </script>

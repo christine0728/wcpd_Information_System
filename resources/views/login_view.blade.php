@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WCPD | Admin Login</title>
+  <title>WCPD | Login</title>
   <link rel="icon" href="{{ url('asset/favicon.ico') }}">
   <link rel="icon" href="{{ url('asset/favicon.ico') }}">
   <link rel="icon" href="images/favicon.png" sizes="32x32" type="image/png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -28,24 +28,25 @@
     }
 
     .login-form {
-  flex: 1;
-  padding: 40px;
-  background-color: rgba(233, 217, 247, 0.8);
-  border-radius: 0 8px 8px 0;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
+      flex: 1;
+      padding: 40px;
+      background-color: rgba(233, 217, 247, 0.8);
+      border-radius: 0 8px 8px 0;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
 
     .alert {
-        padding:6px;
+      padding:6px;
     }
 
     .alert-warning {
-        background-color:#D6143B;
-        border-color: black;
-        color: white;
-        font-size: 14px;
-        text-align:center;
+      background-color:#D6143B;
+      border-color: black;
+      color: white;
+      font-size: 14px;
+      text-align:center;
     }
+
     .login-left {
       flex: 1;
       padding: 20px;
@@ -74,8 +75,7 @@
       padding: 40px;
       background-color: white;
       border-radius: 0 8px 8px 0;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
     }
 
     .login-form h2 {
@@ -100,37 +100,37 @@
     img{
       border-radius: 50px;
     }
+
     p{
       color:white;
     }
 
     body {
-            background-color: #192440;
-            background-image: url(images/pnp.png);
-            background-size: cover;
-            background-position: center;
-            font-family: 'Poppins', sans-serif;
-            backdrop-filter: blur(7px);
-            -webkit-backdrop-filter: blur(7px);
-        }
-        .btn-outline-secondary {
-  background-color: white; /* Set initial background color */
-}
+      background-color: #192440;
+      background-image: url(images/pnp.png);
+      background-size: cover;
+      background-position: center;
+      font-family: 'Poppins', sans-serif;
+      backdrop-filter: blur(7px);
+      -webkit-backdrop-filter: blur(7px);
+    }
 
-.btn-outline-secondary:focus,
-.btn-outline-secondary:hover {
-  background-color: #9947B6; /* Change background color when hovered or focused */
-}
+    .btn-outline-secondary {
+      background-color: white;  
+    }
 
-.btn-outline-secondary i {
-  border: none; /* Remove border from the icon */
-}
+    .btn-outline-secondary:focus,
+    .btn-outline-secondary:hover {
+      background-color: #9947B6; 
+    }
 
-.white-eye {
-  color: white !important; /* Set the color of the eye icon to white */
-}
+    .btn-outline-secondary i {
+      border: none;  
+    }
 
-
+    .white-eye {
+      color: white !important;  
+    } 
   </style>
 </head>
 <body>

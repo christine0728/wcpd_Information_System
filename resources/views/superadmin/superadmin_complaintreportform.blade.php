@@ -299,59 +299,7 @@
         </div> 
     </div>
 
-    <script> 
-        $(function(){
-    var $sections = $('.'); 
-    var $navLinks = $('.nav-link');
-    
-    function navigateTo(index){ 
-        $sections.removeClass('current').eq(index).addClass('current'); 
-        
-        $navLinks.removeClass('active');
-        $navLinks.eq(index).addClass('active');
-        
-        $('.form-navigation .previous').toggle(index > 0);
-        var atTheEnd = index >= $sections.length - 1;
-        $('.form-navigation .next').toggle(!atTheEnd);
-        $('.form-navigation [type=submit]').toggle(atTheEnd); 
-
-        $('html, body').scrollTop(0);
-    }
-
-    function curIndex(){ 
-        return $sections.index($sections.filter('.current'));
-    }
-
-    // Function to handle navigation when nav-link is clicked
-    // $navLinks.click(function() {
-    //     var index = $(this).index(); // Get the index of the clicked nav-link
-    //     navigateTo(index);
-    // });
-
-    $('.form-navigation .previous').click(function(){
-        var currentIndex = curIndex();
-        if (currentIndex > 0) {
-            navigateTo(currentIndex - 1);
-        }
-    });
-
-    $('.form-navigation .next').click(function(){
-        var currentIndex = curIndex();
-        $('.employee-form').parsley().whenValidate({
-            group:'block-'+currentIndex
-        }).done(function(){
-            navigateTo(currentIndex + 1);
-        });
-    });
-
-    $sections.each(function(index, section){
-        $(section).find(':input').attr('data-parsley-group', 'block-'+index);
-    });
-
-    navigateTo(0); 
-});
-
-        
+    <script>  
         function showfield(name){
             if(name=='Others')document.getElementById('div1').innerHTML='Pls. specify: <input type="text" name="others" class="form-control" />';
             else document.getElementById('div1').innerHTML='';
@@ -417,6 +365,33 @@
             }
         }
     </script>
+    <script>
+        let inactiveTime = 0;
+        const logoutTime = 5 * 60 * 1000;
+        // 5 * 60 * 1000; // 5 minutes in milliseconds
+        
+        function resetInactiveTime() {
+            inactiveTime = 0;
+        }
+        
+        function handleUserActivity() {
+            resetInactiveTime();
+        }
+        
+        document.addEventLisstener('mousemove', handleUserActivity);
+        document.addEventListener('keydown', handleUserActivity);
+        
+        function checkInactiveTime() {
+            inactiveTime += 1000; 
+            if (inactiveTime >= logoutTime) { 
+                window.location.href = "/inactive_screen"; 
+            } else { 
+                setTimeout(checkInactiveTime, 1000); 
+            }
+        }
+        
+        setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
     
+    </script>
 </body>
 </html>
