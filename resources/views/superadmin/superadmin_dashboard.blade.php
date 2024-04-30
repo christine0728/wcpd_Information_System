@@ -84,9 +84,8 @@
                     <div class="col-6">
                         <div class="card">
                             <div class="card-body">
-                                <div id="chart_div" style="width: 100%; height: 15rem;"></div>
-
-                                <button id="download-button" class="form-buttons" style="width: 13rem; margin-top: 1rem">Download Monthly Data&nbsp;&nbsp;<i class="fa-solid fa-download"></i></button>
+                                <div id="chart_div" style="width: 100%; height: 15rem;"></div> 
+                                <button id="download-button" class="form-buttons" style="width: 15rem; margin-top: 1rem">Download Monthly Data&nbsp;&nbsp;<i class="fa-solid fa-download"></i></button>
                             </div>
                         </div>
                     </div>

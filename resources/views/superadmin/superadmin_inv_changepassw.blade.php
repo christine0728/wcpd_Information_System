@@ -125,20 +125,15 @@
                                                             @csrf --}}
                                                             <div style="display: flex; align-items: flex-end;">
                                                                 <label for="teamSelect" class="mr-2">Password Request:</label>
-                                                                <select class="form-control" id="teamSelect" name="passw_req" style="border-radius: 0.3125rem; border: 2.5px solid #48145B; background: #FFF; width: 69%; font-size: medium; margin-right: 0.5rem;">
+                                                                <select class="form-control" id="teamSelect" name="passw_req" style="border-radius: 0.3125rem; border: 2.5px solid #48145B; background: #FFF; width: 50%; font-size: medium; margin-right: 0.5rem;">
                                                                     <option value="{{ $inv->change_password_req }}">Selected: {{ $inv->change_password_req }}</option>
                                                                     <option value="accepted">ACCEPT</option>
                                                                     <option value="denied">DENY</option> 
-                                                                </select>
-                                                                {{-- <button type="submit" class="form-buttons" style="width: 10rem">Change team</button>                 --}}
-                                                            </div> 
-                                                        {{-- </form> --}}
+                                                                </select> 
+                                                            </div>  
                                                     </div>
                                                 </div> 
-                                            </div> 
-                                            {{-- <div class="col-6">
-                                                <a class="link-buttons" href="#" onclick="window.history.back();" style="background-color: #48145B; margin-right: 0.1rem; width: 70%" ><i class="fa-solid fa-arrow-left icons"></i>&nbsp;&nbsp;Go Back</a>
-                                            </div> --}}
+                                            </div>  
                                             <div class="col-12">
                                                 <button type="submit" class="form-buttons" style="width: 100%; float: right">Submit&nbsp;&nbsp;<i class="fa-solid fa-check icons"></i></button>
                                             </div>
@@ -168,70 +163,37 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 <script>
     $(document).ready(function() {
-          $('#compsTbl').DataTable({
-            "order": [[0, "desc"]]
-          });
-      });
-
-    function confirmDelete(id) {
-        Swal.fire({
-            title: 'Are you sure to delete this book?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-            $.ajax({
-                type: 'POST',
-                url: '/admin/activity_destroy/' + id, 
-                data: {
-                _token: '{{ csrf_token() }}',
-                _method: 'DELETE'
-                },
-                success: function (response) {
-                Swal.fire(
-                    'Deleted!',
-                    'The record has been deleted.',
-                    'success'
-                ).then(function () {
-                    location.reload();
-                });
-                },
-                error: function (error) {
-                    console.log(error);
-                Swal.fire(
-                    'Error!',
-                    'An error occurred while deleting the record.',
-                    'error'
-                );
-                }
-            });
-            }
+        $('#compsTbl').DataTable({
+        "order": [[0, "desc"]]
         });
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const editButtons = document.querySelectorAll('.btn-edit');
-
-        editButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                const modal = document.getElementById('modalEdit');
-                const editId = this.getAttribute('data-id');
-                const editactivity_title = this.getAttribute('data-activity_title');
-                const editstatus = this.getAttribute('data-status'); 
-
-                document.getElementById('edit_id').value = editId;
-                document.getElementById('edit_activity_title').value = editactivity_title;
-                document.getElementById('edit_status').value = editstatus; 
-
-                document.getElementById('edit_id').value = editId;
-
-                $(modal).modal('show');
-            });
-        });
-    });
-
-
+    });  
 </script> 
+
+<script>
+    let inactiveTime = 0;
+    const logoutTime = 5 * 60 * 1000;
+    // 5 * 60 * 1000; // 5 minutes in milliseconds
+    
+    function resetInactiveTime() {
+        inactiveTime = 0;
+    }
+    
+    function handleUserActivity() {
+        resetInactiveTime();
+    }
+    
+    document.addEventLisstener('mousemove', handleUserActivity);
+    document.addEventListener('keydown', handleUserActivity);
+    
+    function checkInactiveTime() {
+        inactiveTime += 1000; 
+        if (inactiveTime >= logoutTime) { 
+            window.location.href = "/inactive_screen"; 
+        } else { 
+            setTimeout(checkInactiveTime, 1000); 
+        }
+    }
+    
+    setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
+
+</script>

@@ -495,8 +495,7 @@
         </div> 
     </div>
 
-    <script>  
-        
+    <script>   
         function showfield(name){
             if(name=='Others')document.getElementById('div1').innerHTML='Pls. specify: <input type="text" name="others" class="form-control" />';
             else document.getElementById('div1').innerHTML='';
@@ -518,8 +517,35 @@
             if(name=='Others5')document.getElementById('div5').innerHTML='Pls. specify: <input type="text" name="others5" class="form-control" />';
             else document.getElementById('div5').innerHTML='';
         }   
-    </script>
+    </script> 
+
+<script>
+    let inactiveTime = 0;
+    const logoutTime = 5 * 60 * 1000;
+    // 5 * 60 * 1000; // 5 minutes in milliseconds
     
+    function resetInactiveTime() {
+        inactiveTime = 0;
+    }
     
+    function handleUserActivity() {
+        resetInactiveTime();
+    }
+    
+    document.addEventLisstener('mousemove', handleUserActivity);
+    document.addEventListener('keydown', handleUserActivity);
+    
+    function checkInactiveTime() {
+        inactiveTime += 1000; 
+        if (inactiveTime >= logoutTime) { 
+            window.location.href = "/inactive_screen"; 
+        } else { 
+            setTimeout(checkInactiveTime, 1000); 
+        }
+    }
+    
+    setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
+
+</script>
 </body>
 </html>

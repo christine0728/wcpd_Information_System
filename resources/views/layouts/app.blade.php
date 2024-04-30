@@ -60,7 +60,7 @@
 </head>
 <body class="hold-transition " style="font-family: 'Poppins', sans-serif;">
 <div class="wrapper">
-    <nav class="main-header navbar navbar-expand navbar-light navbar-white">
+    <nav class="main-header navbar navbar-expand navbar-light ">
         <ul class="navbar-nav">
             <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button" style="font-family: 'Poppins', sans-serif; font-weight: bold; font-size: 20px; color: #9947B6">
@@ -75,264 +75,254 @@
         </ul>
     </nav>
 
-    <aside class="main-sidebar sidebar-light-primary elevation-4" style="position:fixed; background-color:#9947B6; overflow-y: auto; height: 100vh;"> 
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false"> 
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" style="display: flex">
-                            <i class="nav-icon">
-                                <img src="{{ asset('images/wcpd_logo.png') }}" alt="WCPD Logo" class="brand-image img-circle elevation-3 img-fluid" style="opacity: .8; max-width: 40px;">
-                            </i> 
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="brand-text font-weight-light"><strong style="color: white; font-weight: bold; font-size: 25px">WCPD</strong></span> 
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon">
-                                <img src="{{ asset('images/default.png') }}" alt="Default Image" class="img-thumbnail" style="max-width: 40px; max-height: 40px;">
-                            </i>
-                            <p>
-                                <span class="" style="color:white; text-transform: capitalize;">{{ Auth::guard('account')->user()->firstname }} {{ Auth::guard('account')->user()->lastname }}</span>
-                            </p>
-                        </a>
-                    </li>
+    <aside class="main-sidebar sidebar-light-primary elevation-4" style="position:fixed; background-color:#9947B6; overflow-y: auto; height: 100vh;">  
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false"> 
+                <li class="nav-item">
+                    <a href="#" class="nav-link" style="display: flex">
+                        <i class="nav-icon">
+                            <img src="{{ asset('images/wcpd_logo.png') }}" alt="WCPD Logo" class="brand-image img-circle elevation-3 img-fluid" style="opacity: .8; max-width: 40px;">
+                        </i> 
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="brand-text font-weight-light"><strong style="color: white; font-weight: bold; font-size: 25px">WCPD</strong></span> 
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon">
+                            <img src="{{ asset('images/default.png') }}" alt="Default Image" class="img-thumbnail" style="max-width: 40px; max-height: 40px;">
+                        </i>
+                        <p>
+                            <span class="" style="color:white; text-transform: capitalize;">{{ Auth::guard('account')->user()->firstname }} {{ Auth::guard('account')->user()->lastname }}</span>
+                        </p>
+                    </a>
+                </li>
 
-                    <hr style="border-top: 5px solid #ccc; margin: 10px 0; color: black">
+                <hr style="border-top: 5px solid #ccc; margin: 10px 0; color: black">
 
-                    @if (Auth::guard('account')->user()->acc_type == 'superadmin')
-                    <li class="nav-item">
-                        <a href="{{ route('superadmin.dashboard') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                            <i class="nav-icon fas fa-th" style="color:white"></i>
-                            <p style="color:white">
-                                {{ __('Dashboard') }}
-                            </p>
-                        </a>
-                    </li>
-                    @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
-                    <li class="nav-item" >
-                        <a href="{{ route('investigator.dashboard') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                            <i class="nav-icon fas fa-th"style="color:white"></i>
-                            <p style="color:white">
-                                {{ __('Dashboard') }}
-                            </p>
-                        </a>
-                    </li>
-                    @endif
+                @if (Auth::guard('account')->user()->acc_type == 'superadmin')
+                <li class="nav-item">
+                    <a href="{{ route('superadmin.dashboard') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fas fa-th" style="color:white"></i>
+                        <p style="color:white">
+                            {{ __('Dashboard') }}
+                        </p>
+                    </a>
+                </li>
+                @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
+                <li class="nav-item" >
+                    <a href="{{ route('investigator.dashboard') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fas fa-th"style="color:white"></i>
+                        <p style="color:white">
+                            {{ __('Dashboard') }}
+                        </p>
+                    </a>
+                </li>
+                @endif
 
-                    @if (Auth::guard('account')->user()->acc_type == 'superadmin')
-                    <li class="nav-item">
-                        <a href="{{ route('superadmin.allrecords')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                            <i class="nav-icon far fa-folder-open" style="color:white"></i>
-                            <p style="color:white">
-                                {{ __('All Records') }}
-                            </p>
-                        </a>
-                    </li>
-                    @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
-                    <li class="nav-item" style="color:white">
-                        <a href="{{ route('investigator.allrecords') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                            <i class="nav-icon far fa-folder-open" style="color:white"></i>
-                            <p style="color:white">
-                                {{ __('All Records') }}
-                            </p>
-                        </a>
-                    </li>
-                    @endif
+                @if (Auth::guard('account')->user()->acc_type == 'superadmin')
+                <li class="nav-item">
+                    <a href="{{ route('superadmin.allrecords')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon far fa-folder-open" style="color:white"></i>
+                        <p style="color:white">
+                            {{ __('All Records') }}
+                        </p>
+                    </a>
+                </li>
+                @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
+                <li class="nav-item" style="color:white">
+                    <a href="{{ route('investigator.allrecords') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon far fa-folder-open" style="color:white"></i>
+                        <p style="color:white">
+                            {{ __('All Records') }}
+                        </p>
+                    </a>
+                </li>
+                @endif
 
-                    @if (Auth::guard('account')->user()->acc_type == 'superadmin')
-                    <li class="nav-item">
-                        <a href="{{ route('superadmin.complaintreport')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                            <i class="nav-icon fas fa-file-invoice" style="color:white"></i>
-                            <p style="color:white">
-                                {{ __('Complaint Report Management') }}
-                            </p>
-                        </a>
-                    </li>
-                    @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
-                    <li class="nav-item">
-                        <a href="{{ route('investigator.complaintreport')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                            <i class="nav-icon fas fa-file-invoice" style="color:white"></i>
-                            <p style="color:white">
-                                {{ __('Complaint Report Management') }}
-                            </p>
-                        </a>
-                    </li>
-                    @endif
+                @if (Auth::guard('account')->user()->acc_type == 'superadmin')
+                <li class="nav-item">
+                    <a href="{{ route('superadmin.complaintreport')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fas fa-file-invoice" style="color:white"></i>
+                        <p style="color:white">
+                            {{ __('Complaint Report Management') }}
+                        </p>
+                    </a>
+                </li>
+                @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
+                <li class="nav-item">
+                    <a href="{{ route('investigator.complaintreport')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fas fa-file-invoice" style="color:white"></i>
+                        <p style="color:white">
+                            {{ __('Complaint Report Management') }}
+                        </p>
+                    </a>
+                </li>
+                @endif
 
-                    @if (Auth::guard('account')->user()->acc_type == 'superadmin')
-                    <li class="nav-item">
-                        <a href="{{ route('superadmin.offensesmanagement') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                            <i class="nav-icon fas fa-gavel" style="color:white"></i>
-                            <p style="color:white">
-                                {{ __('Update Types of Offenses') }}
-                            </p>
-                        </a>
-                    </li>
-                    @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
-                    <li class="nav-item">
-                        <a href="{{ route('investigator.offensesmanagement') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                            <i class="nav-icon fas fa-gavel" style="color:white"></i>
-                            <p style="color:white">
-                                {{ __('Update Types of Offenses') }}
-                            </p>
-                        </a>
-                    </li>
-                    @endif
+                @if (Auth::guard('account')->user()->acc_type == 'superadmin')
+                <li class="nav-item">
+                    <a href="{{ route('superadmin.offensesmanagement') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fas fa-gavel" style="color:white"></i>
+                        <p style="color:white">
+                            {{ __('Update Types of Offenses') }}
+                        </p>
+                    </a>
+                </li>
+                @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
+                <li class="nav-item">
+                    <a href="{{ route('investigator.offensesmanagement') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fas fa-gavel" style="color:white"></i>
+                        <p style="color:white">
+                            {{ __('Update Types of Offenses') }}
+                        </p>
+                    </a>
+                </li>
+                @endif
 
-                    @if (Auth::guard('account')->user()->acc_type == 'superadmin')
-                    <li class="nav-item">
-                        <a href="{{ route('superadmin.victims_mngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                            <i class="nav-icon fas fa-user" style="color:white"></i>
-                            <p style="color:white">
-                                {{ __('Victims Management') }}
-                            </p>
-                        </a>
-                    </li>
-                    @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
-                    <li class="nav-item">
-                        <a href="{{ route('investigator.victims_mngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                            <i class="nav-icon fas fa-user" style="color:white"></i>
-                            <p style="color:white">
-                                {{ __('Victims Management') }}
-                            </p>
-                        </a>
-                    </li>
-                    @endif
+                @if (Auth::guard('account')->user()->acc_type == 'superadmin')
+                <li class="nav-item">
+                    <a href="{{ route('superadmin.victims_mngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fas fa-user" style="color:white"></i>
+                        <p style="color:white">
+                            {{ __('Victims Management') }}
+                        </p>
+                    </a>
+                </li>
+                @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
+                <li class="nav-item">
+                    <a href="{{ route('investigator.victims_mngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fas fa-user" style="color:white"></i>
+                        <p style="color:white">
+                            {{ __('Victims Management') }}
+                        </p>
+                    </a>
+                </li>
+                @endif
 
-                    @if (Auth::guard('account')->user()->acc_type == 'superadmin')
-                    <li class="nav-item">
-                        <a href="{{ route('superadmin.suspects_mngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                            <i class="nav-icon fas fa-user" style="color:white"></i>
-                            <p style="color:white">
-                                {{ __('Offenders Management') }}
-                            </p>
-                        </a>
-                    </li>
-                    @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
-                    <li class="nav-item">
-                        <a href="{{ route('investigator.suspects_mngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                            <i class="nav-icon fas fa-user" style="color:white"></i>
-                            <p style="color:white">
-                                {{ __('Offenders Management') }}
-                            </p>
-                        </a>
-                    </li>
-                    @endif 
+                @if (Auth::guard('account')->user()->acc_type == 'superadmin')
+                <li class="nav-item">
+                    <a href="{{ route('superadmin.suspects_mngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fas fa-user" style="color:white"></i>
+                        <p style="color:white">
+                            {{ __('Offenders Management') }}
+                        </p>
+                    </a>
+                </li>
+                @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
+                <li class="nav-item">
+                    <a href="{{ route('investigator.suspects_mngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fas fa-user" style="color:white"></i>
+                        <p style="color:white">
+                            {{ __('Offenders Management') }}
+                        </p>
+                    </a>
+                </li>
+                @endif 
 
-                    @if (Auth::guard('account')->user()->acc_type == 'superadmin')
-                    <li id="account-management" class="nav-item">
-                        <a href="#" class="nav-link" onclick="toggleSubMenu()">
-                            <i class="nav-icon fas fa-circle-user" style="color:white"></i>
-                            <p style="color:white">
-                                {{ __('Account Management') }}
-                                &nbsp;<i id="account-management-toggle" class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul id="account-management-submenu" class="nav nav-treeview collapse show-submenu" > 
-                            <li class="nav-item">
-                                <a href="{{ route('superadmin.inv_account_mngt') }}"  >
-                                    <i class="nav-icon fas fa-user" style="color: white;"></i>
-                                    <p style="color:white">Investigator Account Mngt.</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('superadmin.superadmin_account_mngt', Auth::guard('account')->user()->id) }}"  >
-                                    <i class="nav-icon fas fa-user" style="color: white;"></i>
-                                    <p style="color:white">Super Admin Account Mngt.</p>
-                                </a>
-                            </li>  
-                        </ul>
-                    </li>
+                @if (Auth::guard('account')->user()->acc_type == 'superadmin')
+                <li id="account-management" class="nav-item">
+                    <a href="#" class="nav-link" onclick="toggleSubMenu()">
+                        <i class="nav-icon fas fa-circle-user" style="color:white"></i>
+                        <p style="color:white">
+                            {{ __('Account Management') }}
+                            &nbsp;<i id="account-management-toggle" class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul id="account-management-submenu" class="nav nav-treeview collapse show-submenu" > 
+                        <li class="nav-item">
+                            <a href="{{ route('superadmin.inv_account_mngt') }}"  >
+                                <i class="nav-icon fas fa-user" style="color: white;"></i>
+                                <p style="color:white">Investigator Account Mngt.</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('superadmin.superadmin_account_mngt', Auth::guard('account')->user()->id) }}"  >
+                                <i class="nav-icon fas fa-user" style="color: white;"></i>
+                                <p style="color:white">Super Admin Account Mngt.</p>
+                            </a>
+                        </li>  
+                    </ul>
+                </li>
 
-                    @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
-                    <li class="nav-item">
-                        <a href="{{ route('investigator.accountmngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                            <i class="nav-icon fas fa-circle-user" style="color:white"></i>
-                            <p style="color:white">
-                                {{ __('Account Management') }}
-                                @if (Auth::guard('account')->user()->change_password_req == 'accepted')
-                                <i class="fas fa-circle ico" style="color: green"></i>
-                                @elseif (Auth::guard('account')->user()->change_password_req == 'denied')
-                                <i class="fas fa-circle ico" style="color: red"></i>
-                                @endif
-                            </p>
-                        </a>
-                    </li>
-                    @endif
+                @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
+                <li class="nav-item">
+                    <a href="{{ route('investigator.accountmngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fas fa-circle-user" style="color:white"></i>
+                        <p style="color:white">
+                            {{ __('Account Management') }}
+                            @if (Auth::guard('account')->user()->change_password_req == 'accepted')
+                            <i class="fas fa-circle ico" style="color: green"></i>
+                            @elseif (Auth::guard('account')->user()->change_password_req == 'denied')
+                            <i class="fas fa-circle ico" style="color: red"></i>
+                            @endif
+                        </p>
+                    </a>
+                </li>
+                @endif
 
-                    @if (Auth::guard('account')->user()->acc_type == 'superadmin')
-                    <li class="nav-item">
-                        <a href="{{ route('superadmin.logs') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                            <i class="nav-icon fas fa-rectangle-list" style="color:white"></i>
-                            <p style="color:white">
-                                {{ __('Logs') }}
-                            </p>
-                        </a>
-                    </li>
-                    @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
-                    <li class="nav-item">
-                        <a href="{{ route('investigator.logs') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                            <i class="nav-icon fas fa-rectangle-list" style="color:white"></i>
-                            <p style="color:white">
-                                {{ __('Logs') }}
-                            </p>
-                        </a>
-                    </li>
-                    @endif
+                @if (Auth::guard('account')->user()->acc_type == 'superadmin')
+                <li class="nav-item">
+                    <a href="{{ route('superadmin.logs') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fas fa-rectangle-list" style="color:white"></i>
+                        <p style="color:white">
+                            {{ __('Logs') }}
+                        </p>
+                    </a>
+                </li>
+                @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
+                <li class="nav-item">
+                    <a href="{{ route('investigator.logs') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fas fa-rectangle-list" style="color:white"></i>
+                        <p style="color:white">
+                            {{ __('Logs') }}
+                        </p>
+                    </a>
+                </li>
+                @endif
 
-                    @if (Auth::guard('account')->user()->acc_type == 'superadmin')
-                    <li class="nav-item">
-                        <a href="{{ route('superadmin.password_requests')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                            <i class="nav-icon fas fa-unlock-keyhole" style="color:white"></i>
-                            <p style="color:white">
-                                {{ __('Password Requests') }} - <b>{{ $notifs }}</b>
-                            </p>
-                        </a>
-                    </li>
-                    @endif
+                @if (Auth::guard('account')->user()->acc_type == 'superadmin')
+                <li class="nav-item">
+                    <a href="{{ route('superadmin.password_requests')}}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fas fa-unlock-keyhole" style="color:white"></i>
+                        <p style="color:white">
+                            {{ __('Password Requests') }} - <b>{{ $notifs }}</b>
+                        </p>
+                    </a>
+                </li>
+                @endif
 
-                    @if (Auth::guard('account')->user()->acc_type == 'superadmin')
-                    <li class="nav-item">
-                        <a href="{{ route('superadmin.trash') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                            <i class="nav-icon fas fa-trash-can" style="color:white"></i>
-                            <p style="color:white">
-                                {{ __('Trash') }}
-                            </p>
-                        </a>
-                    </li>
-                    @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
-                    <li class="nav-item">
-                        <a href="{{ route('investigator.trash') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                            <i class="nav-icon fas fa-trash-can" style="color:white"></i>
-                            <p style="color:white">
-                                {{ __('Trash') }}
-                            </p>
-                        </a>
-                    </li>
-                    @endif
-                </ul>
+                @if (Auth::guard('account')->user()->acc_type == 'superadmin')
+                <li class="nav-item">
+                    <a href="{{ route('superadmin.trash') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fas fa-trash-can" style="color:white"></i>
+                        <p style="color:white">
+                            {{ __('Trash') }}
+                        </p>
+                    </a>
+                </li>
+                @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
+                <li class="nav-item">
+                    <a href="{{ route('investigator.trash') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
+                        <i class="nav-icon fas fa-trash-can" style="color:white"></i>
+                        <p style="color:white">
+                            {{ __('Trash') }}
+                        </p>
+                    </a>
+                </li>
+                @endif
+            </ul>
 
-            </nav>
-
-
-
-
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                </ul>
-            </nav>
-        </div>
-    </aside>
-
-
-
-
+        </nav> 
+        {{-- <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            </ul>
+        </nav>  --}}
+    </aside> 
     <div class="content-wrapper" >
         @yield('content')
     </div>
-    <footer class="main-footer" style="position: fixed; bottom: 0; width: 100%;background-color:#192440; color:white; font-size:17px">
-       <center>Copyright &copy; 2024 WCPD Information Management System. All rights reserved.Developed by PSU UC - IT 0JT 2024.
-        </center>
+    <footer class="main-footer" style="position: fixed; bottom: 0; width: 100%;background-color:#192440; color:white; font-size: 15px">
+        &nbsp;&nbsp;&nbsp;Copyright &copy; 2024 WCPD Information Management System. All rights reserved. Developed by PSU UC - IT 0JT 2024. 
     </footer>
 </div>
 
@@ -365,11 +355,9 @@
 function toggleSubMenu() {
     var submenu = document.getElementById("account-management-submenu");
     var icon = document.getElementById("account-management-toggle");
-
-    // Toggle submenu visibility
+ 
     submenu.classList.toggle("show-submenu");
-
-    // Toggle icon angle
+ 
     icon.classList.toggle("fa-angle-down");
     icon.classList.toggle("fa-angle-left");
 }

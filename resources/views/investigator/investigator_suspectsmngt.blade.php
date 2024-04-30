@@ -137,144 +137,43 @@
             </div> 
         @endsection
     </body>
-</html>
-
-@if(session('updatemessage'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'Successfuly updated!',
-        text: '{{ session('success') }}'
-    });
-</script>
-@endif
+</html> 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 <script>
     $(document).ready(function() {
-          $('#compsTbl').DataTable({
-            "order": [[0, "desc"]]
-          });
-      });
-
-    function confirmDelete(id) {
-        Swal.fire({
-            title: 'Are you sure to delete this book?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-            $.ajax({
-                type: 'POST',
-                url: '/admin/activity_destroy/' + id, 
-                data: {
-                _token: '{{ csrf_token() }}',
-                _method: 'DELETE'
-                },
-                success: function (response) {
-                Swal.fire(
-                    'Deleted!',
-                    'The record has been deleted.',
-                    'success'
-                ).then(function () {
-                    location.reload();
-                });
-                },
-                error: function (error) {
-                    console.log(error);
-                Swal.fire(
-                    'Error!',
-                    'An error occurred while deleting the record.',
-                    'error'
-                );
-                }
-            });
-            }
+        $('#compsTbl').DataTable({
+        "order": [[0, "desc"]]
         });
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const editButtons = document.querySelectorAll('.btn-edit');
-
-        editButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                const modal = document.getElementById('modalEdit');
-                const editId = this.getAttribute('data-id'); 
-
-                document.getElementById('edit_id').value = editId; 
-
-                document.getElementById('edit_id').value = editId;
-
-                $('#modalEdit').modal('show');
-
-            });
-        });
-    });
-
+    }); 
+     
 </script>
-
-<!-- Edit Organizational Structure Modal -->
-<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalAddLabel">Update Records</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <input type="hidden" id="edit_id" name="edit_id"> 
-                    </div>
-                    <div class="form-group">
-                        <label for="barcode">Activity title:</label>
-                        <input type="text" class="form-control" id="edit_id" name="edit_id" required placeholder="Enter the activity_title">
-                    </div>
-                    <div class="form-group">
-                        <label for="barcode">Status:</label>
-                        <input type="text" class="form-control" id="edit_status" name="edit_status" required placeholder="Enter the status">
-                    </div> 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save Changes</button>
-            </div>
-            </form>
-        </div>
-    </div>
-</div>
-
+ 
 <script>
-    // let inactiveTime = 0;
-    // const logoutTime = 2 * 60 * 1000;
-    // // 5 * 60 * 1000; // 5 minutes in milliseconds
+    let inactiveTime = 0;
+    const logoutTime = 5 * 60 * 1000;
+    // 5 * 60 * 1000; // 5 minutes in milliseconds
     
-    // function resetInactiveTime() {
-    //     inactiveTime = 0;
-    // }
+    function resetInactiveTime() {
+        inactiveTime = 0;
+    }
     
-    // function handleUserActivity() {
-    //     resetInactiveTime();
-    // }
+    function handleUserActivity() {
+        resetInactiveTime();
+    }
     
-    // document.addEventListener('mousemove', handleUserActivity);
-    // document.addEventListener('keydown', handleUserActivity);
+    document.addEventListener('mousemove', handleUserActivity);
+    document.addEventListener('keydown', handleUserActivity);
     
-    // function checkInactiveTime() {
-    //     inactiveTime += 1000; 
-    //     if (inactiveTime >= logoutTime) { 
-    //         window.location.href = "/inactive_screen"; 
-    //     } else { 
-    //         setTimeout(checkInactiveTime, 1000); 
-    //     }
-    // }
+    function checkInactiveTime() {
+        inactiveTime += 1000; 
+        if (inactiveTime >= logoutTime) { 
+            window.location.href = "/inactive_screen"; 
+        } else { 
+            setTimeout(checkInactiveTime, 1000); 
+        }
+    }
     
-    // setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
+    setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
 
 </script>

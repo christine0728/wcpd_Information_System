@@ -45,24 +45,24 @@
     <div class="row">
             <div data-aos="fade-up" data-aos-delay="0" data-aos-duration="1000" data-aos-once="true" class="col-md-4 text-center">
                 <i class="fa fa-balance-scale fa-5x" aria-hidden="true"></i>
-                <h4 style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Legal Aid</h4>
+                <h4 style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);"><br>Legal Aid</h4>
                 <p style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Providing legal assistance and representation for women and children in need.</p>
             </div>
             <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000" data-aos-once="true" class="col-md-4 text-center">
                 <i class="fa fa-handshake-o fa-5x"></i>
-                <h4 style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Counseling</h4>
+                <h4 style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);"><br>Counseling</h4>
                 <p style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Offering confidential counseling services to support individuals affected by abuse or trauma.</p>
             </div>
             <div data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000" data-aos-once="true" class="col-md-4 text-center">
                 <i class="fa fa-medium fa-5x" aria-hidden="true"></i>
-                <h4 style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Emergency Assistance</h4>
+                <h4 style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);"><br>Emergency Assistance</h4>
                 <p style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Providing immediate support and assistance to women and children facing emergencies or crises.</p>
             </div>
         </div>
     </div>
     <div class="jumbotron jumbotron-fluid text-center" id="copyright" style="display: flex; justify-content: center;">
-    <div class="col-md-8 text-white align-self-center my-2" style="font-size: 17px;">
-        Copyright © 2024 WCPD Information Management System. All rights reserved. Developed by PSU UC-IT OJT 2024.
+    <div class="col-md-8 text-white  my-2" style="font-size: 17px;">
+        Copyright © 2024 WCPD Information Management System. All rights reserved. <br>Developed by PSU UC - IT OJT 2024.
     </div>
 </div>
 <script src="js/aos.js"></script>
