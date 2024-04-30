@@ -54,7 +54,7 @@
                                 <label for="end_date">To:</label>&nbsp;&nbsp;
                                 <input type="date" class="form-control" name="end_date" id="end_date" max="{{ date('Y-m-d') }}" value="{{ $end_date ?? old('end_date') }}" required>&nbsp;&nbsp;
                                 <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-
+                                <a href="{{ route('investigator.allrecords') }}"><button type="button" class="link-buttons" style="background-color: #48145B"><i class="fa-solid fa-arrows-rotate"></i></button></a>
                             </div>
                             </form>
                         </div>

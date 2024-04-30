@@ -60,8 +60,7 @@
     <body>
         @extends('layouts.app')
 
-        @section('content')
-            <!-- Content Header (Page header) -->
+        @section('content') 
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2"> 
@@ -73,11 +72,7 @@
             </div>
  
             <div class="content" style="margin-top: -2rem">
-                <div class="container-fluid">
-                    {{-- <div class="col-12">
-                        <a class="link-buttons" href="" style="float: left; background-color: #48145B" target="_blank">Add Investigator&nbsp;&nbsp;<i class="fa-solid fa-plus"></i> </a> 
-                    </div>  --}}
-
+                <div class="container-fluid">  
                     <div class="col-12" style="margin-top: 1rem">
                         <div class="filter">
                             <form action="filter-logs" method="GET">
@@ -87,7 +82,7 @@
                                     <label for="end_date">To:</label>&nbsp;&nbsp;
                                     <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}" max="{{ date('Y-m-d') }}" required>&nbsp;&nbsp;
                                     <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-                                    {{-- <a href="{{ route('superadmin.logs') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a> --}}
+                                    <a href="{{ route('superadmin.logs') }}"><button type="button" class="link-buttons" style="background-color: #48145B"><i class="fa-solid fa-arrows-rotate"></i></button></a>
                                 </div>
                             </form>
                         </div>
@@ -121,6 +116,8 @@
                                             <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="DELETE" style="background-color: pink; font-weight: bold; color: darkred; width: 5rem; border: none; font-size: medium" readonly>
                                         @elseif ($log->action == 'Restore')
                                             <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="RESTORE" style="background-color: #b5e8ff; font-weight: bold; color: rgb(0, 0, 78); width: 5.5rem; border: none; font-size: medium" readonly>
+                                        @elseif ($log->action == 'Update')
+                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="UPDATE" style="background-color: #b5e8ff; font-weight: bold; color: rgb(0, 0, 78); width: 5.1rem; border: none; font-size: medium" readonly>
                                         @endif</center>
                                         </td>  
                                         <td>{{ $log->details }}</td>

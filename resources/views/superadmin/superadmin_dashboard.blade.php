@@ -76,7 +76,7 @@
                                 <label for="end_date">To:</label>&nbsp;&nbsp;
                                 <input type="month" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}" max="{{ date('Y-m-d') }}" required>&nbsp;&nbsp;
                                 <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-                                {{-- <a href="{{ route('superadmin.allrecords') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a> --}}
+                                <a href="{{ route('superadmin.dashboard') }}"><button type="button" class="link-buttons" style="background-color: #48145B"><i class="fa-solid fa-arrows-rotate"></i></button></a>
                             </div>
                             </form>
                         </div>
@@ -223,8 +223,7 @@ $(document).ready(function() {
         var chart = new google.charts.Bar(document.getElementById('chart_div'));
 
         chart.draw(data, google.charts.Bar.convertOptions(options));
-
-        // Function to download chart data as CSV
+ 
         function downloadCSV() {
             var csvContent = google.visualization.dataTableToCsv(data);
             var encodedUri = encodeURI('data:text/csv;charset=utf-8,' + csvContent);
@@ -234,8 +233,7 @@ $(document).ready(function() {
             document.body.appendChild(link);
             link.click();
         }
-
-        // Add event listener to the download button
+ 
         document.getElementById('download-button').addEventListener('click', function() {
             downloadCSV();
         });

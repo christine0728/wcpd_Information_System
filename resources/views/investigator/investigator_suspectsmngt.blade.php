@@ -79,7 +79,7 @@
                                     <label for="end_date">To:</label>&nbsp;&nbsp;
                                     <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}" max="{{ date('Y-m-d') }}" required>&nbsp;&nbsp;
                                     <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-                                    {{-- <a href="{{ route('investigator.suspects_mngt') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a> --}}
+                                    <a href="{{ route('investigator.suspects_mngt') }}"><button type="button" class="link-buttons" style="background-color: #48145B"><i class="fa-solid fa-arrows-rotate"></i></button></a>
                                 </div>
                             </form>
                         </div>
@@ -94,11 +94,9 @@
                                         <th>Image</th>
                                         <th>Fullname</th> 
                                         <th>Age</th>
-                                        <th><center>Previous<br>Criminal Record/s</center></th>
-                                        {{-- <th>Last Known Address</th> --}}
+                                        <th><center>Previous<br>Criminal Record/s</center></th> 
                                         <th>Relationship to Victim</th>
-                                        <th>Date Reported</th>
-                                        {{-- <th>Offenses</th> --}}
+                                        <th>Date Reported</th> 
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -114,8 +112,7 @@
                                         </td>
                                         <td style="vertical-align: top;">{{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}</td>
                                         <td style="vertical-align: top;">{{ $comp->offender_age }}</td>
-                                        <td style="vertical-align: top;">{{ $comp->offender_prev_criminal_rec }}</td>
-                                        {{-- <td>{{ $comp->offender_last_known_addr }}</td> --}}
+                                        <td style="vertical-align: top;">{{ $comp->offender_prev_criminal_rec }}</td> 
                                         <td style="text-align: top;">{{ $comp->offender_relationship_victim }}</td> 
                                         <td style="vertical-align: top;">{{ $comp->date_reported }}</td>
                                         {{-- <td>{{ $comp->offenses }}</td>   --}}

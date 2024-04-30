@@ -1,115 +1,101 @@
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title')</title>
-    <link rel="icon" href="{{ url('asset/favicon.ico') }}">
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=10">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
-    <script src="https://kit.fontawesome.com/7528702e77.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}?version=10">
-    <link rel="stylesheet" href="//cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    @yield('styles')
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>@yield('title')</title>
+<link rel="icon" href="{{ url('asset/favicon.ico') }}">
+<link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=10">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
+<script src="https://kit.fontawesome.com/7528702e77.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}?version=10">
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+@yield('styles')
 
-    <style>
-            @keyframes glow {
-                0% {
-                    box-shadow: 0 0 10px blue;
-                }
-                50% {
-                    box-shadow: 0 0 10px violet;
-                }
-                100% {
-                    box-shadow: 0 0 10px #9947B6;
-                }
-            }
+<style>
+    @keyframes glow {
+        0% {
+            box-shadow: 0 0 10px blue;
+        }
+        50% {
+            box-shadow: 0 0 10px violet;
+        }
+        100% {
+            box-shadow: 0 0 10px #9947B6;
+        }
+    }
 
-            .glow-icon {
-                animation: glow 1.5s infinite alternate;
-                font-size: 5em;
-                padding: 3px;
-                background-color: transparent;
-            }
+    .glow-icon {
+        animation: glow 1.5s infinite alternate;
+        font-size: 5em;
+        padding: 3px;
+        background-color: transparent;
+    }
 
-          /* Adjust sidebar width and height */
-.main-sidebar {
-    width: 270px;
-    overflow-y: auto; /* Add scrollbar when content overflows vertically */
-    height: calc(100vh - 40px); /* Set sidebar height to fill the remaining viewport height */
-}
+    .main-sidebar {
+        width: 270px;
+        overflow-y: auto;  
+        height: calc(100vh - 40px);  
+    }
 
-/* Hide horizontal scrollbar on main content */
-.content-wrapper {
-    overflow-x: hidden; /* Hide horizontal scrollbar */
-    overflow-y: auto; /* Add scrollbar when content overflows vertically */
-}
+    .content-wrapper {
+        overflow-x: hidden; 
+        overflow-y: auto; 
+    }
 
-/* Adjust main content padding to avoid overlapping with the sidebar */
-.content-wrapper {
-    padding-left: 250px; /* Same width as sidebar */
-}
+    .content-wrapper {
+        padding-left: 10px; 
+    }
 
-/* Adjust footer position to stay at the bottom */
-.main-footer {
-    position: fixed;
-    bottom: 0;
-    width: calc(100% - 250px); /* Adjust width considering the sidebar */
-    background-color: #192440;
-    color: white;
-    font-size: 15px;
-}
-
-    </style>
-
-
-
+    .main-footer {
+        position: fixed;
+        bottom: 0;
+        width: calc(100% - 250px);  
+        background-color: #192440;
+        color: white;
+        font-size: 12px;
+    } 
+</style> 
 </head>
-<body class="hold-transition sidebar-mini" style="font-family: 'Poppins',sans-serif; color:#9947B6;">
+<body class="hold-transition " style="font-family: 'Poppins', sans-serif;">
 <div class="wrapper">
     <nav class="main-header navbar navbar-expand navbar-light navbar-white">
         <ul class="navbar-nav">
             <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button" style="font-family: 'Poppins', sans-serif; font-weight: bold; font-size: 20px;color: #9947B6">
-            <i class="fas fa-align-justify fa-5x glow-icon"></i>
-
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WOMAN AND CHILDREN PROTECTION DESK</a>
-
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button" style="font-family: 'Poppins', sans-serif; font-weight: bold; font-size: 20px; color: #9947B6">
+            <i class="fas fa-align-justify fa-5x glow-icon"></i> 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WOMAN AND CHILDREN PROTECTION DESK</a> 
             </li>
         </ul>
-         <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
                 <a class="link-buttons" href="{{ route('logout') }}" style="float: left; background-color: #48145B">Logout&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right-from-bracket"></i> </a>
             </li>
         </ul>
     </nav>
-    <aside class="main-sidebar sidebar-light-primary elevation-4" style="position:fixed; background-color:#9947B6; overflow-y: auto; height: 100vh;">
 
-
+    <aside class="main-sidebar sidebar-light-primary elevation-4" style="position:fixed; background-color:#9947B6; overflow-y: auto; height: 100vh;"> 
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Sidebar brand image -->
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false"> 
                     <li class="nav-item">
-                        <a href="#" class="nav-link" >
+                        <a href="#" class="nav-link" style="display: flex">
                             <i class="nav-icon">
                                 <img src="{{ asset('images/wcpd_logo.png') }}" alt="WCPD Logo" class="brand-image img-circle elevation-3 img-fluid" style="opacity: .8; max-width: 40px;">
-                            </i>
-                            <p>
-                                <span class="brand-text font-weight-light"><strong style="color: white; font-weight: bold; font-size:25px">WCPD</strong></span>
-                            </p>
+                            </i> 
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="brand-text font-weight-light"><strong style="color: white; font-weight: bold; font-size: 25px">WCPD</strong></span> 
                         </a>
                     </li>
                     <li class="nav-item">
-    <a href="#" class="nav-link">
-        <i class="nav-icon">
-            <img src="{{ asset('images/default.png') }}" alt="Default Image" class="img-thumbnail" style="max-width: 40px; max-height: 40px;">
-        </i>
-        <p>
-            <span class="" style="color:white; text-transform: capitalize;">{{ Auth::guard('account')->user()->firstname }} {{ Auth::guard('account')->user()->lastname }}</span>
-        </p>
-    </a>
-</li>
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon">
+                                <img src="{{ asset('images/default.png') }}" alt="Default Image" class="img-thumbnail" style="max-width: 40px; max-height: 40px;">
+                            </i>
+                            <p>
+                                <span class="" style="color:white; text-transform: capitalize;">{{ Auth::guard('account')->user()->firstname }} {{ Auth::guard('account')->user()->lastname }}</span>
+                            </p>
+                        </a>
+                    </li>
 
                     <hr style="border-top: 5px solid #ccc; margin: 10px 0; color: black">
 
@@ -231,41 +217,33 @@
                             </p>
                         </a>
                     </li>
-                    @endif
-
-
+                    @endif 
 
                     @if (Auth::guard('account')->user()->acc_type == 'superadmin')
                     <li id="account-management" class="nav-item">
-    <a href="#" class="nav-link" onclick="toggleSubMenu()">
-        <i class="nav-icon fas fa-circle-user" style="color:white"></i>
-        <p style="color:white">
-            {{ __('Account Management') }}
-            <i id="account-management-toggle" class="fas fa-angle-left right"></i>
-        </p>
-    </a>
-    <ul id="account-management-submenu" class="nav nav-treeview collapse show-submenu">
-        <!-- Submenu items -->
-        <li class="nav-item">
-            <a href="{{ route('superadmin.inv_account_mngt') }}" class="nav-link {{ request()->is('filipiniana') ? 'text-primary' : 'text-dark' }}">
-                <i class="nav-icon fas fa-user" style="color: white;"></i>
-                <p style="color:white">Investigator Account Mngt.</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('superadmin.superadmin_account_mngt', Auth::guard('account')->user()->id) }}" class="nav-link {{ request()->is('filipiniana') ? 'text-primary' : 'text-dark' }}">
-                <i class="nav-icon fas fa-user" style="color: white;"></i>
-                <p style="color:white">Super Admin Account Mngt.</p>
-            </a>
-        </li>
-    <!-- </ul>
-</li> -->
-
-
-
-
+                        <a href="#" class="nav-link" onclick="toggleSubMenu()">
+                            <i class="nav-icon fas fa-circle-user" style="color:white"></i>
+                            <p style="color:white">
+                                {{ __('Account Management') }}
+                                &nbsp;<i id="account-management-toggle" class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul id="account-management-submenu" class="nav nav-treeview collapse show-submenu" > 
+                            <li class="nav-item">
+                                <a href="{{ route('superadmin.inv_account_mngt') }}"  >
+                                    <i class="nav-icon fas fa-user" style="color: white;"></i>
+                                    <p style="color:white">Investigator Account Mngt.</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('superadmin.superadmin_account_mngt', Auth::guard('account')->user()->id) }}"  >
+                                    <i class="nav-icon fas fa-user" style="color: white;"></i>
+                                    <p style="color:white">Super Admin Account Mngt.</p>
+                                </a>
+                            </li>  
                         </ul>
                     </li>
+
                     @elseif (Auth::guard('account')->user()->acc_type == 'investigator')
                     <li class="nav-item">
                         <a href="{{ route('investigator.accountmngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">

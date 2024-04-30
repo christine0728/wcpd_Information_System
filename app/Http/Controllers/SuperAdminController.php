@@ -14,14 +14,10 @@ use App\Models\SuperAdmin;
 use App\Models\Team;
 use App\Models\Victim;
 use App\Notifications\MyNotification;
-<<<<<<< Updated upstream
 use App\Rules\UniqueUsernameAdmin;
 use Carbon\Carbon; 
-=======
-use Carbon\Carbon;
->>>>>>> Stashed changes
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth; 
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\DB;
@@ -29,14 +25,14 @@ use Illuminate\Support\Facades\Validator;
 
 class SuperAdminController extends Controller
 {
-    public function add_superadmin(Request $request){
-        // $team = new Team();
+    public function add_superadmin(Request $request){ 
+        // $team = new Team(); 
         // $team->username = $request->input('username');
         // $team->password = Hash::make($request->password);
         // $team->save();
         // return redirect()->back()->with('message', 'The record has been added successfully!');
 
-        // $team = new SuperAdmin();
+        // $team = new SuperAdmin(); 
         // $team->username = $request->input('username');
         // $team->password = Hash::make($request->password);
         // $team->save();
@@ -55,7 +51,6 @@ class SuperAdminController extends Controller
         return redirect()->back()->with('message', 'The record has been added successfully!');
     }
 
-<<<<<<< Updated upstream
     public function add_investigator(Request $request){  
          
         $validator = Validator::make($request->all(), [
@@ -75,9 +70,6 @@ class SuperAdminController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-=======
-    public function add_investigator(Request $request){
->>>>>>> Stashed changes
         $user = Account::create([
             'firstname' => $request->input('firstname'),
             'lastname' => $request->input('lastname'),
@@ -89,7 +81,7 @@ class SuperAdminController extends Controller
         ]);
 
         return redirect()->route('superadmin.inv_account_mngt')->with('success', 'Investigator account added successfully!');;
-    }
+    } 
 
     public function add_investigator_acc()
     {
@@ -101,107 +93,7 @@ class SuperAdminController extends Controller
     public function dashboard()
     {
         $filter_year = null;
-        $filter_year1 = null;
-$crimeData = DB::table('complaint_reports')
-    ->join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
-    ->leftJoin('victims', 'victims.comp_report_id', '=', 'complaint_reports.complaint_report_author')
-    ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.complaint_report_author')
-    ->select(
-        DB::raw('MONTH(date_reported) as month'),
-        DB::raw('COUNT(*) as total_cases'),
-        'offenses',
-        'offenders.offender_sex',
-        'offenders.offender_relationship_victim as offender_relationship_victim' // Specify the column from 'offenders' table
-    )
-    ->groupBy('month', 'offenses', 'offenders.offender_sex', 'offenders.offender_relationship_victim')
-    ->orderBy('month')
-    ->get();
-
-
-
-
-        $comps = DB::table('complaint_reports as cr')
-        ->join('victims as v', 'v.comp_report_id', '=', 'cr.id')
-        ->select(
-            DB::raw('DATE_FORMAT(cr.date_reported, "%b") AS comp_month'),
-            DB::raw('COUNT(cr.id) AS total_comps'),
-            DB::raw('SUM(CASE WHEN v.victim_sex = "MALE" THEN 1 ELSE 0 END) AS male_total_comps'),
-            DB::raw('SUM(CASE WHEN v.victim_sex = "FEMALE" THEN 1 ELSE 0 END) AS female_total_comps'),
-            DB::raw('GROUP_CONCAT(DISTINCT cr.offenses) AS offense')
-        )
-        ->groupBy('comp_month')
-        ->orderBy(DB::raw('MONTH(cr.date_reported)'))
-        ->get();
-
-
-
-        $comps11 = ComplaintReport::join('victims', function ($join) {
-            $join->on('victims.comp_report_id', '=', 'complaint_reports.id')
-                    ->where('victims.victim_sex', '=', 'FEMALE');
-            })
-            ->select(
-                DB::raw('CASE
-                    WHEN victims.victim_age BETWEEN 0 AND 17 THEN "0-17"
-                    ELSE "18+"
-                END AS age_range'),
-                DB::raw('COUNT(complaint_reports.id) AS total_comps')
-            )
-            ->groupBy('age_range')
-            ->get();
-
-        $comps_male = ComplaintReport::join('victims', function ($join) {
-            $join->on('victims.comp_report_id', '=', 'complaint_reports.id')
-                    ->where('victims.victim_sex', '=', 'MALE');
-            })
-            ->select(
-                DB::raw('CASE
-                    WHEN victims.victim_age BETWEEN 0 AND 17 THEN "0-17"
-                    ELSE "18+"
-                END AS age_range'),
-                DB::raw('COUNT(complaint_reports.id) AS total_comps')
-            )
-            ->groupBy('age_range')
-            ->get();
-
-
-        $notifs = Notifications::where('status', '=', 'unread')
-            ->count();
-
-            //#4 ilan yung victim na babae at lalake
-        $maleVictim = DB::table('victims')->where('victim_sex', 'MALE')->count();
-        $femaleVictim = DB::table('victims')->where('victim_sex', 'FEMALE')->count();
-        $maleOffenders = DB::table('offenders')->where('offender_sex', 'MALE')->count();
-        $femaleOffenders = DB::table('offenders')->where('offender_sex', 'FEMALE')->count();
-
-
-        $topPlaces = DB::table('complaint_reports')
-        ->select('place_of_commission', DB::raw('COUNT(*) as total_cases'))
-        ->groupBy('place_of_commission')
-        ->orderByDesc('total_cases')
-        ->limit(5)
-        ->get();
-
-        $relationshipCounts = DB::table('complaint_reports')
-        ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.complaint_report_author')
-        ->select(
-            'offenders.offender_relationship_victim',
-            DB::raw('SUM(CASE WHEN offenders.offender_sex = "MALE" THEN 1 ELSE 0 END) AS male_count'),
-            DB::raw('SUM(CASE WHEN offenders.offender_sex = "FEMALE" THEN 1 ELSE 0 END) AS female_count')
-        )
-        ->groupBy('offenders.offender_relationship_victim')
-        ->get();
-
-        return view('superadmin.superadmin_dashboard', ['relationshipCounts'=> $relationshipCounts,'topPlaces'=>$topPlaces, 'maleOffenders'=>$maleOffenders, 'femaleOffenders'=>$femaleOffenders, 'maleVictim'=>$maleVictim, 'femaleVictim'=>$femaleVictim, 'notifs'=>$notifs, 'comps'=>$comps, 'comps11'=>$comps11, 'comps_male'=>$comps_male, 'filter_year'=>$filter_year, 'filter_year1'=>$filter_year1]);
-    }
-
-   public function filter_dashboard(Request $request)
-    {
-        $filter_year = null;
-        $filter_year1 = null;
-
-        $start_date = date('Y-m-d', strtotime($request->input('start_date')));
-        $end_date = date('Y-m-d', strtotime($request->input('end_date')));
-
+        $filter_year1 = null; 
         $crimeData = DB::table('complaint_reports')
         ->join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
         ->leftJoin('victims', 'victims.comp_report_id', '=', 'complaint_reports.complaint_report_author')
@@ -210,17 +102,12 @@ $crimeData = DB::table('complaint_reports')
             DB::raw('MONTH(date_reported) as month'),
             DB::raw('COUNT(*) as total_cases'),
             'offenses',
-            'offenders.offender_sex'
+            'offender_sex'
         )
-<<<<<<< Updated upstream
-=======
-        ->whereDate('complaint_reports.created_at', '>=', $start_date)
-        ->whereDate('complaint_reports.created_at', '<=', $end_date)
->>>>>>> Stashed changes
         ->groupBy('month', 'offenses', 'offenders.offender_sex')
         ->orderBy('month')
         ->get();
-
+     
         $comps = DB::table('complaint_reports as cr')
         ->join('victims as v', 'v.comp_report_id', '=', 'cr.id')
         ->select(
@@ -233,18 +120,20 @@ $crimeData = DB::table('complaint_reports')
         ->groupBy('comp_month')
         ->orderBy(DB::raw('MONTH(cr.date_reported)'))
         ->get();
+    
+        
 
         $comps11 = ComplaintReport::join('victims', function ($join) {
             $join->on('victims.comp_report_id', '=', 'complaint_reports.id')
                     ->where('victims.victim_sex', '=', 'FEMALE');
             })
             ->select(
-                DB::raw('CASE
-                    WHEN victims.victim_age BETWEEN 0 AND 17 THEN "0-17"
+                DB::raw('CASE 
+                    WHEN victims.victim_age BETWEEN 0 AND 17 THEN "0-17" 
                     ELSE "18+"
-                END AS age_range'),
+                END AS age_range'), 
                 DB::raw('COUNT(complaint_reports.id) AS total_comps')
-            )
+            ) 
             ->groupBy('age_range')
             ->get();
 
@@ -253,24 +142,24 @@ $crimeData = DB::table('complaint_reports')
                     ->where('victims.victim_sex', '=', 'MALE');
             })
             ->select(
-                DB::raw('CASE
-                    WHEN victims.victim_age BETWEEN 0 AND 17 THEN "0-17"
+                DB::raw('CASE 
+                    WHEN victims.victim_age BETWEEN 0 AND 17 THEN "0-17" 
                     ELSE "18+"
-                END AS age_range'),
+                END AS age_range'), 
                 DB::raw('COUNT(complaint_reports.id) AS total_comps')
-            )
+            ) 
             ->groupBy('age_range')
             ->get();
-
+    
 
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
-
+       
             //#4 ilan yung victim na babae at lalake
         $maleVictim = DB::table('victims')->where('victim_sex', 'MALE')->count();
         $femaleVictim = DB::table('victims')->where('victim_sex', 'FEMALE')->count();
         $maleOffenders = DB::table('offenders')->where('offender_sex', 'MALE')->count();
-        $femaleOffenders = DB::table('offenders')->where('offender_sex', 'FEMALE')->count();
+        $femaleOffenders = DB::table('offenders')->where('offender_sex', 'FEMALE')->count(); 
 
 
         $topPlaces = DB::table('complaint_reports')
@@ -279,7 +168,6 @@ $crimeData = DB::table('complaint_reports')
         ->orderByDesc('total_cases')
         ->limit(5)
         ->get();
-<<<<<<< Updated upstream
    
         // $relationshipCounts = DB::table('complaint_reports')
         // ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.complaint_report_author')
@@ -295,27 +183,22 @@ $crimeData = DB::table('complaint_reports')
         // ->join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
         // ->leftJoin('victims', 'victims.comp_report_id', '=', 'complaint_reports.complaint_report_author')
         // ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.complaint_report_author')
-=======
-
-        $relationshipCounts = DB::table('complaint_reports')
-        ->join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
-        ->leftJoin('victims', 'victims.comp_report_id', '=', 'complaint_reports.complaint_report_author')
-        ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.complaint_report_author')
->>>>>>> Stashed changes
         ->select(
             'offender_relationship_victim',
             DB::raw('SUM(CASE WHEN offender_sex = "MALE" THEN 1 ELSE 0 END) AS male_count'),
             DB::raw('SUM(CASE WHEN offender_sex = "FEMALE" THEN 1 ELSE 0 END) AS female_count')
         )
         ->groupBy('offender_relationship_victim')
-        ->get();
-
-
+        ->get(); 
 
         return view('superadmin.superadmin_dashboard', ['relationshipCounts'=> $relationshipCounts,'topPlaces'=>$topPlaces, 'maleOffenders'=>$maleOffenders, 'femaleOffenders'=>$femaleOffenders, 'maleVictim'=>$maleVictim, 'femaleVictim'=>$femaleVictim, 'notifs'=>$notifs, 'comps'=>$comps, 'comps11'=>$comps11, 'comps_male'=>$comps_male, 'filter_year'=>$filter_year, 'filter_year1'=>$filter_year1]);
     }
+    
+    public function filter_dashboard(Request $request)
+    {
+        $filter_year = null;
+        $filter_year1 = null; 
 
-<<<<<<< Updated upstream
         // $start_date = date('Y-m-d', strtotime($request->input('start_date')));
         // $end_date = date('Y-m-d', strtotime($request->input('end_date')));
 
@@ -433,16 +316,14 @@ $crimeData = DB::table('complaint_reports')
  
         return view('superadmin.superadmin_dashboard', ['relationshipCounts'=> $relationshipCounts,'topPlaces'=>$topPlaces, 'maleOffenders'=>$maleOffenders, 'femaleOffenders'=>$femaleOffenders, 'maleVictim'=>$maleVictim, 'femaleVictim'=>$femaleVictim, 'notifs'=>$notifs, 'comps'=>$comps, 'comps11'=>$comps11, 'comps_male'=>$comps_male, 'filter_year'=>$filter_year, 'filter_year1'=>$filter_year1]);
     }
-=======
->>>>>>> Stashed changes
 
     public function inv_account_management()
     {
-        $invs = Account::where('acc_type', '=', 'investigator')
+        $invs = Account::where('acc_type', '=', 'investigator') 
             ->where('status', '=', 'active')
             ->get();
 
-        $inacts = Account::where('acc_type', '=', 'investigator')
+        $inacts = Account::where('acc_type', '=', 'investigator') 
             ->where('status', '=', 'inactive')
             ->get();
         $notifs = Notifications::where('status', '=', 'unread')
@@ -452,27 +333,27 @@ $crimeData = DB::table('complaint_reports')
 
     public function edit_investigator_acc($id)
     {
-        $invs = Account::where('id', '=', $id)
+        $invs = Account::where('id', '=', $id) 
             ->get();
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
         return view('superadmin.superadmin_editinvestigator', ['invs'=>$invs, 'notifs'=>$notifs]);
     }
-
+ 
     public function superadmin_account_management($id)
     {
-        $invs = Account::where('id', '=', $id)
+        $invs = Account::where('id', '=', $id) 
             ->get();
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
         return view('superadmin.superadmin_superadminaccmngt', ['invs'=>$invs, 'notifs'=>$notifs]);
     }
-
+ 
     public function change_team(Request $request, $accid)
     {
         Account::where('id', $accid)
             ->update([
-                'team' => $request->input('team'),
+                'team' => $request->input('team'), 
             ]);
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
@@ -487,12 +368,12 @@ $crimeData = DB::table('complaint_reports')
         else{
             Account::where('id', $accid)
             ->update([
-                'status' => $request->input('status'),
+                'status' => $request->input('status'), 
             ]);
 
             return redirect()->back()->with('updated', "Investigator account's status has been updated successfully! Moved to Inactive Accounts Tab");
         }
-
+        
     }
 
     public function change_password()
@@ -506,21 +387,12 @@ $crimeData = DB::table('complaint_reports')
     }
 
     public function changing_password(Request $request)
-<<<<<<< Updated upstream
     { 
         // $id = Auth::guard('account')->user()->id;
         // $username = $request->input('username');
         // $invs = Account::where('id', '=', $id)
         //     ->first();
         // $check = $request->all();
-=======
-    {
-        $id = Auth::guard('account')->user()->id;
-        $username = $request->input('username');
-        $invs = Account::where('id', '=', $id)
-            ->first();
-        $check = $request->all();
->>>>>>> Stashed changes
 
         // // with('error', 'Admin account logged in successfully!');
         // if (Auth::guard('account')->attempt(['username' => $check['username'], 'password' => $check['curr_password']])){
@@ -577,13 +449,13 @@ $crimeData = DB::table('complaint_reports')
         // $comps = ComplaintReport::
         // // join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
         // where('complaint_reports.status', 'notdeleted')
-        //     ->orderBy('complaint_reports.id', 'DESC')
+        //     ->orderBy('complaint_reports.id', 'DESC') 
         //     ->get();
 
         $comps = Victim::join('complaint_reports', 'complaint_reports.id', '=', 'victims.comp_report_id')
             ->select('complaint_reports.id as compid', 'victims.id as vid', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'victims.victim_image', 'victims.victim_present_address', 'complaint_reports.date_reported')
             ->orderBy('victims.id', 'desc')
-            ->where('complaint_reports.complaint_report_author', '=', $author_id)
+            ->where('complaint_reports.complaint_report_author', '=', $author_id) 
             ->get();
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
@@ -591,14 +463,14 @@ $crimeData = DB::table('complaint_reports')
     }
 
     public function victim_profile($id)
-    {
-        $comps = Victim::
+    { 
+        $comps = Victim::  
             where('id', '=', $id)
             ->get();
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
         return view('superadmin.superadmin_viewvictimprofile', ['comps'=>$comps, 'notifs'=>$notifs]);
-    }
+    } 
 
     public function suspectsmngt()
     {
@@ -607,9 +479,9 @@ $crimeData = DB::table('complaint_reports')
         // // join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
         // // ->
         // where('complaint_reports.status', 'notdeleted')
-        //     ->orderBy('complaint_reports.id', 'DESC')
+        //     ->orderBy('complaint_reports.id', 'DESC') 
         //     ->get();
-
+ 
         $comps = Offender::join('complaint_reports', 'complaint_reports.id', '=', 'offenders.comp_report_id')
             ->select('complaint_reports.id as compid', 'offenders.id as oid', 'offenders.offender_family_name', 'offenders.offender_firstname', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age','offenders.offender_image', 'offenders.offender_prev_criminal_rec', 'offenders.offender_relationship_victim', 'complaint_reports.date_reported')
             ->orderByDesc('offenders.id')
@@ -622,15 +494,15 @@ $crimeData = DB::table('complaint_reports')
     }
 
     public function offender_profile($id)
-    {
-        $comps = Offender::
+    { 
+        $comps = Offender::  
             where('id', '=', $id)
             ->get();
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
         return view('superadmin.superadmin_viewoffenderprofile', ['comps'=>$comps, 'notifs'=>$notifs]);
     }
-
+        
     public function complaintreportmngt()
     {
         $author_id = Auth::guard('account')->user()->id;
@@ -640,9 +512,9 @@ $crimeData = DB::table('complaint_reports')
         ->select('accounts.id as accountid', 'accounts.username', 'accounts.team', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.inv_case_no', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'offenders.offender_firstname', 'offenders.offender_family_name', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age', 'offenders.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition', 'complaint_reports.date_case_updated', 'complaint_reports.case_update')
         ->where('complaint_report_author', $author_id)
         ->where('complaint_reports.status', 'notdeleted')
-        ->orderBy('complaint_reports.id', 'DESC')
+        ->orderBy('complaint_reports.id', 'DESC') 
         ->get();
-
+        
         $notifs = Notifications::where('status', '=', 'unread')
         ->count();
         return view('superadmin.superadmin_complaintreportmngt', ['comps'=>$comps, 'notifs'=>$notifs]);
@@ -662,10 +534,10 @@ $crimeData = DB::table('complaint_reports')
         ->leftJoin('victims', 'victims.comp_report_id', '=', 'complaint_reports.complaint_report_author')
         ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.complaint_report_author')
         ->select('accounts.id as accountid', 'accounts.username', 'accounts.team', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.inv_case_no', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'offenders.offender_firstname', 'offenders.offender_family_name', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age', 'offenders.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')
-        ->where('complaint_reports.status', 'notdeleted')
-        ->orderBy('complaint_reports.id', 'DESC')
+        ->where('complaint_reports.status', 'notdeleted') 
+        ->orderBy('complaint_reports.id', 'DESC') 
         ->get();
-
+    
         $notifs = Notifications::where('status', '=', 'unread')
         ->count();
         return view('superadmin.superadmin_allrecords', ['comps' => $comps, 'notifs'=>$notifs]);
@@ -674,14 +546,14 @@ $crimeData = DB::table('complaint_reports')
     public function offensesmngt()
     {
         $author_id = Auth::guard('account')->user()->id;
-        $offenses = Offense::select('*')
+        $offenses = Offense::select('*') 
         ->where('not_delete', '=', false)
         ->get();
-
+        
         $notifs = Notifications::where('status', '=', 'unread')
         ->count();
         return view('investigator.investigator_offensesmngt', ['offenses'=>$offenses, 'notifs'=>$notifs]);
-    }
+    } 
 
     public function filter_allrecords(Request $request)
     {
@@ -702,8 +574,8 @@ $crimeData = DB::table('complaint_reports')
         // ->whereBetween('complaint_reports.created_at', '>=', [$start_date, $end_date])
         ->whereDate('complaint_reports.date_reported', '>=', $start_date)
         ->whereDate('complaint_reports.date_reported', '<=', $end_date)
-        ->where('complaint_reports.status', 'notdeleted')
-        ->orderBy('complaint_reports.id', 'DESC')
+        ->where('complaint_reports.status', 'notdeleted') 
+        ->orderBy('complaint_reports.id', 'DESC') 
         ->get();
 
         $notifs = Notifications::where('status', '=', 'unread')
@@ -726,7 +598,7 @@ $crimeData = DB::table('complaint_reports')
         ->whereDate('complaint_reports.date_reported', '<=', $end_date)
         ->where('complaint_report_author', $author_id)
         ->where('complaint_reports.status', 'notdeleted')
-        ->orderBy('complaint_reports.id', 'DESC')
+        ->orderBy('complaint_reports.id', 'DESC') 
         ->get();
 
         $notifs = Notifications::where('status', '=', 'unread')
@@ -743,15 +615,9 @@ $crimeData = DB::table('complaint_reports')
         $comps = Victim::join('complaint_reports', 'complaint_reports.id', '=', 'victims.comp_report_id')
             ->select('complaint_reports.id as compid', 'victims.id as vid', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'victims.victim_image', 'victims.victim_present_address', 'complaint_reports.date_reported')
             ->where('complaint_reports.status', 'notdeleted')
-<<<<<<< Updated upstream
             ->whereDate('complaint_reports.date_reported', '>=', $start_date)
             ->whereDate('complaint_reports.date_reported', '<=', $end_date)
             ->orderBy('victims.id', 'DESC') 
-=======
-            ->whereDate('complaint_reports.created_at', '>=', $start_date)
-            ->whereDate('complaint_reports.created_at', '<=', $end_date)
-            ->orderBy('victims.id', 'DESC')
->>>>>>> Stashed changes
             ->get();
 
         $notifs = Notifications::where('status', '=', 'unread')
@@ -770,7 +636,7 @@ $crimeData = DB::table('complaint_reports')
             ->orderByDesc('offenders.id')
             ->whereDate('complaint_reports.created_at', '>=', $start_date)
             ->whereDate('complaint_reports.created_at', '<=', $end_date)
-            ->where('complaint_reports.complaint_report_author', '=', $author_id)
+            ->where('complaint_reports.complaint_report_author', '=', $author_id) 
             ->get();
 
         $notifs = Notifications::where('status', '=', 'unread')
@@ -782,19 +648,19 @@ $crimeData = DB::table('complaint_reports')
     {
         Account::where('id', $accid)
             ->update([
-                'firstname' => $request->input('firstname'),
-                'lastname' => $request->input('lastname'),
-                'username' => $request->input('username'),
-                'team' => $request->input('team'),
+                'firstname' => $request->input('firstname'), 
+                'lastname' => $request->input('lastname'), 
+                'username' => $request->input('username'), 
+                'team' => $request->input('team'), 
             ]);
-
+            
         // route('superadmin.inv_account_mngt')
         return redirect()->route('superadmin.inv_account_mngt')->with('updated', "Updated investigator's account successfully!");
     }
 
     public function edit_superadmin_acc($id)
     {
-        $invs = Account::where('id', '=', $id)
+        $invs = Account::where('id', '=', $id) 
             ->get();
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
@@ -806,9 +672,9 @@ $crimeData = DB::table('complaint_reports')
         $author_id = Auth::guard('account')->user()->id;
         Account::where('id', $accid)
             ->update([
-                'firstname' => $request->input('firstname'),
-                'lastname' => $request->input('lastname'),
-                'username' => $request->input('username'),
+                'firstname' => $request->input('firstname'), 
+                'lastname' => $request->input('lastname'), 
+                'username' => $request->input('username'), 
             ]);
         return redirect()->route('superadmin.superadmin_account_mngt', ['id'=>$author_id])->with('updated', "Superadmin's account has been updated successfully!");
     }
@@ -820,13 +686,13 @@ $crimeData = DB::table('complaint_reports')
         ComplaintReport::where('id', '=', $id)
             ->update([
                 'case_update' => $request->input('status'),
-                'date_case_updated' => $now,
+                'date_case_updated' => $now, 
             ]);
 
             $authorID = Auth::guard('account')->user()->id;
             $log = new Logs();
             $log->author_type = Auth::guard('account')->user()->acc_type;
-            $log->author_id = $authorID;
+            $log->author_id = $authorID; 
             $log->details = "Update";
             $log->action = "Updated Case Disposition of Complaint Report Form";
             $log->created_at = $now;
@@ -844,9 +710,9 @@ $crimeData = DB::table('complaint_reports')
     // }
 
     public function password_requests(Request $request)
-    {
-        $notifications = Notifications::join('accounts', 'accounts.id', '=', 'notifications.investigator_id')
-            ->select('accounts.firstname', 'accounts.lastname', 'accounts.id as iid', 'notifications.description', 'notifications.created_at', 'notifications.id as nid', 'notifications.status')
+    { 
+        $notifications = Notifications::join('accounts', 'accounts.id', '=', 'notifications.investigator_id')  
+            ->select('accounts.firstname', 'accounts.lastname', 'accounts.id as iid', 'notifications.description', 'notifications.created_at', 'notifications.id as nid', 'notifications.status')  
             ->orderBy('notifications.id', 'desc')
             ->get();
 
@@ -858,8 +724,8 @@ $crimeData = DB::table('complaint_reports')
 
     public function inv_changepass_req($nid, $id)
     {
-        $invs = Notifications::join('accounts', 'accounts.id', '=', 'notifications.investigator_id')
-            ->select('accounts.firstname', 'accounts.lastname', 'accounts.username', 'accounts.team', 'accounts.id', 'accounts.change_password_req', 'notifications.id as nid')
+        $invs = Notifications::join('accounts', 'accounts.id', '=', 'notifications.investigator_id')  
+            ->select('accounts.firstname', 'accounts.lastname', 'accounts.username', 'accounts.team', 'accounts.id', 'accounts.change_password_req', 'notifications.id as nid')  
             ->where('notifications.id', '=', $nid)
             ->get();
         $notifs = Notifications::where('status', '=', 'unread')
@@ -871,22 +737,22 @@ $crimeData = DB::table('complaint_reports')
     {
         Notifications::where('id', $nid)
             ->update([
-                'status' => 'read',
+                'status' => 'read', 
             ]);
 
         Account::where('id', $id)
             ->update([
-                'change_password_req' => $request->input('passw_req'),
+                'change_password_req' => $request->input('passw_req'), 
             ]);
-
+            
         // route('superadmin.inv_account_mngt')
         return redirect()->route('superadmin.password_requests')->with('success', 'Investigator account added successfully!');
     }
 
     public function logs()
     {
-        $logs = Logs::join('accounts', 'accounts.id', '=', 'logs.author_id')
-            ->select('logs.id as lid', 'accounts.firstname', 'accounts.lastname', 'logs.author_type', 'logs.id', 'logs.action', 'logs.details', 'logs.created_at')
+        $logs = Logs::join('accounts', 'accounts.id', '=', 'logs.author_id')  
+            ->select('logs.id as lid', 'accounts.firstname', 'accounts.lastname', 'logs.author_type', 'logs.id', 'logs.action', 'logs.details', 'logs.created_at') 
             ->orderByDesc('logs.id')
             ->get();
         $notifs = Notifications::where('status', '=', 'unread')
@@ -899,16 +765,16 @@ $crimeData = DB::table('complaint_reports')
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
 
-        $author_id = Auth::guard('account')->user()->id;
-        $logs = Logs::join('accounts', 'accounts.id', '=', 'logs.author_id')
-            ->select('accounts.firstname', 'accounts.lastname', 'logs.author_type', 'logs.id', 'logs.action', 'logs.details', 'logs.created_at')
+        $author_id = Auth::guard('account')->user()->id; 
+        $logs = Logs::join('accounts', 'accounts.id', '=', 'logs.author_id')  
+            ->select('accounts.firstname', 'accounts.lastname', 'logs.author_type', 'logs.id', 'logs.action', 'logs.details', 'logs.created_at') 
             ->whereDate('logs.created_at', '>=', $start_date)
             ->whereDate('logs.created_at', '<=', $end_date)
             ->get();
 
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
-
+            
         return view('superadmin.superadmin_logs', ['logs'=>$logs, 'notifs'=>$notifs, 'start_date'=>$start_date, 'end_date'=>$end_date]);
     }
 
@@ -921,7 +787,7 @@ $crimeData = DB::table('complaint_reports')
         ->select('accounts.id as accountid', 'accounts.username', 'accounts.team', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'offenders.offender_firstname', 'offenders.offender_family_name', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age', 'offenders.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')
         ->where('complaint_reports.status', 'deleted')
         ->where('accounts.team', $team)
-        ->orderBy('complaint_reports.id', 'DESC')
+        ->orderBy('complaint_reports.id', 'DESC') 
         ->get();
 
         $notifs = Notifications::where('status', '=', 'unread')
@@ -940,17 +806,10 @@ $crimeData = DB::table('complaint_reports')
         ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.complaint_report_author')
         ->select('accounts.id as accountid', 'accounts.username', 'accounts.team', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'offenders.offender_firstname', 'offenders.offender_family_name', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age', 'offenders.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')
         ->where('complaint_reports.status', 'deleted')
-<<<<<<< Updated upstream
         ->whereDate('complaint_reports.created_at', '>=', $start_date)
         ->whereDate('complaint_reports.created_at', '<=', $end_date)
         // ->where('accounts.team', $team)
         ->orderBy('complaint_reports.id', 'DESC') 
-=======
-        ->whereDate('logs.created_at', '>=', $start_date)
-        ->whereDate('logs.created_at', '<=', $end_date)
-        ->where('accounts.team', $team)
-        ->orderBy('complaint_reports.id', 'DESC')
->>>>>>> Stashed changes
         ->get();
 
         $notifs = Notifications::where('status', '=', 'unread')
@@ -958,23 +817,23 @@ $crimeData = DB::table('complaint_reports')
         return view('superadmin.superadmin_deletedforms', ['comps' => $comps, 'notifs'=>$notifs]);
     }
 
-    public function prescriptive_forecasting(){
+    public function prescriptive_forecasting(){ 
 
         $filter_year = null;
         $filter_year1 = null;
-        $fid =  Auth::guard('fishfarmer')->user()->location;
+        $fid =  Auth::guard('fishfarmer')->user()->location; 
         $ffid =Auth::guard('fishfarmer')->user()->fishfarmID;
 
         $comps = ComplaintReport::select(
             DB::raw('DATE_FORMAT(date_reported, "%b") AS comp_month'),
             DB::raw('COUNT(complaikn) AS total_comps')
-        )
+        ) 
         ->groupBy('comp_month')
         ->orderBy(DB::raw('MONTH(date_reported)'))
         ->get();
-
-
+ 
+ 
         return view('superadmin.superadmin_dashboard', ['comps'=>$comps, 'filter_year'=>$filter_year, 'filter_year1'=>$filter_year1
         ]);
     }
-}
+} 

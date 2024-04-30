@@ -396,9 +396,12 @@ class InvestigatorController extends Controller
         $id = Auth::guard('account')->user()->id;
         $accs = Account::where('id', '=', $id)->get();
         // dd($id);
+
+        $notifs = Notifications::where('status', '=', 'unread')
+            ->count();
     
         $chang_passw = Auth::guard('account')->user()->change_passw_request; 
-        return view('investigator.investigator_accountmngt', ['accs' => $accs]);
+        return view('investigator.investigator_accountmngt', ['accs' => $accs, 'notifs'=>$notifs]);
     }
 
     public function change_passw_request(Request $request)
@@ -528,24 +531,26 @@ class InvestigatorController extends Controller
         $id = Auth::guard('account')->user()->id;
         $invs = Account::where('id', '=', $id)
             ->get();
-        return view('investigator.investigator_changepassword', ['invs'=>$invs]);
+        $notifs = Notifications::where('status', '=', 'unread')
+            ->count();
+        return view('investigator.investigator_changepassword', ['invs'=>$invs, 'notifs'=>$notifs]);
     }
     public function changing_password(Request $request)
     {  
-        $validator = Validator::make($request->all(), [
-            'username' => 'required',
-            'curr_password' => 'required',
-            'new_password' => [
-                'required',
-                'string',
-                'min:8',
-                'max:12',
-                'regex:/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/' 
-            ],
-        ], [
-            'new_password.max' => 'The new password must not exceed 12 characters in length.',
-            'new_password.regex' => 'The new password must contain at least 8 letters, at least one number, and at least one special character.'
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'username' => 'required',
+        //     'curr_password' => 'required',
+        //     'new_password' => [
+        //         'required',
+        //         'string',
+        //         'min:8',
+        //         'max:12',
+        //         'regex:/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/' 
+        //     ],
+        // ], [
+        //     'new_password.max' => 'The new password must not exceed 12 characters in length.',
+        //     'new_password.regex' => 'The new password must contain at least 8 letters, at least one number, and at least one special character.'
+        // ]);
      
         // $validator->sometimes('new_password', 'regex:/[a-zA-Z]/', function ($input) {
         //     return !preg_match('/[a-zA-Z]/', $input->new_password);
@@ -571,22 +576,91 @@ class InvestigatorController extends Controller
         //     $validator->errors()->add('new_password', 'The new password must contain at least one number.');
         // });
      
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withErrors($validator)->withInput();
+        // }
      
+        // $id = Auth::guard('account')->user()->id;
+     
+        // if (Auth::guard('account')->attempt(['username' => $request->input('username'), 'password' => $request->input('curr_password')])) { 
+        //     Account::where('id', $id)->update([
+        //         'password' => Hash::make($request->input('new_password')),
+        //         'change_password_req' => 'done', 
+        //     ]);
+     
+        //     return redirect()->route('investigator.accountmngt')->with('success', 'Password changed successfully!');
+        // } else { 
+        //     return redirect()->back()->with('error', 'Username or current password you entered is incorrect.')->withInput();
+        // }
+
+        // $validator = Validator::make($request->all(), [
+        //     'username' => 'required',
+        //     'curr_password' => 'required',
+        //     'new_password' => [
+        //         'required',
+        //         'string',
+        //         'min:8',
+        //         'max:12',
+        //         'regex:/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/' 
+        //     ],
+        // ], [
+        //     'new_password.max' => 'The new password must not exceed 12 characters in length.',
+        //     'new_password.regex' => 'The new password must contain at least 8 letters, at least one number, and at least one special character.'
+        // ]); 
+     
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withErrors($validator)->withInput();
+        // }
+     
+        // $id = Auth::guard('account')->user()->id;
+     
+        // if (Auth::guard('account')->attempt(['username' => $request->input('username'), 'password' => $request->input('curr_password')])) { 
+        //     Account::where('id', $id)->update([
+        //         'password' => Hash::make($request->input('new_password')),
+        //         'change_password_req' => 'done', 
+        //     ]);
+     
+        //     return redirect()->route('investigator.accountmngt', ['id'=>$id])->with('success', "Password changed successfully!");
+        // } else { 
+        //     return redirect()->back()->with('error', 'Username or current password you entered is incorrect.')->withInput();
+        // }
+
         $id = Auth::guard('account')->user()->id;
-     
+
         if (Auth::guard('account')->attempt(['username' => $request->input('username'), 'password' => $request->input('curr_password')])) { 
+            // Username and password are correct
+            // Proceed with validation
+            $validator = Validator::make($request->all(), [
+                'username' => 'required',
+                'curr_password' => 'required',
+                'new_password' => [
+                    'required',
+                    'string',
+                    'min:8',
+                    'max:12',
+                    'regex:/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/'
+                ],
+            ], [
+                'new_password.max' => 'The new password must not exceed 12 characters in length.',
+                'new_password.regex' => 'The new password must contain at least 8 letters, at least one number, and at least one special character.'
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            // Update password and set change_password_req to 'done'
             Account::where('id', $id)->update([
                 'password' => Hash::make($request->input('new_password')),
                 'change_password_req' => 'done', 
             ]);
-     
-            return redirect()->route('investigator.accountmngt')->with('success', 'Password changed successfully!');
+
+            return redirect()->route('investigator.accountmngt', ['id'=>$id])->with('success', "Password changed successfully!");
         } else { 
+            // Username or current password is incorrect
             return redirect()->back()->with('error', 'Username or current password you entered is incorrect.')->withInput();
         }
+
     }
 
     public function logs()

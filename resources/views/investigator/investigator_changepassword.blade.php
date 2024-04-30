@@ -63,15 +63,19 @@
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2"> 
-                         <div class="col-6">
+                        <div class="col-6">
                             <h1 class="m-0" style="font-weight: bold;">&nbsp;{{ __('Change Own Password') }}</h1>
                         </div> 
+
+                        <div class="col-12">
+                            &nbsp;&nbsp;<a class="link-buttons" href="#"  onclick="window.history.back();" style="background-color: #48145B; margin-right: 0.1rem" ><i class="fa-solid fa-arrow-left icons"></i>&nbsp;&nbsp;Go Back</a>
+                        </div>
                     </div>
                 </div>
             </div>
   
 
-            <div class="content" style="margin-top: -1rem; ">
+            <div class="content" style="margin-top: -2.5rem; ">
                 <div class="container-fluid" >   
                     <div class="card col-5 shadow p-3 mb-5 bg-white rounded" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-left: 25%;"> 
                         @if(Session::has('error')) 
