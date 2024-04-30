@@ -18,7 +18,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Complaint Report Management</title>
+        <title>Superadmin | Complaint Report Management</title>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <link rel="icon" href="{{ url('images/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
@@ -44,8 +44,7 @@
                 margin-right: 5px;
             }
 
-            @media only screen and (max-width: 768px) {
-                /* For mobile phones: */
+            @media only screen and (max-width: 768px) { 
                 [class*="col-"] {
                 width: 100%;
                 }
@@ -56,9 +55,9 @@
             }
 
             .success {
-                background-color: #d4edda; /* Lighter shade of green */
-                border-color: #c3e6cb; /* Adjust border color if needed */
-                color: #155724; /* Adjust text color if needed */
+                background-color: #d4edda; 
+                border-color: #c3e6cb; 
+                color: #155724; 
             }
 
             .updated {
@@ -104,7 +103,7 @@
                                     <label for="end_date">To:</label>&nbsp;&nbsp;
                                     <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}" max="{{ date('Y-m-d') }}" required>&nbsp;&nbsp;
                                     <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-                                    {{-- <a href="{{ route('superadmin.complaintreport') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a> --}}
+                                    <a href="{{ route('superadmin.complaintreport') }}"><button type="button" class="link-buttons" style="background-color: #48145B"><i class="fa-solid fa-arrows-rotate"></i></button></a>
                                 </div>
                             </form>
                         </div>

@@ -41,8 +41,7 @@
                 margin-right: 5px;
             }
 
-            @media only screen and (max-width: 768px) {
-                /* For mobile phones: */
+            @media only screen and (max-width: 768px) { 
                 [class*="col-"] {
                 width: 100%;
                 }
@@ -56,8 +55,7 @@
     <body>
         @extends('layouts.app')
 
-        @section('content')
-            <!-- Content Header (Page header) -->
+        @section('content') 
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2"> 
@@ -69,11 +67,7 @@
             </div>
  
             <div class="content" style="margin-top: -1.5rem">
-                <div class="container-fluid">
-                    {{-- <div class="col-12">
-                        <a class="link-buttons" href="{{ route('investigator.complaintreport_form') }}" style="float: left;" target="_blank">Add a Complaint Report&nbsp;&nbsp;<i class="fa-solid fa-plus"></i> </a> 
-                    </div> --}} 
-                    
+                <div class="container-fluid">  
                     <div class="col-12">
                         <div class="filter">
                             <form action="filter-victimsmngt" method="GET">
@@ -83,7 +77,7 @@
                                     <label for="end_date">To:</label>&nbsp;&nbsp;
                                     <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}" max="{{ date('Y-m-d') }}" required>&nbsp;&nbsp;
                                     <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-                                    <!-- <a href=" "><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a> -->
+                                    <a href="{{ route('investigator.victims_mngt') }}"><button type="button" class="link-buttons" style="background-color: #48145B"><i class="fa-solid fa-arrows-rotate"></i></button></a>
                                 </div>
                             </form>
                         </div>
@@ -98,57 +92,33 @@
                                         <th>Image</th>
                                         <th>Fullname</th>
                                         <th>Sex</th>
-                                        <th>Age</th>
-                                        {{-- <th>Civil Status</th>--}}
-                                        <th>Present Address</th>
-                                        {{-- <th>Guardian Name</th>
-                                        <th>Contact Person</th>  --}}
-                                        <th>Date Reported</th> 
-                                        {{-- <th>Offenses</th>  --}}
-                                        {{-- <th>Case Updated</th> --}}
+                                        <th>Age</th> 
+                                        <th>Present Address</th>  
+                                        <th>Date Reported</th>  
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody> 
                                     @foreach ($comps as $comp)  
-                                    <tr>  
-                                        {{-- <td>
-                                            <center>
-                                                <a class="view-btn" href="{{ route('investigator.view_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
-                                            </center>
-                                        </td> --}}  
+                                    <tr>   
                                         <td style="display: none">{{$comp->vid}}</td>
                                         <td> 
                                             @if($comp->victim_image != 'no image')
                                             <img src="{{ asset('images/victims/' . $comp->victim_image) }}" alt="{{ $comp->victim_firstname }}" class="img-thumbnail" style="max-width: 110px; max-height: 110px;">
                                             @else 
-                                                <center> <p>No Image</p></center>
-                                           
+                                                <center> <p>No Image</p></center> 
                                             @endif
                                         </td>
                                         <td>{{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}</td>
                                         <td>{{ $comp->victim_sex }}</td> 
-                                        <td>{{ $comp->victim_age }}</td>
-                                        {{-- <td>{{ $comp->victim_civil_status }}</td> --}}
-                                        <td>{{ $comp->victim_present_address }}</td>
-                                        {{-- <td>{{ $comp->victim_parents_guardian_name }}</td>
-                                        <td>{{ $comp->victim_contactperson_addr_con_num }}</td> --}}
-                                        <td>{{ $comp->date_reported }}</td> 
-                                        {{-- <td>{{ $comp->offenses }}</td>  --}}
-                                        {{-- <td> 
-                                            @if ($comp->case_update == null) 
-                                                Case not updated yet.
-                                            @else
-                                                {{ $comp->case_update }}
-                                            @endif
-                                        </td>  --}}
+                                        <td>{{ $comp->victim_age }}</td> 
+                                        <td>{{ $comp->victim_present_address }}</td> 
+                                        <td>{{ $comp->date_reported }}</td>  
                                         <td>
                                         <center> 
                                             <a class="view-btn" href="{{ route('investigator.view_complaintreport', $comp->compid) }}">&nbsp;&nbsp;&nbsp;View Case<i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
                                                 
-                                            <br><a class="view-btn" href="{{ route('investigator.victim_profile', $comp->vid) }}" style="margin-top: 0.5rem">&nbsp;&nbsp;&nbsp;View Profile<i class="fa-regular fa-user" style="font-size: large; padding: 0.5rem"></i></a> 
-
-                                            {{-- <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', $comp->id) }}#victim">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> --}}
+                                            <br><a class="view-btn" href="{{ route('investigator.victim_profile', $comp->vid) }}" style="margin-top: 0.5rem">&nbsp;&nbsp;&nbsp;View Profile<i class="fa-regular fa-user" style="font-size: large; padding: 0.5rem"></i></a>  
                                         </center>
                                         </td>
                                     </tr> 

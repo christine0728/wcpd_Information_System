@@ -18,7 +18,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Offenders Management</title>
+        <title>Superadmin | Offenders Management</title>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <link rel="icon" href="{{ url('images/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
@@ -41,8 +41,7 @@
                 margin-right: 5px;
             }
 
-            @media only screen and (max-width: 768px) {
-                /* For mobile phones: */
+            @media only screen and (max-width: 768px) { 
                 [class*="col-"] {
                 width: 100%;
                 }
@@ -56,18 +55,13 @@
     <body>
         @extends('layouts.app')
 
-        @section('content')
-            <!-- Content Header (Page header) -->
+        @section('content') 
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2"> 
                         <div class="col-6">
                             <h1 class="m-0" style="font-weight: bold">&nbsp;{{ __('Offenders Management') }}</h1>
-                        </div> 
-
-                        {{-- <div class="col-12">
-                            &nbsp;&nbsp;<a class="link-buttons" href="#" onclick="window.history.back();" style="background-color: #48145B; margin-right: 0.1rem" ><i class="fa-solid fa-arrow-left icons"></i>&nbsp;&nbsp;Go Back</a>
-                        </div> --}}
+                        </div>  
                     </div>
                 </div>
             </div>
@@ -84,7 +78,7 @@
                                 <label for="end_date">To:</label>&nbsp;&nbsp;
                                 <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}" max="{{ date('Y-m-d') }}" required>&nbsp;&nbsp;
                                 <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-                                {{-- <a href="{{ route('superadmin.suspects_mngt') }}" ><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a> --}}
+                                <a href="{{ route('superadmin.suspects_mngt') }}"><button type="button" class="link-buttons" style="background-color: #48145B"><i class="fa-solid fa-arrows-rotate"></i></button></a>
                             </div>
                             </form>
                         </div>
@@ -116,18 +110,14 @@
                                         </td>
                                         <td>{{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}</td>
                                         <td>{{ $comp->offender_age }}</td>
-                                        <td>{{ $comp->offender_prev_criminal_rec }}</td>
-                                        {{-- <td>{{ $comp->offender_last_known_addr }}</td> --}}
+                                        <td>{{ $comp->offender_prev_criminal_rec }}</td> 
                                         <td>{{ $comp->offender_relationship_victim }}</td> 
-                                        <td>{{ $comp->date_reported }}</td>
-                                        {{-- <td>{{ $comp->offenses }}</td>   --}}
+                                        <td>{{ $comp->date_reported }}</td> 
                                         <td>
                                         <center> 
                                             <a class="view-btn" href="{{ route('superadmin.view_complaintreport', $comp->compid) }}"  style="margin-bottom: 0.5rem">&nbsp;&nbsp;&nbsp;View Case<i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
                                                 
-                                            <br><a class="view-btn" href="{{ route('superadmin.offender_profile', $comp->oid) }}"  >&nbsp;&nbsp;&nbsp;View Profile<i class="fa-regular fa-user" style="font-size: large; padding: 0.5rem"></i></a> 
-
-                                            {{-- <a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('investigator.edit_complaintreport', $comp->id) }}">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a>   --}}
+                                            <br><a class="view-btn" href="{{ route('superadmin.offender_profile', $comp->oid) }}"  >&nbsp;&nbsp;&nbsp;View Profile<i class="fa-regular fa-user" style="font-size: large; padding: 0.5rem"></i></a>  
                                         </center>
                                         </td>
                                     </tr> 
@@ -143,17 +133,7 @@
             </div> 
         @endsection
     </body>
-</html>
-
-@if(session('updatemessage'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'Successfuly updated!',
-        text: '{{ session('success') }}'
-    });
-</script>
-@endif
+</html> 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 <script>
@@ -161,97 +141,6 @@
           $('#compsTbl').DataTable({
             "order": [[0, "desc"]]
           });
-      });
-
-    function confirmDelete(id) {
-        Swal.fire({
-            title: 'Are you sure to delete this book?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-            $.ajax({
-                type: 'POST',
-                url: '/admin/activity_destroy/' + id, 
-                data: {
-                _token: '{{ csrf_token() }}',
-                _method: 'DELETE'
-                },
-                success: function (response) {
-                Swal.fire(
-                    'Deleted!',
-                    'The record has been deleted.',
-                    'success'
-                ).then(function () {
-                    location.reload();
-                });
-                },
-                error: function (error) {
-                    console.log(error);
-                Swal.fire(
-                    'Error!',
-                    'An error occurred while deleting the record.',
-                    'error'
-                );
-                }
-            });
-            }
-        });
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const editButtons = document.querySelectorAll('.btn-edit');
-
-        editButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                const modal = document.getElementById('modalEdit');
-                const editId = this.getAttribute('data-id'); 
-
-                document.getElementById('edit_id').value = editId; 
-
-                document.getElementById('edit_id').value = editId;
-
-                $('#modalEdit').modal('show');
-
-            });
-        });
-    });
-
+      });  
 </script>
-
-<!-- Edit Organizational Structure Modal -->
-<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalAddLabel">Update Records</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <input type="hidden" id="edit_id" name="edit_id"> 
-                    </div>
-                    <div class="form-group">
-                        <label for="barcode">Activity title:</label>
-                        <input type="text" class="form-control" id="edit_id" name="edit_id" required placeholder="Enter the activity_title">
-                    </div>
-                    <div class="form-group">
-                        <label for="barcode">Status:</label>
-                        <input type="text" class="form-control" id="edit_status" name="edit_status" required placeholder="Enter the status">
-                    </div> 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save Changes</button>
-            </div>
-            </form>
-        </div>
-    </div>
-</div>
+  

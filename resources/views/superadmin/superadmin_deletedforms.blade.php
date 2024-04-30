@@ -54,7 +54,7 @@
                                 <label for="end_date">To:</label>&nbsp;&nbsp;
                                 <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date ?? old('end_date') }}" required>&nbsp;&nbsp;
                                 <button type="submit" class="form-buttons" style="width: 20rem">Apply Filter</button>&nbsp;&nbsp;
-                                {{-- <a href="{{ route('investigator.allrecords') }}"><button type="button" class="link-buttons" style="background-color: #48145B">All</button></a> --}}
+                                <a href="{{ route('superadmin.trash') }}"><button type="button" class="link-buttons" style="background-color: #48145B"><i class="fa-solid fa-arrows-rotate"></i></button></a>
                             </div>
                             </form>
                         </div>
@@ -101,8 +101,7 @@
                                             <b>Victim Overview</b>
                                             <br>Fullname: {{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}
                                             <br>Sex: {{ $comp->victim_sex }}
-                                            <br>Age: {{ $comp->victim_age }}
-
+                                            <br>Age: {{ $comp->victim_age }} 
                                             <br><b>Offender Overview</b>
                                             <br>Fullname: {{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}
                                             <br>Sex: {{ $comp->offender_sex }}
