@@ -81,9 +81,13 @@
                     <div class="col-6">
                         <div class="card">
                             <div class="card-body">
-                                <div id="chart_div" style="width: 100%; height: 15rem;"></div>
-
-                                <button id="download-button" class="form-buttons" style="width: 13rem; margin-top: 1rem">Download Monthly Data&nbsp;&nbsp;<i class="fa-solid fa-download"></i></button>
+                                <div style="margin-bottom: 1rem">
+                                    <b style="color: #48145B; font-size: large">
+                                        MONTHLY TOTAL NUMBER OF RECORDS PER GENDER
+                                    </b>
+                                </div>
+                                <div id="chart_div" style="width: 100%; height: 15rem;"></div> 
+                                <button id="download-button" class="form-buttons" style="width: 100%; margin-top: 1rem">Download Monthly Data&nbsp;&nbsp;<i class="fa-solid fa-download"></i></button>
                             </div>
                         </div>
                     </div>
@@ -221,8 +225,31 @@ $(document).ready(function() {
 
         chart.draw(data, google.charts.Bar.convertOptions(options));
  
+        // function downloadCSV() {
+        //     var csvContent = google.visualization.dataTableToCsv(data);
+        //     var encodedUri = encodeURI('data:text/csv;charset=utf-8,' + csvContent);
+        //     var link = document.createElement('a');
+        //     link.setAttribute('href', encodedUri);
+        //     link.setAttribute('download', 'chart_data.csv');
+        //     document.body.appendChild(link);
+        //     link.click();
+        // }
+ 
+        // document.getElementById('download-button').addEventListener('click', function() {
+        //     downloadCSV();
+        // });
+ 
         function downloadCSV() {
-            var csvContent = google.visualization.dataTableToCsv(data);
+            var csvContent = 'Month,Male,Female\n'; // Header line
+            for (var i = 0; i < data.getNumberOfRows(); i++) {
+                for (var j = 0; j < data.getNumberOfColumns(); j++) {
+                    csvContent += data.getFormattedValue(i, j);
+                    if (j < data.getNumberOfColumns() - 1) { 
+                        csvContent += ',';
+                    }
+                }
+                csvContent += '\n';
+            }
             var encodedUri = encodeURI('data:text/csv;charset=utf-8,' + csvContent);
             var link = document.createElement('a');
             link.setAttribute('href', encodedUri);

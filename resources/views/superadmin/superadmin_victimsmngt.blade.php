@@ -105,9 +105,9 @@
                                     <tr> 
                                         <th style="display: none"></th>
                                         <th>Image</th>
-                                        <th>Fullname</th>
-                                        <th>Sex</th>
-                                        <th>Age</th> 
+                                        <th>Details</th>
+                                        {{-- <th>Sex</th>
+                                        <th>Age</th>  --}}
                                         <th>Present Address</th> 
                                         <th>Date Reported</th> 
                                         <th>Action</th>
@@ -124,9 +124,13 @@
                                                 No Image
                                             @endif
                                         </td>
-                                        <td>{{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}</td>
-                                        <td>{{ $comp->victim_sex }}</td> 
-                                        <td>{{ $comp->victim_age }}</td> 
+                                        <td>
+                                            Fullname: {{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}
+                                            <br>Sex: {{ $comp->victim_sex }}
+                                            <br>Age: {{ $comp->victim_age }}
+                                        </td>
+                                        {{-- <td>{{ $comp->victim_sex }}</td> 
+                                        <td>{{ $comp->victim_age }}</td>  --}}
                                         <td>{{ $comp->victim_present_address }}</td> 
                                         <td>{{ $comp->date_reported }}</td> 
                                         <td>
