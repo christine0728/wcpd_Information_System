@@ -14,29 +14,29 @@
 <body style="background-color:#9947B6; font-family: 'Poppins', sans-serif;">
     <div class="jumbotron jumbotron-fluid" id="banner" style="background-image: url(images/pnp.png);">
         <div class="container text-center text-md-left">
-        <header class="header-logos">
-    <div class="row justify-content-start align-items-center">
-        <div class="col-auto">
-            <img src="{{ asset('images/pnp_logo.png') }}" alt="PNP Logo" style="width: 300px; height: auto; border-radius: 50%; margin-left: 15px;">
-        </div>
-        <div class="col-auto">
-            <img src="{{ asset('images/wcpd_logo.png') }}" alt="WCPD Logo" style="width: 300px; height: auto; border-radius: 50%;">
-        </div>
-        <div class="col-auto">
-            <img src="{{ asset('images/ucps_logo.png') }}" alt="UCPS Logo" style="width: 300px; height: auto; border-radius: 50%;">
-        </div>
+            <header class="header-logos">
+                <div class="row justify-content-start align-items-center">
+                    <div class="col-auto">
+                        <img src="{{ asset('images/pnp_logo.png') }}" alt="PNP Logo" style="width: 300px; height: auto; border-radius: 50%; margin-left: 15px;">
+                    </div>
+                    <div class="col-auto">
+                        <img src="{{ asset('images/wcpd_logo.png') }}" alt="WCPD Logo" style="width: 300px; height: auto; border-radius: 50%;">
+                    </div>
+                    <div class="col-auto">
+                        <img src="{{ asset('images/ucps_logo.png') }}" alt="UCPS Logo" style="width: 300px; height: auto; border-radius: 50%;">
+                    </div>
+                </div>
+            </header>
+            <h1 data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="display-3 text-white font-weight-bold my-5 animated" style="font-size: 50px; text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5); letter-spacing: 2px; line-height: 1.2;">
+                WCPD Information Management System<br>
+            </h1><br>
+            <p data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="lead text-white my-4 custom-paragraph" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                <span style="font-size: 24px; font-weight: bold;">Woman And Children Protection Desk</span><br>
+                <span style="font-size: 18px; font-weight: bold;">Philippine National Police</span><br>
+                <span style="font-size: 16px; font-weight: bold;">Urdaneta City Police Station Urdaneta City</span>
+            </p><br>
+        <a href="/login"  class="btn my-4 font-weight-bold atlas-cta cta-purple" style="box-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Login</a>
     </div>
-</header>
-<h1 data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="display-3 text-white font-weight-bold my-5 animated" style="font-size: 50px; text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5); letter-spacing: 2px; line-height: 1.2;">
-    WCPD Information Management System<br>
-</h1><br>
-<p data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="lead text-white my-4 custom-paragraph" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
-    <span style="font-size: 24px; font-weight: bold;">Woman And Children Protection Desk</span><br>
-    <span style="font-size: 18px; font-weight: bold;">Philippine National Police</span><br>
-    <span style="font-size: 16px; font-weight: bold;">Urdaneta City Police Station Urdaneta City</span>
-</p><br>
-<a href="/login" data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="btn my-4 font-weight-bold atlas-cta cta-purple" style="box-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Login</a>
-</div>
 </div>
 <div class="container my-5 py-2" style="color:white" >
 <h2 class="text-center font-weight-bold my-5" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">

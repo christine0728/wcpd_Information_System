@@ -90,9 +90,9 @@
                                     <tr> 
                                         <th style="display: none"></th>
                                         <th>Image</th>
-                                        <th>Fullname</th>
-                                        <th>Sex</th>
-                                        <th>Age</th> 
+                                        <th>Details</th>
+                                        {{-- <th>Sex</th>
+                                        <th>Age</th>  --}}
                                         <th>Present Address</th>  
                                         <th>Date Reported</th>  
                                         <th>Action</th>
@@ -109,9 +109,14 @@
                                                 <center> <p>No Image</p></center> 
                                             @endif
                                         </td>
-                                        <td>{{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}</td>
-                                        <td>{{ $comp->victim_sex }}</td> 
-                                        <td>{{ $comp->victim_age }}</td> 
+                                        <td>
+                                            Fullname: {{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}
+
+                                            <br>Sex: {{ $comp->victim_sex }}
+                                            <br>Age: {{ $comp->victim_age }}
+                                        </td>
+                                        {{-- <td>{{ $comp->victim_sex }}</td> 
+                                        <td>{{ $comp->victim_age }}</td>  --}}
                                         <td>{{ $comp->victim_present_address }}</td> 
                                         <td>{{ $comp->date_reported }}</td>  
                                         <td>
@@ -149,104 +154,12 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 <script>
     $(document).ready(function() {
-          $('#compsTbl').DataTable({
-            "order": [[0, "desc"]]
-          });
-      });
-
-    function confirmDelete(id) {
-        Swal.fire({
-            title: 'Are you sure to delete this book?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-            $.ajax({
-                type: 'POST',
-                url: '/admin/activity_destroy/' + id, 
-                data: {
-                _token: '{{ csrf_token() }}',
-                _method: 'DELETE'
-                },
-                success: function (response) {
-                Swal.fire(
-                    'Deleted!',
-                    'The record has been deleted.',
-                    'success'
-                ).then(function () {
-                    location.reload();
-                });
-                },
-                error: function (error) {
-                    console.log(error);
-                Swal.fire(
-                    'Error!',
-                    'An error occurred while deleting the record.',
-                    'error'
-                );
-                }
-            });
-            }
+        $('#compsTbl').DataTable({
+        "order": [[0, "desc"]]
         });
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const editButtons = document.querySelectorAll('.btn-edit');
-
-        editButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                const modal = document.getElementById('modalEdit');
-                const editId = this.getAttribute('data-id'); 
-
-                document.getElementById('edit_id').value = editId; 
-
-                document.getElementById('edit_id').value = editId;
-
-                $('#modalEdit').modal('show');
-
-            });
-        });
-    });
-
+    }); 
 </script>
-
-<!-- Edit Organizational Structure Modal -->
-<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalAddLabel">Update Records</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <input type="hidden" id="edit_id" name="edit_id"> 
-                    </div>
-                    <div class="form-group">
-                        <label for="barcode">Activity title:</label>
-                        <input type="text" class="form-control" id="edit_id" name="edit_id" required placeholder="Enter the activity_title">
-                    </div>
-                    <div class="form-group">
-                        <label for="barcode">Status:</label>
-                        <input type="text" class="form-control" id="edit_status" name="edit_status" required placeholder="Enter the status">
-                    </div> 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save Changes</button>
-            </div>
-            </form>
-        </div>
-    </div>
-</div>
-
+ 
 <script>
     let inactiveTime = 0;
     const logoutTime = 5 * 60 * 1000;
