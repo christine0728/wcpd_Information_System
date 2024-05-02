@@ -22,10 +22,10 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <link rel="icon" href="{{ url('images/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=24"> 
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=24">
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>  
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/7528702e77.js" crossorigin="anonymous"></script>
         <style>
             .filter {
@@ -48,24 +48,24 @@
                 [class*="col-"] {
                 width: 100%;
                 }
-                
+
                 div{
                     display: none !important;
                 }
             }
         </style>
     </head>
-    <body>  
+    <body>
         @extends('layouts.app')
 
         @section('content')
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
-                    <div class="row mb-2"> 
+                    <div class="row mb-2">
                         <div class="col-6">
                             <h1 class="m-0" style="font-weight: bold;">{{ __('Change Own Password') }}</h1>
-                        </div> 
+                        </div>
 
                         <div class="col-12">
                             &nbsp;&nbsp;<a class="link-buttons" href="#" onclick="window.history.back();" style="background-color: #48145B; margin-right: 0.1rem" ><i class="fa-solid fa-arrow-left icons"></i>&nbsp;&nbsp;Go Back</a>
@@ -73,15 +73,15 @@
                     </div>
                 </div>
             </div>
-   
+
             <div class="content" style="margin-top: -2rem; margin-bottom: 2rem">
-                <div class="container-fluid" >   
-                    <div class="card col-5 shadow p-3 mb-5 bg-white rounded" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-right: 25%; margin-left: 25%"> 
-                        @if(Session::has('error')) 
-                            <b style="color: red">{{ session::get('error') }}</b> 
+                <div class="container-fluid" >
+                    <div class="card col-5 shadow p-3 mb-5 bg-white rounded" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-right: 25%; margin-left: 25%">
+                        @if(Session::has('error'))
+                            <b style="color: red">{{ session::get('error') }}</b>
                         @endif
 
-                        <div class="card-body p-1"> 
+                        <div class="card-body p-1">
                             <form action="{{ route('superadmin.changing_password') }}" method="post">
                                 @csrf
                                 <div class="card-body p-1">
@@ -89,7 +89,7 @@
                                         <label for="exampleInputEmail1">Username: </label>
                                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" oninput="toUpper(this)" value="{{ old('username') }}">
                                     </div>
-    
+
                                     <div class="form-group">
                                         <label for="curr_password">Current password:</label>
                                         <div class="input-group">
@@ -101,7 +101,7 @@
                                             </div>
                                         </div>
                                     </div>
-    
+
                                     <div class="form-group">
                                         <label for="new_password">New password:</label>
                                         <div class="input-group">
@@ -113,7 +113,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     @if ($errors->any())
                                         <div class="alert alert-danger">
                                             <ul>
@@ -124,19 +124,19 @@
                                         </div>
                                     @endif
 
-                                </div> 
+                                </div>
                                 <div class="col-12">
                                     <button type="submit" class="form-buttons" style="width: 100%">Change Password</button>
                                 </div>
                             </form>
-                        </div>  
-                    </div> 
+                        </div>
+                    </div>
                 </div>
-            </div> 
+            </div>
         @endsection
     </body>
 </html>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const toggleCurrPassword = document.querySelector('#toggleCurrPassword');
@@ -167,27 +167,27 @@
     // let inactiveTime = 0;
     // const logoutTime = 2 * 60 * 1000;
     // // 5 * 60 * 1000; // 5 minutes in milliseconds
-    
+
     // function resetInactiveTime() {
     //     inactiveTime = 0;
     // }
-    
+
     // function handleUserActivity() {
     //     resetInactiveTime();
     // }
-    
+
     // document.addEventListener('mousemove', handleUserActivity);
     // document.addEventListener('keydown', handleUserActivity);
-    
+
     // function checkInactiveTime() {
-    //     inactiveTime += 1000; 
-    //     if (inactiveTime >= logoutTime) { 
-    //         window.location.href = "/inactive_screen"; 
-    //     } else { 
-    //         setTimeout(checkInactiveTime, 1000); 
+    //     inactiveTime += 1000;
+    //     if (inactiveTime >= logoutTime) {
+    //         window.location.href = "/inactive_screen";
+    //     } else {
+    //         setTimeout(checkInactiveTime, 1000);
     //     }
     // }
-    
+
     // setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
 
 </script>

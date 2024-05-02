@@ -62,7 +62,8 @@
     </div>
     <div class="jumbotron jumbotron-fluid text-center" id="copyright" style="display: flex; justify-content: center;">
     <div class="col-md-8 text-white  my-2" style="font-size: 17px;">
-        Copyright © 2024 WCPD Information Management System. All rights reserved. <br>Developed by PSU UC - IT OJT 2024.
+    <a href="{{ route('profile') }}" target="_blank" style="color:white; text-decoration:none">Copyright &copy; 2024 WCPD Information Management System. All rights reserved.  Developed by PSU UC - IT OJT 2024.
+ </a>
     </div>
 </div>
 <script src="js/aos.js"></script>

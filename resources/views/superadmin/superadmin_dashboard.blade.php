@@ -89,7 +89,7 @@
                                         MONTHLY TOTAL NUMBER OF RECORDS PER GENDER
                                     </b>
                                 </div>
-                                <div id="chart_div" style="width: 100%; height: 15rem;"></div>  
+                                <div id="chart_div" style="width: 100%; height: 15rem;"></div>
                                 <button id="download-button" class="form-buttons" style="width: 15rem; margin-top: 1rem">Download Monthly Data&nbsp;&nbsp;<i class="fa-solid fa-download"></i></button>
                             </div>
                         </div>
@@ -195,12 +195,12 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script> 
+<script>
     $(document).ready(function() {
         $('#compsTbl').DataTable({
         "order": [[0, "desc"]]
         });
-    }); 
+    });
 </script>
 <script>
     google.charts.load('current', {'packages':['bar']});
@@ -224,7 +224,7 @@
         var chart = new google.charts.Bar(document.getElementById('chart_div'));
 
         chart.draw(data, google.charts.Bar.convertOptions(options));
- 
+
         // function downloadCSV() {
         //     var csvContent = google.visualization.dataTableToCsv(data);
         //     var encodedUri = encodeURI('data:text/csv;charset=utf-8,' + csvContent);
@@ -234,7 +234,7 @@
         //     document.body.appendChild(link);
         //     link.click();
         // }
- 
+
         // document.getElementById('download-button').addEventListener('click', function() {
         //     downloadCSV();
         // });
@@ -244,7 +244,7 @@
             for (var i = 0; i < data.getNumberOfRows(); i++) {
                 for (var j = 0; j < data.getNumberOfColumns(); j++) {
                     csvContent += data.getFormattedValue(i, j);
-                    if (j < data.getNumberOfColumns() - 1) { 
+                    if (j < data.getNumberOfColumns() - 1) {
                         csvContent += ',';
                     }
                 }
@@ -257,7 +257,7 @@
             document.body.appendChild(link);
             link.click();
         }
- 
+
         document.getElementById('download-button').addEventListener('click', function() {
             downloadCSV();
         });

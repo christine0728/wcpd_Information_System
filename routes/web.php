@@ -14,7 +14,7 @@ use App\Models\Offense;
 use App\Models\SuperAdmin;
 use App\Models\Victim;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,7 +33,7 @@ Route::get('/', function () {
 
 Route::get('/login', [HomeController::class, 'login_view'])->name('login_form');
 Route::post('/login_account', [HomeController::class, 'login'])->name('logging_in');
-Route::get('/logout', [HomeController::class, 'logout'])->name('logout')->middleware('account'); 
+Route::get('/logout', [HomeController::class, 'logout'])->name('logout')->middleware('account');
 Route::get('/inactive_screen', [HomeController::class, 'inactive_screen'])->name('inactive_screen');
 Route::get('/inactive_screen1', [HomeController::class, 'inactive_screen1'])->name('inactive_screen1');
 
@@ -42,8 +42,8 @@ Route::prefix('investigator')->middleware('account')->group(function(){
     Route::get('/filter-dashboard', [InvestigatorController::class, 'filter_dashboard'])->name('superadmin.filter_dashboard');
 
     Route::get('/complaintreportmanagement', [InvestigatorController::class, 'complaintreportmngt'])->name('investigator.complaintreport');
-    Route::get('/complaintreport_form', [InvestigatorController::class, 'complaintreport_form'])->name('investigator.complaintreport_form'); 
-    
+    Route::get('/complaintreport_form', [InvestigatorController::class, 'complaintreport_form'])->name('investigator.complaintreport_form');
+
     Route::post('/add_complaint', [ComplaintReportController::class, 'add_complaint1'])->name('investigator.add_complaint');
     Route::get('/adding_complaintreport/{comp_id}', [ComplaintReportController::class, 'adding_complaintreport'])->name('investigator.adding_complaintreport');
     Route::get('/view_complaintreport/{comp_id}', [ComplaintReportController::class, 'view_complaintreport'])->name('investigator.view_complaintreport');
@@ -83,7 +83,7 @@ Route::prefix('investigator')->middleware('account')->group(function(){
 
     Route::get('/allrecords', [InvestigatorController::class, 'allrecords'])->name('investigator.allrecords');
     Route::get('/filter-allrecords', [InvestigatorController::class, 'filter_allrecords'])->name('investigator.filter_allrecords');
-     
+
     Route::get('/accountmngt', [InvestigatorController::class, 'accountmngt'])->name('investigator.accountmngt');
 
     Route::get('/change_password_request', [InvestigatorController::class, 'change_passw_request'])->name('investigator.change_password_request');
@@ -102,16 +102,18 @@ Route::prefix('investigator')->middleware('account')->group(function(){
     Route::post('/store', [InvestigatorController::class, 'store'])->name('investigator.store');
     Route::get('/testing1', [InvestigatorController::class, 'index']);
 Route::post('/submit', [InvestigatorController::class, 'submit'])->name('submit');
+Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
+
 });
 
 Route::prefix('superadmin')->middleware('account')->group(function(){
     Route::post('/add_teamaccount', [SuperAdminController::class, 'add_superadmin'])->name('superadmin.add_teamaccount');
     Route::get('/add_investigator_acc', [SuperAdminController::class, 'add_investigator_acc'])->name('superadmin.add_investigator_acc');
-    Route::post('/add_investigator', [SuperAdminController::class, 'add_investigator'])->name('superadmin.add_investigator'); 
+    Route::post('/add_investigator', [SuperAdminController::class, 'add_investigator'])->name('superadmin.add_investigator');
 
     Route::get('/dashboard', [SuperAdminController::class, 'dashboard'])->name('superadmin.dashboard')->middleware('account');
     Route::get('/filter-dashboard', [SuperAdminController::class, 'filter_dashboard'])->name('superadmin.filter_dashboard');
-    
+
     Route::get('/inv_accountmngt', [SuperAdminController::class, 'inv_account_management'])->name('superadmin.inv_account_mngt');
     Route::get('/edit_investigator_acc/{id}', [SuperAdminController::class, 'edit_investigator_acc'])->name('superadmin.edit_investigator_acc');
     Route::post('/edit_investigator_details/{id}', [SuperAdminController::class, 'edit_investigator_details'])->name('superadmin.edit_investigator_details');
@@ -137,7 +139,7 @@ Route::prefix('superadmin')->middleware('account')->group(function(){
     Route::post('/update_offender/{oid}', [OffenderController::class, 'update_offender'])->name('superadmin.update_offender');
 
     Route::get('/complaintreportmanagement', [SuperAdminController::class, 'complaintreportmngt'])->name('superadmin.complaintreport');
-    Route::get('/complaintreport_form', [SuperAdminController::class, 'complaintreport_form'])->name('superadmin.complaintreport_form'); 
+    Route::get('/complaintreport_form', [SuperAdminController::class, 'complaintreport_form'])->name('superadmin.complaintreport_form');
     Route::post('/add_complaint', [ComplaintReportController::class, 'add_complaint1'])->name('superadmin.add_complaint');
     Route::get('/adding_complaintreport/{comp_id}', [ComplaintReportController::class, 'adding_complaintreport'])->name('superadmin.adding_complaintreport');
     Route::get('/view_complaintreport/{comp_id}', [ComplaintReportController::class, 'view_complaintreport'])->name('superadmin.view_complaintreport');
@@ -173,7 +175,7 @@ Route::prefix('superadmin')->middleware('account')->group(function(){
     Route::get('/logs', [SuperAdminController::class, 'logs'])->name('superadmin.logs');
     Route::get('/filter-logs', [SuperAdminController::class, 'filter_logs'])->name('superadmin.filter_logs');
 
-    Route::get('/trash', [SuperAdminController::class, 'trash'])->name('superadmin.trash'); 
+    Route::get('/trash', [SuperAdminController::class, 'trash'])->name('superadmin.trash');
     Route::get('/filter-trash', [SuperAdminController::class, 'filter_trash'])->name('superadmin.filter_trash');
     Route::get('/restore_form/{comp_id}', [ComplaintReportController::class, 'restore_form'])->name('investigator.restore_form');
     Route::get('/permanent_del/{comp_id}', [ComplaintReportController::class, 'permanent_del'])->name('investigator.permanent_del');
