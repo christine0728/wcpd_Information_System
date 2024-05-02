@@ -7,7 +7,7 @@
     <title>Team | Complaint Report Management</title>
 </head>
 <body>
-    <h1>Complaint Report Management</h1>
+    <h1>COMPLAINT REPORT MANAGEMENT</h1>
 
     <a href="{{ route('investigator.complaintreport_form') }}">Add Complaint Report (diretso sa Complaint Report Form)</a>
 </body>
@@ -24,7 +24,7 @@
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=24">
 
-        <script src="https://kit.fontawesome.com/7528702e77.js" crossorigin="anonymous"></script> 
+        <script src="https://kit.fontawesome.com/7528702e77.js" crossorigin="anonymous"></script>
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -44,20 +44,20 @@
                 margin-right: 5px;
             }
 
-            @media only screen and (max-width: 768px) { 
+            @media only screen and (max-width: 768px) {
                 [class*="col-"] {
                 width: 100%;
                 }
-                
+
                 div{
                     display: none !important;
                 }
             }
 
             .success {
-                background-color: #d4edda; 
-                border-color: #c3e6cb; 
-                color: #155724; 
+                background-color: #d4edda;
+                border-color: #c3e6cb;
+                color: #155724;
             }
 
             .updated {
@@ -80,18 +80,18 @@
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
-                    <div class="row mb-2"> 
+                    <div class="row mb-2">
                          <div class="col-6">
                             <h1 class="m-0" style="font-weight: bold">&nbsp;{{ __('Complaint Report Management') }}</h1>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
- 
+
             <div class="content" style="margin-top: -2rem">
                 <div class="container-fluid">
                     <div class="col-12">
-                        <a class="link-buttons" href="{{ route('superadmin.complaintreport_form') }}" style="float: left; background-color: #48145B" >Add a Complaint Report&nbsp;&nbsp;<i class="fa-solid fa-plus"></i> </a> 
+                        <a class="link-buttons" href="{{ route('superadmin.complaintreport_form') }}" style="float: left; background-color: #48145B" >Add a Complaint Report&nbsp;&nbsp;<i class="fa-solid fa-plus"></i> </a>
                     </div>
 
                     <div class="col-12" style="margin-top: 1rem">
@@ -108,94 +108,94 @@
                             </form>
                         </div>
                     </div>
-                    
+
                     <div class="card col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: 1rem; margin-bottom: 5rem">
                         <div class="card-body p-1">
-                            @if(Session::has('success')) 
+                            @if(Session::has('success'))
                                 <div class="alert success" role="alert">
                                     <b>{{ session::get('success') }}</b>
                                 </div>
                             @endif
 
-                            @if(Session::has('success')) 
+                            @if(Session::has('success'))
                                 <div class="alert success" role="alert">
                                     <b>{{ session::get('success') }}</b>
                                 </div>
                             @endif
 
-                            @if(Session::has('updated')) 
+                            @if(Session::has('updated'))
                                 <div class="alert updated" role="alert">
                                     <b>{{ session::get('updated') }}</b>
                                 </div>
                             @endif
 
-                            @if(Session::has('delete')) 
+                            @if(Session::has('delete'))
                                 <div class="alert delete" role="alert">
                                     <b>{{ session::get('delete') }}</b>
                                 </div>
                             @endif
                             <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                                 <thead>
-                                    <tr> 
-                                        <th style="display: none">id</th> 
-                                        <th><center>CASE DETAILS</center></th> 
-                                        <th><center>CASE DISPOSITION</center></th> 
+                                    <tr>
+                                        <th style="display: none">id</th>
+                                        <th><center>CASE DETAILS</center></th>
+                                        <th><center>CASE DISPOSITION</center></th>
                                         <th><center>ACTION</center></th>
                                     </tr>
                                 </thead>
-                                <tbody> 
-                                    @foreach ($comps as $comp)  
-                                    <tr>   
+                                <tbody>
+                                    @foreach ($comps as $comp)
+                                    <tr>
                                         <td style="display: none">{{ $comp->id }}</td>
                                         <td>
                                             <b>Investigation/Case No.:</b> {{ $comp->inv_case_no }}
                                             <br><br><b>Date Reported:</b> {{ $comp->date_reported }}
                                             <br><br><b>Place of Commission:</b><br>{{ $comp->place_of_commission }}
                                             <br><br><b>Offenses Committed:</b><br>{{ $comp->offenses }}
-                                        </td> 
+                                        </td>
                                         <td style="vertical-align: top; width: 14rem">
-                                            @if ($comp->case_update == 'not update yet') 
+                                            @if ($comp->case_update == 'not update yet')
                                                 Current: {{ $comp->case_disposition }}
                                             @else
                                                 Update: {{ $comp->case_update }}
                                             @endif
                                             <br>
-                                            @if ($comp->case_update == null) 
+                                            @if ($comp->case_update == null)
                                                 Case not updated yet.
                                             @else
                                                 {{ $comp->date_case_updated }}
                                             @endif
 
                                             <form action="{{ route('superadmin.change_case_status', $comp->id) }}" method="post">
-                                                @csrf 
-                                                <select class="form-control" name="status" style="padding: 0.2rem; margin-right: 0.5rem; width: 100%; margin-top: 0.5rem" required> 
+                                                @csrf
+                                                <select class="form-control" name="status" style="padding: 0.2rem; margin-right: 0.5rem; width: 100%; margin-top: 0.5rem" required>
                                                     <option value="">Update case:</option>
-                                                    <option value="SETTLED">SETTLED</option> 
+                                                    <option value="SETTLED">SETTLED</option>
                                                     <option value="CONVICTED">CONVICTED</option>
                                                     <option value="DISMISS">DISMISS</option>
                                                 </select>
-                                                <button type="submit" class="form-buttons" style="width: 50%; margin-top: 0.3rem; float: right"> Update Case </button>   
+                                                <button type="submit" class="form-buttons" style="width: 50%; margin-top: 0.3rem; float: right"> Update Case </button>
                                             </form>
-                                        </td> 
+                                        </td>
                                         <td style="vertical-align: top;">
-                                        <center>  
+                                        <center>
                                             <a class="view-btn" href="{{ route('superadmin.view_complaintreport', $comp->id) }}" >&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
-                                            <br><a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('superadmin.edit_complaintreport', $comp->id) }}" style="margin-top: 0.3rem">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
-                                            
+                                            <br><a class="edit-btn" onclick="return confirm('Are you sure you want to EDIT this record?')" href="{{ route('superadmin.edit_complaintreport', $comp->id) }}" style="margin-top: 0.3rem">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a>
+
                                             <br><a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href="{{ route('superadmin.delete_form', $comp->id) }}" style="margin-top: 0.3rem">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a>
                                         </center>
                                         </td>
-                                    </tr> 
-                                    @endforeach 
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
                         <div class="card-footer clearfix">
-                             
+
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
             <!-- /.content -->
         @endsection
     </body>
@@ -204,28 +204,28 @@
         let inactiveTime = 0;
         const logoutTime = 5 * 60 * 1000;
         // 5 * 60 * 1000; // 5 minutes in milliseconds
-        
+
         function resetInactiveTime() {
             inactiveTime = 0;
         }
-        
+
         function handleUserActivity() {
             resetInactiveTime();
         }
-        
+
         document.addEventListener('mousemove', handleUserActivity);
         document.addEventListener('keydown', handleUserActivity);
-        
+
         function checkInactiveTime() {
-            inactiveTime += 1000; 
-            if (inactiveTime >= logoutTime) { 
-                window.location.href = "/inactive_screen"; 
-            } else { 
-                setTimeout(checkInactiveTime, 1000); 
+            inactiveTime += 1000;
+            if (inactiveTime >= logoutTime) {
+                window.location.href = "/inactive_screen";
+            } else {
+                setTimeout(checkInactiveTime, 1000);
             }
         }
-        
-        setTimeout(checkInactiveTime, 1000); // Check every 1 second initially 
+
+        setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
     </script>
 </html>
 
@@ -237,7 +237,7 @@
         text: '{{ session('success') }}'
     });
 </script>
-@endif 
+@endif
 <script>
     // $(document).ready(function() {
     //       $('#example').DataTable({
@@ -246,7 +246,7 @@
     //   });
 
     // $(document).ready(function() {
-    //     $('#comps').DataTable(); 
+    //     $('#comps').DataTable();
     // });
 
     function confirmDelete(id) {
@@ -261,7 +261,7 @@
             if (result.isConfirmed) {
             $.ajax({
                 type: 'POST',
-                url: '/admin/activity_destroy/' + id, 
+                url: '/admin/activity_destroy/' + id,
                 data: {
                 _token: '{{ csrf_token() }}',
                 _method: 'DELETE'
@@ -296,11 +296,11 @@
                 const modal = document.getElementById('modalEdit');
                 const editId = this.getAttribute('data-id');
                 const editactivity_title = this.getAttribute('data-activity_title');
-                const editstatus = this.getAttribute('data-status'); 
+                const editstatus = this.getAttribute('data-status');
 
                 document.getElementById('edit_id').value = editId;
                 document.getElementById('edit_activity_title').value = editactivity_title;
-                document.getElementById('edit_status').value = editstatus; 
+                document.getElementById('edit_status').value = editstatus;
 
                 document.getElementById('edit_id').value = editId;
 

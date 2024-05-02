@@ -46,7 +46,7 @@
                 [class*="col-"] {
                 width: 100%;
                 }
-                
+
                 div{
                     display: none !important;
                 }
@@ -60,17 +60,17 @@
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
-                    <div class="row mb-2"> 
+                    <div class="row mb-2">
                          <div class="col-6">
                             <h1 class="m-0" style="font-weight: bold">&nbsp;{{ __('Victims Management') }}</h1>
-                        </div>  
+                        </div>
                     </div>
                 </div>
             </div>
- 
+
             <div class="content" style="margin-top: -2rem">
-                <div class="container-fluid"> 
-                    
+                <div class="container-fluid">
+
                     <div class="col-12">
                         <div class="filter">
                             <form action="filter-victimsmngt" method="GET">
@@ -85,39 +85,39 @@
                             </form>
                         </div>
                     </div>
-                    
+
                     <div class="card col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: 1rem; margin-bottom: 5rem">
-                        @if(Session::has('success')) 
+                        @if(Session::has('success'))
                                 <div class="alert success" role="alert">
                                     <b>{{ session::get('success') }}</b>
                                 </div>
                             @endif
 
-                            @if(Session::has('updated')) 
+                            @if(Session::has('updated'))
                                 <div class="alert updated" role="alert">
                                     <b>{{ session::get('updated') }}</b>
                                 </div>
                             @endif
-                            
+
                         <div class="card-body p-1">
                             <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                                 <thead>
-                                    <tr> 
+                                    <tr>
                                         <th style="display: none"></th>
                                         <th>Image</th>
                                         <th>Details</th>
                                         {{-- <th>Sex</th>
                                         <th>Age</th>  --}}
-                                        <th>Present Address</th> 
-                                        <th>Date Reported</th> 
+                                        <th>Present Address</th>
+                                        <th>Date Reported</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody> 
-                                    @foreach ($comps as $comp)  
-                                    <tr>   
+                                <tbody>
+                                    @foreach ($comps as $comp)
+                                    <tr>
                                         <td style="display: none">{{$comp->vid}}</td>
-                                        <td> 
+                                        <td>
                                             @if($comp->victim_image)
                                             <img src="{{ asset('images/victims/' . $comp->victim_image) }}" alt="{{ $comp->victim_firstname }}" class="img-thumbnail" style="max-width: 110px; max-height: 110px;">
                                             @else
@@ -129,32 +129,32 @@
                                             <br>Sex: {{ $comp->victim_sex }}
                                             <br>Age: {{ $comp->victim_age }}
                                         </td>
-                                        {{-- <td>{{ $comp->victim_sex }}</td> 
+                                        {{-- <td>{{ $comp->victim_sex }}</td>
                                         <td>{{ $comp->victim_age }}</td>  --}}
-                                        <td>{{ $comp->victim_present_address }}</td> 
-                                        <td>{{ $comp->date_reported }}</td> 
+                                        <td>{{ $comp->victim_present_address }}</td>
+                                        <td>{{ $comp->date_reported }}</td>
                                         <td>
-                                        <center> 
+                                        <center>
                                             <a class="view-btn" href="{{ route('superadmin.view_complaintreport', $comp->compid) }}" style="margin-bottom: 0.5rem">&nbsp;&nbsp;&nbsp;View Case<i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem;"></i></a>
-                                                
-                                            <br><a class="view-btn" href="{{ route('superadmin.victim_profile', $comp->vid) }}">&nbsp;&nbsp;&nbsp;View Profile<i class="fa-regular fa-user" style="font-size: large; padding: 0.5rem"></i></a>  
+
+                                            <br><a class="view-btn" href="{{ route('superadmin.victim_profile', $comp->vid) }}">&nbsp;&nbsp;&nbsp;View Profile<i class="fa-regular fa-user" style="font-size: large; padding: 0.5rem"></i></a>
                                         </center>
                                         </td>
-                                    </tr> 
-                                    @endforeach 
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
                         <div class="card-footer clearfix">
-                             
+
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
         @endsection
     </body>
 </html>
- 
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 <script>
@@ -162,33 +162,33 @@
         $('#compsTbl').DataTable({
         "order": [[0, "desc"]]
         });
-    });  
-</script> 
+    });
+</script>
 <script>
     let inactiveTime = 0;
     const logoutTime = 5 * 60 * 1000;
     // 5 * 60 * 1000; // 5 minutes in milliseconds
-    
+
     function resetInactiveTime() {
         inactiveTime = 0;
     }
-    
+
     function handleUserActivity() {
         resetInactiveTime();
     }
-    
+
     document.addEventLisstener('mousemove', handleUserActivity);
     document.addEventListener('keydown', handleUserActivity);
-    
+
     function checkInactiveTime() {
-        inactiveTime += 1000; 
-        if (inactiveTime >= logoutTime) { 
-            window.location.href = "/inactive_screen"; 
-        } else { 
-            setTimeout(checkInactiveTime, 1000); 
+        inactiveTime += 1000;
+        if (inactiveTime >= logoutTime) {
+            window.location.href = "/inactive_screen";
+        } else {
+            setTimeout(checkInactiveTime, 1000);
         }
     }
-    
+
     setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
 
 </script>

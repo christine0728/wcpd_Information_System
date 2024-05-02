@@ -11,7 +11,7 @@
             body {
                 font-family: Arial, sans-serif;
             }
- 
+
             .filter {
                 display: flex;
                 align-items: center;
@@ -31,7 +31,7 @@
     <body>
         @extends('layouts.app')
 
-        @section('content') 
+        @section('content')
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
@@ -62,19 +62,19 @@
                         <div class="card-body p-1">
                             <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                                 <thead>
-                                    <tr> 
+                                    <tr>
                                         <th style="display: none">id</th>
                                         <th>View</th>
                                         <th>Complaint Report Author</th>
-                                        <th>Case Details</th> 
+                                        <th>Case Details</th>
                                     </tr>
                                 </thead>
-                                <tbody> 
-                                    @foreach ($comps as $comp)  
-                                    <tr>  
+                                <tbody>
+                                    @foreach ($comps as $comp)
+                                    <tr>
                                         <td style="display: none">{{ $comp->id }}</td>
-                                        <td style="vertical-align: top;"> 
-                                            <a class="view-btn" href="{{ route('superadmin.readonly_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a> 
+                                        <td style="vertical-align: top;">
+                                            <a class="view-btn" href="{{ route('superadmin.readonly_complaintreport', $comp->id) }}" target="_blank">&nbsp;&nbsp;&nbsp;View <i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
                                         </td>
                                         <td style="vertical-align: top;">{{ $comp->username }} ({{ $comp->team }})</td>
                                         <td>
@@ -85,31 +85,31 @@
                                             <br><b>Motive/Cause:</b> {{ $comp->evidence_motive_cause }}
                                             <br><b>Case Disposition:</b> {{ $comp->case_disposition }}
                                             <br><b>Suspect Disposition:</b> {{ $comp->suspect_disposition }}
-                                            <br><b>Case Update:</b> 
-                                                @if ($comp->case_update == null) 
+                                            <br><b>Case Update:</b>
+                                                @if ($comp->case_update == null)
                                                     Case not updated yet.
                                                 @else
                                                     {{ $comp->case_update }}
                                                 @endif
                                             <br><b>Date of Case Updated:</b>
-                                                @if ($comp->case_update == null) 
+                                                @if ($comp->case_update == null)
                                                     Case not updated yet.
                                                 @else
                                                     {{ $comp->date_case_updated }}
                                                 @endif
-                                        </td> 
-                                    </tr> 
-                                    @endforeach 
+                                        </td>
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
                         <div class="card-footer clearfix">
-                            
+
                         </div>
                     </div>
                 </div>
-                
-            </div> 
+
+            </div>
             <!-- /.content -->
         @endsection
     </body>
@@ -125,7 +125,7 @@
 </script>
 @endif
 
-<script> 
+<script>
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
@@ -133,9 +133,9 @@
     var currentDate = yyyy + '-' + mm + '-' + dd;
     document.getElementById('end_date').value = currentDate;
 </script>
- 
 
-<script>  
+
+<script>
     var myInput1 = document.getElementById("myInput1");
 
     var storedValue1 = localStorage.getItem("myInputValue1");
@@ -150,34 +150,34 @@
 
     document.addEventListener('DOMContentLoaded', function() {
     var inputElement = document.getElementById('myInput1');
-    inputElement.value = '';  
+    inputElement.value = '';
     });
 </script>
 <script>
     let inactiveTime = 0;
     const logoutTime = 5 * 60 * 1000;
     // 5 * 60 * 1000; // 5 minutes in milliseconds
-    
+
     function resetInactiveTime() {
         inactiveTime = 0;
     }
-    
+
     function handleUserActivity() {
         resetInactiveTime();
     }
-    
+
     document.addEventListener('mousemove', handleUserActivity);
     document.addEventListener('keydown', handleUserActivity);
-    
+
     function checkInactiveTime() {
-        inactiveTime += 1000; 
-        if (inactiveTime >= logoutTime) { 
-            window.location.href = "/inactive_screen"; 
-        } else { 
-            setTimeout(checkInactiveTime, 1000); 
+        inactiveTime += 1000;
+        if (inactiveTime >= logoutTime) {
+            window.location.href = "/inactive_screen";
+        } else {
+            setTimeout(checkInactiveTime, 1000);
         }
     }
-    
+
     setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
 
 </script>

@@ -34,13 +34,13 @@
         <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.min.js"></script>
 
-        <style>  
+        <style>
             @media only screen and (max-width: 768px) {
                 /* For mobile phones: */
                 [class*="col-"] {
                 width: 100%;
                 }
-                
+
                 div{
                     display: none !important;
                 }
@@ -54,14 +54,14 @@
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
-                    <div class="row mb-2"> 
+                    <div class="row mb-2">
                          <div class="col-6">
                             <h1 class="m-0" style="font-weight: bold">{{ __('Offenses Management') }}</h1>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
- 
+
             <div class="content" style="margin-top: -2rem">
                 <div class="container-fluid">
                     <div class="content">
@@ -79,11 +79,11 @@
                             </div>
                             <!-- /.row -->
                         </div><!-- /.container-fluid -->
-                    </div> 
-                    
+                    </div>
+
                     <div class="card col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: 1rem; margin-bottom: 5rem">
 
-                        @if(Session::has('delete')) 
+                        @if(Session::has('delete'))
                             <div class="alert delete" role="alert">
                                 <b>{{ session::get('delete') }}</b>
                             </div>
@@ -92,37 +92,37 @@
                         <div class="card-body p-1">
                             <table id="example" class="display responsive nowrap mt-5 table-responsive-sm">
                                 <thead>
-                                    <tr>  
+                                    <tr>
                                         <th>Offense Name</th>
                                         {{-- <th>Description</th>  --}}
                                         <th>Created At</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody> 
-                                    @foreach ($offenses as $offense)  
-                                    <tr>   
-                                        <td>{{ $offense->offense_name }}</td> 
+                                <tbody>
+                                    @foreach ($offenses as $offense)
+                                    <tr>
+                                        <td>{{ $offense->offense_name }}</td>
                                         <td>{{ $offense->created_at }}</td>
                                         <td>
-                                        <center> 
-                                            <a  class="edit-btn" data-toggle="modal" data-id="{{ $offense->id }}" data-offense="{{ $offense->offense_name }}" data-desc="{{ $offense->description }}" data-target="#modalEdit">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a> 
+                                        <center>
+                                            <a  class="edit-btn" data-toggle="modal" data-id="{{ $offense->id }}" data-offense="{{ $offense->offense_name }}" data-desc="{{ $offense->description }}" data-target="#modalEdit">&nbsp;&nbsp;&nbsp;Edit <i class="fa fa-edit" style="font-size: large; padding: 0.5rem"></i></a>
 
                                             <a class="delete-btn" onclick="return confirm('Are you sure you want to DELETE this record?')" href="{{ route('superadmin.delete_offense', $offense->id) }}">&nbsp;&nbsp;&nbsp;Delete <i class="fa fa-trash" style="font-size: large; padding: 0.5rem"></i></a>
                                         </center>
                                         </td>
-                                    </tr> 
-                                    @endforeach 
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
                         <div class="card-footer clearfix">
-                             
+
                         </div>
                     </div>
                 </div>
-            </div> 
-            
+            </div>
+
             <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -143,17 +143,17 @@
                               <div class="form-group">
                                     <label class="req-label">Description</label>
                                     <input type="text" class="form-control" name="edit_desc" id="edit_desc">
-                              </div>       
+                              </div>
                             <div class="modal-footer">
                                 <button type="button" class="form-buttons" data-dismiss="modal" style="background-color: red">Close&nbsp;&nbsp;<i class="fa-solid fa-xmark"></i></button>
-                                <button type="submit" class="form-buttons">Save Changes&nbsp;&nbsp;<i class="fa-solid fa-check"></i></button>  
+                                <button type="submit" class="form-buttons">Save Changes&nbsp;&nbsp;<i class="fa-solid fa-check"></i></button>
                             </div>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-            
+
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                 <div class="modal-content">
@@ -170,7 +170,7 @@
                                 <label for="offenseNameInput">Offense Name:</label>
                                 <input type="text" class="form-control" id="offenseNameInput" name="offense_name" oninput="toUpper(this)" required>
                             </div>
-                    
+
                             <div class="form-group">
                                 <label for="descriptionInput">Description:</label>
                                 <input type="text" class="form-control" id="descriptionInput" name="description" oninput="toUpper(this)" required>
@@ -194,7 +194,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 
-<script>   
+<script>
     document.addEventListener("DOMContentLoaded", function () {
         const editButtons = document.querySelectorAll('.edit-btn');
 
@@ -207,7 +207,7 @@
                 console.log(editdesc);
                 document.getElementById('edit_id').value = editId;
                 document.getElementById('edit_offense').value = editoffense;
-                document.getElementById('edit_desc').value = editdesc; 
+                document.getElementById('edit_desc').value = editdesc;
                 $(modal).modal('show');
             });
         });
@@ -225,10 +225,10 @@
       document.getElementById('modalForm').addEventListener('submit', function(event) {
         var form = event.target;
         if (!form.checkValidity()) {
-            event.preventDefault();  
+            event.preventDefault();
             event.stopPropagation();
         }
-        form.classList.add('was-validated');  
+        form.classList.add('was-validated');
     });
 </script>
 
@@ -236,27 +236,27 @@
     let inactiveTime = 0;
     const logoutTime = 5 * 60 * 1000;
     // 5 * 60 * 1000; // 5 minutes in milliseconds
-    
+
     function resetInactiveTime() {
         inactiveTime = 0;
     }
-    
+
     function handleUserActivity() {
         resetInactiveTime();
     }
-    
+
     document.addEventLisstener('mousemove', handleUserActivity);
     document.addEventListener('keydown', handleUserActivity);
-    
+
     function checkInactiveTime() {
-        inactiveTime += 1000; 
-        if (inactiveTime >= logoutTime) { 
-            window.location.href = "/inactive_screen"; 
-        } else { 
-            setTimeout(checkInactiveTime, 1000); 
+        inactiveTime += 1000;
+        if (inactiveTime >= logoutTime) {
+            window.location.href = "/inactive_screen";
+        } else {
+            setTimeout(checkInactiveTime, 1000);
         }
     }
-    
+
     setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
 
 </script>

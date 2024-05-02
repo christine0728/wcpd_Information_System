@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
     <link rel="icon" href="{{ url('asset/favicon.ico') }}">
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=10"> 
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}?version=10">
     <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> 
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
-    <script src="https://kit.fontawesome.com/7528702e77.js" crossorigin="anonymous"></script> 
+    <script src="https://kit.fontawesome.com/7528702e77.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}?version=10">
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -35,31 +35,31 @@
             background-color: transparent;
             color: black !important;
         }
- 
+
         .main-footer {
             position: fixed;
             bottom: 0;
-            width: calc(100% - 250px);  
+            width: calc(100% - 250px);
             background-color: #192440;
             color: white;
             font-size: 14px;
-        } 
+        }
     </style>
 </head>
 <body class="hold-transition sidebar-mini" style="font-family: 'Poppins', sans-serif; ">
-<div class="wrapper">  
-    <nav class="main-header navbar navbar-expand navbar-light " style="width: auto"> 
+<div class="wrapper">
+    <nav class="main-header navbar navbar-expand navbar-light " style="width: auto">
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button" style="font-family: 'Poppins', sans-serif; font-weight: bold; font-size: 20px; color: #9947B6">
-                <i class="fas fa-align-justify fa-5x glow-icon" style="color: black"></i> 
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WOMAN AND CHILDREN PROTECTION DESK</a> 
+                <i class="fas fa-align-justify fa-5x glow-icon" style="color: black"></i>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WOMAN AND CHILDREN PROTECTION DESK</a>
             </li>
         </ul>
- 
+
          <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
-                <a class="link-buttons" href="{{ route('logout') }}" style="float: left; background-color: #48145B">Logout&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right-from-bracket"></i> </a> 
+                <a class="link-buttons" href="{{ route('logout') }}" style="float: left; background-color: #48145B">Logout&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right-from-bracket"></i> </a>
                 {{-- <div class="dropdown-menu dropdown-menu-right" style="left: inherit; right: 0px;">
                     <a href="" class="dropdown-item">
                         <i class="mr-2 fas fa-file"></i>
@@ -77,9 +77,9 @@
                 </div> --}}
             </li>
         </ul>
-    </nav> 
-    <aside class="main-sidebar sidebar-light-primary  " style="position:fixed; background-color:#9947B6; font-size: 15px; padding: 0px"> 
-        <a href="/" class="brand-link"> 
+    </nav>
+    <aside class="main-sidebar sidebar-light-primary  " style="position:fixed; background-color:#9947B6; font-size: 15px; padding: 0px">
+        <a href="#" class="brand-link">
             <img src="{{ asset('images/wcpd_logo.png') }}" alt="PSU Logo"
                  class="brand-image img-circle elevation-3"
                  style="opacity: .8">
@@ -88,16 +88,17 @@
 
         @include('layouts.navigation')
     </aside>
- 
+
     <div class="content-wrapper" >
         @yield('content')
-    </div> 
-    <footer class="main-footer" style="position: fixed; bottom: 0; width: 100%;"> 
-        <strong>Copyright &copy; 2024 WCPC Information Management System.</strong> All rights reserved.
-        <div class=" d-none d-sm-inline"> 
-            Developed by PSU UC - IT OJT 2024.
-        </div> 
-    </footer>
+    </div>
+    <footer class="main-footer" style="position: fixed; bottom: 0; width: 100%;">
+    <strong>
+    <a href="{{ route('profile') }}" target="_blank" style="color:white">Copyright &copy; 2024 WCPD Information Management System. All rights reserved.  Developed by PSU UC - IT OJT 2024.
+ </a>
+
+</footer>
+
 </div>
 <!-- ./wrapper -->
 
@@ -116,7 +117,7 @@
         },
         scrollCollapse: true,
         "order": [[0, 'desc']]
-        // scrollY: '400px' 
+        // scrollY: '400px'
     });
 
     let newtable = new DataTable('#degrees',{
