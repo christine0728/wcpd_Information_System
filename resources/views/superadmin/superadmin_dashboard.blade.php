@@ -54,11 +54,9 @@
             <div class="container-fluid">
                 <div class="row mb-2">
 
-                <h1 class="m-0" style="font-weight: bold; font-size: 28px;">
-    <i class="fas fa-tachometer-alt"></i>&nbsp;{{ __('Dashboard') }}
-</h1>
-
-
+                <h1 class="m-0" style="font-weight: bold; font-size: 28px;"> 
+                    &nbsp;{{ __('Dashboard') }}
+                </h1> 
                 </div>
             </div>
         </div>
@@ -81,10 +79,10 @@
                             </form>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <div>
+                                <div style="margin-bottom: 1rem">
                                     <b style="color: #48145B; font-size: large">
                                         MONTHLY TOTAL NUMBER OF RECORDS PER GENDER
                                     </b>
@@ -94,11 +92,64 @@
                             </div>
                         </div>
                     </div>
+ 
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; ">
+                                <div style="margin-bottom: 1rem">
+                                    <b style="color: #48145B; font-size: large">TOTAL NUMBER OF CASES PER AGE RANGE IN FEMALE VICTIMS</b>
+                                </div>
+                                <br><div class="pie-chart_fem" id="pie-chart_fem"></div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="col-6">
                         <div class="card">
                             <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; ">
-                                <div>
+                                <div style="margin-bottom: 1rem">
+                                    <b style="color: #48145B; font-size: large">TOTAL NUMBER OF CASES PER AGE RANGE IN MALE VICTIMS</b>
+                                </div>
+                                <br><div class="pie-chart_male" id="pie-chart_male"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; ">
+                                <div style="margin-bottom: 1rem">
+                                    <b style="color: #48145B; font-size: large">TOTAL NUMBER OF VICTIMS PER GENDER</b>
+                                </div>
+                                <br><div id="pie_chart" ></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; ">
+                                <div style="margin-bottom: 1rem">
+                                    <b style="color: #48145B; font-size: large"> TOTAL NUMBER OF OFFENDERS PER GENDER</b>
+                                </div>
+                                <br><div id="pie_chart5"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; ">
+                                <div style="margin-bottom: 1rem">
+                                    <b style="color: #48145B; font-size: large">TOP FIVE PLACES WITH MOST NUMBER OF CASE</b>
+                                </div>
+                                <div id="chart_div1" ></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; ">
+                                <div style="margin-bottom: 1rem">
                                     <b style="color: #48145B; font-size: large"> TOTAL NUMBER OF RECORDS PER RELATIONSHIP OF VICTIM TO SUSPECT PER GENDER </b>
                                 </div>
                                 <table id="compsTbl">
@@ -120,59 +171,6 @@
                                     </tbody>
                                 </table>
 
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="card">
-                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; ">
-                                <div>
-                                    <b style="color: #48145B; font-size: large">TOTAL NUMBER OF CASES PER AGE RANGE IN FEMALE</b>
-                                </div>
-                                <br><div class="pie-chart_fem" id="pie-chart_fem"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="card">
-                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; ">
-                                <div>
-                                    <b style="color: #48145B; font-size: large">TOTAL NUMBER OF CASES PER AGE RANGE IN MALE</b>
-                                </div>
-                                <br><div class="pie-chart_male" id="pie-chart_male"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="card">
-                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; ">
-                                <div>
-                                    <b style="color: #48145B; font-size: large">TOTAL NUMBER OF VICTIMS PER GENDER</b>
-                                </div>
-                                <br><div id="pie_chart" ></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="card">
-                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; ">
-                                <div>
-                                    <b style="color: #48145B; font-size: large"> TOTAL NUMBER OF OFFENDERS PER GENDER</b>
-                                </div>
-                                <br><div id="pie_chart5"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body" style="overflow-x:auto;  border-radius: 0.5rem; ">
-                                <div>
-                                    <b style="color: #48145B; font-size: large">TOP FIVE PLACES WITH MOST NUMBER OF CASE</b>
-                                </div>
-                                <div id="chart_div1" ></div>
                             </div>
                         </div>
                     </div>
@@ -218,7 +216,12 @@
         ]);
 
         var options = {
-            bars: 'vertical'
+            bars: 'vertical',
+            hAxis: {
+                textStyle: {
+                    fontSize: 15  
+                }
+            }
         };
 
         var chart = new google.charts.Bar(document.getElementById('chart_div'));

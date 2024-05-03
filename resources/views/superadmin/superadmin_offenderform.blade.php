@@ -130,13 +130,13 @@
                     <div class="row"> 
                         <div class="form-section">
                             <div class="header">  
-                                <p style="font-size: medium;">Section C: <b style="font-size: medium;">Offender's Data</b></p>
+                                <p style="font-size: medium;"><b style="font-size: medium;">Offender's Data</b></p>
                             </div> 
                             <hr style="margin-top: -1rem">
                             <div class="row">
                                 <div class="col-3">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">22. Family name:</label>
+                                        <label for="exampleInputEmail1">Family name:</label>
                                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_familyname" oninput="toUpper(this)" value="{{ old('off_familyname') }}">
 
                                         @if ($errors->has('off_familyname')) 
@@ -179,7 +179,7 @@
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">23. Sex: </label>
+                                        <label for="exampleInputEmail1">Sex: </label>
                                         <select class="form-control" name="off_gender">
                                             <option value="">Select sex</option>
                                             <option value="FEMALE">Female</option>
@@ -193,8 +193,8 @@
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">24. Date of birth:</label>
-                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_date_birth" value="{{ old('off_date_birth') }}">
+                                        <label for="exampleInputEmail1">Date of birth:</label>
+                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_date_birth" value="{{ old('off_date_birth') }}" max="{{ date('Y-m-d') }}">
 
                                         @if ($errors->has('off_date_birth')) 
                                             <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('off_date_birth') }}</span>
@@ -203,7 +203,7 @@
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">25. Civil Status: </label>
+                                        <label for="exampleInputEmail1">Civil Status: </label>
                                         <select class="form-control" name="off_civil_stat">
                                             <option value="">Select civil status</option>
                                             <option value="SINGLE">Single</option>
@@ -223,7 +223,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">26. Highest Educational Attainment: </label>
+                                        <label for="exampleInputEmail1">Highest Educational Attainment: </label>
                                         <select class="form-control" name="off_educ_attainment" onchange="showfield(this.options[this.selectedIndex].value)">
                                             <option value="">Select highest educational attainment</option>
                                             <option value="ELEMENTARY">Elementary</option>
@@ -240,7 +240,7 @@
                                 </div> 
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">27. Nationality: </label>
+                                        <label for="exampleInputEmail1">Nationality: </label>
                                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_nationality" oninput="toUpper(this)" value="{{ old('off_nationality') }}">
 
                                         @if ($errors->has('off_nationality')) 
@@ -253,20 +253,19 @@
                             <div class="row">
                                 <div class="col-5">
                                     <label class="form-check-label" for="flexRadioDefault1">
-                                        28. Previous Criminal Record:
-                                    </label>
-                                    
+                                        Previous Criminal Record:
+                                    </label> 
                                     <div style="display: flex">
                                         <div class="form-check" style="margin-right: 2rem; margin-left: 2rem">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onclick="enableDisableTextBox()">
                                             <label class="form-check-label" for="flexRadioDefault1">
-                                            Yes
+                                                Yes
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked onclick="enableDisableTextBox()">
                                             <label class="form-check-label" for="flexRadioDefault2">
-                                            No
+                                                No
                                             </label>
                                         </div>
                                     </div> 
@@ -274,7 +273,7 @@
                                 <div class="col-7">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Pls. specify:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="crim_rec_specify" oninput="toUpper(this)">
+                                        <input type="text" class="form-control" id="crimspec" aria-describedby="emailHelp" name="crim_rec_specify" oninput="toUpper(this)" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -282,7 +281,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">29. Employment Information - Occupation:</label>
+                                        <label for="exampleInputEmail1">Employment Information - Occupation:</label>
                                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_occupation" oninput="toUpper(this)" value="{{ old('off_occupation') }}">
 
                                         @if ($errors->has('off_occupation')) 
@@ -293,7 +292,7 @@
 
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">30. Last Known Address:</label>
+                                        <label for="exampleInputEmail1">Last Known Address:</label>
                                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_last_addr" oninput="toUpper(this)" value="{{ old('off_last_addr') }}">
 
                                         @if ($errors->has('off_last_addr')) 
@@ -316,7 +315,7 @@
                                 </div> 
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">31. Relationship to Victim:</label>
+                                        <label for="exampleInputEmail1">Relationship to Victim:</label>
                                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim" oninput="toUpper(this)" value="{{ old('rel_to_victim') }}">
 
                                         @if ($errors->has('rel_to_victim')) 
@@ -335,12 +334,12 @@
                             </div>
                         </div>  
                         <div class="col-12 ">   
-                           <a class="link-buttons" href="{{ route('superadmin.complaintreport') }}" style="float: left; background-color: #48145B; margin-right: 0.5rem">Cancel&nbsp;<i class="fa-solid fa-xmark icons"></i> </a> 
+                           <a class="link-buttons" href="#" onclick="window.history.back();" style="float: left; background-color: #48145B; margin-right: 0.5rem">Cancel&nbsp;<i class="fa-solid fa-xmark icons"></i> </a> 
 
                            <input type="hidden" name="adding" value="adding">
                            <button type="submit" class="form-buttons" style="float: right;">Add Offender <i class="fa-solid fa-check icons"></i></button>
 
-                           <a class="link-buttons" href="{{ route('superadmin.view_complaintreport', [$comp_id]) }}" style="float: right; background-color: #48145B; margin-right: 0.5rem">Back <i class="fa-solid fa-xmark icons"></i> </a>  
+                           <a class="link-buttons" href="#" onclick="window.history.back();" style="float: right; background-color: #48145B; margin-right: 0.5rem">Back <i class="fa-solid fa-xmark icons"></i> </a>  
                         </div>
                     </div>
                 </form>
@@ -349,6 +348,18 @@
     </div>
 
     <script>   
+
+        function enableDisableTextBox() {
+            var yesRadio = document.getElementById("flexRadioDefault1");
+            var textBox = document.getElementById("crimspec"); 
+            
+            textBox.disabled = !yesRadio.checked;
+             
+            if (yesRadio.checked) {
+                textBox.focus();
+            }
+        }
+
         function showfield(name){
             if(name=='Others')document.getElementById('div1').innerHTML='Pls. specify: <input type="text" name="others" class="form-control" />';
             else document.getElementById('div1').innerHTML='';
@@ -374,6 +385,57 @@
     });
     </script>
     <script>
+        $(function(){
+            var $sections = $('.form-section'); 
+            var $navLinks = $('.nav-link');
+            
+            function navigateTo(index){ 
+                $sections.removeClass('current').eq(index).addClass('current'); 
+                
+                $navLinks.removeClass('active');
+                $navLinks.eq(index).addClass('active');
+                
+                $('.form-navigation .previous').toggle(index > 0);
+                var atTheEnd = index >= $sections.length - 1;
+                $('.form-navigation .next').toggle(!atTheEnd);
+                $('.form-navigation [type=submit]').toggle(atTheEnd); 
+
+                $('html, body').scrollTop(0);
+            }
+
+            function curIndex(){ 
+                return $sections.index($sections.filter('.current'));
+            }
+
+            // Function to handle navigation when nav-link is clicked
+            $navLinks.click(function() {
+                var index = $(this).index(); // Get the index of the clicked nav-link
+                navigateTo(index);
+            });
+
+            $('.form-navigation .previous').click(function(){
+                var currentIndex = curIndex();
+                if (currentIndex > 0) {
+                    navigateTo(currentIndex - 1);
+                }
+            });
+
+            $('.form-navigation .next').click(function(){
+                var currentIndex = curIndex();
+                $('.employee-form').parsley().whenValidate({
+                    group:'block-'+currentIndex
+                }).done(function(){
+                    navigateTo(currentIndex + 1);
+                });
+            });
+
+            $sections.each(function(index, section){
+                $(section).find(':input').attr('data-parsley-group', 'block-'+index);
+            });
+
+            navigateTo(0); 
+        }); 
+        
         function toUpper(input) { 
             let value = input.value; 
             value = value.toUpperCase(); 

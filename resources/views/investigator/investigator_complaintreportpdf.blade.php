@@ -178,35 +178,35 @@
                 <tr>
                     <td rowspan="2" colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem; vertical-align: top;"> 
                         @if($vic->victim_image)
-                            <img src="{{ asset('images/victims/' . $vic->victim_image) }}" alt="{{ $vic->victim_firstname }}" class="img-thumbnail" style="max-width: 180px; max-height: 180px;">
+                            <img src="{{ asset('images/victims/' . $vic->victim_image) }}" alt="{{ $vic->victim_firstname }}" class="img-thumbnail" style="max-width: 70%; max-height: 70%;">
                         @else
                             No Image
                         @endif
                     </td>
                     <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem; vertical-align: top;"> 
-                        <strong>9. Name:</strong> {{ $vic->victim_firstname }} {{ $vic->victim_middlename }} {{ $vic->victim_family_name }} 
-                        <br><strong>Aliases:</strong> {{ $vic->victim_aliases }} 
+                        9. Name: {{ $vic->victim_firstname }} {{ $vic->victim_middlename }} {{ $vic->victim_family_name }} 
+                        <br>Aliases: {{ $vic->victim_aliases }} 
                     </td>
                     <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem; vertical-align: top;"> 
-                        <strong>10. Gender/Sex:</strong> 
+                        10. Gender/Sex:
                         <br>{{ $vic->victim_sex }} 
                     </td>
                     <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem; vertical-align: top;"> 
-                        <strong>11. Age and Date of Birth:</strong>
+                        11. Age and Date of Birth:
                         <br>{{ $vic->victim_age }} y/o, {{ $vic->victim_date_of_birth }}  
                     </td> 
                 </tr>  
                 <tr>
                     <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem; vertical-align: top;"> 
-                        <strong>12. Place of Birth:</strong> 
+                        12. Place of Birth:
                         <br>{{ $vic->victim_place_of_birth }} 
                     </td>
                     <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem; vertical-align: top;">
-                        <strong>13. Highest Educational Attainment:</strong>
+                        13. Highest Educational Attainment:
                         <br>{{ $vic->victim_highest_educ_attainment }}  
                     </td> 
                     <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem; vertical-align: top;">
-                        <strong>14. Civil Status:</strong>
+                        14. Civil Status:
                         <br>{{ $vic->victim_civil_status }}  
                     </td>
                 </tr> 
@@ -244,16 +244,16 @@
                 </tr>  
             @endforeach  
 
-            @foreach ($offs as $off) 
             <tr>
                 <td colspan="4" style="text-align: center">
                     <b>C. OFFENDER'S DATA</b>
                 </td>
             </tr>
+            @foreach ($offs as $off)  
             <tr>
                 <td rowspan="2" colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem; vertical-align: top;"> 
                     @if($off->offender_image)
-                    <img src="{{ asset('images/offenders/' . $off->offender_image) }}" alt="{{ $off->offender_firstname }}" class="img-thumbnail" style="max-width: 150px; max-height: 150px;">
+                    <img src="{{ asset('images/offenders/' . $off->offender_image) }}" alt="{{ $off->offender_firstname }}" class="img-thumbnail" style="max-width: 70%; max-height: 70%;">
                     @else
                     No Image
                     @endif

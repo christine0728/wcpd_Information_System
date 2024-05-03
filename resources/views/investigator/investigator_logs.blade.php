@@ -99,9 +99,9 @@
                                         <td>{{ $log->firstname }} {{ $log->lastname }}</td>    
                                         <td><center>
                                         @if ($log->action == 'Add')
-                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="ADD" style="background-color: palegreen; font-weight: bold; color: darkgreen; width: 3.5rem; border: none; font-size: medium" readonly>
+                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="ADD" style="background-color: palegreen; font-weight: bold; color: darkgreen; width: 4rem; border: none; font-size: medium" readonly>
                                         @elseif ($log->action == 'Edit')
-                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="EDIT" style="background-color: #fff3cd; font-weight: bold; color: #856404; width: 3.5rem; border: none; font-size: medium" readonly>
+                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="EDIT" style="background-color: #fff3cd; font-weight: bold; color: #856404; width: 4rem; border: none; font-size: medium" readonly>
                                         @elseif ($log->action == 'Delete')
                                             <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="DELETE" style="background-color: pink; font-weight: bold; color: darkred; width: 5rem; border: none; font-size: medium" readonly>
                                         @elseif ($log->action == 'Restore')

@@ -53,6 +53,7 @@
                     display: none !important;
                 }
             }
+ 
         </style>
     </head>
     <body>
@@ -64,8 +65,8 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-6">
-                            <h1 class="m-0" style="font-weight: bold;">{{ __('Change Own Password') }}</h1>
-                        </div>
+                            <h1 class="m-0" style="font-weight: bold;">&nbsp;{{ __('Change Own Password') }}</h1>
+                        </div> 
 
                         <div class="col-12">
                             &nbsp;&nbsp;<a class="link-buttons" href="#" onclick="window.history.back();" style="background-color: #48145B; margin-right: 0.1rem" ><i class="fa-solid fa-arrow-left icons"></i>&nbsp;&nbsp;Go Back</a>
@@ -75,64 +76,72 @@
             </div>
 
             <div class="content" style="margin-top: -2rem; margin-bottom: 2rem">
-                <div class="container-fluid" >
-                    <div class="card col-5 shadow p-3 mb-5 bg-white rounded" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-right: 25%; margin-left: 25%">
-                        @if(Session::has('error'))
-                            <b style="color: red">{{ session::get('error') }}</b>
-                        @endif
+                @if ($pswordchangereq == true)
+                    <div class="container-fluid" >   
+                        <div class="card col-5 shadow p-3 mb-5 bg-white rounded" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-right: 25%; margin-left: 25%"> 
+                            @if(Session::has('error')) 
+                                <b style="color: red">{{ session::get('error') }}</b> 
+                            @endif
 
-                        <div class="card-body p-1">
-                            <form action="{{ route('superadmin.changing_password') }}" method="post">
-                                @csrf
-                                <div class="card-body p-1">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Username: </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" oninput="toUpper(this)" value="{{ old('username') }}">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="curr_password">Current password:</label>
-                                        <div class="input-group">
-                                            <input type="password" class="form-control" id="curr_password" name="curr_password" value="{{ old('curr_password') }}">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary" type="button" id="toggleCurrPassword">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
+                            <div class="card-body p-1"> 
+                                <form action="{{ route('superadmin.changing_password') }}" method="post">
+                                    @csrf
+                                    <div class="card-body p-1">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Username: </label>
+                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" oninput="toUpper(this)" value="{{ old('username') }}">
+                                        </div>
+        
+                                        <div class="form-group">
+                                            <label for="curr_password">Current password:</label>
+                                            <div class="input-group">
+                                                <input type="password" class="form-control" id="curr_password" name="curr_password" value="{{ old('curr_password') }}">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-secondary" type="button" id="toggleCurrPassword">
+                                                        <i class="fas fa-eye" style="color: black;"></i>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="new_password">New password:</label>
-                                        <div class="input-group">
-                                            <input type="password" class="form-control" id="new_password" name="new_password" value="{{ old('new_password') }}">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
+        
+                                        <div class="form-group">
+                                            <label for="new_password">New password:</label>
+                                            <div class="input-group">
+                                                <input type="password" class="form-control" id="new_password" name="new_password" value="{{ old('new_password') }}">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                                        <i class="fas fa-eye" style="color: black;"></i>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
+                                        
+                                        @if ($errors->any())
+                                            <div class="alert alert-danger">
+                                                <ul>
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif
+
+                                    </div> 
+                                    <div class="col-12">
+                                        <button type="submit" class="form-buttons" style="width: 100%">Change Password</button>
                                     </div>
-
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
-
-                                </div>
-                                <div class="col-12">
-                                    <button type="submit" class="form-buttons" style="width: 100%">Change Password</button>
-                                </div>
-                            </form>
-                        </div>
+                                </form>
+                            </div>  
+                        </div> 
                     </div>
-                </div>
-            </div>
+                @elseif ($pswordchangereq == false)
+                    <div class="container-fluid" >   
+                        <div class="card col-5 shadow p-3 mb-5 bg-white rounded" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-right: 25%; margin-left: 25%">  
+                            <span>Your last change of password was {{ $lastpswrdchange }}. You can change your password again in {{ $daysremaining }} days.</span>
+                        </div> 
+                    </div>
+                @endif
+            </div> 
         @endsection
     </body>
 </html>

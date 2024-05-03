@@ -94,6 +94,7 @@ class InvestigatorController extends Controller
             DB::raw('SUM(CASE WHEN v.victim_sex = "FEMALE" THEN 1 ELSE 0 END) AS female_total_comps'),
             DB::raw('GROUP_CONCAT(DISTINCT cr.offenses) AS offense')
         )
+        ->where('cr.status', '=', 'notdeleted')
         ->groupBy('comp_month')
         ->orderBy(DB::raw('MONTH(cr.date_reported)'))
         ->get();
@@ -109,6 +110,7 @@ class InvestigatorController extends Controller
                 END AS age_range'), 
                 DB::raw('COUNT(complaint_reports.id) AS total_comps')
             ) 
+            ->where('complaint_reports.status', '=', 'notdeleted')
             ->groupBy('age_range')
             ->get();
 
@@ -123,6 +125,7 @@ class InvestigatorController extends Controller
                 END AS age_range'), 
                 DB::raw('COUNT(complaint_reports.id) AS total_comps')
             ) 
+            ->where('complaint_reports.status', '=', 'notdeleted')
             ->groupBy('age_range')
             ->get();
     
@@ -130,31 +133,51 @@ class InvestigatorController extends Controller
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
        
-            //#4 ilan yung victim na babae at lalake
-        $maleVictim = DB::table('victims')->where('victim_sex', 'MALE')->count();
-        $femaleVictim = DB::table('victims')->where('victim_sex', 'FEMALE')->count();
-        $maleOffenders = DB::table('offenders')->where('offender_sex', 'MALE')->count();
-        $femaleOffenders = DB::table('offenders')->where('offender_sex', 'FEMALE')->count(); 
+        //#4 ilan yung victim na babae at lalake
+        $maleVictim = DB::table('victims')
+        ->join('complaint_reports', 'complaint_reports.id', '=', 'victims.comp_report_id')
+        ->where('victim_sex', 'MALE')
+        ->where('complaint_reports.status', '=', 'notdeleted')
+        ->count();
+
+        $femaleVictim = DB::table('victims')
+        ->join('complaint_reports', 'complaint_reports.id', '=', 'victims.comp_report_id')
+        ->where('victim_sex', 'FEMALE')
+        ->where('complaint_reports.status', '=', 'notdeleted')
+        ->count();
+        
+        $maleOffenders = DB::table('offenders')
+        ->join('complaint_reports', 'complaint_reports.id', '=', 'offenders.comp_report_id')
+        ->where('offender_sex', 'MALE')
+        ->where('complaint_reports.status', '=', 'notdeleted')
+        ->count();
+
+        $femaleOffenders = DB::table('offenders')
+        ->join('complaint_reports', 'complaint_reports.id', '=', 'offenders.comp_report_id')
+        ->where('offender_sex', 'FEMALE')
+        ->where('complaint_reports.status', '=', 'notdeleted')
+        ->count();
 
 
         $topPlaces = DB::table('complaint_reports')
         ->select('place_of_commission', DB::raw('COUNT(*) as total_cases'))
+        ->where('status', '=', 'notdeleted')
         ->groupBy('place_of_commission')
         ->orderByDesc('total_cases')
         ->limit(5)
         ->get();
    
-        $relationshipCounts = DB::table('offenders')
-        // ->join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
-        // ->leftJoin('victims', 'victims.comp_report_id', '=', 'complaint_reports.complaint_report_author')
-        // ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.complaint_report_author')
+        $relationshipCounts = DB::table('offenders') 
+        ->join('complaint_reports', 'complaint_reports.id', '=', 'offenders.comp_report_id')
         ->select(
-            'offender_relationship_victim',
-            DB::raw('SUM(CASE WHEN offender_sex = "MALE" THEN 1 ELSE 0 END) AS male_count'),
-            DB::raw('SUM(CASE WHEN offender_sex = "FEMALE" THEN 1 ELSE 0 END) AS female_count')
+            'offenders.offender_relationship_victim',
+            DB::raw('SUM(CASE WHEN offenders.offender_sex = "MALE" THEN 1 ELSE 0 END) AS male_count'),
+            DB::raw('SUM(CASE WHEN offenders.offender_sex = "FEMALE" THEN 1 ELSE 0 END) AS female_count')
         )
-        ->groupBy('offender_relationship_victim')
-        ->get(); 
+        ->where('complaint_reports.status', '=', 'notdeleted')
+        ->groupBy('offenders.offender_relationship_victim')
+        ->get();
+
         return view('investigator.investigator_dashboard',  ['relationshipCounts'=> $relationshipCounts,'topPlaces'=>$topPlaces, 'maleOffenders'=>$maleOffenders, 'femaleOffenders'=>$femaleOffenders, 'maleVictim'=>$maleVictim, 'femaleVictim'=>$femaleVictim, 'notifs'=>$notifs, 'comps'=>$comps, 'comps11'=>$comps11, 'comps_male'=>$comps_male, 'filter_year'=>$filter_year, 'filter_year1'=>$filter_year1]);
     }
 
@@ -196,6 +219,7 @@ class InvestigatorController extends Controller
         )
         ->whereRaw('MONTH(cr.date_reported) >= ?', [$start_month])
         ->whereRaw('MONTH(cr.date_reported) <= ?', [$end_month]) 
+        ->where('cr.status', '=', 'notdeleted')
         ->groupBy('comp_month')
         ->orderBy(DB::raw('MONTH(cr.date_reported)'))
         ->get();
@@ -212,7 +236,8 @@ class InvestigatorController extends Controller
                 DB::raw('COUNT(complaint_reports.id) AS total_comps')
             ) 
             ->whereRaw('MONTH(complaint_reports.date_reported) >= ?', [$start_month])
-            ->whereRaw('MONTH(complaint_reports.date_reported) <= ?', [$end_month]) 
+            ->whereRaw('MONTH(complaint_reports.date_reported) <= ?', [$end_month])
+            ->where('complaint_reports.status', '=', 'notdeleted') 
             ->groupBy('age_range')
             ->get();
 
@@ -229,6 +254,7 @@ class InvestigatorController extends Controller
             ) 
             ->whereRaw('MONTH(complaint_reports.date_reported) >= ?', [$start_month])
             ->whereRaw('MONTH(complaint_reports.date_reported) <= ?', [$end_month]) 
+            ->where('complaint_reports.status', '=', 'notdeleted')
             ->groupBy('age_range')
             ->get();
     
@@ -237,21 +263,31 @@ class InvestigatorController extends Controller
             ->count();
         
         $maleVictim = DB::table('victims')->where('victim_sex', 'MALE')
+        ->join('complaint_reports', 'complaint_reports.id', '=', 'victims.comp_report_id')
         ->whereRaw('MONTH(victims.created_at) >= ?', [$start_month])
         ->whereRaw('MONTH(victims.created_at) <= ?', [$end_month])
+        ->where('complaint_reports.status', '=', 'notdeleted')
         ->count();
         
         $femaleVictim = DB::table('victims')->where('victim_sex', 'FEMALE')
+        ->join('complaint_reports', 'complaint_reports.id', '=', 'victims.comp_report_id')
         ->whereRaw('MONTH(victims.created_at) >= ?', [$start_month])
         ->whereRaw('MONTH(victims.created_at) <= ?', [$end_month]) 
+        ->where('complaint_reports.status', '=', 'notdeleted')
         ->count();
+
         $maleOffenders = DB::table('offenders')->where('offender_sex', 'MALE')
+        ->join('complaint_reports', 'complaint_reports.id', '=', 'offenders.comp_report_id')
         ->whereRaw('MONTH(offenders.created_at) >= ?', [$start_month])
         ->whereRaw('MONTH(offenders.created_at) <= ?', [$end_month])
+        ->where('complaint_reports.status', '=', 'notdeleted')
         ->count();
+
         $femaleOffenders = DB::table('offenders')->where('offender_sex', 'FEMALE')
+        ->join('complaint_reports', 'complaint_reports.id', '=', 'offenders.comp_report_id')
         ->whereRaw('MONTH(offenders.created_at) >= ?', [$start_month])
         ->whereRaw('MONTH(offenders.created_at) <= ?', [$end_month]) 
+        ->where('complaint_reports.status', '=', 'notdeleted')
         ->count(); 
 
 
@@ -259,6 +295,7 @@ class InvestigatorController extends Controller
         ->select('place_of_commission', DB::raw('COUNT(*) as total_cases'))
         ->whereRaw('MONTH(complaint_reports.date_reported) >= ?', [$start_month])
         ->whereRaw('MONTH(complaint_reports.date_reported) <= ?', [$end_month]) 
+        ->where('status', '=', 'notdeleted')
         ->groupBy('place_of_commission')
         ->orderByDesc('total_cases')
         ->limit(5)
@@ -275,6 +312,7 @@ class InvestigatorController extends Controller
         )
         ->whereRaw('MONTH(complaint_reports.date_reported) >= ?', [$start_month])
         ->whereRaw('MONTH(complaint_reports.date_reported) <= ?', [$end_month]) 
+        ->where('complaint_reports.status', '=', 'notdeleted')
         ->groupBy('offender_relationship_victim')
         ->get();
  
@@ -298,7 +336,8 @@ class InvestigatorController extends Controller
         $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
         ->leftJoin('victims', 'victims.comp_report_id', '=', 'complaint_reports.complaint_report_author')
         ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.complaint_report_author')
-        ->select('accounts.id as accountid', 'accounts.username', 'accounts.team', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.inv_case_no', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'offenders.offender_firstname', 'offenders.offender_family_name', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age', 'offenders.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition', 'complaint_reports.date_case_updated', 'complaint_reports.case_update')->where('complaint_report_author', $author_id)
+        ->select('accounts.id as accountid', 'accounts.username', 'accounts.team', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.inv_case_no', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'offenders.offender_firstname', 'offenders.offender_family_name', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age', 'offenders.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition', 'complaint_reports.date_case_updated', 'complaint_reports.case_update')
+        ->where('complaint_reports.complaint_report_author', $author_id)
         ->where('complaint_reports.status', 'notdeleted')
         ->orderBy('complaint_reports.id', 'DESC') 
         ->get();
@@ -310,7 +349,9 @@ class InvestigatorController extends Controller
         $offenses = Offense::select('*') 
         ->where('not_delete', '=', false)
         ->get();
-        return view('investigator.investigator_complaintreportform', ['offenses'=>$offenses]);
+
+        $accs = Account::get();
+        return view('investigator.investigator_complaintreportform', ['offenses'=>$offenses, 'accs'=>$accs]);
     }
 
     public function index()
@@ -344,6 +385,7 @@ class InvestigatorController extends Controller
         $author_id = Auth::guard('account')->user()->id;
         $comps = Victim::join('complaint_reports', 'complaint_reports.id', '=', 'victims.comp_report_id')
             ->select('complaint_reports.id as compid', 'victims.id as vid', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'victims.victim_image', 'victims.victim_present_address', 'complaint_reports.date_reported')
+            ->where('complaint_reports.status', '=', 'notdeleted')
             ->where('complaint_reports.complaint_report_author', '=', $author_id)
             ->orderByDesc('victims.id')
             ->get();
@@ -363,6 +405,7 @@ class InvestigatorController extends Controller
         $author_id = Auth::guard('account')->user()->id;
         $comps = Offender::join('complaint_reports', 'complaint_reports.id', '=', 'offenders.comp_report_id')
         ->select('complaint_reports.id as compid', 'offenders.id as oid', 'offenders.offender_family_name', 'offenders.offender_firstname', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age','offenders.offender_image', 'offenders.offender_prev_criminal_rec', 'offenders.offender_relationship_victim', 'complaint_reports.date_reported')
+        ->where('complaint_reports.status', '=', 'notdeleted')
         ->where('complaint_reports.complaint_report_author', '=', $author_id)
         ->orderBy('offenders.id', 'desc')
         ->get();
@@ -529,102 +572,29 @@ class InvestigatorController extends Controller
     public function change_password()
     {
         $id = Auth::guard('account')->user()->id;
+
+        $investigator = Account::find($id);  
+        $lastpswrdchange = $investigator->last_change_password; 
+        $lastpswrdchange = Carbon::parse($lastpswrdchange)->format('F d, Y');
+
+        if (Carbon::parse($lastpswrdchange)->diffInDays(Carbon::now()) >= 30) { 
+            $pswordchangereq = true;
+        } else { 
+            $pswordchangereq = false;
+        }
+
+        $lastPasswordChangeDate = Carbon::parse($lastpswrdchange);
+        $currentDate = Carbon::now();
+        $daysremaining = 30 - $lastPasswordChangeDate->diffInDays($currentDate);
+
         $invs = Account::where('id', '=', $id)
             ->get();
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
-        return view('investigator.investigator_changepassword', ['invs'=>$invs, 'notifs'=>$notifs]);
+        return view('investigator.investigator_changepassword', ['invs'=>$invs, 'notifs'=>$notifs, 'pswordchangereq'=>$pswordchangereq, 'lastpswrdchange'=>$lastpswrdchange, 'daysremaining'=>$daysremaining]);
     }
     public function changing_password(Request $request)
     {  
-        // $validator = Validator::make($request->all(), [
-        //     'username' => 'required',
-        //     'curr_password' => 'required',
-        //     'new_password' => [
-        //         'required',
-        //         'string',
-        //         'min:8',
-        //         'max:12',
-        //         'regex:/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/' 
-        //     ],
-        // ], [
-        //     'new_password.max' => 'The new password must not exceed 12 characters in length.',
-        //     'new_password.regex' => 'The new password must contain at least 8 letters, at least one number, and at least one special character.'
-        // ]);
-     
-        // $validator->sometimes('new_password', 'regex:/[a-zA-Z]/', function ($input) {
-        //     return !preg_match('/[a-zA-Z]/', $input->new_password);
-        // }, function ($validator) {
-        //     $validator->errors()->add('new_password', 'The new password must contain at least one letter.');
-        // });
-
-        // $validator->sometimes('new_password', ['required', 'regex:/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/'], function ($input) {
-        //     return true;  
-        // }, function ($validator) {
-        //     $validator->errors()->add('new_password', 'The new password must contain at least 8 letters, at least one number, and at least one special character.');
-        // });
-
-        // $validator->sometimes('new_password', ['required', 'regex:/^(?=.*[a-zA-Z])(?=.*\d).{8,}$/'], function ($input) {
-        //     return true; 
-        // }, function ($validator) {
-        //     $validator->errors()->add('new_password', 'The new password must contain at least 8 letters and at least one number.');
-        // }); 
-    
-        // $validator->sometimes('new_password', 'regex:/\d/', function ($input) {
-        //     return !preg_match('/\d/', $input->new_password);
-        // }, function ($validator) {
-        //     $validator->errors()->add('new_password', 'The new password must contain at least one number.');
-        // });
-     
-        // if ($validator->fails()) {
-        //     return redirect()->back()->withErrors($validator)->withInput();
-        // }
-     
-        // $id = Auth::guard('account')->user()->id;
-     
-        // if (Auth::guard('account')->attempt(['username' => $request->input('username'), 'password' => $request->input('curr_password')])) { 
-        //     Account::where('id', $id)->update([
-        //         'password' => Hash::make($request->input('new_password')),
-        //         'change_password_req' => 'done', 
-        //     ]);
-     
-        //     return redirect()->route('investigator.accountmngt')->with('success', 'Password changed successfully!');
-        // } else { 
-        //     return redirect()->back()->with('error', 'Username or current password you entered is incorrect.')->withInput();
-        // }
-
-        // $validator = Validator::make($request->all(), [
-        //     'username' => 'required',
-        //     'curr_password' => 'required',
-        //     'new_password' => [
-        //         'required',
-        //         'string',
-        //         'min:8',
-        //         'max:12',
-        //         'regex:/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/' 
-        //     ],
-        // ], [
-        //     'new_password.max' => 'The new password must not exceed 12 characters in length.',
-        //     'new_password.regex' => 'The new password must contain at least 8 letters, at least one number, and at least one special character.'
-        // ]); 
-     
-        // if ($validator->fails()) {
-        //     return redirect()->back()->withErrors($validator)->withInput();
-        // }
-     
-        // $id = Auth::guard('account')->user()->id;
-     
-        // if (Auth::guard('account')->attempt(['username' => $request->input('username'), 'password' => $request->input('curr_password')])) { 
-        //     Account::where('id', $id)->update([
-        //         'password' => Hash::make($request->input('new_password')),
-        //         'change_password_req' => 'done', 
-        //     ]);
-     
-        //     return redirect()->route('investigator.accountmngt', ['id'=>$id])->with('success', "Password changed successfully!");
-        // } else { 
-        //     return redirect()->back()->with('error', 'Username or current password you entered is incorrect.')->withInput();
-        // }
-
         $id = Auth::guard('account')->user()->id;
 
         if (Auth::guard('account')->attempt(['username' => $request->input('username'), 'password' => $request->input('curr_password')])) { 
@@ -699,13 +669,13 @@ class InvestigatorController extends Controller
 
     public function trash()
     {
-        $team = Auth::guard('account')->user()->team;
-        $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
-        ->leftJoin('victims', 'victims.comp_report_id', '=', 'complaint_reports.complaint_report_author')
-        ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.complaint_report_author')
+        $author_id = Auth::guard('account')->user()->id;
+        $comps = ComplaintReport::leftJoin('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
+        ->leftJoin('victims', 'victims.comp_report_id', '=', 'complaint_reports.id')
+        ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.id')
         ->select('accounts.id as accountid', 'accounts.username', 'accounts.team', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'offenders.offender_firstname', 'offenders.offender_family_name', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age', 'offenders.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')
-        ->where('complaint_reports.status', 'deleted')
-        ->where('accounts.team', $team)
+        ->where('complaint_reports.status', '=', 'deleted')
+        ->where('complaint_reports.complaint_report_author', $author_id)
         ->orderBy('complaint_reports.id', 'DESC') 
         ->get();
     

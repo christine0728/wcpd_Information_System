@@ -68,7 +68,7 @@
                                         <th style="display: none">id</th>
                                         <th>Complaint Report Author</th>
                                         <th>Case Details</th>
-                                        <th>People Involved</th>
+                                        {{-- <th>People Involved</th> --}}
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -97,7 +97,7 @@
                                                     {{ $comp->date_case_updated }}
                                                 @endif
                                         </td>
-                                        <td>
+                                        {{-- <td>
                                             <b>Victim Overview</b>
                                             <br>Fullname: {{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}
                                             <br>Sex: {{ $comp->victim_sex }}
@@ -107,7 +107,7 @@
                                             <br>Fullname: {{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}
                                             <br>Sex: {{ $comp->offender_sex }}
                                             <br>Age: {{ $comp->offender_age }}
-                                        </td>
+                                        </td> --}}
                                         <td style="vertical-align: top;">
                                             <center>   
                                                 <br><a class="edit-btn" onclick="return confirm('Are you sure you want to RESTORE this record?')" href="{{ route('investigator.restore_form', $comp->id) }}" style="margin-top: 0.3rem">&nbsp;&nbsp;&nbsp;Restore<i class="fa-solid fa-rotate-left" style="font-size: large; padding: 0.5rem"></i></a>  
@@ -131,80 +131,7 @@
         @endsection
     </body>
 </html>
-
-@if(session('updatemessage'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'Successfuly updated!',
-        text: '{{ session('success') }}'
-    });
-</script>
-@endif
-
-<script>
-    function confirmDelete(id) {
-        Swal.fire({
-            title: 'Are you sure to delete this book?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-            $.ajax({
-                type: 'POST',
-                url: '/admin/activity_destroy/' + id,
-                data: {
-                _token: '{{ csrf_token() }}',
-                _method: 'DELETE'
-                },
-                success: function (response) {
-                Swal.fire(
-                    'Deleted!',
-                    'The record has been deleted.',
-                    'success'
-                ).then(function () {
-                    location.reload();
-                });
-                },
-                error: function (error) {
-                    console.log(error);
-                Swal.fire(
-                    'Error!',
-                    'An error occurred while deleting the record.',
-                    'error'
-                );
-                }
-            });
-            }
-        });
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const editButtons = document.querySelectorAll('.btn-edit');
-
-        editButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                const modal = document.getElementById('modalEdit');
-                const editId = this.getAttribute('data-id');
-                const editactivity_title = this.getAttribute('data-activity_title');
-                const editstatus = this.getAttribute('data-status');
-
-                document.getElementById('edit_id').value = editId;
-                document.getElementById('edit_activity_title').value = editactivity_title;
-                document.getElementById('edit_status').value = editstatus;
-
-                document.getElementById('edit_id').value = editId;
-
-                $(modal).modal('show');
-            });
-        });
-    });
-
-</script>
-
+   
 <script>
     var myInput1 = document.getElementById("myInput1");
 

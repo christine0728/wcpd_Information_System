@@ -180,9 +180,9 @@
                                         </td>    
                                         <td>
                                             @if ($inv->status == 'active')
-                                                <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="ACTIVE" style="background-color: palegreen; font-weight: bold; color: darkgreen; width: 5rem; border: none; font-size: medium" readonly>
+                                                <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="ACTIVE" style="background-color: palegreen; font-weight: bold; color: darkgreen; width: 5.5rem; border: none; font-size: medium" readonly>
                                             @elseif ($inv->status == 'inactive')
-                                                <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="INACTIVE" style="background-color: pink; font-weight: bold; color: darkred; width: 5.5rem; border: none; font-size: medium" readonly>
+                                                <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="INACTIVE" style="background-color: pink; font-weight: bold; color: darkred; width: 6rem; border: none; font-size: medium" readonly>
                                             @endif
                                         </td> 
                                         <td> 
@@ -259,9 +259,9 @@
                                         </td>    
                                         <td>
                                             @if ($inact->status == 'active')
-                                                <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="ACTIVE" style="background-color: palegreen; font-weight: bold; color: darkgreen; width: 5rem; border: none; font-size: medium" readonly>
+                                                <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="ACTIVE" style="background-color: palegreen; font-weight: bold; color: darkgreen; width: 5.5rem; border: none; font-size: medium" readonly>
                                             @elseif ($inact->status == 'inactive')
-                                                <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="INACTIVE" style="background-color: pink; font-weight: bold; color: darkred; width: 5.5rem; border: none; font-size: medium" readonly>
+                                                <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="INACTIVE" style="background-color: pink; font-weight: bold; color: darkred; width: 6.5rem; border: none; font-size: medium" readonly>
                                             @endif
                                         </td> 
                                         <td> 
@@ -305,7 +305,25 @@
         $('#example1').DataTable({
         "order": [[0, "desc"]]
         });
-    }); 
+    });  
+
+    document.addEventListener("DOMContentLoaded", function() { 
+      document.getElementById("defaultOpen").click();
+    });
+
+    function openCity(evt, cityName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
 </script>
 
 <script>

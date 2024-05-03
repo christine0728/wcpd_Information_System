@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Account;
 use App\Models\ComplaintReport;
 use App\Models\Logs;
 use App\Models\Offender;
@@ -339,14 +340,15 @@ class ComplaintReportController extends Controller
             ->where('not_delete', '=', false)
             ->get();
         
+        $accs = Account::get();
         $vics = Victim::where('comp_report_id', '=', $comp_id)->get();
         $offs = Offender::where('comp_report_id', '=', $comp_id)->get();
 
         if ($acc_type == 'investigator'){
-            return view('investigator.investigator_editcomplaintreport', ['comps' => $comps, 'comp_id'=>$comp_id, 'offenses'=>$offenses, 'vics'=>$vics, 'offs'=>$offs])->with('success', 'Complant Report Form added successfully!');
+            return view('investigator.investigator_editcomplaintreport', ['comps' => $comps, 'comp_id'=>$comp_id, 'offenses'=>$offenses, 'vics'=>$vics, 'offs'=>$offs, 'accs'=>$accs])->with('success', 'Complant Report Form added successfully!');
         }
         elseif ($acc_type == 'superadmin'){ 
-            return view('superadmin.superadmin_editcomplaintreport', ['comps' => $comps, 'comp_id'=>$comp_id, 'offenses'=>$offenses, 'vics'=>$vics, 'offs'=>$offs])->with('success', 'Complant Report Form updated successfully!');; 
+            return view('superadmin.superadmin_editcomplaintreport', ['comps' => $comps, 'comp_id'=>$comp_id, 'offenses'=>$offenses, 'vics'=>$vics, 'offs'=>$offs, 'accs'=>$accs])->with('success', 'Complant Report Form updated successfully!');; 
         } 
     }
 
@@ -373,7 +375,9 @@ class ComplaintReportController extends Controller
                 'inv_case_no' => $request->input('inv_case_no'),
                 'offenses' => $inp_offenses, 
                 'evidence_motive_cause' => $request->input('evi_motive'),
+                'place_of_commission' => $request->input('place_commission'),
                 'evidence_influence_of' => $request->input('influences'), 
+                'investigator_on_case' => $request->input('investigator'),
                 'updated_at' => $now,
             ]);
 
@@ -420,7 +424,9 @@ class ComplaintReportController extends Controller
             return redirect()->route('investigator.complaintreport')->with('delete', 'Complaint Report Form deleted successfully!'); 
         }
         elseif ($acc_type == 'superadmin'){
-            return redirect()->route('superadmin.complaintreport')->with('delete', 'Complaint Report Form deleted successfully!');
+            // return redirect()->route('superadmin.complaintreport')->with('delete', 'Complaint Report Form deleted successfully!');
+
+            return redirect()->back()->with('delete', 'Complaint Report Form deleted successfully!');
         } 
     }
 

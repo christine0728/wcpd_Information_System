@@ -90,10 +90,10 @@
                                 <thead>
                                     <tr>  
                                         <th>Image</th>
-                                        <th>Fullname</th> 
-                                        <th>Age</th>
+                                        <th>Details</th> 
+                                        {{-- <th>Age</th> --}}
                                         <th>Previous Criminal Record/s</th> 
-                                        <th>Relationship to Victim</th>
+                                        {{-- <th>Relationship to Victim</th> --}}
                                         <th>Date Reported</th> 
                                         <th>Action</th>
                                     </tr>
@@ -108,14 +108,18 @@
                                                 No Image
                                             @endif
                                         </td>
-                                        <td>{{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}</td>
-                                        <td>{{ $comp->offender_age }}</td>
+                                        <td>
+                                            Fullname: {{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}
+                                            <br>Age: {{ $comp->offender_age }}
+                                            <br>Relationship to victim: {{ $comp->offender_relationship_victim }}
+                                        </td>
+                                        {{-- <td>{{ $comp->offender_age }}</td> --}}
                                         <td>{{ $comp->offender_prev_criminal_rec }}</td> 
-                                        <td>{{ $comp->offender_relationship_victim }}</td> 
+                                        {{-- <td>{{ $comp->offender_relationship_victim }}</td>  --}}
                                         <td>{{ $comp->date_reported }}</td> 
                                         <td>
                                         <center> 
-                                            <a class="view-btn" href="{{ route('superadmin.view_complaintreport', $comp->compid) }}"  style="margin-bottom: 0.5rem">&nbsp;&nbsp;&nbsp;View Case<i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
+                                            <a class="view-btn" href="{{ route('superadmin.readonly_complaintreport', $comp->compid) }}"  style="margin-bottom: 0.5rem">&nbsp;&nbsp;&nbsp;View Case<i class="fa-regular fa-eye" style="font-size: large; padding: 0.5rem"></i></a>
                                                 
                                             <br><a class="view-btn" href="{{ route('superadmin.offender_profile', $comp->oid) }}"  >&nbsp;&nbsp;&nbsp;View Profile<i class="fa-regular fa-user" style="font-size: large; padding: 0.5rem"></i></a>  
                                         </center>
