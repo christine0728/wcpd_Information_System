@@ -123,8 +123,8 @@
                                                     <div class="col-12"> 
                                                         <div style="display: flex; align-items: flex-end;">
                                                             <label for="teamSelect" class="mr-2">Change Team:</label>
-                                                            <select class="form-control" id="teamSelect" name="team" style="border-radius: 0.3125rem; border: 2.5px solid #48145B; background: #FFF; width: 75%; font-size: medium; margin-right: 0.5rem;" required>
-                                                                <option value="">Select here:</option>
+                                                            <select class="form-control" id="teamSelect" name="team" style="border-radius: 0.3125rem; border: 2.5px solid #48145B; background: #FFF; width: 50%; font-size: medium; margin-right: 0.5rem;">
+                                                                <option value="{{ $inv->team }}">Select here:</option>
                                                                 <option value="team_a">TEAM A</option>
                                                                 <option value="team_b">TEAM B</option> 
                                                             </select> 

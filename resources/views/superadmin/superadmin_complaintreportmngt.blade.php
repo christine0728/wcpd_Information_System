@@ -174,7 +174,7 @@
                                                     <option value="CONVICTED">CONVICTED</option>
                                                     <option value="DISMISS">DISMISS</option>
                                                 </select>
-                                                <button type="submit" class="form-buttons" style="width: 50%; margin-top: 0.3rem; float: right"> Update Case </button>
+                                                <button type="submit" class="form-buttons" style="width: 60%; margin-top: 0.3rem; float: right"> Update Case </button>
                                             </form>
                                         </td>
                                         <td style="vertical-align: top;">

@@ -412,20 +412,19 @@
                             <div class="row">
                                 <div class="col-5">
                                     <label class="form-check-label" for="flexRadioDefault1">
-                                        28. Previous Criminal Record:
-                                    </label>
-                                    
+                                        Previous Criminal Record:
+                                    </label> 
                                     <div style="display: flex">
                                         <div class="form-check" style="margin-right: 2rem; margin-left: 2rem">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onclick="enableDisableTextBox()">
                                             <label class="form-check-label" for="flexRadioDefault1">
-                                            Yes
+                                                Yes
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked onclick="enableDisableTextBox()">
                                             <label class="form-check-label" for="flexRadioDefault2">
-                                            No
+                                                No
                                             </label>
                                         </div>
                                     </div> 
@@ -433,7 +432,7 @@
                                 <div class="col-7">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Pls. specify:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="crim_rec_specify" oninput="toUpper(this)">
+                                        <input type="text" class="form-control" id="crimspec" aria-describedby="emailHelp" name="crim_rec_specify" oninput="toUpper(this)" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -501,7 +500,7 @@
                            {{-- <button type="submit" class="form-buttons" style="float: right; " formaction="{{ route('superadmin.offender_form', [$comp_id]) }}">Next (Add Offender) <i class="fa-solid fa-check icons"></i></button> --}}
                            <input type="hidden" name="adding" value="adding">
                            <button type="submit" class="form-buttons" style="float: right;">Add Offender <i class="fa-solid fa-check icons"></i></button>
-                           <a class="link-buttons" href="{{ route('investigator.complaintreport') }}" style="float: left; background-color: #48145B; margin-right: 0.5rem">Back <i class="fa-solid fa-xmark"></i> </a>
+                           <a class="link-buttons" href="#" onclick="window.history.back();" style="float: left; background-color: #48145B; margin-right: 0.5rem">Back <i class="fa-solid fa-xmark"></i> </a>
  
                            {{-- <button type="button" class="previous form-buttons" style="float: right; margin-right: 0.5rem; width: 5rem"><i class="fa-solid fa-arrow-left icons"></i> Back</button>  --}}
                         </div>
@@ -511,7 +510,69 @@
         </div> 
     </div>
 
-    <script>   
+    <script>  
+        function enableDisableTextBox() {
+            var yesRadio = document.getElementById("flexRadioDefault1");
+            var textBox = document.getElementById("crimspec"); 
+            
+            textBox.disabled = !yesRadio.checked;
+             
+            if (yesRadio.checked) {
+                textBox.focus();
+            }
+        } 
+
+        $(function(){
+            var $sections = $('.form-section'); 
+            var $navLinks = $('.nav-link');
+            
+            function navigateTo(index){ 
+                $sections.removeClass('current').eq(index).addClass('current'); 
+                
+                $navLinks.removeClass('active');
+                $navLinks.eq(index).addClass('active');
+                
+                $('.form-navigation .previous').toggle(index > 0);
+                var atTheEnd = index >= $sections.length - 1;
+                $('.form-navigation .next').toggle(!atTheEnd);
+                $('.form-navigation [type=submit]').toggle(atTheEnd); 
+
+                $('html, body').scrollTop(0);
+            }
+
+            function curIndex(){ 
+                return $sections.index($sections.filter('.current'));
+            }
+
+            // Function to handle navigation when nav-link is clicked
+            $navLinks.click(function() {
+                var index = $(this).index(); // Get the index of the clicked nav-link
+                navigateTo(index);
+            });
+
+            $('.form-navigation .previous').click(function(){
+                var currentIndex = curIndex();
+                if (currentIndex > 0) {
+                    navigateTo(currentIndex - 1);
+                }
+            });
+
+            $('.form-navigation .next').click(function(){
+                var currentIndex = curIndex();
+                $('.employee-form').parsley().whenValidate({
+                    group:'block-'+currentIndex
+                }).done(function(){
+                    navigateTo(currentIndex + 1);
+                });
+            });
+
+            $sections.each(function(index, section){
+                $(section).find(':input').attr('data-parsley-group', 'block-'+index);
+            });
+
+            navigateTo(0); 
+        }); 
+        
         function showfield(name){
             if(name=='Others')document.getElementById('div1').innerHTML='Pls. specify: <input type="text" name="others" class="form-control" />';
             else document.getElementById('div1').innerHTML='';

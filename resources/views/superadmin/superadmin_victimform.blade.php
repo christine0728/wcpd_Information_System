@@ -195,7 +195,7 @@
                                 <div class="col-2" >
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Date of birth: </label>
-                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth" oninput="toUpper(this)" value="{{ old('vic_date_birth') }}">
+                                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth" oninput="toUpper(this)" value="{{ old('vic_date_birth') }}" max="{{ date('Y-m-d') }}">
                                         @if ($errors->has('vic_date_birth')) 
                                             <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('vic_date_birth') }}</span>
                                         @endif
@@ -580,7 +580,7 @@
 
                            {{-- <button type="button" class="next form-buttons" style="float: right; width: 5rem">Next <i class="fa-solid fa-arrow-right icons"></i></button>  --}}
                            {{-- <button type="submit" class="form-buttons" style="float: right; " formaction="{{ route('superadmin.offender_form', [$comp_id]) }}">Next (Add Offender) <i class="fa-solid fa-check icons"></i></button> --}}
-                           <a class="link-buttons" href="{{ route('superadmin.view_complaintreport', [$comp_id]) }}" style="float: left; background-color: #48145B">Cancel <i class="fa-solid fa-xmark icons"></i> </a> 
+                           <a class="link-buttons" href="#" onclick="window.history.back();" style="float: left; background-color: #48145B">Cancel <i class="fa-solid fa-xmark icons"></i> </a> 
 
                            {{-- <a class="link-buttons" href="{{ route('superadmin.offender_form', [$comp_id]) }}" style="float: right; background-color: #48145B">Next (Add Offender) <i class="fa-solid fa-xmark"></i> </a> --}}
 
@@ -622,6 +622,58 @@
     });
     </script>
     <script>
+
+$(function(){
+            var $sections = $('.form-section'); 
+            var $navLinks = $('.nav-link');
+            
+            function navigateTo(index){ 
+                $sections.removeClass('current').eq(index).addClass('current'); 
+                
+                $navLinks.removeClass('active');
+                $navLinks.eq(index).addClass('active');
+                
+                $('.form-navigation .previous').toggle(index > 0);
+                var atTheEnd = index >= $sections.length - 1;
+                $('.form-navigation .next').toggle(!atTheEnd);
+                $('.form-navigation [type=submit]').toggle(atTheEnd); 
+
+                $('html, body').scrollTop(0);
+            }
+
+            function curIndex(){ 
+                return $sections.index($sections.filter('.current'));
+            }
+
+            // Function to handle navigation when nav-link is clicked
+            $navLinks.click(function() {
+                var index = $(this).index(); // Get the index of the clicked nav-link
+                navigateTo(index);
+            });
+
+            $('.form-navigation .previous').click(function(){
+                var currentIndex = curIndex();
+                if (currentIndex > 0) {
+                    navigateTo(currentIndex - 1);
+                }
+            });
+
+            $('.form-navigation .next').click(function(){
+                var currentIndex = curIndex();
+                $('.employee-form').parsley().whenValidate({
+                    group:'block-'+currentIndex
+                }).done(function(){
+                    navigateTo(currentIndex + 1);
+                });
+            });
+
+            $sections.each(function(index, section){
+                $(section).find(':input').attr('data-parsley-group', 'block-'+index);
+            });
+
+            navigateTo(0); 
+        }); 
+        
         function toUpper(input) { 
             let value = input.value; 
             value = value.toUpperCase(); 

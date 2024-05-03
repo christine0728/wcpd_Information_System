@@ -132,7 +132,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Place of Commission: </label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" value="{{ $comp->place_of_commission }}" >
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" value="{{ $comp->place_of_commission }}" oninput="toUpper(this)">
                                 </div> 
                             </div> 
                         </div>
@@ -141,7 +141,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Offenses Committed: </label>
-                                    <input type="hidden" name="offenses" value="max="{{ date('Y-m-d') }}>
+                                    <input type="hidden" name="offenses" value="{{ $comp->offenses }}">
                                     <select class="form-control" name="offenses[]" multiple>  
                                         <option value="{{ $comp->offenses }}" style="font-weight: bold">Selected: {{ $comp->offenses }}</option>
                                         @foreach ($offenses as $offense) 
@@ -246,7 +246,14 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Investigator on case:</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="investigator" value="{{ $comp->investigator_on_case }}" readonly>
+                                    {{-- <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="investigator" value="{{ $comp->investigator_on_case }}" readonly> --}}
+
+                                    <select class="form-control" name="investigator" onchange="showfield2(this.options[this.selectedIndex].value)" value="{{ $comp->investigator_on_case }}">
+                                        <option value="{{ $comp->investigator_on_case }}">Selected investigator: {{ $comp->investigator_on_case }}</option> 
+                                        @foreach ($accs as $acc) 
+                                        <option value="{{ $acc->firstname }} {{ $acc->lastname }}">{{ $acc->firstname }} {{ $acc->lastname }}</option> 
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div> 
                         </div>

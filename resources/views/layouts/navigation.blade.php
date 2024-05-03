@@ -8,9 +8,9 @@
         font-size: 0.7rem !important;
     }
 
-    i {
+    /* i {
         color: white !important;
-    }
+    } */
     </style>
     <div class="sidebar" style="position:fixed;  color: white; ">
         <!-- Sidebar user panel (optional) -->
@@ -139,7 +139,7 @@
 
                 @elseif (Auth::guard('account')->user()->acc_type == 'investigator' )<li class="nav-item">
                     <a href="{{ route('investigator.suspects_mngt') }}" class="nav-link {{ request()->is('home') ? 'text-primary' : 'text-dark' }}">
-                        <i class="fa-solid fa-user" style="color: white; "></i>
+                        <i class="fa-solid fa-user" style="color: white;  "></i>
                         <p style="color: white; margin-left: 0.5rem">
                             {{ __('Offenders Management') }}
                         </p>
@@ -154,20 +154,20 @@
                             <p  style="color: white; margin-left: 0.5rem">
                                 {{ __('Account Mngt.') }}
                             </p>
-                            <i class="fas fa-angle-left right" style="margin-left: 1rem"></i>
+                            <i class="fas fa-angle-left right" style="margin-left: 1rem; color: white"></i>
                         </a>
 
                         <ul class="nav nav-treeview" style="display: none;">
                         <li class="nav-item">
                             <a href="{{ route('superadmin.inv_account_mngt') }}" class="nav-link {{ request()->is('filipiniana') ? 'text-primary' : 'text-dark' }}">
-                                <i class="fas fa-user-cog"></i>
+                                <i class="fas fa-user-cog" style="color: white; margin-right: 0.5rem"></i>
                                 <p style="color: white;">Investigator Account Mngt.</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a href="{{ route('superadmin.superadmin_account_mngt', Auth::guard('account')->user()->id) }}" class="nav-link {{ request()->is('filipiniana') ? 'text-primary' : 'text-dark' }}">
-                                <i class="fas fa-user-shield"></i>
+                                <i class="fas fa-user-shield" style="color: white; margin-right: 0.5rem"></i>
                                 <p style="color: white;">Superadmin Account Mngt.</p>
                             </a>
                         </li>

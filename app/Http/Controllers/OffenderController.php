@@ -33,6 +33,10 @@ class OffenderController extends Controller
         ->where('id', $comp_id)
         ->get(); 
 
+        if ($request->input('crim_rec_specify') == null){
+            $crimspec = 'NONE';
+        }
+
         $now = Carbon::now();
         $now->setTimezone('Asia/Manila');
 
@@ -125,7 +129,7 @@ class OffenderController extends Controller
             'offender_civil_status' => $request->input('off_civil_stat'),
             'offender_highest_educ_attainment' => $o_educ_attain,
             'offender_nationality' => $request->input('off_nationality'),
-            'offender_prev_criminal_rec' => $request->input('crim_rec_specify'),
+            'offender_prev_criminal_rec' => $crimspec,
             'offender_employment_info_occupation' => $request->input('off_occupation'),
             'offender_last_known_addr' => $request->input('off_last_addr'),
             'offender_relationship_victim' => $request->input('rel_to_victim'),

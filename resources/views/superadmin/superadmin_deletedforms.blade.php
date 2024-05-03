@@ -66,17 +66,18 @@
                                 <thead>
                                     <tr> 
                                         <th style="display: none">id</th>
-                                        <th>Complaint Report Author</th>
-                                        <th>Case Details</th>
-                                        <th>People Involved</th>
-                                        <th>Action</th>
+                                        <center><th>Complaint Report<br>Author</th></center>
+                                        <center><th>Case Details</th></center>
+                                        {{-- <center><th>People Involved</th></center> --}}
+                                        <center><th>Action</th></center>  
                                     </tr>
                                 </thead>
                                 <tbody> 
                                     @foreach ($comps as $comp)  
                                     <tr>  
                                         <td style="display: none">{{ $comp->id }}</td>
-                                        <td style="vertical-align: top;">{{ $comp->username }} ({{ $comp->team }})</td>
+                                        <td style="vertical-align: top;">{{ $comp->username }}
+                                            <br> ({{ $comp->team }})</td>
                                         <td>
                                             <b>Date Reported:</b> {{ $comp->date_reported }}
                                             <br><b>Place of Commission:</b> {{ $comp->place_of_commission }}
@@ -97,7 +98,7 @@
                                                     {{ $comp->date_case_updated }}
                                                 @endif
                                         </td>
-                                        <td>
+                                        {{-- <td>
                                             <b>Victim Overview</b>
                                             <br>Fullname: {{ $comp->victim_firstname }} {{ strtoupper(substr($comp->victim_middlename, 0, 1)) }}. {{ $comp->victim_family_name }}
                                             <br>Sex: {{ $comp->victim_sex }}
@@ -106,7 +107,7 @@
                                             <br>Fullname: {{ $comp->offender_firstname }} {{ strtoupper(substr($comp->offender_middlename, 0, 1)) }}. {{ $comp->offender_family_name }}
                                             <br>Sex: {{ $comp->offender_sex }}
                                             <br>Age: {{ $comp->offender_age }}
-                                        </td>
+                                        </td> --}}
                                         <td style="vertical-align: top;">
                                             <center>   
                                                 <br><a class="edit-btn" onclick="return confirm('Are you sure you want to RESTORE this record?')" href="{{ route('investigator.restore_form', $comp->id) }}" style="margin-top: 0.3rem">&nbsp;&nbsp;&nbsp;Restore<i class="fa-solid fa-rotate-left" style="font-size: large; padding: 0.5rem"></i></a>  

@@ -206,7 +206,7 @@
                                             <option value="family_trouble">Family trouble</option>
                                             <option value="poverty">Poverty</option>
                                         </select>
-                                        @if ($errors->has('evi_motive')) 
+                                        @if ($errors->has('offenses')) 
                                             <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('evi_motive') }}</span>
                                         @endif
                                     </div> 
@@ -282,7 +282,15 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Investigator on case:</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="investigator" oninput="toUpper(this)" value="{{ old('investigator') }}">
+                                        {{-- <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="investigator" oninput="toUpper(this)" value="{{ old('investigator') }}"> --}}
+
+                                        <select class="form-control" name="investigator" onchange="showfield2(this.options[this.selectedIndex].value)" value="{{ old('investigator') }}">
+                                            <option value="">Select investigator:</option> 
+                                            @foreach ($accs as $acc) 
+                                            <option value="{{ $acc->firstname }} {{ $acc->lastname }}">{{ $acc->firstname }} {{ $acc->lastname }}</option> 
+                                            @endforeach
+                                        </select>
+
                                         @if ($errors->has('investigator')) 
                                             <span class="text-red text-sm" style="color:red; font-size: small; float: left">{{ $errors->first('investigator') }}</span>
                                         @endif
