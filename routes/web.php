@@ -101,10 +101,10 @@ Route::prefix('investigator')->middleware('account')->group(function(){
     Route::get('/testing', [InvestigatorController::class, 'testing'])->name('investigator.testing');
     Route::post('/store', [InvestigatorController::class, 'store'])->name('investigator.store');
     Route::get('/testing1', [InvestigatorController::class, 'index']);
-Route::post('/submit', [InvestigatorController::class, 'submit'])->name('submit');
-Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
-
+    Route::post('/submit', [InvestigatorController::class, 'submit'])->name('submit');
+  
 });
+Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
 
 Route::prefix('superadmin')->middleware('account')->group(function(){
     Route::post('/add_teamaccount', [SuperAdminController::class, 'add_superadmin'])->name('superadmin.add_teamaccount');
