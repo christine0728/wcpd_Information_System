@@ -28,7 +28,7 @@
             <ul class="nav nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" >
                 @if (Auth::guard('account')->user()->acc_type == 'superadmin')
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="{{ route('superadmin.dashboard') }}" class="nav-link">
                             <i class="fas fa-th" style="color: white"></i>
                             <p style="color: white; margin-left: 0.5rem">
                                 {{ __('Dashboard') }}
