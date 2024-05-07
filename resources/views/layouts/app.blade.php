@@ -94,7 +94,7 @@
     </div>
     <footer class="main-footer" style="position: fixed; bottom: 0; width: 100%;">
     <strong>
-    <a href="/profile" target="_blank" style="color:white">Copyright &copy; 2024 WCPD Information Management System. All rights reserved.  Developed by PSU UC - IT OJT 2024.
+    <a href="/profile" target="_blank" style="color:white">Copyright &copy; 2024 Women & Investigation Management System. All rights reserved.  Developed by PSU UC - IT OJT 2024.
  </a>
 
 </footer>

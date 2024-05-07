@@ -170,6 +170,8 @@
         .card:hover .gradienttext {
             background-image: linear-gradient(to right, #6363F7, #0BB5B5, #B6EDF1);
         }
+
+
     </style>
 </head>
 <body>
@@ -179,7 +181,7 @@
     <div class="left-container">
         <img src="{{ asset('images/angeles.jpg') }}" alt="Angeles Image"><br>
         <h2 class="gradienttext">Cybelle Mae V. Angeles</h2><br>
-        <p>On The Job Trainee 2024<br>Contact us for any inquiries or system issues.</p>
+        <p>On The Job Trainee <br> Batch 2024<br>Contact us for any inquiries or system issues.</p>
     </div>
     <div class="right-container" id="profile-details">
         <h3 class="gradienttext">Profile Details</h3><br><br>
@@ -203,11 +205,11 @@
             </tr>
             <tr>
                 <td><i class="fas fa-envelope icon"></i>Email:</td>
-            <td id="email" style="color:white; cursor: pointer;">angelescybelle140806@gmail.com</td>
-
+                <td><a href="mailto:angelescybelle140806@gmail.com" target="_blank" style="color:white"
+                       title="Click To Message">angelescybelle140806@gmail.com</a></td>
             </tr>
             <tr>
-                <td><i class="fab fa-facebook-f icon"></i>Facebook:</td>
+                <td><i class="fab fa-facebook-f icon"></i>FB:</td>
                 <td><a href="https://www.facebook.com/CYBELLE.Angeles8814" target="_blank" style="color:white"
                        title="Click To Message">Cybelle Mae Angeles</a></td>
             </tr>
@@ -253,7 +255,7 @@
                        title="Click To Message">christinebalbin28@gmail.com</a></td>
             </tr>
             <tr>
-                <td><i class="fab fa-facebook-f icon"></i>Facebook:</td>
+                <td><i class="fab fa-facebook-f icon"></i>FB:</td>
                 <td><a href="https://www.facebook.com/christinembalbin?mibextid=ZbWKwL" target="_blank" style="color:white"
                        title="Click To Message">Christine Balbin</a></td>
             </tr>
@@ -298,7 +300,7 @@
                        title="Click To Message">beatrizbasa918gmail.com</a></td>
             </tr>
             <tr>
-                <td><i class="fab fa-facebook-f icon"></i>Facebook</td>
+                <td><i class="fab fa-facebook-f icon"></i>FB</td>
                 <td><a href="https://www.facebook.com/beaaaa.18" target="_blank" style="color:white"
                        title="Click To Message">Beatriz Basa</a></td>
             </tr>
@@ -343,7 +345,7 @@
                        title="Click To Message">vincekaizer13@gmail.com</a></td>
             </tr>
             <tr>
-                <td><i class="fab fa-facebook-f icon"></i>Facebook:</td>
+                <td><i class="fab fa-facebook-f icon"></i>FB:</td>
                 <td><a href="https://www.facebook.com/SIRBEANS.13?mibextid=ZbWKwL" target="_blank" style="color:white"
                        title="Click To Message">Vince Kaizer Gavina</a></td>
             </tr>
@@ -390,7 +392,7 @@
                        title="Click To Message">aaronjustinjuan@gmail.com </a></td>
             </tr>
             <tr>
-                <td><i class="fab fa-facebook-f icon"></i>Facebook</td>
+                <td><i class="fab fa-facebook-f icon"></i>FB</td>
                 <td><a href="https://www.facebook.com/aaronjustinjuan1810?mibextid=ZbWKwL" target="_blank" style="color:white"
                        title="Click To Message">Aaron Justin Juan</a></td>
             </tr>
@@ -399,11 +401,7 @@
 </div><br><br><br>
 
 
-<script>
-    document.getElementById("email").addEventListener("click", function() {
-        window.location.href = "mailto:angelescybelle140806@gmail.com";
-    });
-</script>
+
 
 </body>
 </html>
