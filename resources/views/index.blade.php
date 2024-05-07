@@ -70,7 +70,7 @@
                 <span style="font-size: 35px; font-weight: bold;">WCPD & Investigation Information Management System </span><br>
                 <span style="font-size: 20px; font-weight: bold;">Women and Children Protection Desk / General Investigation </span><br>
                 <span style="font-size: 18px; font-weight: bold;">Philippine National Police</span><br>
-                <span style="font-size: 16px; font-weight: bold;">Urdaneta City Police Station Urdaneta City</span>
+                <span style="font-size: 16px; font-weight: bold;">Urdaneta City Police Station </span>
             </p><br>
         <a href="/login"  class="btn my-4 font-weight-bold atlas-cta cta-purple" style="box-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Login</a>
     </div>
