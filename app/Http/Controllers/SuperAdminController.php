@@ -103,13 +103,13 @@ class SuperAdminController extends Controller
             DB::raw('COUNT(*) as total_cases'),
             'offenses',
             'offenders.offender_sex',
-            'offenders.offender_relationship_victim as offender_relationship_victim'  
+            'offenders.offender_relationship_victim as offender_relationship_victim'
         )
         ->where('complaint_reports.status', '=', 'notdeleted')
         ->groupBy('month', 'offenses', 'offenders.offender_sex', 'offenders.offender_relationship_victim')
         ->orderBy('month')
         ->get();
- 
+
         $comps = DB::table('complaint_reports as cr')
         ->join('victims as v', 'v.comp_report_id', '=', 'cr.id')
         ->select(
@@ -123,11 +123,11 @@ class SuperAdminController extends Controller
         ->groupBy('comp_month')
         ->orderBy(DB::raw('MONTH(cr.date_reported)'))
         ->get();
-  
+
         $comps11 = ComplaintReport::join('victims', function ($join) {
             $join->on('victims.comp_report_id', '=', 'complaint_reports.id')
                     ->where('victims.victim_sex', '=', 'FEMALE');
-            }) 
+            })
             ->select(
                 DB::raw('CASE
                     WHEN victims.victim_age BETWEEN 0 AND 17 THEN "0-17"
@@ -170,16 +170,16 @@ class SuperAdminController extends Controller
         ->where('victim_sex', 'FEMALE')
         ->where('complaint_reports.status', '=', 'notdeleted')
         ->count();
-        
+
         $maleOffenders = DB::table('offenders')
         ->join('complaint_reports', 'complaint_reports.id', '=', 'offenders.comp_report_id')
-        ->where('offender_sex', 'MALE')
+        ->where('offenders.offender_sex', 'MALE')
         ->where('complaint_reports.status', '=', 'notdeleted')
         ->count();
 
         $femaleOffenders = DB::table('offenders')
         ->join('complaint_reports', 'complaint_reports.id', '=', 'offenders.comp_report_id')
-        ->where('offender_sex', 'FEMALE')
+        ->where('offenders.offender_sex', 'FEMALE')
         ->where('complaint_reports.status', '=', 'notdeleted')
         ->count();
 
@@ -192,7 +192,7 @@ class SuperAdminController extends Controller
         ->limit(5)
         ->get();
 
-        $relationshipCounts = DB::table('offenders') 
+        $relationshipCounts = DB::table('offenders')
         ->join('complaint_reports', 'complaint_reports.id', '=', 'offenders.comp_report_id')
         ->select(
             'offenders.offender_relationship_victim',
@@ -209,13 +209,13 @@ class SuperAdminController extends Controller
     public function filter_dashboard(Request $request)
     {
         $filter_year = null;
-        $filter_year1 = null; 
+        $filter_year1 = null;
 
         // $start_date = date('Y-m-d', strtotime($request->input('start_date')));
         // $end_date = date('Y-m-d', strtotime($request->input('end_date')));
 
         $start_month = date('m', strtotime($request->input('start_date')));
-        $end_month = date('m', strtotime($request->input('end_date'))); 
+        $end_month = date('m', strtotime($request->input('end_date')));
 
         $crimeData = DB::table('complaint_reports')
         ->join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
@@ -228,11 +228,11 @@ class SuperAdminController extends Controller
             'offenders.offender_sex'
         )
         ->whereRaw('MONTH(complaint_reports.date_reported) >= ?', [$start_month])
-        ->whereRaw('MONTH(complaint_reports.date_reported) <= ?', [$end_month]) 
+        ->whereRaw('MONTH(complaint_reports.date_reported) <= ?', [$end_month])
         ->groupBy('month', 'offenses', 'offenders.offender_sex')
         ->orderBy('month')
         ->get();
-    
+
         $comps = DB::table('complaint_reports as cr')
         ->join('victims as v', 'v.comp_report_id', '=', 'cr.id')
         ->select(
@@ -243,26 +243,26 @@ class SuperAdminController extends Controller
             DB::raw('GROUP_CONCAT(DISTINCT cr.offenses) AS offense')
         )
         ->whereRaw('MONTH(cr.date_reported) >= ?', [$start_month])
-        ->whereRaw('MONTH(cr.date_reported) <= ?', [$end_month]) 
+        ->whereRaw('MONTH(cr.date_reported) <= ?', [$end_month])
         ->where('cr.status', '=', 'notdeleted')
         ->groupBy('comp_month')
         ->orderBy(DB::raw('MONTH(cr.date_reported)'))
         ->get();
-     
+
         $comps11 = ComplaintReport::join('victims', function ($join) {
             $join->on('victims.comp_report_id', '=', 'complaint_reports.id')
                     ->where('victims.victim_sex', '=', 'FEMALE');
             })
             ->select(
-                DB::raw('CASE 
-                    WHEN victims.victim_age BETWEEN 0 AND 17 THEN "0-17" 
+                DB::raw('CASE
+                    WHEN victims.victim_age BETWEEN 0 AND 17 THEN "0-17"
                     ELSE "18+"
-                END AS age_range'), 
+                END AS age_range'),
                 DB::raw('COUNT(complaint_reports.id) AS total_comps')
-            ) 
+            )
             ->whereRaw('MONTH(complaint_reports.date_reported) >= ?', [$start_month])
             ->whereRaw('MONTH(complaint_reports.date_reported) <= ?', [$end_month])
-            ->where('complaint_reports.status', '=', 'notdeleted') 
+            ->where('complaint_reports.status', '=', 'notdeleted')
             ->groupBy('age_range')
             ->get();
 
@@ -271,33 +271,33 @@ class SuperAdminController extends Controller
                     ->where('victims.victim_sex', '=', 'MALE');
             })
             ->select(
-                DB::raw('CASE 
-                    WHEN victims.victim_age BETWEEN 0 AND 17 THEN "0-17" 
+                DB::raw('CASE
+                    WHEN victims.victim_age BETWEEN 0 AND 17 THEN "0-17"
                     ELSE "18+"
-                END AS age_range'), 
+                END AS age_range'),
                 DB::raw('COUNT(complaint_reports.id) AS total_comps')
-            ) 
+            )
             ->whereRaw('MONTH(complaint_reports.date_reported) >= ?', [$start_month])
-            ->whereRaw('MONTH(complaint_reports.date_reported) <= ?', [$end_month]) 
+            ->whereRaw('MONTH(complaint_reports.date_reported) <= ?', [$end_month])
             ->where('complaint_reports.status', '=', 'notdeleted')
             ->groupBy('age_range')
             ->get();
-    
+
 
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
-        
+
         $maleVictim = DB::table('victims')->where('victim_sex', 'MALE')
         ->join('complaint_reports', 'complaint_reports.id', '=', 'victims.comp_report_id')
         ->whereRaw('MONTH(victims.created_at) >= ?', [$start_month])
         ->whereRaw('MONTH(victims.created_at) <= ?', [$end_month])
         ->where('complaint_reports.status', '=', 'notdeleted')
         ->count();
-        
+
         $femaleVictim = DB::table('victims')->where('victim_sex', 'FEMALE')
         ->join('complaint_reports', 'complaint_reports.id', '=', 'victims.comp_report_id')
         ->whereRaw('MONTH(victims.created_at) >= ?', [$start_month])
-        ->whereRaw('MONTH(victims.created_at) <= ?', [$end_month]) 
+        ->whereRaw('MONTH(victims.created_at) <= ?', [$end_month])
         ->where('complaint_reports.status', '=', 'notdeleted')
         ->count();
 
@@ -311,21 +311,21 @@ class SuperAdminController extends Controller
         $femaleOffenders = DB::table('offenders')->where('offender_sex', 'FEMALE')
         ->join('complaint_reports', 'complaint_reports.id', '=', 'offenders.comp_report_id')
         ->whereRaw('MONTH(offenders.created_at) >= ?', [$start_month])
-        ->whereRaw('MONTH(offenders.created_at) <= ?', [$end_month]) 
+        ->whereRaw('MONTH(offenders.created_at) <= ?', [$end_month])
         ->where('complaint_reports.status', '=', 'notdeleted')
-        ->count(); 
+        ->count();
 
 
         $topPlaces = DB::table('complaint_reports')
         ->select('place_of_commission', DB::raw('COUNT(*) as total_cases'))
         ->whereRaw('MONTH(complaint_reports.date_reported) >= ?', [$start_month])
-        ->whereRaw('MONTH(complaint_reports.date_reported) <= ?', [$end_month]) 
+        ->whereRaw('MONTH(complaint_reports.date_reported) <= ?', [$end_month])
         ->where('status', '=', 'notdeleted')
         ->groupBy('place_of_commission')
         ->orderByDesc('total_cases')
         ->limit(5)
         ->get();
-   
+
         $relationshipCounts = DB::table('complaint_reports')
         ->join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
         ->leftJoin('victims', 'victims.comp_report_id', '=', 'complaint_reports.complaint_report_author')
@@ -336,11 +336,11 @@ class SuperAdminController extends Controller
             DB::raw('SUM(CASE WHEN offender_sex = "FEMALE" THEN 1 ELSE 0 END) AS female_count')
         )
         ->whereRaw('MONTH(complaint_reports.date_reported) >= ?', [$start_month])
-        ->whereRaw('MONTH(complaint_reports.date_reported) <= ?', [$end_month]) 
+        ->whereRaw('MONTH(complaint_reports.date_reported) <= ?', [$end_month])
         ->where('complaint_reports.status', '=', 'notdeleted')
         ->groupBy('offender_relationship_victim')
         ->get();
- 
+
         return view('superadmin.superadmin_dashboard', ['relationshipCounts'=> $relationshipCounts,'topPlaces'=>$topPlaces, 'maleOffenders'=>$maleOffenders, 'femaleOffenders'=>$femaleOffenders, 'maleVictim'=>$maleVictim, 'femaleVictim'=>$femaleVictim, 'notifs'=>$notifs, 'comps'=>$comps, 'comps11'=>$comps11, 'comps_male'=>$comps_male, 'filter_year'=>$filter_year, 'filter_year1'=>$filter_year1]);
     }
 
@@ -407,13 +407,13 @@ class SuperAdminController extends Controller
     {
         $id = Auth::guard('account')->user()->id;
 
-        $superadmin = Account::find($id);  
-        $lastpswrdchange = $superadmin->last_change_password; 
+        $superadmin = Account::find($id);
+        $lastpswrdchange = $superadmin->last_change_password;
         $lastpswrdchange = Carbon::parse($lastpswrdchange)->format('F d, Y');
 
-        if (Carbon::parse($lastpswrdchange)->diffInDays(Carbon::now()) >= 30) { 
+        if (Carbon::parse($lastpswrdchange)->diffInDays(Carbon::now()) >= 30) {
             $pswordchangereq = true;
-        } else { 
+        } else {
             $pswordchangereq = false;
         }
 
@@ -816,7 +816,7 @@ class SuperAdminController extends Controller
         $logs = Logs::join('accounts', 'accounts.id', '=', 'logs.author_id')
             ->select('accounts.firstname', 'accounts.lastname', 'logs.author_type', 'logs.id', 'logs.action', 'logs.details', 'logs.created_at')
             ->whereDate('logs.created_at', '>=', $start_date)
-            ->whereDate('logs.created_at', '<=', $end_date) 
+            ->whereDate('logs.created_at', '<=', $end_date)
             ->get();
 
         $notifs = Notifications::where('status', '=', 'unread')
@@ -834,7 +834,7 @@ class SuperAdminController extends Controller
         ->select('accounts.id as accountid', 'accounts.username', 'accounts.team', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'offenders.offender_firstname', 'offenders.offender_family_name', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age', 'offenders.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')
         ->where('complaint_reports.status', '=', 'deleted')
         ->where('complaint_reports.complaint_report_author', $author_id)
-        ->orderBy('complaint_reports.id', 'DESC') 
+        ->orderBy('complaint_reports.id', 'DESC')
         ->get();
 
         $notifs = Notifications::where('status', '=', 'unread')
