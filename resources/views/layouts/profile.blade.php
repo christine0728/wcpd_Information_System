@@ -39,7 +39,7 @@
             animation: glowEffect 2s infinite alternate ease-in-out;
         }
 
-        @keyframes glowEffect {
+   @keyframes glowEffect {
     0% {
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
     }
@@ -162,13 +162,13 @@
             margin-right: 10px;
         }
 
-        /* Hover Effects */
+
         .card:hover {
-            background: #112446; /* Change background color on hover */
+            background: #112446;
         }
 
         .card:hover .gradienttext {
-            background-image: linear-gradient(to right, #0099ff, #00ffcc); /* Change gradient text color on hover */
+            background-image: linear-gradient(to right, #6363F7, #0BB5B5, #B6EDF1);
         }
     </style>
 </head>
@@ -203,8 +203,8 @@
             </tr>
             <tr>
                 <td><i class="fas fa-envelope icon"></i>Email:</td>
-                <td><a href="mailto:angelescybelle140806@gmail.com" target="_blank" style="color:white"
-                       title="Click To Message">angelescybelle140806@gmail.com</a></td>
+            <td id="email" style="color:white; cursor: pointer;">angelescybelle140806@gmail.com</td>
+
             </tr>
             <tr>
                 <td><i class="fab fa-facebook-f icon"></i>Facebook:</td>
@@ -397,5 +397,13 @@
         </table>
     </div>
 </div><br><br><br>
+
+
+<script>
+    document.getElementById("email").addEventListener("click", function() {
+        window.location.href = "mailto:angelescybelle140806@gmail.com";
+    });
+</script>
+
 </body>
 </html>
