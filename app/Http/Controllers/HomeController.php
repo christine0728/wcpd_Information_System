@@ -46,32 +46,39 @@ class HomeController extends Controller
                     $accepted = Account::select('*')->where('username', $username) 
                     ->first();
 
-                $stat = $accepted->acc_type;
+                    $stat = $accepted->acc_type;
+                    $stat2 = $accepted->status;
 
                     if ($stat == 'superadmin'){
                         // dd('dito superadmin');
-                        return redirect()->route('superadmin.dashboard')->with('error', 'investigator account logged in successfully');
-                    }
-                    if ($stat == 'investigator'){
-                        // dd('dito investigator');
-                        // $storedUrl = Session::get('previous_url');
-                        // // dd($storedUrl);
+                        if ($stat2 == 'active'){
+                            return redirect()->route('superadmin.dashboard')->with('error', 'investigator account logged in successfully');
+                        }
+                        else{
+                            // dd('inactive ka');
 
-                        // $previousUrl = Session::get('previous_url');
- 
-                        // dd($previousUrl);
-                        if ($previousUrl) { 
-                            Session::forget('previous_url');
-                            return redirect()->to($previousUrl);
+                            return view('inactive_stat');
+                        }
+                    }
+
+                    if ($stat == 'investigator'){ 
+                        
+                        if ($stat2 == 'active'){
+                            return redirect()->route('investigator.dashboard')->with('error', 'investigator account logged in successfully');
+                        }
+                        else{
+                            // dd('inactive ka');
+                            return view('inactive_stat');
                         }
 
-                        // If there's no previous URL, redirect the user to a default location
-                        // return redirect()->route('default_route_name');
-
-                        return redirect()->route('investigator.dashboard')->with('error', 'investigator account logged in successfully');
+                        // return redirect()->route('investigator.dashboard')->with('error', 'investigator account logged in successfully');
                     } 
+
+
                 } else {
-                    dd('hindeh');
+                    // dd('hindeh');
+
+                    return redirect()->back()->withErrors(['captcha' => 'reCAPTCHA validation failed. Please try again.']); 
                 }
 
                 // $accepted = Account::select('*')->where('username', $username) 

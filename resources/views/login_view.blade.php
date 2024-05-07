@@ -131,6 +131,11 @@
     .white-eye {
       color: white !important;  
     } 
+
+    .g-recaptcha {
+        max-height: 100px; /* Adjust this value as needed */
+        overflow: hidden;
+    }
   </style>
 </head>
 <body>
@@ -179,13 +184,15 @@
             </div>
         </div>
 
-
+        <div class="col-12" style="height: 5rem">
           {!! NoCaptcha::renderJs() !!}
           {!! NoCaptcha::display() !!}
+        </div>
+
+
           @error('g-recaptcha-response')
-              <p class="text-danger">{{ $message }}</p>
-          @enderror
-          <br>
+              <p class="text-danger" style="font-size: small">{{ $message }}</p>
+          @enderror 
           <button type="submit" class="btn btn-primary w-100" style="background-color:#9947B6"> Login&nbsp;<i class="fa fa-arrow-right"></i></button>
         </form>
         <div id="flash-message" class="mt-3" style="display: none;"></div>

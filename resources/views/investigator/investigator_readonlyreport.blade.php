@@ -94,7 +94,7 @@
             </div>  
 
             <div class="col-6">
-                <a class="link-buttons" href="{{ route('superadmin.complaint_pdf', [$comp_id]) }}" style="float: right; margin-right: 0.5rem; background-color: #48145B" target="_blank">Download as PDF&nbsp;&nbsp;<i class="fa-regular fa-circle-down icons"></i> </a>
+                <a class="link-buttons" href="{{ route('investigator.complaint_pdf', [$comp_id]) }}" style="float: right; margin-right: 0.5rem; background-color: #48145B" target="_blank">Download as PDF&nbsp;&nbsp;<i class="fa-regular fa-circle-down icons"></i> </a>
             </div>
         </div> 
     </div> 
@@ -107,20 +107,26 @@
                 <div class="row">
                     <div class="form-section">  
                         <div class="header" >  
-                            <p style="font-size: large;"><b style="font-size: large; color: black">OFFENSE DATA</b></p>
+                            <p style="font-size: large;"> <b style="font-size: large; color: black">OFFENCE DATA</b></p>
                         </div> 
                         <hr style="margin-top: -1rem">
 
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">6. Time/Day/Month/Year of Commission:</label>
+                                    <label for="exampleInputEmail1">Time/Day/Month/Year of Commission:</label>
                                     <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="datetime_commission" value="{{ $comp->date_reported }}" readonly>
                                 </div> 
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">7. Place of Commission: </label>
+                                    <label for="exampleInputEmail1">Investigation/Case No.:</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="inv_case_no" oninput="toUpper(this)" value="{{ $comp->inv_case_no }}" readonly> 
+                                </div> 
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Place of Commission: </label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" value="{{ $comp->place_of_commission }}" readonly>
                                 </div> 
                             </div> 
@@ -129,7 +135,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">8. Offenses Committed: </label>
+                                    <label for="exampleInputEmail1">Offenses Committed: </label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="place_commission" value="{{ $comp->offenses }}" readonly> 
                                 </div> 
                             </div>
@@ -145,14 +151,14 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">34. Motive/Cause: </label>
+                                    <label for="exampleInputEmail1">Motive/Cause: </label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim"value="{{ $comp->evidence_motive_cause }}" readonly> 
                                 </div> 
                             </div>
 
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">35. Suspect under the influence of: </label>
+                                    <label for="exampleInputEmail1">Suspect under the influence of: </label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim"value="{{ $comp->evidence_influence_of }}" readonly> 
                                 </div> 
                             </div>
@@ -163,20 +169,20 @@
                     <div class="form-section" style="margin-top: 3rem">
                         <hr style="margin-top: -1rem">
                         <div class="header">  
-                            <p style="font-size: large;"><b style="font-size: large;">CASE DISPOSITION</b></p>
+                            <p style="font-size: large;"> <b style="font-size: large;">CASE DISPOSITION</b></p>
                         </div> 
                         <hr style="margin-top: -1rem">
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">47. Disposition: </label>
+                                    <label for="exampleInputEmail1">Disposition: </label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim"value="{{ $comp->case_disposition }}" readonly> 
                                 </div> 
                             </div>
 
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">48. Suspect disposition: </label>
+                                    <label for="exampleInputEmail1">Suspect disposition: </label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim"value="{{ $comp->suspect_disposition }}" readonly> 
                                 </div> 
                             </div> 
@@ -197,7 +203,7 @@
                     <div class="form-section" style="margin-top: 3rem">
                         <hr style="margin-top: -1rem">
                         <div class="header">  
-                            <p style="font-size: large;"><b style="font-size: large;">VICTIM'S DATA</b></p>
+                            <p style="font-size: large;"> <b style="font-size: large;">VICTIM'S DATA</b></p>
                         </div> 
                         <hr style="margin-top: -1rem">
                         <div class="row mb-4">
@@ -240,7 +246,7 @@
                                     </div>
                                     <div class="col-3" >
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">10. Sex: </label>
+                                            <label for="exampleInputEmail1">Sex: </label>
                                             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_aliases" value="{{ $vic->victim_sex }}" readonly>
                                         </div> 
                                     </div>
@@ -278,7 +284,7 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Civil Status: </label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_date_birth" value="{{ $vic->victim_civil_status }}" readonly>  
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_civil_status" value="{{ $vic->victim_civil_status }}" readonly>  
                                 </div> 
                             </div> 
                             <div class="col-4">
@@ -336,7 +342,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">21.Contact Person, Address, and Contact Number:</label>
+                                    <label for="exampleInputEmail1">Contact Person, Address, and Contact Number:</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="vic_contactperson" value="{{ $vic->victim_contactperson_addr_con_num }}" readonly>
                                 </div> 
                             </div> 
@@ -364,7 +370,7 @@
                                 <div class="row" style="margin-top: -1rem">
                                     <div class="col-4">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">22. Family name:</label>
+                                            <label for="exampleInputEmail1">Family name:</label>
                                             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_familyname" value="{{ $off->offender_family_name }}" readonly>
                                         </div> 
                                     </div>
@@ -391,13 +397,13 @@
                                     </div>
                                     <div class="col-3" >
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">23. Sex: </label>
+                                            <label for="exampleInputEmail1">Sex: </label>
                                             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_aliases"value="{{ $off->offender_sex }}" readonly> 
                                         </div> 
                                     </div>
                                     <div class="col-3">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">24. Date of birth:</label>
+                                            <label for="exampleInputEmail1">Date of birth:</label>
                                             <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_date_birth"value="{{ $off->offender_date_of_birth }}" readonly>
                                         </div> 
                                     </div> 
@@ -408,29 +414,29 @@
                         <div class="row">
                             <div class="col-4" >
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">25. Civil Status: </label>
-                                    <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_date_birth"value="{{ $off->offender_civil_status }}" readonly>
+                                    <label for="exampleInputEmail1">Civil Status: </label>
+                                    <input type="TEXT" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_date_birth"value="{{ $off->offender_civil_status }}" readonly>
                                 </div> 
                             </div> 
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">26. Highest Educational Attainment: </label>
+                                    <label for="exampleInputEmail1">Highest Educational Attainment: </label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_date_birth"value="{{ $off->offender_highest_educ_attainment }}" readonly> 
                                     <div id="div2" style="margin-top: 1rem"></div>
                                 </div> 
                             </div> 
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">27. Nationality: </label>
+                                    <label for="exampleInputEmail1">Nationality: </label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_nationality"value="{{ $off->offender_nationality }}" readonly>
                                 </div> 
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-5">
+                            {{-- <div class="col-5">
                                 <label class="form-check-label" for="flexRadioDefault1">
-                                    28. Previous Criminal Record:
+                                    Previous Criminal Record:
                                 </label>
                                 
                                 <div style="display: flex">
@@ -447,26 +453,26 @@
                                         </label>
                                     </div>
                                 </div> 
-                            </div>
-                            <div class="col-7">
+                            </div> --}}
+                            <div class="col-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Pls. specify:</label>
+                                    <label for="exampleInputEmail1">Previous Criminal Record:</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="crim_rec_specify"value="{{ $off->offender_prev_criminal_rec }}" readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Employment Information - Occupation:</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_occupation"value="{{ $off->offender_employment_info_occupation }}" readonly>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-6">
+                        <div class="row">  
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">29. Employment Information - Occupation:</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_occupation"value="{{ $off->offender_employment_info_occupation }}" readonly>
-                                </div>
-                            </div>
-
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">30. Last Known Address:</label>
+                                    <label for="exampleInputEmail1">Last Known Address:</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="off_last_addr"value="{{ $off->offender_last_known_addr }}" readonly>
                                 </div>
                             </div>
@@ -475,7 +481,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">31. Relationship to Victim:</label>
+                                    <label for="exampleInputEmail1">Relationship to Victim:</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="rel_to_victim"value="{{ $off->offender_relationship_victim }}" readonly>
                                 </div>
                             </div>  
@@ -507,45 +513,42 @@
             else document.getElementById('div3').innerHTML='';
 
             if(name=='Others4')document.getElementById('div4').innerHTML='Pls. specify: <input type="text" name="others4" class="form-control" />';
-            else document.getElementById('div4').innerHTML=''; 
-
-
+            else document.getElementById('div4').innerHTML='';  
         }
 
-        function showfield2(name){  
-
+        function showfield2(name){   
             if(name=='Others5')document.getElementById('div5').innerHTML='Pls. specify: <input type="text" name="others5" class="form-control" />';
             else document.getElementById('div5').innerHTML='';
         }   
-    </script> 
-
-<script>
-    let inactiveTime = 0;
-    const logoutTime = 5 * 60 * 1000;
-    // 5 * 60 * 1000; // 5 minutes in milliseconds
+    </script>
     
-    function resetInactiveTime() {
-        inactiveTime = 0;
-    }
-    
-    function handleUserActivity() {
-        resetInactiveTime();
-    }
-    
-    document.addEventLisstener('mousemove', handleUserActivity);
-    document.addEventListener('keydown', handleUserActivity);
-    
-    function checkInactiveTime() {
-        inactiveTime += 1000; 
-        if (inactiveTime >= logoutTime) { 
-            window.location.href = "/inactive_screen"; 
-        } else { 
-            setTimeout(checkInactiveTime, 1000); 
+    <script>
+        let inactiveTime = 0;
+        const logoutTime = 5 * 60 * 1000;
+        // 5 * 60 * 1000; // 5 minutes in milliseconds
+        
+        function resetInactiveTime() {
+            inactiveTime = 0;
         }
-    }
+        
+        function handleUserActivity() {
+            resetInactiveTime();
+        }
+        
+        document.addEventLisstener('mousemove', handleUserActivity);
+        document.addEventListener('keydown', handleUserActivity);
+        
+        function checkInactiveTime() {
+            inactiveTime += 1000; 
+            if (inactiveTime >= logoutTime) { 
+                window.location.href = "/inactive_screen"; 
+            } else { 
+                setTimeout(checkInactiveTime, 1000); 
+            }
+        }
+        
+        setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
     
-    setTimeout(checkInactiveTime, 1000); // Check every 1 second initially
-
-</script>
+    </script>
 </body>
 </html>
