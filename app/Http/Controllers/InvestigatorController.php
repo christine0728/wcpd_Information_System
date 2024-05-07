@@ -440,11 +440,27 @@ class InvestigatorController extends Controller
         $accs = Account::where('id', '=', $id)->get();
         // dd($id);
 
+        $id = Auth::guard('account')->user()->id;
+
+        $investigator = Account::find($id);  
+        $lastpswrdchange = $investigator->last_change_password; 
+        $lastpswrdchange = Carbon::parse($lastpswrdchange)->format('F d, Y');
+
+        if (Carbon::parse($lastpswrdchange)->diffInDays(Carbon::now()) >= 30) { 
+            $pswordchangereq = true;
+        } else { 
+            $pswordchangereq = false;
+        }
+
+        $lastPasswordChangeDate = Carbon::parse($lastpswrdchange);
+        $currentDate = Carbon::now();
+        $daysremaining = 30 - $lastPasswordChangeDate->diffInDays($currentDate);
+
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
     
         $chang_passw = Auth::guard('account')->user()->change_passw_request; 
-        return view('investigator.investigator_accountmngt', ['accs' => $accs, 'notifs'=>$notifs]);
+        return view('investigator.investigator_accountmngt', ['accs' => $accs, 'notifs'=>$notifs, 'pswordchangereq'=>$pswordchangereq, 'lastpswrdchange'=>$lastpswrdchange, 'daysremaining'=>$daysremaining]);
     }
 
     public function change_passw_request(Request $request)

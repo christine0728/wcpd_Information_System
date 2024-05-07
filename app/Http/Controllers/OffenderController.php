@@ -37,6 +37,10 @@ class OffenderController extends Controller
             $crimspec = 'NONE';
         }
 
+        else {
+            $crimspec = $request->input('crim_rec_specify');
+        }
+
         $now = Carbon::now();
         $now->setTimezone('Asia/Manila');
 
