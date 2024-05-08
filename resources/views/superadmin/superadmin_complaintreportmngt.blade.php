@@ -170,6 +170,7 @@
                                                 @csrf
                                                 <select class="form-control" name="status" style="padding: 0.2rem; margin-right: 0.5rem; width: 100%; margin-top: 0.5rem" required>
                                                     <option value="">Update case:</option>
+                                                    <option value="ONGOING">ONGOING</option>
                                                     <option value="SETTLED">SETTLED</option>
                                                     <option value="CONVICTED">CONVICTED</option>
                                                     <option value="DISMISS">DISMISS</option>

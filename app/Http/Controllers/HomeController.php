@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\ComplaintReport;
 use App\Models\Employee;
+use App\Models\Logs;
 use App\Models\Offense;
 use App\Models\Team;
-use App\Models\TeamModel; 
+use App\Models\TeamModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -52,6 +54,21 @@ class HomeController extends Controller
                     if ($stat == 'superadmin'){
                         // dd('dito superadmin');
                         if ($stat2 == 'active'){
+                            $ipAddress = $request->getClientIp();
+                            // dd($ipAddress);
+
+                            $now = Carbon::now();
+                            $now->setTimezone('Asia/Manila'); 
+                            $authorID = Auth::guard('account')->user()->id;
+                            $log = new Logs();
+                            $log->author_type = Auth::guard('account')->user()->acc_type;
+                            $log->author_id = $authorID; 
+                            $log->action = "Logging In";
+                            $log->details = "IP address " . $ipAddress . " logged in.";
+                            $log->created_at = $now;
+                            $log->updated_at = $now;
+                            $log->save();
+
                             return redirect()->route('superadmin.dashboard')->with('error', 'investigator account logged in successfully');
                         }
                         else{
@@ -64,6 +81,21 @@ class HomeController extends Controller
                     if ($stat == 'investigator'){ 
                         
                         if ($stat2 == 'active'){
+                            $ipAddress = $request->getClientIp();
+                            // dd($ipAddress);
+
+                            $now = Carbon::now();
+                            $now->setTimezone('Asia/Manila'); 
+                            $authorID = Auth::guard('account')->user()->id;
+                            $log = new Logs();
+                            $log->author_type = Auth::guard('account')->user()->acc_type;
+                            $log->author_id = $authorID; 
+                            $log->action = "Logging In";
+                            $log->details = "IP address " . $ipAddress . " logged in.";
+                            $log->created_at = $now;
+                            $log->updated_at = $now;
+                            $log->save();
+                            
                             return redirect()->route('investigator.dashboard')->with('error', 'investigator account logged in successfully');
                         }
                         else{
