@@ -130,12 +130,13 @@
                                                 {{-- <div style="display: flex; align-items: center; margin-top: 0.5rem"> --}}
                                                 <select class="form-control" name="status" style="padding: 0.2rem; margin-right: 0.5rem; width: 100%; margin-top: 0.5rem" required> 
                                                     <option value="" disabled selected>Select case status:</option>
+                                                    <option value="ONGOING">ONGOING</option>
                                                     <option value="SETTLED">SETTLED</option> 
                                                     <option value="CONVICTED">CONVICTED</option>
                                                     <option value="DISMISS">DISMISS</option>
                                                 </select>
 
-                                                    <button type="submit" class="form-buttons" style="width: 50%; margin-top: 0.3rem; float: right"> Update Case </button>                
+                                                    <button type="submit" class="form-buttons" style="width: 55%; margin-top: 0.3rem; float: right"> Update Case </button>                
                                                 {{-- </div>  --}}
                                             </form>
                                         </td> 
