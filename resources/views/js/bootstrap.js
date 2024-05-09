@@ -2,6 +2,8 @@ import Popper from '@popperjs/core/dist/umd/popper.js';
 import jQuery from 'jquery';
 import axios from 'axios';
 import 'bootstrap';
+import $ from 'jquery';
+
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
