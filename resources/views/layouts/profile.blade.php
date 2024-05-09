@@ -227,7 +227,7 @@
     <div class="left-container">
         <img src="{{ asset('images/balbin.png') }}" alt="Angeles Image"><br>
         <h2 class="gradienttext">Christine M. Balbin</h2><br>
-        <p>On The Job Trainee 2024<br>Contact us for any inquiries or system issues.</p>
+        <p>On The Job Trainee <br> Batch 2024<br>Contact us for any inquiries or system issues.</p>
     </div>
     <div class="right-container" id="profile-details">
         <h3 class="gradienttext">Profile Details</h3><br><br>
@@ -272,7 +272,7 @@
     <div class="left-container">
         <img src="{{ asset('images/basa.jpg') }}" alt="Angeles Image"><br>
         <h2 class="gradienttext">Beatriz S. Basa</h2><br>
-        <p>On The Job Trainee 2024<br>Contact us for any inquiries or system issues.</p>
+        <p>On The Job Trainee <br> Batch 2024<br>Contact us for any inquiries or system issues.</p>
     </div>
     <div class="right-container" id="profile-details">
         <h3 class="gradienttext">Profile Details</h3><br><br>
@@ -317,7 +317,7 @@
     <div class="left-container">
         <img src="{{ asset('images/gavina.jpg') }}" alt="Angeles Image"><br>
         <h2 class="gradienttext">Vince Kaizer C. Gavina</h2><br>
-        <p>On The Job Trainee 2024<br>Contact us for any inquiries or system issues.</p>
+        <p>On The Job Trainee <br> Batch 2024<br>Contact us for any inquiries or system issues.</p>
     </div>
     <div class="right-container" id="profile-details">
         <h3 class="gradienttext">Profile Details</h3><br><br>
@@ -364,7 +364,7 @@
     <div class="left-container">
         <img src="{{ asset('images/juan.jpg') }}" alt="Angeles Image"><br>
         <h2 class="gradienttext">Aaron Justin Juan</h2><br>
-        <p>On The Job Trainee 2024<br>Contact us for any inquiries or system issues.</p>
+        <p>On The Job Trainee <br> Batch 2024<br>Contact us for any inquiries or system issues.</p>
     </div>
     <div class="right-container" id="profile-details">
         <h3 class="gradienttext">Profile Details</h3><br><br>
