@@ -103,7 +103,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                              
-                                    <button type="button" class="form-buttons" data-toggle="modal" data-target="#exampleModal" style="width: 8rem">
+                                    <button type="button" class="form-buttons" data-toggle="modal" data-target="#exampleModal" style="width: 10rem">
                                         Add Offense&nbsp;&nbsp;<i class="fa-solid fa-plus"></i>
                                     </button>
                                 </div>

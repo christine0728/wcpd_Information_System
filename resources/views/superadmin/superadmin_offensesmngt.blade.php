@@ -67,18 +67,14 @@
                     <div class="content">
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAdd">
-                                        <i class="fas fa-plus"></i> Add Activity
-                                    </button><br><br> --}}
+                                <div class="col-lg-12"> 
 
-                                    <button type="button" class="form-buttons" data-toggle="modal" data-target="#exampleModal" style="width: 8rem">
+                                    <button type="button" class="form-buttons" data-toggle="modal" data-target="#exampleModal" style="width: 10rem">
                                         Add Offense&nbsp;&nbsp;<i class="fa-solid fa-plus"></i>
                                     </button>
                                 </div>
-                            </div>
-                            <!-- /.row -->
-                        </div><!-- /.container-fluid -->
+                            </div> 
+                        </div>< 
                     </div>
 
                     <div class="card col-12" style="overflow-x:auto; background-color: white; border-radius: 0.5rem; margin-top: 1rem; margin-bottom: 5rem">

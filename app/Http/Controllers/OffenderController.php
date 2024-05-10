@@ -142,8 +142,7 @@ class OffenderController extends Controller
             'updated_at' => $now, 
         ]);
 
-        if ($acc_type == 'investigator'){
-            // return redirect()->route('investigator.edit_complaintreport', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
+        if ($acc_type == 'investigator'){ 
 
             if ($request->input('adding') == "adding"){
                 return redirect()->route('investigator.adding_complaintreport', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
@@ -152,8 +151,7 @@ class OffenderController extends Controller
                 return redirect()->route('investigator.edit_complaintreport', ['comp_id'=>$comp_id])->with('updated', 'Complaint Report Form updated successfully!'); 
             }
         }
-        elseif ($acc_type == 'superadmin'){ 
-            // return redirect()->route('superadmin.edit_complaintreport', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
+        elseif ($acc_type == 'superadmin'){  
 
             if ($request->input('adding') == "adding"){
                 return redirect()->route('superadmin.adding_complaintreport', ['comp_id'=>$comp_id])->with('success', 'Complaint Report Form added successfully!'); 
@@ -179,15 +177,13 @@ class OffenderController extends Controller
         elseif ($acc_type == 'superadmin'){ 
             return view('superadmin.superadmin_editoffenderprofile', ['comps'=>$comps, 'notifs'=>$notifs, 'oid'=>$oid]);
         }
-        
-        // return view('superadmin.superadmin_editoffenderprofile', ['comps'=>$comps, 'notifs'=>$notifs, 'oid'=>$oid]);
+         
     }
 
     public function update_offender(Request $request, $oid){
         $acc_type = Auth::guard('account')->user()->acc_type; 
         $image = $request->file('image');
-     
-        // dd($comp_id);
+      
         $now = Carbon::now();
         $now->setTimezone('Asia/Manila');
         $ii= $request->input('off_image_inp');
@@ -213,8 +209,7 @@ class OffenderController extends Controller
         }
   
         $off_date_birth = $request->input('off_date_birth');
-        $off_age = Carbon::parse($off_date_birth)->diffInYears(Carbon::now()); 
-            // dd($comp_id);
+        $off_age = Carbon::parse($off_date_birth)->diffInYears(Carbon::now());  
  
             $validator = Validator::make($request->all(), [
                 'off_familyname' => ['required', 'regex:/^[a-zA-Z\s]+$/'], 
@@ -236,13 +231,11 @@ class OffenderController extends Controller
                 'off_middlename.required' => 'This field is required.',
                 'off_middlename.regex' => 'This field must contain letters only.',  
                 'off_aliases.required' => 'This field is required.',
-                'off_aliases.regex' => 'This field must contain letters only.',
-                // 'off_gender' => 'This field is empty', 
+                'off_aliases.regex' => 'This field must contain letters only.', 
                 'off_date_birth' => 'This field is empty', 
                 'off_place_birth.required' => 'This field is required.',
                 'off_place_birth.regex' => 'This field must contain only letters, numbers, # sign and periods.',  
-                'off_educ_attainment' => 'This field is empty', 
-                // 'off_civil_stat' => 'This field is empty', 
+                'off_educ_attainment' => 'This field is empty',  
                 'off_nationality.required' => 'This field is required.',
                 'off_nationality.regex' => 'This field must contain letters only.',  
                 'off_occupation.required' => 'This field is required.',

@@ -27,9 +27,7 @@
             float: left;
             padding: 15px;
         }
-
-
-        /* For mobile phones: */
+ 
         [class*="col-"] {
             width: 100%;
         }
@@ -70,25 +68,25 @@
             @foreach ($comps as $comp) 
             <tr>
                 <td colspan="2" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    1. Person/Unit Reporting:
+                    Person/Unit Reporting:
                     <br>{{ $comp->firstname }} {{ $comp->middlename }} {{ $comp->lastname }}
                 </td> 
                 <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    2. Date Accomplished:
+                    Date Accomplished:
                     <br>{{ $comp->date_reported }}
                 </td>
                 <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    3. Referring Party and Contact Numbers:
+                    Referring Party and Contact Numbers:
                     <br>&nbsp;
                 </td> 
             </tr>
             <tr>
                 <td colspan="2" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    4. Investigation/Case No.:
+                    Investigation/Case No.:
                     <br>{{ $comp->inv_case_no }}
                 </td>
                 <td colspan="2" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    5. Name of Investigator:
+                    Name of Investigator:
                     <br>{{ $comp->firstname }} {{ $comp->middlename }} {{ $comp->lastname }}
                 </td> 
             </tr>
@@ -99,17 +97,17 @@
             </tr> 
             <tr>
                 <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    6. Time/Day/Month/Year of Commission
+                    Time/Day/Month/Year of Commission
                     <br>{{ $comp->date_reported }}
                 </td>
                 <td colspan="3" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    7. Place of Commission
+                    Place of Commission
                     <br>{{ $comp->place_of_commission }}
                 </td>
             </tr>
             <tr>
                 <td colspan="4" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    8. Offense/s Committed:
+                    Offense/s Committed:
                     <br>{{ $comp->offenses }}
                 </td> 
             </tr>
@@ -121,29 +119,16 @@
             </tr>
             <tr>
                 <td colspan="4" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    33. Weapons/Means Used:
-                    <br>
-                </td>  
-            </tr>
-            <tr>
-                <td colspan="4" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    34. Motive/Cause:
+                    Motive/Cause:
                     <br>{{ $comp->evidence_motive_cause }}
                 </td>  
             </tr>
             <tr>
                 <td colspan="4" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    35. Suspect under the influence of:
+                    Suspect under the influence of:
                     <br>{{ $comp->evidence_influence_of }}
                 </td>  
             </tr>
-            <tr>
-                <td colspan="4" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    36. Medico Legal Examination:
-                    <br>
-                </td>  
-            </tr>
-
             <tr>
                 <td colspan="4" style="text-align: center; padding: 0rem 0.5rem 0rem 0.5rem">
                     <b>F. CASE DISPOSITION</b>
@@ -151,19 +136,13 @@
             </tr>
             <tr>
                 <td colspan="4" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    47. Disposition:
+                    Disposition:
                     <br>{{ $comp->case_disposition }}
-                </td>  
-            </tr>
-            <tr style="margin-top: 5rem">
-                <td colspan="4" style="padding: 0rem 0.5rem 0rem 0.5rem;">
-                    48. Victim in custody of:
-                    <br>
                 </td>  
             </tr>
             <tr>
                 <td colspan="4" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    49. Suspect:
+                    Suspect:
                     <br>{{ $comp->suspect_disposition }}
                 </td>  
             </tr> 
@@ -184,61 +163,61 @@
                         @endif
                     </td>
                     <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem; vertical-align: top;"> 
-                        9. Name: {{ $vic->victim_firstname }} {{ $vic->victim_middlename }} {{ $vic->victim_family_name }} 
+                        Name: {{ $vic->victim_firstname }} {{ $vic->victim_middlename }} {{ $vic->victim_family_name }} 
                         <br>Aliases: {{ $vic->victim_aliases }} 
                     </td>
                     <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem; vertical-align: top;"> 
-                        10. Gender/Sex:
+                        Gender/Sex:
                         <br>{{ $vic->victim_sex }} 
                     </td>
                     <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem; vertical-align: top;"> 
-                        11. Age and Date of Birth:
+                        Age and Date of Birth:
                         <br>{{ $vic->victim_age }} y/o, {{ $vic->victim_date_of_birth }}  
                     </td> 
                 </tr>  
                 <tr>
                     <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem; vertical-align: top;"> 
-                        12. Place of Birth:
+                        Place of Birth:
                         <br>{{ $vic->victim_place_of_birth }} 
                     </td>
                     <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem; vertical-align: top;">
-                        13. Highest Educational Attainment:
+                        Highest Educational Attainment:
                         <br>{{ $vic->victim_highest_educ_attainment }}  
                     </td> 
                     <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem; vertical-align: top;">
-                        14. Civil Status:
+                        Civil Status:
                         <br>{{ $vic->victim_civil_status }}  
                     </td>
                 </tr> 
                 <tr>
                     <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem; vertical-align: top">
-                        15. Nationality/Citizenship:
+                        Nationality/Citizenship:
                         <br>{{ $vic->victim_nationality }}  
                     </td>
                     <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem; vertical-align: top">
-                        16. Present Address:
+                        Present Address:
                         <br>{{ $vic->victim_present_address }}   
                     </td> 
                     <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                        17. Provincial Address:
+                        Provincial Address:
                         <br>{{ $vic->victim_provincial_address }}   
                     </td>
                     <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                        18. Parents/Guardian Name:
+                        Parents/Guardian Name:
                         <br>{{ $vic->victim_parents_guardian_name }} 
                     </td> 
                 </tr>
                 <tr>
                     <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                        19. Employment Information - Occupation:
+                        Employment Information - Occupation:
                         <br>{{ $vic->victim_employment_info_occupation }} 
                     </td> 
                     <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                        20. Identifying Documents Presented:
+                        Identifying Documents Presented:
                         <br>{{ $vic->victim_docs_presented }}
                     </td>
                     <td colspan="2" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                        21. Contact Person, Address, and Contact Number:
+                        Contact Person, Address, and Contact Number:
                         <br>{{ $vic->victim_contactperson_addr_con_num }}
                     </td> 
                 </tr>  
@@ -259,54 +238,48 @@
                     @endif
                 </td>
                 <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    22. Name: {{ $off->offender_firstname }} {{ $off->offender_middlename }} {{ $off->offender_family_name }} 
+                    Name: {{ $off->offender_firstname }} {{ $off->offender_middlename }} {{ $off->offender_family_name }} 
                     <br>Aliases: {{ $off->offender_aliases }}
                 </td> 
                 <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    23. Gender/Sex:
+                    Gender/Sex:
                     <br> {{ $off->offender_sex}}
                 </td>  
                 <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    24. Age and Date of Birth:
+                    Age and Date of Birth:
                     <br>{{ $off->offender_age }} y/o,  {{ $off->offender_date_of_birth }}
                 </td>
             </tr>
             <tr> 
                 <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    25. Civil Status:
+                    Civil Status:
                     <br>{{ $off->offender_civil_status }}
                 </td>
                 <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    26. Highest Educational Attainment:
+                    Highest Educational Attainment:
                     <br>{{ $off->offender_highest_educ_attainment }}
                 </td> 
                 <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    27. Nationality:
+                    Nationality:
                     <br>{{ $off->offender_nationality }} 
                 </td> 
             </tr>
             <tr>
                 <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    28. Previous Criminal Record
+                    Previous Criminal Record
                     <br>Pls. specify: {{ $off->offender_prev_criminal_rec }}
                 </td>  
                 <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    29. Employment Information
+                    Employment Information
                     <br>Occupation: {{ $off->offender_employment_info_occupation }}
                 </td> 
                 <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    30. Last Known Address:
+                    Last Known Address:
                     <br>{{ $off->offender_last_known_addr }}
                 </td>
                 <td colspan="1" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    31. Relationship to Victim:
+                    Relationship to Victim:
                     <br>{{ $off->offender_relationship_victim }}
-                </td>  
-            </tr>
-            <tr>
-                <td colspan="4" style="padding: 0rem 0.5rem 0rem 0.5rem">
-                    32. Identifying documents presented (company ID, Driver's license, etc.): 
-                    <br>
                 </td>  
             </tr>
             @endforeach 

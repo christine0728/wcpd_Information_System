@@ -18,14 +18,13 @@ class PDFController extends Controller
         $acc_type = Auth::guard('account')->user()->acc_type;
 
         $options = new Options(); 
-
-        // Set custom margins (in millimeters)
+ 
         $options->set('defaultPaperSize', 'legal');
-        $options->set('defaultPaperOrientation', 'portrait'); // Set the orientation if needed
-        $options->set('margin-top', 10); // Adjust top margin
-        $options->set('margin-right', 15); // Adjust right margin
-        $options->set('margin-bottom', 10); // Adjust bottom margin
-        $options->set('margin-left', 15); // Adjust left margin
+        $options->set('defaultPaperOrientation', 'portrait');  
+        $options->set('margin-top', 10);  
+        $options->set('margin-right', 15);  
+        $options->set('margin-bottom', 10);  
+        $options->set('margin-left', 15);  
 
 
         $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
@@ -35,8 +34,7 @@ class PDFController extends Controller
 
         $vics = Victim::where('comp_report_id', '=', $compid)->get();
         $offs = Offender::where('comp_report_id', '=', $compid)->get();
- 
-        // Create the DOMPDF instance with the custom options
+  
         $pdf = app('dompdf.wrapper', ['options' => $options]);
 
         $name = Auth::guard('account')->user()->firstname;

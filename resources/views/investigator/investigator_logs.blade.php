@@ -109,6 +109,12 @@
 
                                         @elseif ($log->action == 'Update')
                                             <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="UPDATE" style="background-color: #b5e8ff; font-weight: bold; color: rgb(0, 0, 78); width: 5.1rem; border: none; font-size: medium" readonly>
+                                            
+                                        @elseif ($log->action == 'Logged In')
+                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="LOG IN" style="background-color:lavender; font-weight: bold; color:purple; width: 5rem; border: none; font-size: medium" readonly>
+
+                                        @elseif ($log->action == 'Logged Out')
+                                            <input name="" type="text" class="form-control" id="inputFname" aria-describedby="emailHelp" value="LOG OUT" style="background-color:lavender; font-weight: bold; color:purple; width: 5rem; border: none; font-size: medium" readonly>
                                         @endif
 
 

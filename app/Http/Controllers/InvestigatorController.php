@@ -44,12 +44,10 @@ class InvestigatorController extends Controller
 
                 $stat = $accepted->acc_type;
 
-                if ($stat == 'superadmin'){
-                    // dd('dito superadmin');
+                if ($stat == 'superadmin'){ 
                     return redirect()->route('superadmin.dashboard')->with('error', 'investigator account logged in successfully');
                 }
-                if ($stat == 'investigator'){
-                    // dd('dito investigator');
+                if ($stat == 'investigator'){ 
                     return redirect()->route('investigator.dashboard')->with('error', 'investigator account logged in successfully');
                 } 
             } else {
@@ -127,13 +125,11 @@ class InvestigatorController extends Controller
             ) 
             ->where('complaint_reports.status', '=', 'notdeleted')
             ->groupBy('age_range')
-            ->get();
-    
+            ->get(); 
 
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
-       
-        //#4 ilan yung victim na babae at lalake
+        
         $maleVictim = DB::table('victims')
         ->join('complaint_reports', 'complaint_reports.id', '=', 'victims.comp_report_id')
         ->where('victim_sex', 'MALE')
@@ -185,10 +181,7 @@ class InvestigatorController extends Controller
     {
         $filter_year = null;
         $filter_year1 = null; 
-
-        // $start_date = date('Y-m-d', strtotime($request->input('start_date')));
-        // $end_date = date('Y-m-d', strtotime($request->input('end_date')));
-
+  
         $start_month = date('m', strtotime($request->input('start_date')));
         $end_month = date('m', strtotime($request->input('end_date'))); 
 
@@ -355,18 +348,15 @@ class InvestigatorController extends Controller
     }
 
     public function index()
-    {
-        // Define options
+    { 
         $options = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5'];
 
         return view('investigator.testing', compact('options'));
     }
 
     public function submit(Request $request)
-    {
-        // Handle form submission
-        $selectedOptions = $request->input('options');
-        // Do something with selected options
+    { 
+        $selectedOptions = $request->input('options'); 
 
         return redirect()->back()->with('success', 'Form submitted successfully.');
     }
@@ -437,8 +427,7 @@ class InvestigatorController extends Controller
     public function accountmngt()
     {
         $id = Auth::guard('account')->user()->id;
-        $accs = Account::where('id', '=', $id)->get();
-        // dd($id);
+        $accs = Account::where('id', '=', $id)->get(); 
 
         $id = Auth::guard('account')->user()->id;
 
@@ -529,12 +518,8 @@ class InvestigatorController extends Controller
         $end_date = date('Y-m-d', strtotime($request->input('end_date')));
 
         $author_id = Auth::guard('account')->user()->id;
-        $comps = Victim::join('complaint_reports', 'complaint_reports.id', '=', 'victims.comp_report_id')
-        // ->join('accounts', 'accounts.id', '=', 'complaint_reports.id')
-        ->select('complaint_reports.id as compid', 'victims.id as vid', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'victims.victim_image', 'victims.victim_present_address', 'complaint_reports.date_reported')
-        // ->where('complaint_reports.complaint_report_author', $author_id)
-        // ->where('accounts.team', $team)
-        // ->where('complaint_reports.created_at', '>=', [$start_date, $end_date])
+        $comps = Victim::join('complaint_reports', 'complaint_reports.id', '=', 'victims.comp_report_id') 
+        ->select('complaint_reports.id as compid', 'victims.id as vid', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'victims.victim_image', 'victims.victim_present_address', 'complaint_reports.date_reported') 
         ->whereDate('complaint_reports.date_reported', '>=', $start_date)
         ->whereDate('complaint_reports.date_reported', '<=', $end_date)
         ->where('complaint_reports.status', 'notdeleted')
@@ -579,8 +564,7 @@ class InvestigatorController extends Controller
                 'date_case_updated' => $now,
             ]);
             
-            return redirect()->back()->with('message', 'Case status has been updated successfully!');
-       
+            return redirect()->back()->with('message', 'Case status has been updated successfully!'); 
         }
         
       }
@@ -613,9 +597,7 @@ class InvestigatorController extends Controller
     {  
         $id = Auth::guard('account')->user()->id;
 
-        if (Auth::guard('account')->attempt(['username' => $request->input('username'), 'password' => $request->input('curr_password')])) { 
-            // Username and password are correct
-            // Proceed with validation
+        if (Auth::guard('account')->attempt(['username' => $request->input('username'), 'password' => $request->input('curr_password')])) {  
             $validator = Validator::make($request->all(), [
                 'username' => 'required',
                 'curr_password' => 'required',
@@ -642,8 +624,7 @@ class InvestigatorController extends Controller
             ]);
 
             return redirect()->route('investigator.accountmngt', ['id'=>$id])->with('success', "Password changed successfully!");
-        } else { 
-            // Username or current password is incorrect
+        } else {  
             return redirect()->back()->with('error', 'Username or current password you entered is incorrect.')->withInput();
         }
 
@@ -655,7 +636,7 @@ class InvestigatorController extends Controller
         $logs = Logs::join('accounts', 'accounts.id', '=', 'logs.author_id')  
         ->select('accounts.firstname', 'accounts.lastname', 'logs.author_type', 'logs.id', 'logs.action', 'logs.details', 'logs.created_at') 
         ->where('logs.author_id', '=', $author_id)
-        ->orderBy('logs.created_at', 'DESC') // Ordering by created_at column in descending order
+        ->orderBy('logs.created_at', 'DESC')  
         ->get();
     
         $notifs = Notifications::where('status', '=', 'unread')
