@@ -18,12 +18,7 @@ use Illuminate\Support\Facades\Session;
 
 
 class HomeController extends Controller
-{
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-
+{ 
     public function login_view()
     {
         return view('login_view');
@@ -43,36 +38,33 @@ class HomeController extends Controller
             if (Auth::guard('account')->check()) {
                 $pw = $check['password'];
 
-                if (NoCaptcha::verifyResponse($request->input('g-recaptcha-response'))) {
-                    // dd('captcha');
+                if (NoCaptcha::verifyResponse($request->input('g-recaptcha-response'))) {  
                     $accepted = Account::select('*')->where('username', $username) 
                     ->first();
 
                     $stat = $accepted->acc_type;
                     $stat2 = $accepted->status;
 
-                    if ($stat == 'superadmin'){
-                        // dd('dito superadmin');
-                        if ($stat2 == 'active'){
-                            $ipAddress = $request->getClientIp();
-                            // dd($ipAddress);
+                    if ($stat == 'superadmin'){ 
+                        if ($stat2 == 'active'){  
 
                             $now = Carbon::now();
                             $now->setTimezone('Asia/Manila'); 
                             $authorID = Auth::guard('account')->user()->id;
+                            $fname = Auth::guard('account')->user()->firstname;
+                            $lname = Auth::guard('account')->user()->lastname;
                             $log = new Logs();
                             $log->author_type = Auth::guard('account')->user()->acc_type;
                             $log->author_id = $authorID; 
-                            $log->action = "Logging In";
-                            $log->details = "IP address " . $ipAddress . " logged in.";
+                            $log->action = "Logged In";
+                            $log->details = $fname . " " . $lname . " logged in.";
                             $log->created_at = $now;
                             $log->updated_at = $now;
                             $log->save();
 
                             return redirect()->route('superadmin.dashboard')->with('error', 'investigator account logged in successfully');
                         }
-                        else{
-                            // dd('inactive ka');
+                        else{ 
 
                             return view('inactive_stat');
                         }
@@ -81,51 +73,34 @@ class HomeController extends Controller
                     if ($stat == 'investigator'){ 
                         
                         if ($stat2 == 'active'){
-                            $ipAddress = $request->getClientIp();
-                            // dd($ipAddress);
+                            $ipAddress = $request->getClientIp(); 
 
                             $now = Carbon::now();
                             $now->setTimezone('Asia/Manila'); 
                             $authorID = Auth::guard('account')->user()->id;
+                            $fname = Auth::guard('account')->user()->firstname;
+                            $lname = Auth::guard('account')->user()->lastname;
                             $log = new Logs();
                             $log->author_type = Auth::guard('account')->user()->acc_type;
                             $log->author_id = $authorID; 
-                            $log->action = "Logging In";
-                            $log->details = "IP address " . $ipAddress . " logged in.";
+                            $log->action = "Logged In";
+                            $log->details = $fname . " " . $lname . " logged in.";
                             $log->created_at = $now;
                             $log->updated_at = $now;
                             $log->save();
                             
                             return redirect()->route('investigator.dashboard')->with('error', 'investigator account logged in successfully');
                         }
-                        else{
-                            // dd('inactive ka');
+                        else{ 
                             return view('inactive_stat');
-                        }
-
-                        // return redirect()->route('investigator.dashboard')->with('error', 'investigator account logged in successfully');
+                        } 
                     } 
 
 
-                } else {
-                    // dd('hindeh');
-
+                } else {  
                     return redirect()->back()->withErrors(['captcha' => 'reCAPTCHA validation failed. Please try again.']); 
                 }
-
-                // $accepted = Account::select('*')->where('username', $username) 
-                //     ->first();
-
-                // $stat = $accepted->acc_type;
-
-                // if ($stat == 'superadmin'){
-                //     // dd('dito superadmin');
-                //     return redirect()->route('superadmin.dashboard')->with('error', 'investigator account logged in successfully');
-                // }
-                // if ($stat == 'investigator'){
-                //     // dd('dito investigator');
-                //     return redirect()->route('investigator.dashboard')->with('error', 'investigator account logged in successfully');
-                // } 
+ 
             } else {
                 dd('User not authenticated');
             }
@@ -137,9 +112,26 @@ class HomeController extends Controller
 
     public function logout(Request $request)
     {
+        $now = Carbon::now();
+
+        $now->setTimezone('Asia/Manila'); 
+        $authorID = Auth::guard('account')->user()->id;
+        $fname = Auth::guard('account')->user()->firstname;
+        $lname = Auth::guard('account')->user()->lastname;
+        $log = new Logs();
+        $log->author_type = Auth::guard('account')->user()->acc_type;
+        $log->author_id = $authorID; 
+        $log->action = "Logged Out";
+        $log->details = $fname . " " . $lname . " logged out.";
+        $log->created_at = $now;
+        $log->updated_at = $now;
+        $log->save();
+
         Auth::guard('account')->logout();
         $request->session()->flush(); 
         $request->session()->regenerate(); 
+        
+                            
         return redirect()->route('index')->with('success', 'Account logged out successfully');
     }
 
@@ -162,12 +154,7 @@ class HomeController extends Controller
     {
         return view('investigator.investigator_dashboard');
     }
-
-    // public function inactive_screen()
-    // {
-    //     return view('inactive_screen');
-    // }
-
+  
     public function testing()
     {
         return view('investigator.testing');
@@ -197,18 +184,15 @@ class HomeController extends Controller
     }
 
     public function index()
-    {
-        // Define options
+    { 
         $options = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5'];
 
         return view('investigator.testing', compact('options'));
     }
 
     public function submit(Request $request)
-    {
-        // Handle form submission
-        $selectedOptions = $request->input('options');
-        // Do something with selected options
+    { 
+        $selectedOptions = $request->input('options'); 
 
         return redirect()->back()->with('success', 'Form submitted successfully.');
     }

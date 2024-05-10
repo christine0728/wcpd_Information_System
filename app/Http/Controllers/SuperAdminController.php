@@ -25,18 +25,7 @@ use Illuminate\Support\Facades\Validator;
 
 class SuperAdminController extends Controller
 {
-    public function add_superadmin(Request $request){
-        // $team = new Team();
-        // $team->username = $request->input('username');
-        // $team->password = Hash::make($request->password);
-        // $team->save();
-        // return redirect()->back()->with('message', 'The record has been added successfully!');
-
-        // $team = new SuperAdmin();
-        // $team->username = $request->input('username');
-        // $team->password = Hash::make($request->password);
-        // $team->save();
-        // return redirect()->back()->with('message', 'The record has been added successfully!');
+    public function add_superadmin(Request $request){ 
 
         $user = Account::create([
             'firstname' => $request->input('firstname'),
@@ -157,8 +146,7 @@ class SuperAdminController extends Controller
 
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
-
-        //#4 ilan yung victim na babae at lalake
+ 
         $maleVictim = DB::table('victims')
         ->join('complaint_reports', 'complaint_reports.id', '=', 'victims.comp_report_id')
         ->where('victim_sex', 'MALE')
@@ -210,10 +198,7 @@ class SuperAdminController extends Controller
     {
         $filter_year = null;
         $filter_year1 = null;
-
-        // $start_date = date('Y-m-d', strtotime($request->input('start_date')));
-        // $end_date = date('Y-m-d', strtotime($request->input('end_date')));
-
+  
         $start_month = date('m', strtotime($request->input('start_date')));
         $end_month = date('m', strtotime($request->input('end_date')));
 
@@ -434,23 +419,7 @@ class SuperAdminController extends Controller
         $username = $request->input('username');
         $invs = Account::where('id', '=', $id)
             ->first();
-        $check = $request->all();
-
-        // // with('error', 'Admin account logged in successfully!');
-        // if (Auth::guard('account')->attempt(['username' => $check['username'], 'password' => $check['curr_password']])){
-        //     if(Auth::guard('account')->check()){
-        //         // dd('goods');
-        //         Account::where('id', $id)
-        //         ->update([
-        //             'password' => Hash::make($request->new_password),
-        //         ]);
-        //         // dd('napalitan');
-        //         return redirect()->back()->with('updated', "Password changed successfully!");
-        //     }
-        // }
-        // else{
-        //     return redirect()->back()->with('delete', 'The username or current password you entered is incorrect.');
-        // }
+        $check = $request->all(); 
 
         $validator = Validator::make($request->all(), [
             'username' => 'required',
@@ -487,18 +456,12 @@ class SuperAdminController extends Controller
 
     public function victimsmngt()
     {
-        $author_id = Auth::guard('account')->user()->id;
-        // $comps = ComplaintReport::
-        // // join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
-        // where('complaint_reports.status', 'notdeleted')
-        //     ->orderBy('complaint_reports.id', 'DESC')
-        //     ->get();
+        $author_id = Auth::guard('account')->user()->id; 
 
         $comps = Victim::join('complaint_reports', 'complaint_reports.id', '=', 'victims.comp_report_id')
             ->select('complaint_reports.id as compid', 'victims.id as vid', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'victims.victim_image', 'victims.victim_present_address', 'complaint_reports.date_reported')
             ->orderBy('victims.id', 'desc')
-            ->where('complaint_reports.status', '=', 'notdeleted')
-            // ->where('complaint_reports.complaint_report_author', '=', $author_id)
+            ->where('complaint_reports.status', '=', 'notdeleted') 
             ->get();
         $notifs = Notifications::where('status', '=', 'unread')
             ->count();
@@ -517,19 +480,11 @@ class SuperAdminController extends Controller
 
     public function suspectsmngt()
     {
-        $author_id = Auth::guard('account')->user()->id;
-        // $comps = ComplaintReport::
-        // // join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
-        // // ->
-        // where('complaint_reports.status', 'notdeleted')
-        //     ->orderBy('complaint_reports.id', 'DESC')
-        //     ->get();
-
+        $author_id = Auth::guard('account')->user()->id; 
         $comps = Offender::join('complaint_reports', 'complaint_reports.id', '=', 'offenders.comp_report_id')
             ->select('complaint_reports.id as compid', 'offenders.id as oid', 'offenders.offender_family_name', 'offenders.offender_firstname', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age','offenders.offender_image', 'offenders.offender_prev_criminal_rec', 'offenders.offender_relationship_victim', 'complaint_reports.date_reported')
             ->orderByDesc('offenders.id')
-            ->where('complaint_reports.status', '=', 'notdeleted')
-            // ->where('complaint_reports.complaint_report_author', '=', $author_id)
+            ->where('complaint_reports.status', '=', 'notdeleted') 
             ->get();
 
         $notifs = Notifications::where('status', '=', 'unread')
@@ -553,8 +508,7 @@ class SuperAdminController extends Controller
         $comps = ComplaintReport::join('accounts', 'accounts.id', '=', 'complaint_reports.complaint_report_author')
         ->leftJoin('victims', 'victims.comp_report_id', '=', 'complaint_reports.complaint_report_author')
         ->leftJoin('offenders', 'offenders.comp_report_id', '=', 'complaint_reports.complaint_report_author')
-        ->select('accounts.id as accountid', 'accounts.username', 'accounts.team', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.inv_case_no', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'offenders.offender_firstname', 'offenders.offender_family_name', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age', 'offenders.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition', 'complaint_reports.date_case_updated', 'complaint_reports.case_update')
-        // ->where('complaint_report_author', $author_id)
+        ->select('accounts.id as accountid', 'accounts.username', 'accounts.team', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.inv_case_no', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'offenders.offender_firstname', 'offenders.offender_family_name', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age', 'offenders.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition', 'complaint_reports.date_case_updated', 'complaint_reports.case_update') 
         ->where('complaint_reports.status', 'notdeleted')
         ->orderBy('complaint_reports.id', 'DESC')
         ->get();
@@ -746,15 +700,7 @@ class SuperAdminController extends Controller
         $log->updated_at = $now;
         $log->save();
         return redirect()->back()->with('updated', 'Updated case disposition successfully!');
-    }
-
-    // public function sendNotification()
-    // {
-    //     $user = Auth::user();
-    //     $user->notify(new MyNotification());
-
-    //     return redirect()->back()->with('success', 'Notification sent successfully');
-    // }
+    } 
 
     public function password_requests(Request $request)
     {
@@ -764,8 +710,7 @@ class SuperAdminController extends Controller
             ->get();
 
         $notifs = Notifications::where('status', '=', 'unread')
-            ->count();
-        // dd('and2');
+            ->count(); 
         return view('superadmin.superadmin_password_requests', ['notifications' => $notifications, 'notifs'=>$notifs]);
     }
 
@@ -854,8 +799,7 @@ class SuperAdminController extends Controller
         ->select('accounts.id as accountid', 'accounts.username', 'accounts.team', 'complaint_reports.id', 'complaint_reports.complaint_report_author', 'complaint_reports.date_reported', 'complaint_reports.place_of_commission', 'complaint_reports.offenses', 'victims.victim_family_name', 'victims.victim_firstname', 'victims.victim_middlename', 'victims.victim_sex', 'victims.victim_age', 'victims.victim_docs_presented', 'offenders.offender_firstname', 'offenders.offender_family_name', 'offenders.offender_middlename', 'offenders.offender_sex', 'offenders.offender_age', 'offenders.offender_relationship_victim', 'complaint_reports.evidence_motive_cause', 'complaint_reports.case_disposition', 'complaint_reports.suspect_disposition')
         ->where('complaint_reports.status', 'deleted')
         ->whereDate('complaint_reports.created_at', '>=', $start_date)
-        ->whereDate('complaint_reports.created_at', '<=', $end_date)
-        // ->where('accounts.team', $team)
+        ->whereDate('complaint_reports.created_at', '<=', $end_date) 
         ->orderBy('complaint_reports.id', 'DESC')
         ->get();
 

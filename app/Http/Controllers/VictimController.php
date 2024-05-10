@@ -278,7 +278,6 @@ class VictimController extends Controller
         elseif ($acc_type == 'superadmin'){ 
             return redirect()->route('superadmin.victim_profile', ['vid'=>$vid])->with('success', 'Complaint Report Form updated successfully!'); 
         }
-
-        // return redirect()->route('superadmin.victim_profile', ['vid'=>$vid])->with('success', 'Complaint Report Form added successfully!'); 
+ 
     }
 }
